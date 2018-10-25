@@ -37,7 +37,7 @@ car_type = "Tesla"  # String
 car_cyllinders=16  # Integer
 car_miles_per_gallon=0.01  # Float
 
-print("I have a car callled %s; It's pretty fresh." % car_name)
+print("I have a car callled %s; It's pretty cool." % car_name)
 print("It has %d cyllinders, but gets %f mpg" %(car_cyllinders, car_miles_per_gallon))
 
 # Taking Input
@@ -45,4 +45,9 @@ name = input ("What is your name?")
 print ("Hello %s!" % name)
 
 age = input ("How old are you?")
-print("%s? You belong in a museum!" % age)
+print("%s? You belong in a museum!" % age)  # That's very rude...
+
+# Recasting
+real_age=int(input("How old are you again?"))
+hidden_age = real_age+5
+print(hidden_age)
