@@ -1,3 +1,4 @@
+"""
 print ("Hello World")
 
 # Apparently I'm going to slow, so I will speed up' \
@@ -51,3 +52,47 @@ print("%s? You belong in a museum!" % age)  # That's very rude...
 real_age=int(input("How old are you again?"))
 hidden_age = real_age+5
 print(hidden_age)
+
+adjective=input("Type in an adjective")
+noun=input("Type in a noun")
+
+print("I saw a %s %s" % (adjective, noun))
+"""
+
+# Multi-line Comments
+
+"""
+This is a multi-line comment
+anything in between them is automatically commented out
+"""
+
+# Defining Functions
+
+
+def say_it():
+        print("Hello World!")
+
+
+say_it()
+say_it()
+say_it()
+
+# f(x) = 2x+3
+
+
+def f(x):
+         print(2*x + 3)
+
+
+f(1)
+f(5)
+f(5000)
+
+
+def distance(x1, y1, x2, y2):
+    dist = ((x2-x1)**2+(y2-y1)**2)**(1/2)
+    print(dist)
+
+
+distance(0, 0, 3, 4)
+distance(0, 0, 5, 12)
