@@ -145,5 +145,15 @@ your_grade = grade_calc(82)
 print(your_grade)
 
 # Random Numbers
-import random
+import random # This should be on line 1
 print(random.randint (0, 100))
+
+# Equality Statements
+print(5 > 3)
+print(5 >= 3)
+print(3 == 3)
+print(3 != 4)
+"""
+a = 3  # A is set to 3
+a == 3  # Is a equal to 3?
+"""
