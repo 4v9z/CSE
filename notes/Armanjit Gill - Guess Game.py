@@ -7,9 +7,10 @@ print("Guess my number to win! You get 5 guesses.")
 guess = 0
 guesses_left = 5
 winner = False
-for i in range(5):
+playing_Guess_Game = True
+while guesses_left > 0 and playing_Guess_Game:
     if winner:
-        print("You guessed correctly! Congratulations %s" % Your_Name)
+        playing_Guess_Game = False
     else:
         guess = int(input("What is your guess? "))
         guesses_left -= 1
