@@ -20,6 +20,7 @@ while guesses_left > 0 and playing_Guess_Game:
     elif guesses_left == 0:
         print("YOU GET NOTHING! YOU LOSE! GOOD DAY TO YOU SIR!")
         print("You need to do better than THAT %s! Ya dun goofed!" % Your_Name)
+        playing_Guess_Game = False
     elif guess > number:
         print("Guess a lower number")
     elif guess < number:

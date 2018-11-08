@@ -59,34 +59,18 @@ input("%s: Don't hang %s!" % (You, Man))
 input("Executioner: Hmmmm... Do my son's English homework, you gotta guess a word or something boring like that.")
 input("Executioner: If you guess correctly, I'll let %s go " % Man)
 input("Executioner: But for each letter you get wrong, I'll tighten this rope by a little bit")
-print("Time to make a choice! Respond with 1 to say yes, respond with 2 to say no")
-Life_or_Death = int(input("%s: Should I save %s?" % (You, Man)))
-
-if Life_or_Death == 1:
-    print("%s: I'll do it! Why you'd have English Homework decide someone's life is beyond me, but I'll do it!" % You)
-    while guesses_left > 0:
-        guess = input("What is the first letter?")
-     guesses_left -= 1
+input("%s: I'll do it! Why you'd have English Homework decide someone's life is beyond me, but I'll do it!" % You)
+while guesses_left > 0:
+    guess = input("What is the first letter?")
+    guesses_left -= 1
     if guess == first_letter:
-         print(first_letter)
-         if Won:
+            print(first_letter)
+    if guess == second_letter:
+        print(second_letter)
+    if Won:
         input("Executioner: Wow! You did it! Guess I'll let %s free." % Man)
         input("%s: Thank you %s! You saved me!" % (Man, You))
         input("%s: If there is anything I can do to repay your kindness all you need to do is ask!" % Man)
         input("%s It was nothing, I did the good!" % You)
         input("THE END")
-        print("You got the good ending! Congratulations!")
-elif Life_or_Death == 2:
-    input("Executioner: Really?! Darn, now I have to the homework myself! Also, %s I DIAGNOSE YOU WITH DEAD" % Man)
-    input("%s: WAIT WHA-" % Man)
-    input("and so %s was hung..." % Man)
-    input("%s: Welp, guess I'll go home and watch a Nintendo Direct or somethin.. Maybe I'll eat food... I dunno" % You)
-    print("THE END")
-    print("But wait... don't you want a better ending? One where %s doesn't die?" % Man)
-    print(" And maybe you want an ending where %s doesn't let their friend die?" % You)
-    Opinion_of_Bad_End = int(input("Yes or no? (1 or 2)"))
-    if Opinion_of_Bad_End == 1:
-            print("THEN TRY NOT TO SAY YES TO SOMEONE DYING YA DINGUS!!")
-    elif Opinion_of_Bad_End == 2:
-            print("....really????? Ummmmm..... well then.... Guess you're happy now")
-            print("See ya later!")
+        print("You win! Congratulations!")
