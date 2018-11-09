@@ -2,7 +2,7 @@ import random
 rounds_lasted = 0
 Your_Money = 15
 Highest_Amount_Of_Money = 15
-Round_with_most_Money = 0
+Round_with_most_Money = 1
 Casino_Name = input("You want to go gambling with your $15, what's the name of the Casino you're going to? ")
 You = input("%s Worker: Hello sir/madam! Welcome to the %s! What is your name? " % (Casino_Name, Casino_Name))
 print("Press Enter to go through dialogue!")
