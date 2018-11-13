@@ -11,7 +11,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Lucky_7s.coverage" NAME="Armanjit Gill - Lucky 7s Coverage Results" MODIFIED="1541803334501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$BasicPythonNotes.coverage" NAME="BasicPythonNotes Coverage Results" MODIFIED="1541105618443" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___HangMan.coverage" NAME="Armanjit Gill - HangMan Coverage Results" MODIFIED="1541803688987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___HangMan.coverage" NAME="Armanjit Gill - HangMan Coverage Results" MODIFIED="1542148536239" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Mad_Lib.coverage" NAME="Armanjit Gill - Mad Lib Coverage Results" MODIFIED="1540932967081" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Guess_Game.coverage" NAME="Armanjit Gill - Guess Game Coverage Results" MODIFIED="1541716071104" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -39,12 +39,12 @@
           <entry key="project.open.time.45" value="5" />
           <entry key="project.open.time.49" value="1" />
           <entry key="project.open.time.50" value="1" />
-          <entry key="project.open.time.54" value="1" />
+          <entry key="project.open.time.54" value="2" />
           <entry key="project.open.time.57" value="1" />
           <entry key="project.open.time.58" value="1" />
           <entry key="project.open.time.71" value="1" />
           <entry key="project.open.time.74" value="1" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.opened" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -59,12 +59,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="14199" />
+          <entry key="py" value="14968" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="14199" />
+          <entry key="Python" value="14968" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -76,7 +76,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Armanjit Gill - Mad Lib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="880">
               <caret line="40" column="11" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
             </state>
           </provider>
@@ -90,7 +90,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BasicPythonNotes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="2266">
               <caret line="103" selection-start-line="103" selection-end-line="103" />
               <folding>
                 <marker date="1541105618252" expanded="true" signature="1731:1736" ph="..." />
@@ -106,7 +106,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Armanjit Gill - Guess Game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="396">
               <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
             </state>
           </provider>
@@ -116,7 +116,7 @@
         <entry file="file://$PROJECT_DIR$/Armanjit Gill - Lucky 7s.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="22">
-              <caret line="1" column="16" lean-forward="true" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+              <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -124,8 +124,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Armanjit Gill - HangMan.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="80" column="16" lean-forward="true" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
+            <state relative-caret-position="238">
+              <caret line="67" column="60" lean-forward="true" selection-start-line="67" selection-start-column="60" selection-end-line="67" selection-end-column="60" />
+              <folding>
+                <element signature="e#408#587#0" />
+                <element signature="e#620#818#0" />
+                <element signature="e#851#1022#0" />
+                <element signature="e#1055#1271#0" />
+                <element signature="e#1539#1880#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -198,7 +205,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/4v9z/Documents/GitHub/CSE/notes/Armanjit Gill - Guess Game.py" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/4v9z/Documents/GitHub/CSE/notes/Armanjit Gill - Lucky 7s.py" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
@@ -359,7 +366,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4976526" visible="true" weight="0.2730711" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4976526" visible="true" weight="0.26928896" />
       <window_info id="Structure" order="1" sideWeight="0.5023474" side_tool="true" weight="0.26172465" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -380,7 +387,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" weight="0.0" />
-      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.048411496" />
+      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.031770047" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26172465" />
@@ -416,7 +423,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Armanjit Gill - Mad Lib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="880">
           <caret line="40" column="11" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
         </state>
       </provider>
@@ -426,7 +433,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BasicPythonNotes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="2266">
           <caret line="103" selection-start-line="103" selection-end-line="103" />
           <folding>
             <marker date="1541105618252" expanded="true" signature="1731:1736" ph="..." />
@@ -440,7 +447,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Armanjit Gill - Guess Game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="396">
           <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
         </state>
       </provider>
@@ -448,14 +455,21 @@
     <entry file="file://$PROJECT_DIR$/Armanjit Gill - Lucky 7s.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
-          <caret line="1" column="16" lean-forward="true" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+          <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Armanjit Gill - HangMan.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="80" column="16" lean-forward="true" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
+        <state relative-caret-position="238">
+          <caret line="67" column="60" lean-forward="true" selection-start-line="67" selection-start-column="60" selection-end-line="67" selection-end-column="60" />
+          <folding>
+            <element signature="e#408#587#0" />
+            <element signature="e#620#818#0" />
+            <element signature="e#851#1022#0" />
+            <element signature="e#1055#1271#0" />
+            <element signature="e#1539#1880#0" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,9 +1,17 @@
 import random
 Won = False
 Hint = 3
+Loop_Left = False
+You_Lost = False
 letter_guessed = 12345654321
 All_Letters_Guessed = False
 Letters_Guessed = 0
+first_letter_guessed = False
+second_letter_guessed = False
+third_letter_guessed = False
+fourth_letter_guessed = False
+fifth_letter_guessed = False
+sixth_letter_guessed = False
 hint_subtext = " "
 first_letter = 1
 second_letter = 2
@@ -11,9 +19,9 @@ third_letter = 3
 fourth_letter = 4
 fifth_letter = 5
 sixth_letter = 6
-guesses_left = 8
+guesses_left = 6
 print("Hangman! []____0-/-<")
-Words = ("dragon", "zoinks", "demons", "hanger", "jumped")
+Words = ("dragon", "zoinks", "demons", "hanger", "jumped", "joklhlaup")
 random_word = random.choice(Words)
 if random_word == "dragon":
     first_letter = "d"
@@ -22,7 +30,7 @@ if random_word == "dragon":
     fourth_letter = "g"
     fifth_letter = "o"
     sixth_letter = "n"
-    Hint = "This is a fire breathing beast"
+    Hint = "Hint: This is a fire breathing beast"
 if random_word == "zoinks":
     first_letter = "z"
     second_letter = "o"
@@ -30,7 +38,7 @@ if random_word == "zoinks":
     fourth_letter = "n"
     fifth_letter = "k"
     sixth_letter = "s"
-    Hint = "This is the catchphrase of Shaggy from Scooby Doo"
+    Hint = "Hint: This is the catchphrase of Shaggy from Scooby Doo"
 if random_word == "demons":
     first_letter = "d"
     second_letter = "e"
@@ -38,7 +46,7 @@ if random_word == "demons":
     fourth_letter = "o"
     fifth_letter = "n"
     sixth_letter = "s"
-    Hint = "These are evil spirits"
+    Hint = "Hint: These are evil spirits"
 if random_word == "hanger":
     first_letter = "h"
     second_letter = "a"
@@ -46,7 +54,7 @@ if random_word == "hanger":
     fourth_letter = "g"
     fifth_letter = "e"
     sixth_letter = "r"
-    Hint = "You use this to hang up clothes (This is a huge giveaway of a hint)"
+    Hint = "Hint: You use this to hang up clothes (This is a huge giveaway of a hint)"
 if random_word == "jumped":
     first_letter = "j"
     second_letter = "u"
@@ -54,8 +62,10 @@ if random_word == "jumped":
     fourth_letter = "p"
     fifth_letter = "e"
     sixth_letter = "d"
-    Hint = "It's time to ____ up in the air! ____ up don't be scared! _____ up and your cares will soar away!"
+    Hint = "Hint: It's time to ____ up in the air! ____ up don't be scared! _____ up and your cares will soar away!"
     hint_subtext = "(Add ed to the end) Also, second hint, he ______ off the trampoline"
+if random_word == "joklhlaup":
+    Hint = "This is an Icelandic term meaning 'Glacial Run'"
 Man = input("What is the name of the person who will be hung? ")
 You = input("You are %s's last chance. What is your name? " % Man)
 print()
@@ -74,46 +84,55 @@ input("%s: I'll do it! Why you'd have English Homework decide someone's life is 
 print(Hint)
 print(hint_subtext)
 guess = " "
-while guesses_left > 0 and not Won:
+while not You_Lost and not Loop_Left:
     if Letters_Guessed == 6 and guesses_left >= 0:
         Won = True
     if Won:
         input("Executioner: Wow! You did it! Guess I'll let %s free." % Man)
         input("%s: Thank you %s! You saved me!" % (Man, You))
         input("%s: If there is anything I can do to repay your kindness all you need to do is ask!" % Man)
-        input("%s We can visit the Lucky 7s Casino, I heard it's a good place" % You)
+        input("%s: We can visit the Lucky 7s Casino, I heard it's a good place" % You)
         input("THE END")
         print("You win! Congratulations! :D")
+        Loop_Left = True
     else:
         guess = input("What is your guess?")
-        guesses_left -= 1
         if guess == first_letter:
-            print(first_letter)
-            Letters_Guessed += 1
-            if Letters_Guessed == 6:
-                Won = True
+            if not first_letter_guessed:
+                Letters_Guessed += 1
+                first_letter_guessed = True
+                print(first_letter)
         if guess == second_letter:
-            print(second_letter)
-            Letters_Guessed += 1
-            if Letters_Guessed == 6:
-                Won = True
+            if not second_letter_guessed:
+                Letters_Guessed += 1
+                second_letter_guessed = True
+                print(second_letter)
         if guess == third_letter:
-            print(third_letter)
-            Letters_Guessed += 1
-            if Letters_Guessed == 6:
-                Won = True
+            if not third_letter_guessed:
+                Letters_Guessed += 1
+                third_letter_guessed = True
+                print(third_letter)
         if guess == fourth_letter:
-            print(fourth_letter)
-            Letters_Guessed += 1
-            if Letters_Guessed == 6:
-                Won = True
+            if not fourth_letter_guessed:
+                Letters_Guessed += 1
+                fourth_letter_guessed = True
+                print(fourth_letter)
         if guess == fifth_letter:
-            print(fifth_letter)
-            Letters_Guessed += 1
-            if Letters_Guessed == 6:
-                Won = True
+            if not fifth_letter_guessed:
+                Letters_Guessed += 1
+                fifth_letter_guessed = True
+                print(fifth_letter)
         if guess == sixth_letter:
-            print(sixth_letter)
-            Letters_Guessed += 1
-            if Letters_Guessed == 6:
-                Won = True
+            if not sixth_letter_guessed:
+                Letters_Guessed += 1
+                sixth_letter_guessed = True
+                print(sixth_letter)
+        if guesses_left == 0:
+            input("Executioner: You're out of guesses!")
+            input("%s: NO WAIT DON'T HANG %s!" % (You, Man))
+            input("%s is dead now. Press F to pay respects" % Man)
+            input("You got the bad ending...")
+            print("Ya dun goofed!")
+            You_Lost = True
+        else:
+            guesses_left -= 1
