@@ -34,7 +34,7 @@ print("Hangman! []____0-/-<")
 Words = ["dragon", "zoinks", "demons", "hanger", "jumped", "joklhlaup", "pycharm", "github", "chess", "quadplex"
          "nose", "mouth", "hair", "child", "peasoup", "zelda", "kirby", "pikachu", "mario", "dog", "luigi", "galeem"
          ]
-random_word = "dragon"
+random_word = random.choice(Words)
 if random_word == "dragon":
     first_letter = (random_word[0])
     second_letter = (random_word[1])
@@ -186,7 +186,7 @@ while not You_Lost and not Loop_Left:
             input("%s is dead now. Press F to pay respects" % Man)
             input("You got the bad ending...")
             print("Ya dun goofed!")
-            print("The word was:", random_word)
+            print("The word was ", random_word)
             You_Lost = True
         elif guess != first_letter or guess != second_letter or guess != third_letter or guess != fourth_letter:
             guesses_left -= 1
