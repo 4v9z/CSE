@@ -145,7 +145,7 @@ your_grade = grade_calc(82)
 print(your_grade)
 
 # Random Numbers
-import random # This should be on line 1
+import random    # This should be on line 1
 print(random.randint (0, 100))
 
 # Equality Statements
@@ -157,3 +157,36 @@ print(3 != 4)
 a = 3  # A is set to 3
 a == 3  # Is a equal to 3?
 """
+
+# Creating a List
+
+fruit = ["apples", "oranges", "blackberries", "strawberries",
+         "blueberries", "raspberries", "pineapple", "mango", "coconut"]
+print(fruit)
+
+# Pulling from a list
+print(fruit[0])
+
+# Getting the length of a list
+print(len(fruit))
+print("The length of the list is %d" % len(fruit))
+
+# Modifying Lists
+fruit[0] = "Apples: An Amazing fruit!"
+fruit[8] = "Banana: An Awesome Fruit!"
+print(fruit)
+
+# Looking through lists
+for item in fruit:
+    print(item)
+
+Food = ["Pizza", "French Fries", "Soup", "Ice Cream", "Cheese Sandwich"]
+Food[2] = "Aloo Paratha"
+print(Food[2])
+for item in Food:
+    print(item)
+
+
+new_list = ["eggs", "cheese", "oranges", "raspberries"]
+new_list[2] = "apples"
+print("The last item in the list is %s" % new_list[len(new_list) - 1])
