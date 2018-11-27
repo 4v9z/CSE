@@ -190,3 +190,60 @@ for item in Food:
 new_list = ["eggs", "cheese", "oranges", "raspberries"]
 new_list[2] = "apples"
 print("The last item in the list is %s" % new_list[len(new_list) - 1])
+
+food_list = ["pizza", "french fries", "cinnamon rolls", "chicken", "pancakes", "cheese sandwich", "cookies",
+             "chocolate bar", "pie", "chocolate cake", "ice cream", "aloo paratha", "potato", "chips", "popcorn",
+             "noodles", "pizza bread", "corn", "roti", "paratha", "vanilla cake"]
+food_list[3] = "crisscuts"
+
+# slicing
+print(food_list[2:5])
+print(food_list[3:4])
+print(food_list[10:])
+
+# Adding stuff to a list (part 1)
+food_list.append("oranges")
+food_list.append("bananas")
+print(food_list)
+# Everything is in the form Object.method(perameters)
+
+# adding to a list (not at the end)
+food_list.insert(2, "apples")
+print(food_list)
+
+# Removing from a list
+food_list.remove("oranges")
+food_list.remove("corn")
+print(food_list)
+# this removes the specific item from the list
+
+# removing from a list (pt2)
+# sometimes you don't know what's in the list, but you know
+# you want to get rid of something at a specific index
+food_list.pop(0)
+print(food_list)
+# Notice that "pizza" is no longer in the list because it was at index 0
+
+games = ["Mario", "Sonic", "FNAF"]
+print(games)
+games.append("Kirby")
+games.remove("FNAF")
+print(games)
+
+# finding things in a list
+print(food_list.index("crisscuts"))
+# this printed 3 for me, so crisscuts must be at index 3
+# this is an easy way of finding things in a list
+
+# Things I notice people do:
+# some people have made lists with parantheses instead of brackets
+brands = ("apple", "samsung" "HTC")
+# This is a TUPLE not a list. Tuples are imuteable (can't be changed)
+
+#Changing things into a list
+string1 = "turquoise"
+list1 = list(string1)
+print(list1)
+
+# Changing back into a string (list --> string)
+print(" ".join(list1))

@@ -1,5 +1,8 @@
 print("Choose your own adventure!")
 print()
+got_banana = False
+open_inventory = " "
+inventory = ["Magic Sword"]
 Plantopia_Saved = False
 Hydro_World_Saved = False
 Magma_Dome_Saved = False
@@ -31,6 +34,19 @@ if Region_to_Explore == "Plantopia":
         Your_Health -= 5
         input("You lose 5 health. You have %i health" % Your_Health)
         Monkey_Attack = input("How do you retaliate? Do you try to throw them off? Or do you hit them with your sword?")
+        if Monkey_Attack == "sword":
+            input("You attack the monkeys with your sword. They run away")
+            input("%s: Those monkeys left something behind..." % You)
+            print("You got a banana! Eating this will restore 20 HP")
+            input("%s: Ah, you got an item! Open your inventory by pressing 'i' during dialogue" % Guide)
+            open_inventory = input("Try it now!")
+            if open_inventory == "i":
+                print(inventory)
+                input("%s: Try using that banana you just got! Just type in banana in the next text box" % Guide)
+                item_used = input("What item do you want to use? ")
+                if item_used == "banana":
+                    Your_Health += 20
+                    print("You used the banana! You recovered 20 HP! You now have %i HP" % Your_Health)
         if Monkey_Attack == "throw":
             input("You throw off the monkeys, they jump back on you")
             input("Now they are biting and scratching harder. It's not looking good")
