@@ -1,4 +1,4 @@
-# Time for some hecking Angry Libs! (poyo!)=> <(l.l<)
+# Mad Libs 2: Electric Boogaloo
 print("Please no swearing and/or inappropriate words for a classroom")
 
 Words = [input("What is your name? "),
@@ -9,13 +9,14 @@ Words = [input("What is your name? "),
     input("I'm gonna need a noun now."),
     input("I'm gonna need another noun"),
     input("I need a plural noun next"),
-    input("Can I get a verb?"),
     input("I need a third noun"),
+    input("Can I get a verb?"),
     input("I need a new plural noun"),
     input("I need a fourth verb now..."),
     input("I need a new adjective"),
     input("Give me another person name"),
     input("I need a third adjective"),
+    input("I need a verb"),
     input("Give me a character from a game, book or show"),
     input("Give me another character from a game, book or show"),
     input("It's a triple wammy! Give me another character from a game, book or show"),
@@ -27,8 +28,10 @@ Words = [input("What is your name? "),
     input("I need an adjective now (Finally! Something that isn't a noun)"),
     input("I need another adjective now"),
     input("Give me a character from a game, book or show"),
+    input("I need one more character"),
     input("New adjective! Go!"),
     input("Give me a new character from a game, book or show"),
+    input("I need one more character"),
     input("I need a new character now"),
     input("Give me some kind of video game"),
     input("Give me a number! Large or small, it doesn't matter!")]
@@ -54,4 +57,4 @@ print("I heard that they might add %s, %s characters, %s or %s!" % (Words[27], W
 print("I sure (don’t) hope they add %s from %s!" % (Words[31], Words[32]))
 print("These games are really fun. I look forward to when they come out in %s weeks." % Words[33])
 print()
-print("You sure wrote a funny story ", Words[0], "!")
+print("You sure wrote a funny story %s!" % Words[0])

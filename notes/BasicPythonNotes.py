@@ -245,5 +245,12 @@ string1 = "turquoise"
 list1 = list(string1)
 print(list1)
 
+# Hangman hints
+for i in range(len(list1)):
+    if list1 [i] == "u": # if we find a "u"
+        list1.pop(i) # remove the i-th index
+        list1.insert(i, "*") # put a * there instead
+print(list1)
+
 # Changing back into a string (list --> string)
-print(" ".join(list1))
+print("".join(list1))
