@@ -29,6 +29,9 @@ if Region_to_Explore == "Plantopia":
     input("%s: There are also myths of some kind of plant people living there, but they're just myths" % Guide)
     input("%s: Alright, Plantopia. Let's get through here" % You)
     Path = input("There are two directions, one with nothing in sight and one with some monkeys. Which do you choose? ")
+    if Path == "nothing":
+        input("You fell into quick sand!")
+        Quick_Sand = input("Do you reach for the vines or do you strugle to get out?")
     if Path == "monkeys":
         input("You go through the monkey path, they start attacking you fiercely.")
         Your_Health -= 5

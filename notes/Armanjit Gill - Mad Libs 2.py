@@ -14,7 +14,7 @@ Words = [input("What is your name? "),
     input("I need a new plural noun"),
     input("I need a fourth verb now..."),
     input("I need a new adjective"),
-    input("Give me another person name"),
+    input("Give me another person name"), # Mistake is not before here
     input("I need a third adjective"),
     input("I need a verb"),
     input("Give me a character from a game, book or show"),
@@ -49,8 +49,7 @@ print("Sometimes there is a story mode, last time you had to %s the %s %s," % (W
 print(", it was the most %s way to %s characters." % (Words[14], Words[15]))
 print("In the game, you can play as characters like %s or %s." % (Words[16], Words[17]))
 print(" Sadly, they didn’t add in %s." % (Words[18]))
-print("There are lots of cool items too! There’s (a/an) %s, %s, %s" % (Words[19], Words[20], Words[21]))
-print(" and %s just to name a few." % Words[22])
+print("There are items too! There’s (a/an) %s, %s, and %s just to name a few" % (Words[19], Words[20], Words[21]))
 print("Of course, when characters get the %s they can use a %s." % (Words[23], Words[24]))
 print("You shouldn't choose characters who are %s or %s. " % (Words[25], Words[26]))
 print("I heard that they might add %s, %s characters, %s or %s!" % (Words[27], Words[28], Words[29], Words[30]))

@@ -12,9 +12,10 @@
     <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Lucky_7s.coverage" NAME="Armanjit Gill - Lucky 7s Coverage Results" MODIFIED="1541803334501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$BasicPythonNotes.coverage" NAME="BasicPythonNotes Coverage Results" MODIFIED="1543530290083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___HangMan.coverage" NAME="Armanjit Gill - HangMan Coverage Results" MODIFIED="1542405091447" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Mad_Libs_2.coverage" NAME="Armanjit Gill - Mad Libs 2 Coverage Results" MODIFIED="1543530960647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Mad_Libs_2.coverage" NAME="Armanjit Gill - Mad Libs 2 Coverage Results" MODIFIED="1543617941253" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Mad_Lib.coverage" NAME="Armanjit Gill - Mad Lib Coverage Results" MODIFIED="1540932967081" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/notes$ScrapPaper.coverage" NAME="ScrapPaper Coverage Results" MODIFIED="1543442800712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Fix_It_.coverage" NAME="Armanjit Gill - Fix It! Coverage Results" MODIFIED="1543617354126" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/notes$ScrapPaper.coverage" NAME="ScrapPaper Coverage Results" MODIFIED="1543617945050" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Guess_Game.coverage" NAME="Armanjit Gill - Guess Game Coverage Results" MODIFIED="1542233376912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
@@ -37,6 +38,7 @@
         <counts>
           <entry key="project.closed" value="2" />
           <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.27" value="1" />
           <entry key="project.open.time.28" value="1" />
           <entry key="project.open.time.41" value="2" />
           <entry key="project.open.time.45" value="5" />
@@ -51,27 +53,27 @@
           <entry key="project.open.time.71" value="1" />
           <entry key="project.open.time.74" value="1" />
           <entry key="project.open.time.78" value="1" />
-          <entry key="project.opened" value="22" />
+          <entry key="project.opened" value="23" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="15" />
+          <entry key="py" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="15" />
+          <entry key="Python" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="24981" />
+          <entry key="py" value="25398" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="24981" />
+          <entry key="Python" value="25398" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -87,7 +89,7 @@
         <entry file="file://$PROJECT_DIR$/BasicPythonNotes.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="271">
-              <caret line="252" column="12" lean-forward="true" selection-start-line="252" selection-start-column="12" selection-end-line="252" selection-end-column="12" />
+              <caret line="252" column="12" selection-start-line="252" selection-start-column="12" selection-end-line="252" selection-end-column="12" />
               <folding>
                 <marker date="1543530461241" expanded="true" signature="1731:1736" ph="..." />
                 <marker date="1543530461241" expanded="true" signature="1731:1738" ph="..." />
@@ -108,20 +110,29 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ScrapPaper.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="369">
+              <caret line="33" column="84" selection-start-line="33" selection-start-column="84" selection-end-line="33" selection-end-column="84" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Armanjit Gill - Mad Lib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-60">
+            <state relative-caret-position="396">
               <caret line="18" column="9" selection-start-line="18" selection-end-line="18" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Armanjit Gill - Mad Libs 2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="55" column="38" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
+            <state relative-caret-position="285">
+              <caret line="58" column="52" selection-start-line="58" selection-start-column="51" selection-end-line="58" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -129,8 +140,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Armanjit Gill - HangMan.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4268">
+            <state relative-caret-position="376">
               <caret line="194" column="64" selection-start-line="194" selection-start-column="64" selection-end-line="194" selection-end-column="64" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Armanjit Gill - Fix It!.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="263">
+              <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
             </state>
           </provider>
         </entry>
@@ -161,6 +181,8 @@
       <find>adjective</find>
       <find>noun</find>
       <find>character</find>
+      <find>cats</find>
+      <find>%s, %s</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -174,10 +196,11 @@
         <option value="$PROJECT_DIR$/Armanjit Gill - Guess Game.py" />
         <option value="$PROJECT_DIR$/Armanjit Gill - Lucky 7s.py" />
         <option value="$PROJECT_DIR$/Armanjit Gill - HangMan.py" />
-        <option value="$PROJECT_DIR$/ScrapPaper.py" />
         <option value="$PROJECT_DIR$/Armanjit Gill - Mad Libs.py" />
         <option value="$PROJECT_DIR$/BasicPythonNotes.py" />
+        <option value="$PROJECT_DIR$/Armanjit Gill - Fix It!.py" />
         <option value="$PROJECT_DIR$/Armanjit Gill - Mad Libs 2.py" />
+        <option value="$PROJECT_DIR$/ScrapPaper.py" />
       </list>
     </option>
   </component>
@@ -188,7 +211,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="515" />
+    <option name="x" value="524" />
     <option name="width" value="851" />
     <option name="height" value="728" />
   </component>
@@ -234,8 +257,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Armanjit Gill - Mad Libs 2">
-    <configuration name="Armanjit Gill - Guess Game" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.ScrapPaper">
+    <configuration name="Armanjit Gill - Fix It!" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="notes" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -248,7 +271,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Armanjit Gill - Guess Game.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Armanjit Gill - Fix It!.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -347,18 +370,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.BasicPythonNotes" />
-      <item itemvalue="Python.Armanjit Gill - Guess Game" />
       <item itemvalue="Python.Armanjit Gill - HangMan" />
       <item itemvalue="Python.ScrapPaper" />
       <item itemvalue="Python.Armanjit Gill - Mad Libs 2" />
+      <item itemvalue="Python.Armanjit Gill - Fix It!" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Armanjit Gill - Mad Libs 2" />
-        <item itemvalue="Python.BasicPythonNotes" />
         <item itemvalue="Python.ScrapPaper" />
+        <item itemvalue="Python.Armanjit Gill - Mad Libs 2" />
+        <item itemvalue="Python.Armanjit Gill - Fix It!" />
+        <item itemvalue="Python.BasicPythonNotes" />
         <item itemvalue="Python.Armanjit Gill - HangMan" />
-        <item itemvalue="Python.Armanjit Gill - Guess Game" />
       </list>
     </recent_temporary>
   </component>
@@ -377,8 +400,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.497545" visible="true" weight="0.17927383" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.497545" visible="true" weight="0.18305598" />
       <window_info id="Structure" order="1" sideWeight="0.5023474" side_tool="true" weight="0.26172465" />
       <window_info id="Favorites" order="2" sideWeight="0.502455" side_tool="true" weight="0.25037822" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -399,7 +423,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" weight="0.0" />
-      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.030257186" />
+      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.015128593" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26172465" />
@@ -432,6 +456,17 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Armanjit Gill - Mad Libs 2.py</url>
+          <line>16</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/notes.py">
       <provider selected="true" editor-type-id="text-editor" />
@@ -450,20 +485,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Armanjit Gill - HangMan.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4268">
-          <caret line="194" column="64" selection-start-line="194" selection-start-column="64" selection-end-line="194" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ScrapPaper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="924">
-          <caret line="42" column="37" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Armanjit Gill - Mad Libs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-225">
@@ -471,17 +492,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/735636815/builtins.py">
+    <entry file="file://$PROJECT_DIR$/Armanjit Gill - Mad Lib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="3674" column="8" selection-start-line="3674" selection-start-column="8" selection-end-line="3674" selection-end-column="8" />
+        <state relative-caret-position="396">
+          <caret line="18" column="9" selection-start-line="18" selection-end-line="18" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BasicPythonNotes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="271">
-          <caret line="252" column="12" lean-forward="true" selection-start-line="252" selection-start-column="12" selection-end-line="252" selection-end-column="12" />
+          <caret line="252" column="12" selection-start-line="252" selection-start-column="12" selection-end-line="252" selection-end-column="12" />
           <folding>
             <marker date="1543530461241" expanded="true" signature="1731:1736" ph="..." />
             <marker date="1543530461241" expanded="true" signature="1731:1738" ph="..." />
@@ -492,17 +513,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Armanjit Gill - Mad Lib.py">
+    <entry file="file://$PROJECT_DIR$/Armanjit Gill - Fix It!.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-60">
-          <caret line="18" column="9" selection-start-line="18" selection-end-line="18" selection-end-column="9" />
+        <state relative-caret-position="263">
+          <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Armanjit Gill - HangMan.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="194" column="64" selection-start-line="194" selection-start-column="64" selection-end-line="194" selection-end-column="64" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Armanjit Gill - Mad Libs 2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="55" column="38" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
+        <state relative-caret-position="285">
+          <caret line="58" column="52" selection-start-line="58" selection-start-column="51" selection-end-line="58" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/735636815/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="3674" column="8" selection-start-line="3674" selection-start-column="8" selection-end-line="3674" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ScrapPaper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="33" column="84" selection-start-line="33" selection-start-column="84" selection-end-line="33" selection-end-column="84" />
         </state>
       </provider>
     </entry>
