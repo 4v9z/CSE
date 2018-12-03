@@ -22,16 +22,25 @@ Region_to_Explore = input("Which region would you like to go to first? Plantopia
 if Region_to_Explore == "Swamp":
     input("Shrek: WHAT ARE YOU DOIN IN MY SWAMP?!?!")
     Your_Health -= 30
+if Region_to_Explore == "R21":
+    print("... You shouldn't be here....")
+    input("Wiebe appeared!")
+    Choice = input("Fight or Flee?")
     print("%s has died. You have lost and %s will take over %s" % (You, Villain, World))
 if Region_to_Explore == "Plantopia":
     input("%s: Okay... Plantopia is a rainforest normally full of friendly animals" % Guide)
     input("%s: However %s has turned the animals into fierce beasts! Even the plants can kill you!" % (Guide, Villain))
-    input("%s: There are also myths of some kind of plant people living there, but they're just myths" % Guide)
+    input("This is being done via some sort of magical beast")
     input("%s: Alright, Plantopia. Let's get through here" % You)
     Path = input("There are two directions, one with nothing in sight and one with some monkeys. Which do you choose? ")
     if Path == "nothing":
         input("You fell into quick sand!")
-        Quick_Sand = input("Do you reach for the vines or do you strugle to get out?")
+        Quick_Sand = input("Do you reach for the vines or do you struggle to get out?")
+        if Quick_Sand == "vines":
+            input("You reach out for the vines... It's a snake you goof!!")
+            Your_Health -= 20
+            input("The snake bites you... You now have %s health" % Your_Health)
+            input(" You start to sink further into the quicksand... You've been engulfed bu it")
     if Path == "monkeys":
         input("You go through the monkey path, they start attacking you fiercely.")
         Your_Health -= 5
@@ -61,4 +70,4 @@ if Region_to_Explore == "Plantopia":
                 input("Your vision starts to get blurry... You have lost all of your Health!")
                 input("Now %s rules %s. All hope is lost" % (Villain, World))
                 input("GAME OVER")
-                print("You got killed by monkeys... How... sad")
+                print("You got killed by monkeys... That's bananas!")

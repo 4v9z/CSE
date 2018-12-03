@@ -10,11 +10,12 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Lucky_7s.coverage" NAME="Armanjit Gill - Lucky 7s Coverage Results" MODIFIED="1541803334501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/notes$BasicPythonNotes.coverage" NAME="BasicPythonNotes Coverage Results" MODIFIED="1543530290083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/notes$BasicPythonNotes.coverage" NAME="BasicPythonNotes Coverage Results" MODIFIED="1543875141570" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___HangMan.coverage" NAME="Armanjit Gill - HangMan Coverage Results" MODIFIED="1542405091447" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Python_Challenges.coverage" NAME="Armanjit Gill - Python Challenges Coverage Results" MODIFIED="1543876634253" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Mad_Libs_2.coverage" NAME="Armanjit Gill - Mad Libs 2 Coverage Results" MODIFIED="1543617941253" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Mad_Lib.coverage" NAME="Armanjit Gill - Mad Lib Coverage Results" MODIFIED="1540932967081" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Fix_It_.coverage" NAME="Armanjit Gill - Fix It! Coverage Results" MODIFIED="1543617354126" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Fix_It_.coverage" NAME="Armanjit Gill - Fix It! Coverage Results" MODIFIED="1543873912155" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$ScrapPaper.coverage" NAME="ScrapPaper Coverage Results" MODIFIED="1543617945050" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Armanjit_Gill___Guess_Game.coverage" NAME="Armanjit Gill - Guess Game Coverage Results" MODIFIED="1542233376912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -41,7 +42,7 @@
           <entry key="project.open.time.27" value="1" />
           <entry key="project.open.time.28" value="1" />
           <entry key="project.open.time.41" value="2" />
-          <entry key="project.open.time.45" value="5" />
+          <entry key="project.open.time.45" value="6" />
           <entry key="project.open.time.49" value="2" />
           <entry key="project.open.time.50" value="1" />
           <entry key="project.open.time.52" value="1" />
@@ -53,27 +54,27 @@
           <entry key="project.open.time.71" value="1" />
           <entry key="project.open.time.74" value="1" />
           <entry key="project.open.time.78" value="1" />
-          <entry key="project.opened" value="23" />
+          <entry key="project.opened" value="24" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="17" />
+          <entry key="py" value="20" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="17" />
+          <entry key="Python" value="20" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="25398" />
+          <entry key="py" value="26842" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="25398" />
+          <entry key="Python" value="26842" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -86,71 +87,52 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BasicPythonNotes.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="252" column="12" selection-start-line="252" selection-start-column="12" selection-end-line="252" selection-end-column="12" />
-              <folding>
-                <marker date="1543530461241" expanded="true" signature="1731:1736" ph="..." />
-                <marker date="1543530461241" expanded="true" signature="1731:1738" ph="..." />
-                <marker date="1543530461241" expanded="true" signature="1731:1739" ph="..." />
-                <marker date="1543530461241" expanded="true" signature="1731:1741" ph="..." />
-                <marker date="1543530461241" expanded="true" signature="2414:2419" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/735636815/builtins.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
+            <state relative-caret-position="95524">
               <caret line="3674" column="8" selection-start-line="3674" selection-start-column="8" selection-end-line="3674" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ScrapPaper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="33" column="84" selection-start-line="33" selection-start-column="84" selection-end-line="33" selection-end-column="84" />
+            <state relative-caret-position="-7">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Armanjit Gill - Mad Lib.py">
+        <entry file="file://$PROJECT_DIR$/BasicPythonNotes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="18" column="9" selection-start-line="18" selection-end-line="18" selection-end-column="9" />
+            <state relative-caret-position="378">
+              <caret line="264" column="24" selection-start-line="264" selection-start-column="24" selection-end-line="264" selection-end-column="24" />
+              <folding>
+                <marker date="1543874946765" expanded="true" signature="1730:1735" ph="..." />
+                <marker date="1543874946765" expanded="true" signature="1730:1737" ph="..." />
+                <marker date="1543874946765" expanded="true" signature="1730:1738" ph="..." />
+                <marker date="1543874946765" expanded="true" signature="1730:1740" ph="..." />
+                <marker date="1543874946765" expanded="true" signature="2413:2418" ph="..." />
+                <marker date="1543874946765" expanded="true" signature="5627:5632" ph="..." />
+                <marker date="1543874946765" expanded="true" signature="5627:5662" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Armanjit Gill - Mad Libs 2.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Armanjit Gill - Python Challenges.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="58" column="52" selection-start-line="58" selection-start-column="51" selection-end-line="58" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Armanjit Gill - HangMan.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="194" column="64" selection-start-line="194" selection-start-column="64" selection-end-line="194" selection-end-column="64" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Armanjit Gill - Fix It!.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
+            <state relative-caret-position="293">
+              <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
+              <folding>
+                <marker date="1543876513211" expanded="true" signature="36:41" ph="..." />
+                <marker date="1543876513211" expanded="true" signature="140:145" ph="..." />
+                <marker date="1543876513211" expanded="true" signature="294:299" ph="..." />
+                <marker date="1543876513211" expanded="true" signature="376:542" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -197,10 +179,11 @@
         <option value="$PROJECT_DIR$/Armanjit Gill - Lucky 7s.py" />
         <option value="$PROJECT_DIR$/Armanjit Gill - HangMan.py" />
         <option value="$PROJECT_DIR$/Armanjit Gill - Mad Libs.py" />
-        <option value="$PROJECT_DIR$/BasicPythonNotes.py" />
         <option value="$PROJECT_DIR$/Armanjit Gill - Fix It!.py" />
         <option value="$PROJECT_DIR$/Armanjit Gill - Mad Libs 2.py" />
         <option value="$PROJECT_DIR$/ScrapPaper.py" />
+        <option value="$PROJECT_DIR$/BasicPythonNotes.py" />
+        <option value="$PROJECT_DIR$/Armanjit Gill - Python Challenges.py" />
       </list>
     </option>
   </component>
@@ -210,7 +193,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="524" />
     <option name="width" value="851" />
     <option name="height" value="728" />
@@ -243,7 +226,7 @@
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/4v9z/Documents/GitHub/CSE/notes/Armanjit Gill - Lucky 7s.py" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -257,7 +240,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ScrapPaper">
+  <component name="RunManager" selected="Python.Armanjit Gill - Python Challenges">
     <configuration name="Armanjit Gill - Fix It!" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="notes" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -280,28 +263,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Armanjit Gill - HangMan" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="notes" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Armanjit Gill - HangMan.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="Armanjit Gill - Mad Libs 2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="notes" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -316,6 +277,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Armanjit Gill - Mad Libs 2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Armanjit Gill - Python Challenges" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="notes" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Armanjit Gill - Python Challenges.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -370,18 +353,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.BasicPythonNotes" />
-      <item itemvalue="Python.Armanjit Gill - HangMan" />
       <item itemvalue="Python.ScrapPaper" />
       <item itemvalue="Python.Armanjit Gill - Mad Libs 2" />
       <item itemvalue="Python.Armanjit Gill - Fix It!" />
+      <item itemvalue="Python.Armanjit Gill - Python Challenges" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Armanjit Gill - Python Challenges" />
+        <item itemvalue="Python.BasicPythonNotes" />
+        <item itemvalue="Python.Armanjit Gill - Fix It!" />
         <item itemvalue="Python.ScrapPaper" />
         <item itemvalue="Python.Armanjit Gill - Mad Libs 2" />
-        <item itemvalue="Python.Armanjit Gill - Fix It!" />
-        <item itemvalue="Python.BasicPythonNotes" />
-        <item itemvalue="Python.Armanjit Gill - HangMan" />
       </list>
     </recent_temporary>
   </component>
@@ -399,10 +382,34 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.497545" visible="true" weight="0.18305598" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.497545" visible="true" weight="0.18003026" />
+      <window_info id="Structure" order="1" sideWeight="0.5023474" side_tool="true" weight="0.26172465" />
+      <window_info id="Favorites" order="2" sideWeight="0.502455" side_tool="true" weight="0.25037822" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.30932897" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.39934534" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3289689" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32890365" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50075644" side_tool="true" weight="0.30278233" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.3289689" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.3289689" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.0" />
+      <window_info anchor="right" id="Database" order="4" weight="0.008320726" />
+    </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.497545" visible="true" weight="0.18003026" />
       <window_info id="Structure" order="1" sideWeight="0.5023474" side_tool="true" weight="0.26172465" />
       <window_info id="Favorites" order="2" sideWeight="0.502455" side_tool="true" weight="0.25037822" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -423,31 +430,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" weight="0.0" />
-      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.015128593" />
-    </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26172465" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30278233" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32890365" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info anchor="bottom" id="Python Console" order="12" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.3289689" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" />
-      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.029500756" />
+      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.008320726" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,52 +482,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BasicPythonNotes.py">
+    <entry file="file://$PROJECT_DIR$/Armanjit Gill - Mad Libs 2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="252" column="12" selection-start-line="252" selection-start-column="12" selection-end-line="252" selection-end-column="12" />
-          <folding>
-            <marker date="1543530461241" expanded="true" signature="1731:1736" ph="..." />
-            <marker date="1543530461241" expanded="true" signature="1731:1738" ph="..." />
-            <marker date="1543530461241" expanded="true" signature="1731:1739" ph="..." />
-            <marker date="1543530461241" expanded="true" signature="1731:1741" ph="..." />
-            <marker date="1543530461241" expanded="true" signature="2414:2419" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Armanjit Gill - Fix It!.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
+        <state relative-caret-position="1276">
+          <caret line="58" column="52" selection-start-line="58" selection-start-column="51" selection-end-line="58" selection-end-column="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Armanjit Gill - HangMan.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
+        <state relative-caret-position="4268">
           <caret line="194" column="64" selection-start-line="194" selection-start-column="64" selection-end-line="194" selection-end-column="64" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Armanjit Gill - Mad Libs 2.py">
+    <entry file="file://$PROJECT_DIR$/Armanjit Gill - Fix It!.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="58" column="52" selection-start-line="58" selection-start-column="51" selection-end-line="58" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/735636815/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="3674" column="8" selection-start-line="3674" selection-start-column="8" selection-end-line="3674" selection-end-column="8" />
+        <state relative-caret-position="1804">
+          <caret line="82" selection-start-line="82" selection-end-line="82" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ScrapPaper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="33" column="84" selection-start-line="33" selection-start-column="84" selection-end-line="33" selection-end-column="84" />
+        <state relative-caret-position="-7">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BasicPythonNotes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="264" column="24" selection-start-line="264" selection-start-column="24" selection-end-line="264" selection-end-column="24" />
+          <folding>
+            <marker date="1543874946765" expanded="true" signature="1730:1735" ph="..." />
+            <marker date="1543874946765" expanded="true" signature="1730:1737" ph="..." />
+            <marker date="1543874946765" expanded="true" signature="1730:1738" ph="..." />
+            <marker date="1543874946765" expanded="true" signature="1730:1740" ph="..." />
+            <marker date="1543874946765" expanded="true" signature="2413:2418" ph="..." />
+            <marker date="1543874946765" expanded="true" signature="5627:5632" ph="..." />
+            <marker date="1543874946765" expanded="true" signature="5627:5662" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/735636815/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95524">
+          <caret line="3674" column="8" selection-start-line="3674" selection-start-column="8" selection-end-line="3674" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Armanjit Gill - Python Challenges.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
+          <folding>
+            <marker date="1543876513211" expanded="true" signature="36:41" ph="..." />
+            <marker date="1543876513211" expanded="true" signature="140:145" ph="..." />
+            <marker date="1543876513211" expanded="true" signature="294:299" ph="..." />
+            <marker date="1543876513211" expanded="true" signature="376:542" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

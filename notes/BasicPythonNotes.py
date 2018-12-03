@@ -68,7 +68,6 @@ anything in between them is automatically commented out
 
 # Defining Functions
 
-
 def say_it():
         print("Hello World!")
 
@@ -245,6 +244,9 @@ string1 = "turquoise"
 list1 = list(string1)
 print(list1)
 
+# Changing back into a string (list --> string)
+print("".join(list1))
+
 # Hangman hints
 for i in range(len(list1)):
     if list1 [i] == "u": # if we find a "u"
@@ -252,5 +254,12 @@ for i in range(len(list1)):
         list1.insert(i, "*") # put a * there instead
 print(list1)
 
-# Changing back into a string (list --> string)
-print("".join(list1))
+# Function notes
+# a **2 + b**2 = c**2
+
+
+def pythagorean(a, b):
+    return (a**2 + b**2) ** (1/2)
+
+
+print(pythagorean(3, 4))
