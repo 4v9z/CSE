@@ -7,6 +7,7 @@ Plantopia_Saved = False
 Hydro_World_Saved = False
 Magma_Dome_Saved = False
 Frost_Paradise_Saved = False
+Secret = False
 Your_Health = 30
 World = input("Name the fantasy world in the story ")
 Guide = input("Name the person who will guide you on your adventure ")
@@ -15,18 +16,53 @@ You = input("Hello, my name is %s. I will be your guide on your adventure. What 
 print()
 print("Press enter to cycle through dialogue! Be careful not to skip anything important though!")
 print()
-input("%s: %s, the world of %s is in danger. It is being attacked by the evil Wizard %s" % (Guide, You, World, Villain))
+secret = input("%s: %s, the world of %s is in danger. It is being attacked by the evil Wizard %s" % (Guide, You, World, Villain))
+if secret == "Wiebe_Weakness":
+    inventory.append("Wiebe_Weakness")
+    Secret = True
 input("%s: The world of %s is split into 4 distinct regions, each is going through a problem" % (Guide, World))
 input("%s: These problems are all being caused by %s" % (Guide, Villain))
 Region_to_Explore = input("Which region would you like to go to first? Plantopia or Hydro Kingdom? ")
 if Region_to_Explore == "Swamp":
     input("Shrek: WHAT ARE YOU DOIN IN MY SWAMP?!?!")
     Your_Health -= 30
-if Region_to_Explore == "R21":
+    print("%s has died. You have lost and %s will take over %s" % (You, Villain, World))
+if Region_to_Explore == "19A":
     print("... You shouldn't be here....")
     input("Wiebe appeared!")
     Choice = input("Fight or Flee?")
-    print("%s has died. You have lost and %s will take over %s" % (You, Villain, World))
+    if Choice == "Fight":
+        if Secret == False:
+            input("You missed! You did absolutely nothing! 0 Damage done to Wiebe!")
+            input("Wiebe used Pep8 Pow!")
+            input("30 damage done to you!")
+            Your_Health -= Your_Health
+        if Your_Health == 0:
+            input("You lost to Wiebe. GAME OVER")
+            print("Pep8: Dead")
+        if Secret:
+            Fight_option = input("Magic Sword  Wiebe Weakness")
+            if Fight_option == "Magic Sword":
+                input("You missed! You did absolutely nothing! 0 Damage done to Wiebe!")
+                input("Wiebe used Pep8 Pow!")
+                input("30 damage done to you!")
+                Your_Health -= Your_Health
+                if Your_Health == 0:
+                    input("You lost to Wiebe. GAME OVER")
+                    print("Pep8: Dead")
+            if Fight_option == "Wiebe Weakness":
+                input("You did 999999999 damage to Wiebe")
+                input("You win! You beat Wie12y784237493uyr838594387485")
+                break
+    if Choice == "Flee":
+        input("You couldn't escape!")
+        input("Wiebe used Bad Joke Friday!")
+        input("You are now laughing uncntrollably... You can't get a chance to breathe...")
+        input("You die of suffocation")
+        Your_Health -= Your_Health
+        if Your_Health == 0:
+            input("You lost to Wiebe. GAME OVER")
+            print("You died to bad jokes... What a horrible PUNishment")
 if Region_to_Explore == "Plantopia":
     input("%s: Okay... Plantopia is a rainforest normally full of friendly animals" % Guide)
     input("%s: However %s has turned the animals into fierce beasts! Even the plants can kill you!" % (Guide, Villain))
