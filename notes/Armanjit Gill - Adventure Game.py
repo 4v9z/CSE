@@ -10,14 +10,17 @@ Frost_Paradise_Saved = False
 Secret = False
 Your_Health = 30
 World = input("Name the fantasy world in the story ")
+if World == "win":
+    input("Good Day. I am pig")
 Guide = input("Name the person who will guide you on your adventure ")
 Villain = input("Name the Villain: ")
 You = input("Hello, my name is %s. I will be your guide on your adventure. What is your name? " % Guide)
 print()
 print("Press enter to cycle through dialogue! Be careful not to skip anything important though!")
 print()
-secret = input("%s: %s, the world of %s is in danger. It is being attacked by the evil Wizard %s" % (Guide, You, World, Villain))
-if secret == "Wiebe_Weakness":
+secret = input("%s: %s, the world of %s is on the verge of destruction" % (Guide, You, World))
+input("This is being caused by the evil wizard %s" % Villain)
+if secret == "Wiebe Weakness":
     inventory.append("Wiebe_Weakness")
     Secret = True
     print("You found the secret weapon...")
@@ -43,11 +46,27 @@ if Region_to_Explore == "19A":
             print("Pep8: Dead")
         if Secret:
             Fight_option = input("Magic Sword  Wiebe Weakness")
-            if Fight_option == "Wiebe Win":
+            if Fight_option == "Win":
                 input("%s used" % You)
-                print("AdventureGame.py")
+                print("bsdhfsbjvmdlkfjssf!")
                 input("1234567890987654323456765456766548476584835642456765 damage to Wiebe!")
                 input("You win!!")
+                input("You got 99999 gold! You get Wiebe_Sword")
+                input("Now to the final boss!")
+                print()
+                print()
+                input("%s appeared!" % Villain)
+                Fight_option = input("Attack: Wiebe Sword")
+                if Fight_option == "Wiebe Sword":
+                    input("%s attacked with Wiebe Sword!" % You)
+                    input("∞ damage to %s!" % Villain)
+                    input("%s: NOOO NOO! I can't lose!!! You.... you.... you...." % Villain)
+                    input("%s; You did it... you saved us all...." % Guide)
+                    input("%s: Yeah! I did it! I'm unstoppable!" % You)
+                    input("%s:I saved Plantopia, the Hydro Kingdom, Magma Dome, and Frost Paradise!" % You)
+                    input("I won!!")
+                    print("YOU WIN")
+                    print("But you kinda cheated a bit...")
             if Fight_option == "Magic Sword":
                 input("You missed! You did absolutely nothing! 0 Damage done to Wiebe!")
                 input("Wiebe used Pep8 Pow!")
@@ -87,6 +106,8 @@ if Region_to_Explore == "Plantopia":
             Your_Health -= 20
             input("The snake bites you... You now have %s health" % Your_Health)
             input(" You start to sink further into the quicksand... You've been engulfed bu it")
+            input("GAME OVER")
+            print("Wow... that's not how you use Python!")
     if Path == "monkeys":
         input("You go through the monkey path, they start attacking you fiercely.")
         Your_Health -= 5
@@ -105,12 +126,12 @@ if Region_to_Explore == "Plantopia":
                 if item_used == "banana":
                     Your_Health += 20
                     print("You used the banana! You recovered 20 HP! You now have %i HP" % Your_Health)
+            input("%s: THIS IS A GOOD BANANA!" % You)
         if Monkey_Attack == "throw":
             input("You throw off the monkeys, they jump back on you")
             input("Now they are biting and scratching harder. It's not looking good")
             Your_Health -= 25
             input("You lost 25 health! Now you have %i health left" % Your_Health)
-
             if Your_Health == 0:
                 input("%s: Ack!!" % You)
                 input("Your vision starts to get blurry... You have lost all of your Health!")
