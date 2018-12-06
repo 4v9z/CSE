@@ -1,8 +1,12 @@
+import random
+Flee_Chance = random.randint(1,10)
+in_battle = False
 print("Choose your own adventure!")
 print()
 got_banana = False
 open_inventory = " "
 inventory = ["Magic Sword"]
+weapons = ["Magic Sword"]
 Plantopia_Saved = False
 Hydro_World_Saved = False
 Magma_Dome_Saved = False
@@ -18,15 +22,31 @@ You = input("Hello, my name is %s. I will be your guide on your adventure. What 
 print()
 print("Press enter to cycle through dialogue! Be careful not to skip anything important though!")
 print()
-secret = input("%s: %s, the world of %s is on the verge of destruction" % (Guide, You, World))
-input("This is being caused by the evil wizard %s" % Villain)
+secret = input("Input any cheat codes here:")
 if secret == "Wiebe Weakness":
     inventory.append("Wiebe_Weakness")
     Secret = True
     print("You found the secret weapon...")
+elif secret == "Wiebe Sword":
+    weapons.append("Wiebe Sword")
+    print("You can now use the ultimate weapon in combat!")
+elif secret == "all weapons get":
+    weapons.append("Leaf Blade" "Wiebe Sword" "Ice Blade" "FrostBite Beam" "Magma Blade")
+    weapons.append("")
+input("%s: %s, the world of %s is on the verge of destruction" % (Guide, You, World))
+
+input("This is being caused by the evil wizard %s" % Villain)
 input("%s: The world of %s is split into 4 distinct regions, each is going through a problem" % (Guide, World))
 input("%s: These problems are all being caused by %s" % (Guide, Villain))
 Region_to_Explore = input("Which region would you like to go to first? Plantopia or Hydro Kingdom? ")
+if Region_to_Explore == "Flex World":
+    input("%s: Where am I???" % You)
+    input("You've been stabbed!")
+    input("Phil Swift: THAT'S ALOTTA DAMAGE!")
+    input("Phil Swift: HOW ABOUT SOME MORE?!")
+    input("You've been attacked with a chainsaw!")
+    print("You've been turned into Flex Glue!!")
+    input("GAME OVER")
 if Region_to_Explore == "Swamp":
     input("Shrek: WHAT ARE YOU DOIN IN MY SWAMP?!?!")
     Your_Health -= 30
@@ -51,7 +71,8 @@ if Region_to_Explore == "19A":
                 print("bsdhfsbjvmdlkfjssf!")
                 input("1234567890987654323456765456766548476584835642456765 damage to Wiebe!")
                 input("You win!!")
-                input("You got 99999 gold! You get Wiebe_Sword")
+                input("You got 99999 gold! You get Wiebe Sword")
+                weapons.append("Wiebe Sword")
                 input("Now to the final boss!")
                 print()
                 print()
@@ -95,7 +116,7 @@ if Region_to_Explore == "19A":
 if Region_to_Explore == "Plantopia":
     input("%s: Okay... Plantopia is a rainforest normally full of friendly animals" % Guide)
     input("%s: However %s has turned the animals into fierce beasts! Even the plants can kill you!" % (Guide, Villain))
-    input("This is being done via some sort of magical beast")
+    input("%s: This is being done via some sort of magical beast" % Guide)
     input("%s: Alright, Plantopia. Let's get through here" % You)
     Path = input("There are two directions, one with nothing in sight and one with some monkeys. Which do you choose? ")
     if Path == "nothing":
@@ -117,7 +138,7 @@ if Region_to_Explore == "Plantopia":
             input("You attack the monkeys with your sword. They run away")
             input("%s: Those monkeys left something behind..." % You)
             print("You got a banana! Eating this will restore 20 HP")
-            input("%s: Ah, you got an item! Open your inventory by pressing 'i' during dialogue" % Guide)
+            input("%s: Ah, you got an item! Open your inventory with 'i' during certain lines of dialogue" % Guide)
             open_inventory = input("Try it now!")
             if open_inventory == "i":
                 print(inventory)
@@ -127,6 +148,22 @@ if Region_to_Explore == "Plantopia":
                     Your_Health += 20
                     print("You used the banana! You recovered 20 HP! You now have %i HP" % Your_Health)
             input("%s: THIS IS A GOOD BANANA!" % You)
+            input("%s: Alright time to keep going" % You)
+            Path = input("You look at the path, do you continue to follow it? Or do you try to go through the trees")
+            if Path == "path":
+                input("%s: AAAAAAAAAAAHHHH!!!! A BEAR!" % You)
+                input("Bear appeared!")
+                in_battle = True
+                while in_battle:
+                    Choice = input("Fight or Flee?")
+                    if Choice == "Flee" and Flee_Chance == 8:
+                        print("YOU GOT AWAY!")
+                        in_battle = False
+                    elif Choice == "Flee" and Flee_Chance != 8:
+                        print("You couldn't escape!")
+                        input("Bear used Slash!")
+                        Your_Health -= 15
+                        print("You: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
         if Monkey_Attack == "throw":
             input("You throw off the monkeys, they jump back on you")
             input("Now they are biting and scratching harder. It's not looking good")
