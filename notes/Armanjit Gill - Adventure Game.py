@@ -1,6 +1,7 @@
 import random
 Flee_Chance = random.randint(1, 10)
 in_battle = False
+gold = 0
 enemy_health = 1
 print("Choose your own adventure!")
 print()
@@ -72,6 +73,7 @@ while not dead:
                     input("1234567890987654323456765456766548476584835642456765 damage to Wiebe!")
                     input("You win!!")
                     input("You got 99999 gold! You get Wiebe Sword")
+                    gold += 99999
                     weapons.append("Wiebe Sword")
                     input("Now to the final boss!")
                     print()
@@ -136,6 +138,9 @@ while not dead:
             if Monkey_Attack == "sword":
                 input("You attack the monkeys with your sword. They run away")
                 input("%s: Those monkeys left something behind..." % You)
+                input("You got 20 gold!")
+                gold += 20
+                input("%s: Sweet! MONEY!" % You)
                 print("You got a banana! Eating this will restore 20 HP")
                 input("%s: Ah, you got an item! Open your inventory with 'i' during certain lines of dialogue" % Guide)
                 open_inventory = input("Try it now!")
@@ -149,7 +154,9 @@ while not dead:
                 input("%s: THIS IS A GOOD BANANA!" % You)
                 input("%s: Alright time to keep going" % You)
                 Path = input("You look at the path, do you follow it? Or do you try to go through the trees?")
-                if Path == "path":
+                if Path == "trees":
+                    print("You go through the trees and find a strange village")
+                elif Path == "path":
                     input("%s: AAAAAAAAAAAHHHH!!!! A BEAR!" % You)
                     input("Bear appeared!")
                     enemy_health = 30
@@ -157,9 +164,11 @@ while not dead:
                     while in_battle:
                         if enemy_health <= 0:
                             print("Bear was defeated")
-                            
+                            print("You got 250 gold!")
+                            gold += 250
                             in_battle = False
-                        if Your_Health <= 0:
+                            break
+                        elif Your_Health <= 0:
                             in_battle = False
                             input("%s: Ack!!" % You)
                             print("You have failed your quest.")
@@ -174,9 +183,10 @@ while not dead:
                                 input("%s attacked with %s" % (You, weapons[0]))
                                 enemy_health -= random.randint(9, 35)
                                 input("Bear now has %s health" % enemy_health)
-                                input("Bear uses Bite")
-                                Your_Health -= 20
-                                print("You now have %s health" % Your_Health)
+                                if enemy_health > 0:
+                                    input("Bear uses Bite")
+                                    Your_Health -= 20
+                                    print("You now have %s health" % Your_Health)
                         if Choice == "Flee" and Flee_Chance == 8:
                             print("YOU GOT AWAY!")
                             in_battle = False
@@ -186,7 +196,10 @@ while not dead:
                             Your_Health -= 15
                             print("You: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
                             Flee_Chance = random.randint(1, 10)
-                  input("That bear was a BEARy big problem")
+                input("%s: That bear was a BEARy big problem" % You)
+                input("There is a strange purple, crystal-like lion on top of a mountain")
+                print("IT SPOTTED YOU!")
+                input("You ran through the trees and you find a strange village")
             if Monkey_Attack == "throw":
                 input("You throw off the monkeys, they jump back on you")
                 input("Now they are biting and scratching harder. It's not looking good")
