@@ -8,6 +8,7 @@ print()
 got_banana = False
 open_inventory = " "
 inventory = ["Magic Sword"]
+key_items = ["You have none!"]
 weapons = ["Magic Sword"]
 Plantopia_Saved = False
 Hydro_World_Saved = False
@@ -31,15 +32,11 @@ while not dead:
         inventory.append("Wiebe_Weakness")
         Secret = True
         print("You found the secret weapon...")
-    elif secret == "Wiebe Sword":
-        weapons.append("Wiebe Sword")
-        Secret = True
-        print("You can now use the ultimate weapon in combat!")
     input("%s: %s, the world of %s is on the verge of destruction" % (Guide, You, World))
     input("This is being caused by the evil wizard %s" % Villain)
     input("%s: The world of %s is split into 4 distinct regions, each is going through a problem" % (Guide, World))
     input("%s: These problems are all being caused by %s" % (Guide, Villain))
-    Region_to_Explore = input("Which region would you like to go to first? Plantopia or Hydro Kingdom? ")
+    Region_to_Explore = input("Choose a location: [1] Plantopia [2]??? [3]??? [4]???")
     if Region_to_Explore == "Flex World":
         input("%s: Where am I???" % You)
         input("You've been stabbed!")
@@ -155,7 +152,8 @@ while not dead:
                 input("%s: Alright time to keep going" % You)
                 Path = input("You look at the path, do you follow it? Or do you try to go through the trees?")
                 if Path == "trees":
-                    print("You go through the trees and find a strange village")
+                    print("You go through the trees and find a strange village!")
+
                 elif Path == "path":
                     input("%s: AAAAAAAAAAAHHHH!!!! A BEAR!" % You)
                     input("Bear appeared!")
@@ -197,8 +195,10 @@ while not dead:
                             print("You: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
                             Flee_Chance = random.randint(1, 10)
                 input("%s: That bear was a BEARy big problem" % You)
+                input("You continue your trek through the forest and find yourself in a clearing")
                 input("There is a strange purple, crystal-like lion on top of a mountain")
-                print("IT SPOTTED YOU!")
+                print("It spotted you!! Now it's charging some sort of ")
+                input("%s: AAAAAAAAAAA!!!!! Gotta run! Gotta run!! Gotta run!!!!" % You)
                 input("You ran through the trees and you find a strange village")
             if Monkey_Attack == "throw":
                 input("You throw off the monkeys, they jump back on you")
