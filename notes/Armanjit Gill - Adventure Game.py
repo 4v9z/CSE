@@ -36,7 +36,7 @@ while not dead:
     input("This is being caused by the evil wizard %s" % Villain)
     input("%s: The world of %s is split into 4 distinct regions, each is going through a problem" % (Guide, World))
     input("%s: These problems are all being caused by %s" % (Guide, Villain))
-    Region_to_Explore = input("Choose a location: [1] Plantopia [2]??? [3]??? [4]???")
+    Region_to_Explore = input("Choose a location: [1] Plantopia [2]----- ----- [3]----- ---- [4]----- --------")
     if Region_to_Explore == "Flex World":
         input("%s: Where am I???" % You)
         input("You've been stabbed!")
@@ -197,7 +197,7 @@ while not dead:
                 input("%s: That bear was a BEARy big problem" % You)
                 input("You continue your trek through the forest and find yourself in a clearing")
                 input("There is a strange purple, crystal-like lion on top of a mountain")
-                print("It spotted you!! Now it's charging some sort of ")
+                print("It spotted you!! Now it's charging some sort of energy blast")
                 input("%s: AAAAAAAAAAA!!!!! Gotta run! Gotta run!! Gotta run!!!!" % You)
                 input("You ran through the trees and you find a strange village")
             if Monkey_Attack == "throw":

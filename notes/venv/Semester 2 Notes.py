@@ -20,3 +20,11 @@ print()
 rainbow.append("violet")
 
 print(rainbow)
+print()
+rainbow.pop(0)
+print(rainbow)
+print()
+print(rainbow[0])
+print()
+print(len(rainbow))
+
