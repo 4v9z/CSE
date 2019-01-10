@@ -1,7 +1,7 @@
 """
 print ("Hello World")
 
-# Apparently I'm going to slow, so I will speed up' \
+# Apparently I'm going too slow, so I will speed up' \
 # 'This is a comment
 # This has no effect on the code
 # This is used for a variety of things, such as
@@ -74,7 +74,7 @@ def say_it():
 
 say_it()
 say_it()
-say_it()
+say_it()-
 
 # f(x) = 2x+3
 
