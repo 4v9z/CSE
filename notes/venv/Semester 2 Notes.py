@@ -27,4 +27,4 @@ print()
 print(rainbow[0])
 print()
 print(len(rainbow))
-
+print()

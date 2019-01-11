@@ -27,11 +27,15 @@ while playing_Hangman:
             word.insert(i, "*")
     input("".join(word))
     guess = input("Guess a letter in the word")
+    if guess in word:
+        print("There is at least one %s in the word" % guess)
     letters_guessed.append(guess)
     print("You guessed the following letters:")
     print(", ".join(letters_guessed))
     if guess not in word:
         guesses -=1
+        input("There are no %s's" % guess)
     if guesses == 0:
         print("You fail! HAHA!")
+        print("Oh well.... Oh! By the way, the word was %s" % Word)
         playing_Hangman = False
