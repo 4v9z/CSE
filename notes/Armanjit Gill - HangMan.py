@@ -1,12 +1,15 @@
 import random
+correct_guess = False
 words = ["pingo", "mouse", "dragon", "pizza", "triangle", "python",
-         "octopus", "squid", "dog", "horse", "PyCharm", "hello human!"]
+         "octopus", "squid", "dog", "horse", "PyCharm", "hello person!"]
 letters_guessed = []
 Word = random.choice(words)
+letters_in_word = len(Word)
 word = list(Word)
+w0rd = list(Word)
 guesses = 6
 playing_Hangman = False
-guess = "AAAAAAAAAAAAAAAAAAAAA"
+guess = "never gonna give you up, never gonna get you down never gonna..."
 print(Word)
 print("Hangman []---O-<-<")
 print()
@@ -20,22 +23,34 @@ if begin == "yes":
 elif begin == "no":
     print("Oh, okay goodbye! Prepare to be ejected into the void!")
 while playing_Hangman:
-
     for i in range(len(word)):
         if word[i] not in letters_guessed:
             word.pop(i)
-            word.insert(i, "*")
+            word.insert(i, "?")
     input("".join(word))
-    guess = input("Guess a letter in the word")
-    if guess in word:
-        print("There is at least one %s in the word" % guess)
-    letters_guessed.append(guess)
-    print("You guessed the following letters:")
-    print(", ".join(letters_guessed))
-    if guess not in word:
-        guesses -=1
-        input("There are no %s's" % guess)
-    if guesses == 0:
-        print("You fail! HAHA!")
-        print("Oh well.... Oh! By the way, the word was %s" % Word)
-        playing_Hangman = False
+    correct_guess = False
+    word = list(Word)
+    guess = input("Guess a letter in the word, or, you can try to guess the entire word")
+    if guess == "":
+        print("You skipped the option...")
+    else:
+        if guess in w0rd:
+            print("You guessed a letter!")
+            correct_guess = True
+            letters_in_word -= 1
+        if guess == Word:
+            print("You guessed it!")
+            correct_guess = True
+            letters_in_word -= letters_in_word
+        letters_guessed.append(guess)
+        if letters_in_word == 0:
+            playing_Hangman = False
+        print("You guessed the following letters (or words):")
+        print(", ".join(letters_guessed))
+        if guess not in word and not correct_guess:
+            guesses -= 1
+            input("There are no %s's" % guess)
+        if guesses == 0:
+            print("You lose! You need to get better at HangMan!")
+            print("Oh well.... Oh! By the way, the word was %s" % Word)
+            playing_Hangman = False
