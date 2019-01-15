@@ -1,3 +1,4 @@
+import string
 print("Hello World!")
 print()
 #                         _--------_
@@ -18,7 +19,7 @@ rainbow = ["red", "orange", "yellow", "green", "blue", "purple"]
 print(rainbow)
 print()
 rainbow.append("violet")
-
+list = [string.ascii_letters]
 print(rainbow)
 print()
 rainbow.pop(0)
@@ -28,3 +29,8 @@ print(rainbow[0])
 print()
 print(len(rainbow))
 print()
+print(list)
+print()
+print(string.digits)
+print()
+print(string.punctuation)

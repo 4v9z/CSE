@@ -1,14 +1,26 @@
 import random
+import string
+uppercases = list(string.ascii_uppercase)
+lowercase = list(string.ascii_lowercase)
 correct_guess = False
 words = ["pingo", "mouse", "dragon", "pizza", "triangle", "python",
          "octopus", "squid", "dog", "horse", "PyCharm", "hello person!"]
-letters_guessed = []
+letters_guessed = [" ", "!", "?", ".", ",", "/", "[", "]"]
 Word = random.choice(words)
 letters_in_word = len(Word)
 word = list(Word)
 w0rd = list(Word)
 guesses = 6
 playing_Hangman = False
+if Word == "PyCharm":
+    w0rd[0] = "p"
+    w0rd[2] = "c"
+if Word == "hello person!":
+    letters_in_word -= 5
+if Word == "octopus":
+    letters_in_word -= 1
+if Word == "pizza":
+    letters_in_word -= 1
 guess = "never gonna give you up, never gonna get you down never gonna..."
 print(Word)
 print("Hangman []---O-<-<")
@@ -32,19 +44,20 @@ while playing_Hangman:
     word = list(Word)
     guess = input("Guess a letter in the word, or, you can try to guess the entire word")
     if guess == "":
-        print("You skipped the option...")
+        print("You didn't guess anything....")
     else:
         if guess in w0rd:
             print("You guessed a letter!")
             correct_guess = True
             letters_in_word -= 1
         if guess == Word:
-            print("You guessed it!")
+            print("You guessed it! Wow! The word was %s, and you guessed it!" % Word)
             correct_guess = True
             letters_in_word -= letters_in_word
         letters_guessed.append(guess)
         if letters_in_word == 0:
             playing_Hangman = False
+            print("Correct! The word was %s!" % Word)
         print("You guessed the following letters (or words):")
         print(", ".join(letters_guessed))
         if guess not in word and not correct_guess:
