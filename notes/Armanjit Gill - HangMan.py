@@ -50,6 +50,8 @@ while playing_Hangman:
     print("".join(word))
     correct_guess = False
     word = list(Word)
+    if letters_in_word <= 0:
+        playing_Hangman = False
     guess = input("Guess a letter in the word, or, you can try to guess the entire word"
                   " Note: Guessing the word requires any punctuation in a phrase")
     length_of_guess = len(guess)
@@ -64,16 +66,13 @@ while playing_Hangman:
     elif guess == "":
         print("You didn't guess anything....")
     else:
-        if length_of_guess > 1:
-            print()
             if guess == Word:
                 print("You guessed it! Wow! The word/phrase was %s, and you guessed it! You "
                       "guessed the EXACT Word!" % Word)
                 playing_Hangman = False
                 correct_guess = True
-        else:
             if caps_guess in word:
-                secret_guesses.append(caps_guess)
+                    secret_guesses.append(caps_guess)
             if guess.lower() in w0rd:
                 print("You guessed a letter!")
                 correct_guess = True
@@ -84,7 +83,7 @@ while playing_Hangman:
             secret_guesses.append(guess.lower())
             print("You guessed the following letters (or words):")
             print(", ".join(letters_guessed))
-            if letters_in_word == 0:
+            if letters_in_word <= 0:
                 playing_Hangman = False
                 print("Correct! The word/phrase was %s!" % Word)
                 print("You had %s guess(es) left when you won" % guesses)
