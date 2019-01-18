@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import random
 import string
 uppercases = list(string.ascii_uppercase)
@@ -69,4 +67,3 @@ while playing_Hangman:
             print("You lose! You need to get better at HangMan!")
             print("Oh well.... Oh! By the way, the word was %s" % Word)
             playing_Hangman = False
->>>>>>> parent of 5437fc0... fINISHED hANGMAN
