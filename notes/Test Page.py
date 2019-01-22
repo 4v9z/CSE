@@ -57,8 +57,9 @@ while playing_Hangman:
             word_guess_upper = list(guess.upper())
             print("Please wait a moment while we verify if your guess is correct....")
             for i in range(len(word_guess_lower)):
-                if word_guess_lower[i] in w0rd:
-                    letters_in_word -= 1
+                if word_guess_lower == word[i]:
+                    secret_guesses[i] = word_guess_lower
+                    word[i] = word_guess_lower
             for i in range(len(word_guess_upper)):
                 if word_guess_upper[i] in w0rd:
                     letters_in_word -= 1
@@ -84,7 +85,6 @@ while playing_Hangman:
                 Won = True
             print("You guessed the following letters (or words):")
             print(", ".join(letters_guessed))
-
             if guess not in word and not correct_guess:
                 guesses -= 1
                 input("There are no %s's" % guess)
