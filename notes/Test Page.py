@@ -1,3 +1,5 @@
+import random
+import string
 """""
 import random
 import string
@@ -100,6 +102,7 @@ if Won:
     print("Correct! The word/phrase was %s!" % Word)
     print("You had %s guess(es) left when you won" % guesses)
 """
+"""""
 import random
 import string
 uppercases = list(string.ascii_uppercase)
@@ -108,6 +111,7 @@ Won = False
 Loss = False
 word_guess_lower = []
 guess_length = 1
+word_guess_intent = False
 incorrect_word_guess = False
 word_guess_full = ""
 correct_guess = False
@@ -150,6 +154,7 @@ while playing_Hangman:
     incorrect_word_guess = False
     word = list(Word)
     guess = input("Guess a letter in the word, or, you can try to guess the entire word")
+    word_guess_intent = False
     guess_length = len(guess)
     caps_guess = guess.upper()
     if guess in secret_guesses:
@@ -160,25 +165,29 @@ while playing_Hangman:
         print("You didn't guess anything....")
     else:
         if guess_length > 1:
-            word_guess_full = (guess.lower())
-            print("Please wait a moment while we verify if your guess is correct....")
-            if word_guess_full == Word.lower():
-                letters_in_word -= letters_in_word
-            if word_guess_full != Word.lower():
-                print("Sorry! That was not the word...")
-                incorrect_word_guess = True
-                guesses -= 1
-            if guesses <= 0:
-                playing_Hangman = False
-                Loss = True
-            if letters_in_word <= 0:
-                playing_Hangman = False
-                Won = True
-            if guess == Word:
-                print("You guessed it! Wow! The word/phrase was %s, and you guessed it!" % Word)
-                correct_guess = True
-                letters_in_word -= letters_in_word
-            elif guess_length < 2:
+            word_guess_intent = True
+        if guess_length == 1:
+            word_guess_intent = False
+            if word_guess_intent:
+                word_guess_full = (guess.lower())
+                print("Please wait a moment while we verify if your guess is correct....")
+                if word_guess_full == Word.lower():
+                    letters_in_word -= letters_in_word
+                if word_guess_full != Word.lower():
+                    print("Sorry! That was not the word...")
+                    incorrect_word_guess = True
+                    guesses -= 1
+                if guesses <= 0:
+                    playing_Hangman = False
+                    Loss = True
+                if letters_in_word <= 0:
+                    playing_Hangman = False
+                    Won = True
+                if guess == Word:
+                    print("You guessed it! Wow! The word/phrase was %s, and you guessed it!" % Word)
+                    correct_guess = True
+                    letters_in_word -= letters_in_word
+            elif not word_guess_intent:
                 letters_guessed.append(guess.lower())
                 secret_guesses.append(guess.upper())
                 secret_guesses.append(guess.lower())
@@ -210,8 +219,7 @@ if Won:
     print("Correct! The word/phrase was %s!" % Word)
     print("You had %s guess(es) left when you won" % guesses)
 """
-import random
-import string
+
 uppercases = list(string.ascii_uppercase)
 lowercase = list(string.ascii_lowercase)
 Won = False
@@ -268,11 +276,11 @@ while playing_Hangman:
         if len(guess) > 1:
             word_guess_full = (guess.lower())
             print("Please wait a moment while we verify if your guess is correct....")
-                if word_guess_full == Word.lower():
-                    letters_in_word -= letters_in_word
-                if word_guess_full != Word.lower():
-                    print("Sorry! That was not the word...")
-                    guesses -= 1
+            if word_guess_full == Word.lower():
+                letters_in_word -= letters_in_word
+            if word_guess_full != Word.lower():
+                print("Sorry! That was not the word...")
+                guesses -= 1
                 if guesses <= 0:
                     playing_Hangman = False
                     Loss = True
@@ -312,4 +320,3 @@ if Loss:
 if Won:
     print("Correct! The word/phrase was %s!" % Word)
     print("You had %s guess(es) left when you won" % guesses)
-"""""
