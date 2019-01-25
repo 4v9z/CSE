@@ -1,6 +1,5 @@
 import random
 import string
-i = 0
 still_verifying = False
 uppercases = list(string.ascii_uppercase)
 lowercase = list(string.ascii_lowercase)
@@ -46,7 +45,8 @@ while playing_Hangman:
     print("".join(word))
     correct_guess = False
     word = list(the_word)
-    guess = input("Guess a letter in the word, or, you can try to guess the entire word")
+    guess = input("Guess a letter in the word, or, you can try to guess the entire word "
+                  "(Note: Guessing will require you to write in any punctuation or spaces already in the word)")
     caps_guess = guess.upper()
     if guess in secret_guesses:
         print("Ummmm.... you already... guessed that...")
@@ -59,25 +59,22 @@ while playing_Hangman:
             word_guess_lower = list(guess.lower())
             print("Please wait a moment while we verify if your guess is correct....")
             still_verifying = True
-            i = len(w0rd)
-        while still_verifying:
-            if word_guess_lower == w0rd[i].lower():
-                letters_in_word -= 1
-                still_verifying = True
-            if guess != w0rd[i].lower():
-                guesses -= 1
-                still_verifying = False
-                print("Sorry! That's incorrect")
-            if guesses <= 0:
-                Loss = True
-                playing_Hangman = False
-            if letters_in_word <= 0:
-                playing_Hangman = False
-                Won = True
-            if guess == the_word:
-                print("You guessed it! Wow! The word/phrase was %s, and you guessed it!" % the_word)
-                correct_guess = True
-                letters_in_word -= letters_in_word
+            i = 0
+            while still_verifying and i < len(the_word):
+                if word_guess_lower[i] == w0rd[i].lower():
+                    letters_in_word -= 1
+                    still_verifying = True
+                if word_guess_lower[i] != w0rd[i].lower():
+                    guesses -= 1
+                    still_verifying = False
+                    print("Sorry! That's incorrect")
+                if guesses <= 0:
+                    Loss = True
+                    playing_Hangman = False
+                if letters_in_word <= 0:
+                    playing_Hangman = False
+                    Won = True
+                i += 1
         else:
             if caps_guess in word:
                 secret_guesses.append(caps_guess)

@@ -196,10 +196,11 @@ while not dead:
                             Flee_Chance = random.randint(1, 10)
                 input("%s: That bear was a BEARy big problem" % You)
                 input("You continue your trek through the forest and find yourself in a clearing")
-                input("There is a strange purple, crystal-like lion on top of a mountain")
-                print("It spotted you!! Now it's charging some sort of energy blast")
+                input("There is a strange white and gold multi-armed dragon on top of a mountain")
+                print("It spotted you!! Now it's charging some sort of beam")
                 input("%s: AAAAAAAAAAA!!!!! Gotta run! Gotta run!! Gotta run!!!!" % You)
                 input("You ran through the trees and you find a strange village")
+                in_village = True
             if Monkey_Attack == "throw":
                 input("You throw off the monkeys, they jump back on you")
                 input("Now they are biting and scratching harder. It's not looking good")
@@ -211,3 +212,5 @@ while not dead:
                     input("Now %s rules %s. All hope is lost" % (Villain, World))
                     input("GAME OVER")
                     print("You got killed by monkeys... That's bananas!")
+        while in_village:
+            print("%s: What is this place?" % You)
