@@ -1,7 +1,9 @@
 # What does this do????
 # how do i dictionary?????
-Splatoon_Characters = {"Agent 8": "Fly Octo Fly. Also, you used a dictionary, Test Failed! compatible with 3",
-          "Agent 3": "Calamari Inkantation, autobombs, specials, and lots of splattage, compatible with 8"}
+Splatoon_Characters = {"Agent 8": "Fly Octo Fly. Also, you used a dictionary, Test Failed! "
+                                  "8 is romantically compatible with 3",
+          "Agent 3": "Calamari Inkantation, autobombs, specials, and lots of splattage, "
+                     "3 is romantically compatible with 8"}
 
 print(Splatoon_Characters["Agent 8"])
 print(Splatoon_Characters["Agent 3"])
