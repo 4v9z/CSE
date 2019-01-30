@@ -42,7 +42,7 @@ nested_dictionary = {
         }
 
 }
-print(nested_dictionary["CA"])      # <(0.0<) <(Poyo~!)
+print(nested_dictionary["CA"])      # <(|.|<) <(Poyo~!)
 print(nested_dictionary["CA"]["POPULATION"])
 print(nested_dictionary["NY"]["NAME"])
 complex_dictionary = {
@@ -84,3 +84,22 @@ complex_dictionary = {
         }
 
 }
+print(complex_dictionary["NY"]["CITIES"][0])
+print(complex_dictionary["NJ"]["CITIES"][2])
+# <(|.|<) <(HAI~! POYO~!)
+
+print(complex_dictionary.keys())
+print(complex_dictionary.items())
+print(nested_dictionary.items())
+# for key, value in complex_dictionary.items():
+#    print(key)
+#    print(value)
+# print("-" * 20)
+print()
+for state, info in complex_dictionary.items():
+    for titles, descriptions in info.items():
+        print(titles)
+        print(descriptions)
+        print("_" * 20)
+    print("=" * 20)
+
