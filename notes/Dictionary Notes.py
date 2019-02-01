@@ -103,3 +103,11 @@ for state, info in complex_dictionary.items():
         print("_" * 20)
     print("=" * 20)
 
+# Other Notes
+states["MN"] = "Mississippi?"   # This isn't Minnesota
+
+print(states)
+
+states["MN"] = "Minnesota"     # Fixed It!
+
+print(states)

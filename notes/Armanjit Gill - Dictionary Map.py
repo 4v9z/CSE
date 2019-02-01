@@ -22,9 +22,11 @@ world_map = {
                        "Marx is staring you down, waiting "
                        "for you to step forwards",
         'PATHS': {
-            'UP': "PARKING_LOT"
+            'UP': "PARKING_LOT",
+            'NORTH': "MARX_FIGHT"
         }
     }
+
 }
 
 # Other variables
