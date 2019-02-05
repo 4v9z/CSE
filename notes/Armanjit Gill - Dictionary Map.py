@@ -13,7 +13,9 @@ world_map = {
         'DESCRIPTION': "This is a strange place. You hear a faint wind that whistles: 'konami....",
         'PATHS': {
             'NORTH': "FOREST_2",
-            "SOUTH": "ADVENTURE_START"
+            "SOUTH": "ADVENTURE_START",
+            'EAST': "FOREST",
+            'WEST': "FOREST"
         }
     },
     'FOREST_2': {
@@ -21,14 +23,82 @@ world_map = {
         'DESCRIPTION': "You've made it to the second part of the forest, remember the hint",
         'PATHS': {
             'NORTH': "FOREST_3",
-            'SOUTH': "FOREST"
+            'SOUTH': "FOREST",
+            'WEST': 'FOREST',
+            'EAST': 'FOREST'
         }
     },
     'FOREST_3': {
         "NAME": "Lost Woods",
-        'DESCRIPTION': "Third room, but where to next?"
-    }
+        'DESCRIPTION': "Third room, but where to next?",
+        'PATHS': {
+            'SOUTH': "FOREST_4",
+            'NORTH': "FOREST",
+            'WEST': 'FOREST',
+            'EAST': 'FOREST'
+        }
+    },
+    'FOREST_4': {
+        "NAME": "Lost Woods",
+        'DESCRIPTION': "Where to next?",
+        'PATHS': {
+            'SOUTH': "FOREST_5",
+            'NORTH': "FOREST",
+            'EAST': "FOREST",
+            'WEST': 'FOREST'
 
+        }
+    },
+    'FOREST_5': {
+        'NAME': "Lost Woods",
+        'DESCRIPTION': "You don't have to go south anymore...",
+        'PATHS': {
+            "WEST": "FOREST_6",
+            'EAST': "FOREST",
+            'NORTH': "FOREST",
+            'SOUTH': "FOREST"
+            }
+    },
+    "FOREST_6": {
+        'NAME': "Lost Woods",
+        'DESCRIPTION': "Do I need to tell you anything anymore???",
+        'PATHS': {
+            "EAST": "FOREST_7",
+            'WEST': "FOREST",
+            'NORTH': "FOREST",
+            'SOUTH': "FOREST"
+        }
+    },
+    'FOREST_7': {
+        'NAME': "Lost Woods",
+        "DESCRIPTION": "If you got this far you should know where to go next. "
+                       "Unless you are using process of elimination",
+        'PATHS': {
+            "WEST": "FOREST_8",
+            'EAST': "FOREST",
+            'NORTH': "FOREST",
+            'SOUTH': "FOREST"
+        }
+    },
+    'FOREST_8': {
+        'NAME': "Lost Woods",
+        "DESCRIPTION": "Last room",
+        "PATHS": {
+            "EAST": "CLEARING",
+                    'WEST': "FOREST",
+                    'NORTH': "FOREST",
+                    'SOUTH': "FOREST"
+        }
+    },
+    'CLEARING': {
+        'NAME': "Clearing",
+        'DESCRIPTION': "You've made it to a clearing, you can move East, West, or North.",
+        'PATHS': {
+            'EAST': "??????",
+            'NORTH': "MOUNTAIN_PASS",
+            'WEST': "RIVER_PATH"
+        }
+    }
 }
 
 # Other variables
@@ -38,8 +108,6 @@ playing = True
 
 # Controller
 while playing:
-    if current_node['NAME'] == "Lost Woods":
-        in_lost_woods = True
     print(current_node['NAME'])
     command = input(">_")
     if command.lower() in ['q', 'quit', 'exit']:
@@ -53,6 +121,6 @@ while playing:
             room_name = current_node["PATHS"][command]
             current_node = world_map[room_name]
         except KeyError:
-            print("I can't go this way")
+                print("I can't go this way")
     else:
         print("Command not recognized, if you inputted a direction, write it again in all caps")
