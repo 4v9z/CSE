@@ -1,7 +1,8 @@
+dead = False
 world_map = {
     'ADVENTURE_START': {
         'NAME': "An Adventure's Beginning",
-        'DESCRIPTION': "You stand atop a hill looking ahead at the forest "
+        'DESCRIPTION': "You stand atop a hill looking ahead at the forest"
                        "to the north and turn around to see the desert to the south. You're ready for your quest.",
         'PATHS': {
             'NORTH': "FOREST",
@@ -10,6 +11,23 @@ world_map = {
             'WEST': 'FACTORY',
             'EAST': 'OASIS'
         }
+    },
+    'FACTORY': {
+        'NAME': "Strange Factory",
+        'DESCRIPTION': "You are looking at a strange factory,"
+                       "it's removed from the rest of the world, it feels like it shouldn't be here...",
+        'PATHS': {
+            "ENTER": "M_MARIO",
+            'EAST': "ADVENTURE_START"
+        }
+    },
+    'M_MARIO': {
+      "NAME": "Metal Mario: 'HERE WE GOOO!'",
+      'DESCRIPTION': "You are in a fight with Metal Mario, a Robotic coby of the beloved plumber! Let's "
+                     "see if you can win!",
+      'PATHS': {
+          'LEAVE': "FACTORY"
+      }
     },
     'CHEATS': {
       'NAME': "Traceback (most recent call last): File 'C:/Users/4v9z/Documents/GitHub/"
@@ -105,9 +123,9 @@ world_map = {
         'NAME': "Clearing",
         'DESCRIPTION': "You've made it to a clearing, you can move East, West, or North.",
         'PATHS': {
-            'EAST': "JEVIL_ENTRANCE",
+            'WEST': "JEVIL_ENTRANCE",
             'NORTH': "MOUNTAIN_PASS",
-            'WEST': "RIVER_PATH"
+            'EAST': "RIVER_PATH"
         }
     },
     'JEVIL_ENTRANCE': {
@@ -115,7 +133,8 @@ world_map = {
         'DESCRIPTION': "*There is a cage-like gate in front of you, "
                        "* There's a note saying: 'Collect the 4 keys to enter'",
         'PATHS': {
-            "ENTER": "JEVIL_ARENA"
+            "ENTER": "JEVIL_ARENA",
+            'EAST': "CLEARING"
         }
     },
     'JEVIL_ARENA': {
@@ -126,9 +145,26 @@ world_map = {
             'LEAVE': 'JEVIL_ENTRANCE'
         }
     },
-    'RIVER PATH': {
+    'RIVER_PATH': {
         'NAME': 'River Path',
-        'DESCRIPTION': "There is a small river flowing next to you"
+        'DESCRIPTION': "There is a small river flowing next to you",
+        'PATHS': {
+            "EAST": "BAY",
+            'WEST': 'CLEARING',
+            'NORTH': 'MTN_SHOP',
+            'SOUTH': 'OASIS'
+        }
+    },
+    'BAY': {
+        'NAME': "Great Bay",
+        'DESCRIPTION': "There is an open ocean around you, you can see a strange structure under the water",
+        'PATHS': {
+            'DOWN': 'TEMPLE',
+            'WEST': "RIVER_PATH"
+        }
+    },
+    'TEMPLE': {      # DUNGEON
+
     }
 }
 
