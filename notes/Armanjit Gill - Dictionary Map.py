@@ -5,7 +5,18 @@ world_map = {
                        "to the north and turn around to see the desert to the south. You're ready for your quest.",
         'PATHS': {
             'NORTH': "FOREST",
-            'SOUTH': "DESERT_TOWN"
+            'SOUTH': "DESERT_TOWN",
+            'UP': "CHEATS",
+            'WEST': 'FACTORY',
+            'EAST': 'OASIS'
+        }
+    },
+    'CHEATS': {
+      'NAME': "Traceback (most recent call last): File 'C:/Users/4v9z/Documents/GitHub/"
+              "CSE/notes/Armanjit Gill - Dictionary Map.py",
+      'DESCRIPTION': "@#%$*@(#^@*!*#&$^hdqoY&*#",
+      'PATHS': {
+            'WEST': "CLEARING"
         }
     },
     'FOREST': {
@@ -94,15 +105,35 @@ world_map = {
         'NAME': "Clearing",
         'DESCRIPTION': "You've made it to a clearing, you can move East, West, or North.",
         'PATHS': {
-            'EAST': "??????",
+            'EAST': "JEVIL_ENTRANCE",
             'NORTH': "MOUNTAIN_PASS",
             'WEST': "RIVER_PATH"
         }
+    },
+    'JEVIL_ENTRANCE': {
+        'NAME': '???????',
+        'DESCRIPTION': "*There is a cage-like gate in front of you, "
+                       "* There's a note saying: 'Collect the 4 keys to enter'",
+        'PATHS': {
+            "ENTER": "JEVIL_ARENA"
+        }
+    },
+    'JEVIL_ARENA': {
+        'NAME': "JEVIL: I CAN DO ANYTHING",
+        "DESCRIPTION": "Watch out! Here comes JEVIL! "
+                       "There's no strategy to beat this enemy, Good Luck! LET THE GAMES BEGIN!",
+        'PATHS': {
+            'LEAVE': 'JEVIL_ENTRANCE'
+        }
+    },
+    'RIVER PATH': {
+        'NAME': 'River Path',
+        'DESCRIPTION': "There is a small river flowing next to you"
     }
 }
 
 # Other variables
-directions = ["NORTH", "SOUTH", "EAST", "WEST", "UP", "DOWN"]
+directions = ["NORTH", "SOUTH", "EAST", "WEST", "UP", "DOWN", 'ENTER', "LEAVE"]
 current_node = world_map['ADVENTURE_START']     # This is your current location
 playing = True
 
@@ -121,6 +152,6 @@ while playing:
             room_name = current_node["PATHS"][command]
             current_node = world_map[room_name]
         except KeyError:
-                print("I can't go this way")
+            print("I can't do this or go this way")
     else:
         print("Command not recognized, if you inputted a direction, write it again in all caps")
