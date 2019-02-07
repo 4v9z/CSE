@@ -6,7 +6,7 @@ world_map = {
                        "to the north and turn around to see the desert to the south. You're ready for your quest.",
         'PATHS': {
             'NORTH': "FOREST",
-            'SOUTH': "DESERT_TOWN",
+            'SOUTH': "TOWN",
             'UP': "CHEATS",
             'WEST': 'FACTORY',
             'EAST': 'OASIS'
@@ -121,7 +121,10 @@ world_map = {
     },
     'CLEARING': {
         'NAME': "Clearing",
-        'DESCRIPTION': "You've made it to a clearing, you can move East, West, or North.",
+        'DESCRIPTION': "You've made it to a clearing, you can move East, West, or North."
+                       "\n "
+                       "There is also a strange sword embedded in the ground, however, "
+                       "it's dark and seems to have lost all of it's power",
         'PATHS': {
             'WEST': "JEVIL_ENTRANCE",
             'NORTH': "MOUNTAIN_PASS",
@@ -165,11 +168,117 @@ world_map = {
     },
     'TEMPLE': {      # DUNGEON
 
+    },
+    'OASIS': {
+        'NAME': 'Oasis',
+        'DESCRIPTION': "You're in the middle of a desert next to the only water here."
+                       "\n "
+                       "There is a waterway barely big enough for you in the water.",
+        'PATHS': {
+            'DOWN': 'TOWN',
+            'NORTH': 'RIVER_PATH',
+            'SOUTH': 'DESERT_FIGHT',
+            'WEST': 'ADVENTURE_START'
+        }
+    },
+    'DESERT_FIGHT': {
+        'NAME': 'Empty Expanse',
+        'DESCRIPTION': 'You look around the large vast desert. It feels like something is here... watching you...'
+                       '\n '
+                       'As you think this, you get attacked!',
+        'PATHS': {
+            'NORTH': 'OASIS',
+            'SOUTH': 'BACK_CASTLE',
+            'WEST': 'TOWN',
+            'EAST': 'TOWER'
+        }
+    },
+    'TOWN': {
+        'NAME': 'Desert Village',
+        'DESCRIPTION': "You find yourself in a large town, looking around there isn't anything to do here",
+        'PATHS': {
+            'EAST': "DESERT_FIGHT",
+            'NORTH': 'ADVENTURE_START',
+            'SOUTH': 'MARKET'
+        }
+    },
+    'MARKET': {
+        'NAME': 'Desert Market',
+        'DESCRIPTION': "You browse the fine selection of goods, you see potions that increase health and MP,"
+                       "\n "
+                       "a strange pendant with a drop of water engraved on it, a scimitar, strange scuba gear, and "
+                       "an odd key"
+                       "\n"
+                       "You also see a bettered door mat saying 'WELCOME TO ZORK', but it seems to be worthless."
+                       " You can buy or sell something here.",
+        'PATHS': {
+            'NORTH': 'TOWN',
+            'EAST': 'CASTLE',
+            'WEST': 'TEMPLE2'
+        }
+    },
+    'TOWER': {
+        'NAME': 'Shiekah Tower',
+        'DESCRIPTION': "You look up at the tower in front of you. you can climb it,"
+                       " and it looks like there'll be a reward at the top for you",
+        'PATHS': {
+            'CLIMB': "TOP_TOWER",
+            'WEST': 'DESERT_FIGHT'
+        }
+    },
+    'TOP_TOWER': {
+        'NAME': 'Shiekah Tower',
+        'DESCRIPTION': 'You look in front of you and see two pedastals, one has an axe in it, one has a shield.'
+                       '\n'
+                       'There appears to be a sign in between them that says "ONLY TAKE ONE". Will you listen to it?',
+        'PATHS': {
+            'DOWN': 'TOWER'
+        }
+    },
+    'TEMPLE2': {
+        'NAME': 'Temple of Time',
+        'DESCRIPTION': "You look in front of you to see an temple with open doors, there is also a "
+                       "staircase leading down, and to the South, another strange temple",
+        'PATHS': {
+            'ENTER': "TOT1",
+            'DOWN': "TOT_SHOP",
+            'SOUTH': 'LIGHT'
+        }
+    },
+    'TOT1': {   # DUNGEON
+
+    },
+    'TOT_SHOP': {
+        'NAME': 'Temple Shop',
+        'DESCRIPTION': 'ROBOT: BEEP BOOP, What do you want to buy? ZZZZZT! '
+                       '\n '
+                       'We have a thunder sword, increased health and MP, Directions through the Lost Woods, and Armor',
+        'PATHS': {
+            'UP': "TEMPLE2"
+        }
+    },
+    'LIGHT': {
+        'NAME': 'Light Temple',
+        'DESCRIPTION': "You've (ironically) entered a very dark place. "
+                       "There are stairs leading up.",
+        'PATHS': {
+            'UP': "U.NECROZMA",
+            'NORTH': 'TEMPLE2'
+        }
+    },
+    'U.NECROZMA': {
+        'NAME': "Megalo Tower",
+        'DESCRIPTION': "You see a golden dragon towering over you. Ultra Necrozma: Lie..."
+                       " Lieeee.... LIGHT!!!!!! Time to see who will prevail in battle",
+        'PATHS': {
+            'DOWN': 'LIGHT',
+            'UP': 'CHEATS'
+        }
     }
 }
 
 # Other variables
-directions = ["NORTH", "SOUTH", "EAST", "WEST", "UP", "DOWN", 'ENTER', "LEAVE"]
+directions = ["NORTH", "SOUTH", "EAST", "WEST", "UP", "DOWN", 'ENTER', "LEAVE", 'CLIMB']
 current_node = world_map['ADVENTURE_START']     # This is your current location
 playing = True
 
