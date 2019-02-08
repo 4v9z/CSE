@@ -141,11 +141,87 @@ world_map = {
           'EAST': "MTN_SHOP"
       }
     },
+    'MTN_SHOP': {
+      'NAME': "Mountain Shop",
+      'DESCRIPTION': "There is engraving on stone: BUY SOMETHING AND LEAVE THE MONEY OR ELSE..."
+                     "\n There is a keycard, armor, health upgrades, and a space helmet",
+      'PATHS': {
+          'EAST': "CLIMB",
+          'WEST': "MOUNTAIN_PASS"
+      }
+    },
+    'CLIMB': {
+      'NAME': "Dangerous Climb",
+      'DESCRIPTION': "You feel like this place isn't safe, when suddenly, you're attacked!",
+      'PATHS': {
+          "UP": "PEAK",
+          'WEST': "MTN_SHOP",
+          'DOWN': "BAY"
+      }
+    },
+    'PEAK': {
+        'NAME': "Tallest Peak",
+        'DESCRIPTION': "There is floating wreckage here, if only you could see what this place looked like in the past",
+        'PATHS': {
+            'ENTER': "NOVA_1",
+            'WEST': "END",
+            'DOWN': "CLIMB"
+        }
+    },
+    'END': {
+        'NAME': "Edge of the Universe",
+        'DESCRIPTION': "You stand in front of a dark void... unsu"
+                       "re of what will become of you once you enter, there is only one thing you know for sure..."
+                       "\n Your adventure is at its end",
+        'PATHS': {
+            'ENTER': "SUBSPACE_1",
+            'DOWN': "VOLCANO",
+            'EAST': "PEAK"
+        }
+    },
     'CAVE': {
         'NAME': "Frozen Cave",
         'DESCRIPTION': "You are in a cold cave. The ground and walls are frozen and "
                        "there are icicles hanging from the ceiling"
-                       "\n In the center of the cave is an icy sword encased in an inpenetrable "
+                       "\n In the center of the cave is an icy sword encased in an impenetrable layer of ice. "
+                       "It seems like this ice wasn't here before... If only you could rewind time...",
+        'PATHS': {
+            'EAST': "MOUNTAIN_PASS"
+        }
+    },
+    'MTN_BASE': {
+      'NAME': "Mt. Silver Base",
+      'DESCRIPTION': "You are at the base of a snowy mountain. You can likely climb it, but the rocks "
+                     "are slightly slippery, so you might slip and fall",
+      'PATHS': {
+            'UP': "MT.SILVER",
+            'DOWN': "MOUNTAIN_PASS",
+            'NORTH': "VOLCANO"
+        }
+    },
+    'VOLCANO': {
+      'NAME': "Volcano",
+      'DESCRIPTION': "You are in front of a volcano... what do you want do?",
+      'PATHS': {
+           'ENTER': "INTERIOR",
+           'SOUTH': 'MTN_BASE'
+       }
+    },
+    'INTERIOR': {
+      'NAME': "Inside of Volcano",
+      'DESCRIPTION': "HOLY HECK YOU'RE STILL ALIVE!!!!! Ahem.... Anyways... There is a key here",
+      'PATHS': {
+          'UP': "VOLCANO"
+      }
+    },
+    'MT.SILVER': {
+      'NAME': "Mt. Silver",
+      'DESCRIPTION': "You are on top of the mountain. Hail is plummeting down and the wind is howling. "
+                     "There is some one at the edge of the cliff you're standing on"
+                     "\n Red:..............!!!",
+      'PATHS': {
+          'DOWN': "MTN_BASE"
+      }
     },
     'JEVIL_ENTRANCE': {
         'NAME': '???????',
@@ -346,7 +422,7 @@ playing = True
 while playing:
     print(current_node['NAME'])
     command = input(">_")
-    if command.lower() in ['q', 'quit', 'exit']:
+    if command.lower() in ['q', 'quit', 'exit', 'altf4']:
         playing = False
     elif command == "":
         print(current_node["DESCRIPTION"])
