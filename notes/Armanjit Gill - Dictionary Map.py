@@ -128,8 +128,24 @@ world_map = {
         'PATHS': {
             'WEST': "JEVIL_ENTRANCE",
             'NORTH': "MOUNTAIN_PASS",
-            'EAST': "RIVER_PATH"
+            'EAST': "RIVER_PATH",
+            'SOUTH': "FOREST"
         }
+    },
+    'MOUNTAIN_PASS': {
+      'NAME': "Mountain Pass",
+      'DESCRIPTION': "There is a frozen path leading west, a shop to the east, and towering above you, a mountain",
+      'PATHS': {
+          'WEST': "CAVE",
+          'UP': "MTN_BASE",
+          'EAST': "MTN_SHOP"
+      }
+    },
+    'CAVE': {
+        'NAME': "Frozen Cave",
+        'DESCRIPTION': "You are in a cold cave. The ground and walls are frozen and "
+                       "there are icicles hanging from the ceiling"
+                       "\n In the center of the cave is an icy sword encased in an inpenetrable "
     },
     'JEVIL_ENTRANCE': {
         'NAME': '???????',
@@ -141,8 +157,8 @@ world_map = {
         }
     },
     'JEVIL_ARENA': {
-        'NAME': "JEVIL: I CAN DO ANYTHING",
-        "DESCRIPTION": "Watch out! Here comes JEVIL! "
+        'NAME': "????????????",
+        "DESCRIPTION": "JEVIL: 'I CAN DO ANYTHING!!' Watch out! Here comes JEVIL! "
                        "There's no strategy to beat this enemy, Good Luck! LET THE GAMES BEGIN!",
         'PATHS': {
             'LEAVE': 'JEVIL_ENTRANCE'
@@ -274,7 +290,51 @@ world_map = {
             'DOWN': 'LIGHT',
             'UP': 'CHEATS'
         }
-    }
+    },
+    'BACK_CASTLE': {
+        'NAME': "Back of Castle",
+        'DESCRIPTION': "You are behind a large castle, there is a door in front of you.",
+        'PATHS': {
+            'ENTER': 'CASTLE_8',
+            'NORTH': 'DESERT_FIGHT',
+            'SOUTH': 'CASTLE'
+        }
+    },
+    'CASTLE': {
+        'NAME': 'Desert Castle',
+        'DESCRIPTION': "There is a large stone castle in front of you, it towers over you ominously.",
+        'PATHS': {
+            'NORTH': 'BACK_CASTLE',
+            'WEST': "MARKET",
+            'ENTER': 'CASTLE_1',
+            'SOUTH': "ROAD"
+        }
+    },
+    'CASTLE_1': {  # DUNGEON
+
+    },
+    'CASTLE_8': {   # DUNGEON
+
+    },
+    'ROAD': {
+        'NAME': "Rainbow Road",
+        'DESCRIPTION': "You are standing in front of a rainbow that appears to continue through "
+                       "the atmosphere and into space"
+                       "\n"
+                       "You can walk up the rainbow",
+        'PATHS': {
+            'UP': "DARK_STAR",
+            'NORTH': "CASTLE"
+        }
+    },
+    'DARK_STAR': {
+        'NAME': "Galaxy Reactor",
+        'Description': "There is a dark orb floating in the center of a large platform. You take a step forward."
+                       "\n Suddenly... the orb transforms into: DARK BOWSER!",
+        'PATHS': {
+            'DOWN': "ROAD"
+        }
+    },
 }
 
 # Other variables
