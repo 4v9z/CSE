@@ -141,6 +141,7 @@ while not dead:
                 input("You got 20 gold!")
                 gold += 20
                 input("%s: Sweet! MONEY!" % You)
+                inventory.append("banana")
                 print("You got a banana! Eating this will restore 20 HP")
                 input("%s: Ah, you got an item! Open your inventory with 'i' during certain lines of dialogue" % Guide)
                 open_inventory = input("Try it now!")
@@ -151,6 +152,7 @@ while not dead:
                     if item_used == "banana":
                         Your_Health += 20
                         print("You used the banana! You recovered 20 HP! You now have %i HP" % Your_Health)
+                        inventory.remove("banana")
                 input("%s: THIS IS A GOOD BANANA!" % You)
                 input("%s: Alright time to keep going" % You)
                 Path = input("You look at the path, do you follow it? Or do you try to go through the trees?")
