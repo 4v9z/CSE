@@ -1,196 +1,105 @@
 import random
+import string
+still_verifying = False
+uppercases = list(string.ascii_uppercase)
+lowercase = list(string.ascii_lowercase)
 Won = False
-Hint = 3
-Loop_Left = False
-You_Lost = False
-letter_guessed = 12345654321
-All_Letters_Guessed = False
-Letters_Guessed = 0
-letters_in_word = 0
-first_letter_guessed = False
-second_letter_guessed = False
-third_letter_guessed = False
-fourth_letter_guessed = False
-fifth_letter_guessed = False
-sixth_letter_guessed = False
-seventh_letter_guessed = False
-eighth_letter_guessed = False
-ninth_letter_guessed = False
-tenth_letter_guessed = False
-
-hint_subtext = " "
-first_letter = 1
-second_letter = 2
-third_letter = 3
-fourth_letter = 4
-fifth_letter = 5
-sixth_letter = 6
-seventh_letter = 7
-eighth_letter = 8
-ninth_letter = 9
-tenth_letter = 10
-guesses_left = 6
-print("Hangman! []____0-/-<")
-Words = ["dragon", "zoinks", "demons", "hanger", "jumped", "joklhlaup", "pycharm", "github", "chess", "quadplex"
-         "nose", "mouth", "hair", "child", "peasoup", "zelda", "kirby", "pikachu", "mario", "dog", "luigi", "galeem"
-         ]
-random_word = random.choice(Words)
-if random_word == "dragon":
-    first_letter = (random_word[0])
-    second_letter = (random_word[1])
-    third_letter = (random_word[2])
-    fourth_letter = (random_word[3])
-    fifth_letter = (random_word[4])
-    sixth_letter = (random_word[5])
-    seventh_letter_guessed = True
-    eighth_letter_guessed = True
-    ninth_letter_guessed = True
-    tenth_letter_guessed = True
-    letters_in_word = 6
-    Hint = "Hint: This is a fire breathing beast"
-if random_word == "zoinks":
-    first_letter = "z"
-    second_letter = "o"
-    third_letter = "i"
-    fourth_letter = "n"
-    fifth_letter = "k"
-    sixth_letter = "s"
-    seventh_letter_guessed = True
-    eighth_letter_guessed = True
-    ninth_letter_guessed = True
-    tenth_letter_guessed = True
-    letters_in_word = 6
-    Hint = "Hint: This is the catchphrase of Shaggy from Scooby Doo"
-if random_word == "demons":
-    first_letter = "d"
-    second_letter = "e"
-    third_letter = "m"
-    fourth_letter = "o"
-    fifth_letter = "n"
-    sixth_letter = "s"
-    seventh_letter_guessed = True
-    eighth_letter_guessed = True
-    ninth_letter_guessed = True
-    tenth_letter_guessed = True
-    Hint = "Hint: These are evil spirits"
-    letters_in_word = 6
-if random_word == "hanger":
-    first_letter = "h"
-    second_letter = "a"
-    third_letter = "n"
-    fourth_letter = "g"
-    fifth_letter = "e"
-    sixth_letter = "r"
-    seventh_letter_guessed = True
-    eighth_letter_guessed = True
-    ninth_letter_guessed = True
-    tenth_letter_guessed = True
-    Hint = "Hint: You use this to hang up clothes (This is a huge giveaway of a hint)"
-if random_word == "jumped":
-    first_letter = "j"
-    second_letter = "u"
-    third_letter = "m"
-    fourth_letter = "p"
-    fifth_letter = "e"
-    sixth_letter = "d"
-    seventh_letter_guessed = True
-    eighth_letter_guessed = True
-    ninth_letter_guessed = True
-    tenth_letter_guessed = True
-    Hint = "Hint: It's time to ____ up in the air! ____ up don't be scared! _____ up and your cares will soar away!"
-    hint_subtext = "(Add ed to the end) Also, second hint, he ______ off the trampoline"
-if random_word == "joklhlaup":
-    Hint = "This is an Icelandic term meaning 'Glacial Run'"
-    first_letter = (random_word[0])
-    second_letter = (random_word[1])
-    third_letter = (random_word[2])
-    fourth_letter = (random_word[3])
-    fifth_letter = (random_word[4])
-    sixth_letter = (random_word[5])
-    seventh_letter = (random_word[6])
-    eighth_letter = (random_word[7])
-    ninth_letter = (random_word[8])
-    tenth_letter_guessed = True
-if random_word == "pycharm":
-    first_letter = (random_word[0])
-    second_letter = (random_word[1])
-    third_letter = (random_word[2])
-    fourth_letter = (random_word[3])
-    fifth_letter = (random_word[4])
-    sixth_letter = (random_word[5])
-    seventh_letter = (random_word[6])
-Man = input("What is the name of the person who will be hung? ")
-You = input("You are %s's last chance. What is your name? " % Man)
+Loss = False
+word_guess_lower = []
+word_guess_upper = []
+correct_guess = False
+words = ["pingo", "mouse", "dragon", "pizza", "triangle", "python",
+         "octopus", "squid", "dog", "horse", "PyCharm", "hello person!"]
+letters_guessed = []
+secret_guesses = [" ", "!", "?", ".", ",", "/", "[", "]", "'", "=", "*"]
+the_word = random.choice(words)
+letters_in_word = len(the_word)
+word = list(the_word)
+w0rd = list(the_word.lower())
+last_word = the_word
+guesses = 6
+playing_Hangman = False
+if the_word == "hello person!":
+    letters_in_word -= 5
+if the_word == "octopus":
+    letters_in_word -= 1
+if the_word == "pizza":
+    letters_in_word -= 1
+guess = "never gonna give you up, never gonna get you down never gonna..."
+print("Hangman []---O-<-<")
 print()
+input("PRESS ENTER TO CONTINUE")
 print()
-print("%s: Help!" % Man)
-print()
-print("Press Enter to cycle through dialogue")
-print()
-input("Executioner: Hello sir/madam, what is your business here?")
-input("%s: Don't hang %s!" % (You, Man))
-
-input("Executioner: Hmmmm... Do my son's English homework, you gotta guess a word or something boring like that.")
-input("Executioner: If you guess correctly, I'll let %s go " % Man)
-input("Executioner: But for each letter you get wrong, I'll tighten this rope by a little bit")
-input("%s: I'll do it! Why you'd have English Homework decide someone's life is beyond me, but I'll do it!" % You)
-print(Hint)
-print(hint_subtext)
-guess = " "
-while not You_Lost and not Loop_Left:
-    if letters_in_word == 0 and guesses_left >= 0:
-        Won = True
-    if Won:
-        input("Executioner: Wow! You did it! Guess I'll let %s free." % Man)
-        input("%s: Thank you %s! You saved me!" % (Man, You))
-        input("%s: If there is anything I can do to repay your kindness all you need to do is ask!" % Man)
-        input("%s: We can visit the Lucky 7s Casino, I heard it's a good place" % You)
-        input("THE END")
-        print("You win! Congratulations! :D")
-        Loop_Left = True
+input("Hello! Welcome to Hangman! You get 6 guesses, one for each part of the body: Head, Torso, "
+      "Arm 1, Arm 2, Leg 1, and Leg 2")
+begin = input("Ready to start?")
+if begin == "yes":
+    playing_Hangman = True
+elif begin == "no":
+    print("Oh, okay goodbye! Prepare to be ejected into the void!")
+while playing_Hangman:
+    for i in range(len(word)):
+        if word[i] not in secret_guesses:
+            word.pop(i)
+            word.insert(i, "?")
+    print("".join(word))
+    correct_guess = False
+    word = list(the_word)
+    guess = input("Guess a letter in the word, or, you can try to guess the entire word "
+                  "(Note: Guessing will require you to write in any punctuation or spaces already in the word)")
+    caps_guess = guess.upper()
+    if guess in secret_guesses:
+        print("Ummmm.... you already... guessed that...")
+    elif guess in letters_guessed:
+        print("Ummmm.... you already... guessed that...")
+    elif guess == "":
+        print("You didn't guess anything....")
     else:
-        guess = input("What is your guess?")
-        if guess == first_letter:
-            if not first_letter_guessed:
+        if len(guess) > 1:
+            word_guess_lower = list(guess.lower())
+            print("Please wait a moment while we verify if your guess is correct....")
+            still_verifying = True
+            i = 0
+            while still_verifying and i < len(the_word):
+                if word_guess_lower[i] == w0rd[i].lower():
+                    letters_in_word -= 1
+                    still_verifying = True
+                if word_guess_lower[i] != w0rd[i].lower():
+                    guesses -= 1
+                    still_verifying = False
+                    print("Sorry! That's incorrect")
+                if guesses <= 0:
+                    Loss = True
+                    playing_Hangman = False
+                if letters_in_word <= 0:
+                    playing_Hangman = False
+                    Won = True
+                i += 1
+        else:
+            if caps_guess in word:
+                secret_guesses.append(caps_guess)
+            if guess.lower() in w0rd:
+                print("You guessed a letter!")
+                correct_guess = True
                 letters_in_word -= 1
-                first_letter_guessed = True
-                print(first_letter)
-        if guess == second_letter:
-            if not second_letter_guessed:
-                letters_in_word -= 1
-                second_letter_guessed = True
-                print(second_letter)
-        if guess == third_letter:
-            if not third_letter_guessed:
-                letters_in_word -= 1
-                third_letter_guessed = True
-                print(third_letter)
-        if guess == fourth_letter:
-            if not fourth_letter_guessed:
-                letters_in_word -= 1
-                fourth_letter_guessed = True
-                print(fourth_letter)
-        if guess == fifth_letter:
-            if not fifth_letter_guessed:
-                letters_in_word -= 1
-                fifth_letter_guessed = True
-                print(fifth_letter)
-        if guess == sixth_letter:
-            if not sixth_letter_guessed:
-                letters_in_word -= 1
-                sixth_letter_guessed = True
-                print(sixth_letter)
-        if guesses_left == 0:
-            input("Executioner: You're out of guesses!")
-            input("%s: NO WAIT DON'T HANG %s!" % (You, Man))
-            input("%s is dead now. Press F to pay respects" % Man)
-            input("You got the bad ending...")
-            print("Ya dun goofed!")
-            print("The word was ", random_word)
-            You_Lost = True
-        elif guess != first_letter or guess != second_letter or guess != third_letter or guess != fourth_letter:
-            guesses_left -= 1
-        elif guess != fifth_letter or guess != sixth_letter or guess != seventh_letter:
-            guesses_left -= 1
-        elif guess != eighth_letter or guess != ninth_letter or guess != tenth_letter:
-            guesses_left -= 1
+            letters_guessed.append(guess.lower())
+            secret_guesses.append(guess.upper())
+            secret_guesses.append(guess.lower())
+            if letters_in_word <= 0:
+                playing_Hangman = False
+                Won = True
+            print("You guessed the following letters (or words):")
+            print(", ".join(letters_guessed))
+            if guess not in word and not correct_guess:
+                guesses -= 1
+                input("There are no %s's" % guess)
+            if guesses == 0:
+                Loss = True
+                playing_Hangman = False
+            print("You have %s guess(es) left" % guesses)
+if Loss:
+    print("You lose! You need to get better at HangMan!")
+    print("Oh well.... Oh! By the way, the word was %s" % the_word)
+if Won:
+    print("Correct! The word/phrase was %s!" % the_word)
+    print("You had %s guess(es) left when you won" % guesses)
