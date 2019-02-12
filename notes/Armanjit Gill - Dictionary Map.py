@@ -258,8 +258,33 @@ world_map = {
             'WEST': "RIVER_PATH"
         }
     },
-    'TEMPLE': {      # DUNGEON
-
+    'TEMPLE': {
+        'NAME': "Water Temple",
+        'DESCRIPTION': "You are in the first room of the Water Temple."
+                       "\n You can swim back up or head north to the second room",
+        'PATHS': {
+            'UP': "BAY",
+            'NORTH': 'TEMPLE_2'
+        }
+    },
+    'TEMPLE_2': {
+        'NAME': "Lock Room",
+        'DESCRIPTION': "You are in a room with a locked door leading east. You can continue through the temple to the north",
+        'PATHS': {
+            'EAST': "MP_ROOM",
+            'NORTH': "TEMPLE_3",
+            'SOUTH': "TEMPLE"
+        }
+    },
+    'TEMPLE_3': {
+        'NAME': "Empty Chamber",
+        'DESCRIPTION': "There is a locked door to the east and a door leading north. "
+                       "You feel like something in the water is watching you, when you're suddenly attacked",
+        'PATHS': {
+            'EAST': "DARK_LINK",
+            'SOUTH': "TEMPLE_2",
+            'NORTH': "TEMPLE_4"
+        }
     },
     'OASIS': {
         'NAME': 'Oasis',
@@ -301,8 +326,8 @@ world_map = {
                        "a strange pendant with a drop of water engraved on it, a scimitar, strange scuba gear, and "
                        "an odd key"
                        "\n"
-                       "You also see a bettered door mat saying 'WELCOME TO ZORK', but it seems to be worthless."
-                       " You can buy or sell something here.",
+                       "You also see a battered door mat saying 'WELCOME TO ZORK', but it seems to be worthless."
+                       "\n You can buy or sell something here.",
         'PATHS': {
             'NORTH': 'TOWN',
             'EAST': 'CASTLE',
@@ -424,7 +449,7 @@ world_map = {
        }
     },
     'CASTLE_5': {
-       'NAME': "End of Castle",
+       'NAME': "Boss Room",
        'DESCRIPTION': "You are at the end of the castle, you can head north through the "
                       "large gate or east towards the back exit",
        "PATHS": {
@@ -433,8 +458,32 @@ world_map = {
            'WEST': "CASTLE_4"
        }
     },
-    'CASTLE_7': {   # DUNGEON
-
+    'BOWSER': {
+        'NAME': "Bowser Battle",
+        'DESCRIPTION': "After walking through the door you find yourself face to face with the King of Koopas, Bowser!"
+                       "\n Ready? FIGHT!",
+        'PATHS': {
+            'SOUTH': "CASTLE_5"
+        }
+    },
+    'CASTLE_6': {
+      'NAME': "Near Back exit",
+      'DESCRIPTION': "You are near the back exit of a castle, "
+                     "but to get there you'd have to hop across rocks floating in a river of lava"
+                     "\n To the west is the room before the boss in this castle",
+      'PATHS': {
+          'WEST': "CASTLE_5",
+          'NORTH': "CASTLE_7"
+      }
+    },
+    'CASTLE_7': {
+        'NAME': "Back Exit of Castle",
+        'DESCRIPTION': "You are at the back exit of the castle. To go further through the castle, "
+                       "you'd have to hop across rocks floating in a river of lava, or you can leave now",
+        'PATHS': {
+            'LEAVE': 'BACK_CASTLE',
+            'SOUTH': 'CASTLE_6'
+        }
     },
     'ROAD': {
         'NAME': "Rainbow Road",
