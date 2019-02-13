@@ -34,7 +34,9 @@ world_map = {
               "CSE/notes/Armanjit Gill - Dictionary Map.py",
       'DESCRIPTION': "@#%$*@(#^@*!*#&$^hdqoY&*#",
       'PATHS': {
-            'WEST': "CLEARING"
+            'WEST': "CLEARING",
+            'EAST': "BAY",
+            'SOUTH': 'TEMPLE2'
         }
     },
     'FOREST': {
@@ -217,7 +219,7 @@ world_map = {
     'MT.SILVER': {
       'NAME': "Mt. Silver",
       'DESCRIPTION': "You are on top of the mountain. Hail is plummeting down and the wind is howling. "
-                     "There is some one at the edge of the cliff you're standing on"
+                     "There is someone at the edge of the cliff you're standing on"
                      "\n Red:..............!!!",
       'PATHS': {
           'DOWN': "MTN_BASE"
@@ -269,21 +271,101 @@ world_map = {
     },
     'TEMPLE_2': {
         'NAME': "Lock Room",
-        'DESCRIPTION': "You are in a room with a locked door leading east. You can continue through the temple to the north",
+        'DESCRIPTION': "You are in a room with a locked door leading east. "
+                       "\n You can continue through the temple to the north",
         'PATHS': {
             'EAST': "MP_ROOM",
             'NORTH': "TEMPLE_3",
             'SOUTH': "TEMPLE"
         }
     },
+    'MP_ROOM': {
+      'NAME': "Magic Room",
+      'DESCRIPTION': "You look around the room. There are strange characters etched into the walls."
+                     "\n You feel your MP get restored as well as increase",
+      'PATHS': {
+          'WEST': 'TEMPLE_2'
+      }
+    },
     'TEMPLE_3': {
         'NAME': "Empty Chamber",
         'DESCRIPTION': "There is a locked door to the east and a door leading north. "
-                       "You feel like something in the water is watching you, when you're suddenly attacked",
+                       "\n You feel like something in the water is watching you, when you're suddenly attacked",
         'PATHS': {
             'EAST': "DARK_LINK",
             'SOUTH': "TEMPLE_2",
             'NORTH': "TEMPLE_4"
+        }
+    },
+    'TEMPLE_4': {
+      'NAME': "Boss Room",
+      'DESCRIPTION': "In front of you is a large door that has a fittingly over-sized lock."
+                     "\n You look to the east and west, either direction can hold the key",
+      'PATHS': {
+          'WEST': "TRAP",
+          'EAST': "TEMPLE_5",
+          'ENTER': "CHAOS"
+      }
+      },
+    'CHAOS': {
+      'NAME': "Chaos Battle",
+      'DESCRIPTION': "You are face to face with Chaos 0! The strange watery creature looks angry. "
+                     "Since normal weapons phase through it, ice or electricity would likely be most effective to "
+                     "attack it",
+      'PATHS': {
+          'LEAVE': "TEMPLE_4"
+      }
+    },
+    'TEMPLE_5': {
+      'NAME': "Gold Room",
+      'DESCRIPTION': "You are in a room that is entirely made of gold, a sign says:"
+                     "\n DO NOT BE GREEDY, TAKE NO MORE THAN 150 GOLD!"
+                     "\n It's up to you whether or not you should heed this warning"
+                     " You can head north to continue through the temple",
+      'PATHS': {
+          'NORTH': "TEMPLE_6",
+          'WEST': "TEMPLE_4"
+      }
+    },
+    'TEMPLE_6': {
+      'NAME': "Skeleton Room",
+      'DESCRIPTION': "You are in a room full of bones. "
+                     "\n On top of a particularly large pile of bones is a skeleton key that will unlock"
+                     " any room in the temple"
+                     "\n climbing up the pile might be risky but it's the only way to fight the temple's boss",
+      'PATHS': {
+          'UP': "KEY",
+          'SOUTH': "TEMPLE_5"
+      }
+    },
+    'KEY': {
+        'NAME': "Top of pile",
+        'DESCRIPTION': "You've made it to the top of the pile, the key is yours for the taking."
+                       "\n Dropping down the pile will not be as risky as climbing the pile",
+        'PATHS': {
+            'DOWN': "TEMPLE_6"
+        }
+    },
+    'TRAP': {
+      'NAME': "Trap",
+      'DESCRIPTION': "As you walk to the west, the floor beneath you crumbles, "
+                     "dropping you into a large pool of piranha-infested waters"
+                     "\n You struggle to survive but you realize it's futile, you are not going to survive",
+      'PATHS': {
+
+      }
+    },
+    'DARK_LINK': {
+        'NAME': "Reflecting Pond",
+        'DESCRIPTION': "You find yourself in a room where the floor is covered in a thin layer of of water. "
+                       "In the middle of the room there is a small mound of dirt with a "
+                       "large black tree growing out of it."
+                       "\n As you walk through the room, you look down and see your reflection is gone. "
+                       "You turn around and see Dark Link!"
+                       "\n The evil version of the fabled hero won't be pulling any punches, "
+                       "but you clutch your weapon and ready yourself for a fight.",
+        'PATHS': {
+            'WEST': "TEMPLE_3"
         }
     },
     'OASIS': {
@@ -362,8 +444,36 @@ world_map = {
             'SOUTH': 'LIGHT'
         }
     },
-    'TOT1': {   # DUNGEON
-
+    'TOT1': {
+        'NAME': "Temple of Time",
+        'DESCRIPTION': "You have entered the temple, you can continur=e through a door to the north",
+        'PATHS': {
+            'NORTH': 'TOT2',
+            'LEAVE': "TEMPLE2"
+        }
+    },
+    'TOT2': {
+      'NAME': 'Watch Room',
+      'DESCRIPTION': "In the center of the room there is a magic pocket watch. You sigh as you realize "
+                     "some time-travel shenanigans will ensue",
+      'PATHS': {
+          'SOUTH': "TOT1",
+          'EAST': "PAST1",
+          'WEST': "FUTURE1",
+          'NORTH': "TOT3"
+      }
+    },
+    'TOT3': {
+      'NAME': "Boss Room",
+      'DESCRIPTION': "There is a large door in front of you with a large padlock on it, "
+                     "it appears that a keys is needed. "
+                     "\n You can use the watch to open up pathways to the east and west in the past and future.",
+      'PATHS': {
+          'SOUTH': "TOT2",
+          'EAST': "FUTURE2",
+          'WEST': "PAST2",
+          'NORTH': "GHOMA"
+      }
     },
     'TOT_SHOP': {
         'NAME': 'Temple Shop',
