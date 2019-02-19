@@ -455,12 +455,31 @@ world_map = {
     'TOT2': {
       'NAME': 'Watch Room',
       'DESCRIPTION': "In the center of the room there is a magic pocket watch. You sigh as you realize "
-                     "some time-travel shenanigans will ensue",
+                     "some time-travel shenanigans will ensue"
+                     "You can use the watch to open up paths to the east or west that existed in "
+                     "the past or future",
       'PATHS': {
           'SOUTH': "TOT1",
           'EAST': "PAST1",
           'WEST': "FUTURE1",
           'NORTH': "TOT3"
+      }
+    },
+    'PAST1': {
+      'NAME': "Empty Citadel (Past)",   # The text will change based on if you go here in the present, past, or future
+      'DESCRIPTION': "You enter this room in the past."
+                     "\n You feel this room has nothing to see, when suddenly you're attacked!",
+      'PATHS': {
+          'WEST': "TOT2"
+      }
+    },
+    'FUTURE1': {
+      'NAME': "Gold Room (Future)",
+      'DESCRIPTION': "In this room, there is a single coin upon a pedestal."
+                     "\n Because this is the future, this single "
+                     "coin is worth about 1,537 coins in the present",
+      'PATHS': {
+          'EAST': "TOT2"
       }
     },
     'TOT3': {
@@ -474,6 +493,130 @@ world_map = {
           'WEST': "PAST2",
           'NORTH': "GHOMA"
       }
+    },
+    'PAST2': {
+      'NAME': "Coin Room (Past)",
+      'DESCRIPTION': "Upon a pedestal in this room is a single coin from the past."
+                     "\n This coin is essentially worthless today: It's only worth 1 coin in the present",
+      'PATHS': {
+          'EAST': "TOT3"
+      }
+    },
+    'FUTURE2': {
+      'NAME': "Key Room (Future)",
+      'DESCRIPTION': "While the path leading here has caved "
+                     "in during our present day, and this "
+                     "path had not yet been built in the past you can visit, the key in this "
+                     "room appears to be broken. In our present day, this key was most definitely intact",
+      'PATHS': {
+          'WEST': "TOT3"
+      }
+    },
+    'GHOMA': {
+        'NAME': "Ghoma Fight",
+        'DESCRIPTION': "In this room is the disgusting abomination of a spider: Ghoma"
+                       "\n The strategy for this is to hit it with magic, as numerous "
+                       "reincarnations has led to it being immune to physical attacks",
+        'PATHS': {
+            'NORTH': "PORTAL",
+            'SOUTH': "TOT3"
+        }
+    },
+    'PORTAL': {
+      'NAME': "Time Portal",
+      'DESCRIPTION': "In front of you is a portal that leads into a future ~12,000 years after the "
+                     "extinction of humans. "
+                     "\n You can go south to reenter the temple or you can enter the portal",
+      'PATHS': {
+          'SOUTH': 'GHOMA',
+          'ENTER': "SPLAT1"
+      }
+    },
+    'SPLAT1': {
+        'NAME': "Octo Valley",
+        'DESCRIPTION': "You are on a strange floating platform, you "
+                       "can enter the time portal from here or head north to continue",
+        'PATHS': {
+            'ENTER': "PORTAL",
+            'NORTH': "SPLAT2"
+        }
+    },
+    'SPLAT2': {
+      'NAME': "Moray Towers",
+      'DESCRIPTION': "You are climbing a tower currently, you can go back south, head north, or go east or west"
+                     "\n Going East requires some way to swim through ink",
+      'PATHS': {
+          'SOUTH': "SPLAT1",
+          'NORTH': "SPLAT3",
+          'WEST': "SPLAT4",
+          'EAST': "SPLAT5"
+      }
+    },
+    'SPLAT3': {
+        'NAME': "Urchin Underpass",
+        'DESCRIPTION': 'You are in an are filled with conveyor belts and is surrounded by water.'
+                       '\n You can go north or east, but you will require some way to swim through ink',
+        'PATHS': {
+            'NORTH': "SPLAT6",
+            'EAST': "SPLAT7",
+            'SOUTH': "SPLAT2"
+        }
+    },
+    'SPLAT7': {
+        'NAME': "Hammerhead Bridge",
+        'DESCRIPTION': "You are walking across a large bridge leading to the east."
+                       "\n To the east is what looks to be a dark and removed part of "
+                       "this world. cast way, in the shadows",
+        'PATHS': {
+            'WEST': "SPLAT3",
+            'EAST': "SPLAT8"
+        }
+    },
+    'SPLAT8': {
+      'NAME': "Cephalon HQ",
+      'DESCRIPTION': "You are in an area with floating platforms. "
+                     "Below you is a toxic sludge with stone tentacles rising out of it",
+      'PATHS': {
+          'NORTH': "DJOCTAVIO",
+          "WEST": "SPLAT7"
+      }
+    },
+    'DJOCTAVIO': {
+      'NAME': "DJ Octavio Fight",
+      ''
+    },
+    'SPLAT6': {
+      'NAME': "Arowana Mall",
+      'DESCRIPTION': "You are in a shopping mall. Here you can buy upgrades to your health or magic, "
+                     "as well as buy items to restore your health",
+      'PATHS': {
+          'SOUTH': "SPLAT3",
+      }
+    },
+    'SPLAT5': {
+        'NAME': "Octo Canyon",
+        'DESCRIPTION': "After swimming through the ink, you have reached a large canyon. "
+                       "\n Looking down in the canyon you can see something that looks like"
+                       " a cross between a squid and a kid...",
+        'PATHS': {
+            'DOWN': "3",
+            'WEST': "SPLAT2"
+        }
+    },
+    '3': {
+      'NAME': "Agent 3 battle",
+      'DESCRIPTION': "Upon getting closer, the squid-kid sees you.She turns around and she looks ready to fight"
+                     "\n this 'Inkling' is known as Agent 3, and she will be one of your most difficult battles yet.",
+      'PATHS': {
+          'UP': "SPLAT5"
+      }
+    },
+    'SPLAT4': {
+        'NAME': "Bluefin Depot",
+        'DESCRIPTION': "You are on a platform floating in the water, there is a large crate here that can be opened",
+        'PATHS': {
+            'EAST': "SPLAT2"
+        }
     },
     'TOT_SHOP': {
         'NAME': 'Temple Shop',
