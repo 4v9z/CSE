@@ -36,7 +36,9 @@ world_map = {
       'PATHS': {
             'WEST': "CLEARING",
             'EAST': "BAY",
-            'SOUTH': 'TEMPLE2'
+            'SOUTH': 'TEMPLE2',
+            'UP': "PEAK",
+            'DOWN': "SPLAT1"
         }
     },
     'FOREST': {
@@ -165,15 +167,66 @@ world_map = {
         'NAME': "Tallest Peak",
         'DESCRIPTION': "There is floating wreckage here, if only you could see what this place looked like in the past",
         'PATHS': {
-            'ENTER': "NOVA_1",
+            'ENTER': "NOVA1",
             'WEST': "END",
             'DOWN': "CLIMB"
         }
     },
+    'NOVA1': {
+      'NAME': "Milkyway Pathway",
+      'DESCRIPTION': "You are on some sort of star littered path. You have gained "
+                     "the ability to fly, but only in set paths."
+                     " You can leave this area or fly north or west through space",
+      'PATHS': {
+          'LEAVE': "PEAK",
+          'NORTH': "NOVA3",
+          'WEST': "NOVA2"
+      }
+    },
+    'NOVA4': {
+      'NAME': "Long Stone Bridge",
+      'DESCRIPTION': 'You are on a long, stone bridge suddenly you are attacked',
+      'PATHS': {
+          'SOUTH': 'NOVA6',
+          'WEST': "NOVA3"
+      }
+    },
+    'NOVA6': {
+      'NAME': "Galacta Knight Fight",
+      'DESCRIPTION': "You see a floating pink crystal, suddenly, it cracks and breaks!"
+                     "\n You are face to face with the strongest warrior in the galaxy:"
+                     "\n GALACTA KNIGHT",
+      'PATHS': {
+          'NORTH': "NOVA4"
+      }
+    },
+    'NOVA3': {
+      'NAME': "Barren Planet",
+      'DESCRIPTION': "You are on an empty planet and then you get attacked",
+      'PATHS': {
+          'SOUTH': "NOVA1",
+          'EAST': "NOVA4",
+          'NORTH': "NOVA5"
+      }
+    },
+    'NOVA5': {
+      'NAME': "Riddle Room",
+      'DESCRIPTION': "Engraved into a wall is a riddle:"
+                     "\n Marking mortal privation, when firmly in place. An enduring summation, engraved in my face."
+                     "\n What am I?"
+                     "\n It appears there is a stone keyboard you can use to "
+    },
+    'NOVA2': {
+      'NAME': "Gourmet Room",
+      'DESCRIPTION': "You find yourself in a room in which there is a large quantity of food",
+      'PATHS': {
+          'EAST': "NOVA1"
+      }
+    },
     'END': {
         'NAME': "Edge of the Universe",
-        'DESCRIPTION': "You stand in front of a dark void... unsu"
-                       "re of what will become of you once you enter, there is only one thing you know for sure..."
+        'DESCRIPTION': "You stand in front of a dark void... unsure"
+                       " of what will become of you once you enter, there is only one thing you know for sure..."
                        "\n Your adventure is at its end",
         'PATHS': {
             'ENTER': "SUBSPACE_1",
@@ -456,7 +509,7 @@ world_map = {
       'NAME': 'Watch Room',
       'DESCRIPTION': "In the center of the room there is a magic pocket watch. You sigh as you realize "
                      "some time-travel shenanigans will ensue"
-                     "You can use the watch to open up paths to the east or west that existed in "
+                     "\n You can use the watch to open up paths to the east or west that existed in "
                      "the past or future",
       'PATHS': {
           'SOUTH': "TOT1",
@@ -506,7 +559,8 @@ world_map = {
       'NAME': "Key Room (Future)",
       'DESCRIPTION': "While the path leading here has caved "
                      "in during our present day, and this "
-                     "path had not yet been built in the past you can visit, the key in this "
+                     "path had not yet been built in the past you can visit, "
+                     "\n the key in this "
                      "room appears to be broken. In our present day, this key was most definitely intact",
       'PATHS': {
           'WEST': "TOT3"
@@ -583,12 +637,15 @@ world_map = {
     },
     'DJOCTAVIO': {
       'NAME': "DJ Octavio Fight",
-      ''
+      'DESCRIPTION': "You find that you have entered a stadium of some sort. "
+                     "In front of you is a giant floating mech with an octopus inside"
+                     "\n You'll need some sort of ink firing weapon to win, otherwise, you will easily perish"
     },
     'SPLAT6': {
       'NAME': "Arowana Mall",
       'DESCRIPTION': "You are in a shopping mall. Here you can buy upgrades to your health or magic, "
-                     "as well as buy items to restore your health",
+                     "as well as buy items to restore your health."
+                     "\n You also can buy a weapon that can fire ink here",
       'PATHS': {
           'SOUTH': "SPLAT3",
       }
@@ -638,8 +695,10 @@ world_map = {
     },
     'U.NECROZMA': {
         'NAME': "Megalo Tower",
-        'DESCRIPTION': "You see a golden dragon towering over you. Ultra Necrozma: Lie..."
-                       " Lieeee.... LIGHT!!!!!! Time to see who will prevail in battle",
+        'DESCRIPTION': "You see a golden dragon towering over you. "
+                       "\n Ultra Necrozma: Lie..."
+                       " Lieeee.... LIGHT!!!!!!       "
+                       "\n Time to see who will prevail in battle",
         'PATHS': {
             'DOWN': 'LIGHT',
             'UP': 'CHEATS'
