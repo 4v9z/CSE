@@ -23,7 +23,7 @@ world_map = {
     },
     'M_MARIO': {
       "NAME": "Metal Mario: 'HERE WE GOOO!'",
-      'DESCRIPTION': "You are in a fight with Metal Mario, a Robotic coby of the beloved plumber! Let's "
+      'DESCRIPTION': "You are in a fight with Metal Mario, a Robotic copy of the beloved plumber! Let's "
                      "see if you can win!",
       'PATHS': {
           'LEAVE': "FACTORY"
