@@ -14,7 +14,51 @@ class Room(object):
 
 
 # Option 2 - Use strings, but more difficult controller
-VOLCANO = Room('Volcano', "You are in front of a volcano... do you want to jump in?")
+DESERT_FIGHT = Room('Empty Expanse', 'You look around the large vast desert. It feels like something is here... '
+                                     'watching you...'
+                                     '\n '
+                                     'As you think this, you get attacked!', "OASIS", 'CASTLE_BACK', 'TOWER', 'TOWN')
+CASTLE_BACK = Room('Desert Castle (Back)', "You are behind a large castle, there is a door in front of you "
+                                           "that you can enter.", 'DESERT_FIGHT', 'CASTLE', None, None, None,
+                   None, "CASTLE_7")
+CASTLE = Room('Desert Castle', 'There is a large stone castle in front of you, it towers over you ominously. '
+                               'There is a large door in front of you',
+              'BACK_CASTLE', 'ROAD', None, 'MARKET', None, None, 'CASTLE_1')
+ROAD = Room('Rainbow Road', "You are standing in front of a rainbow that appears to continue through "
+                            "the atmosphere and into space"
+                            "\n"
+                            "You can walk up the rainbow", 'CASTLE', None, None, None, 'DARK_STAR')
+DARK_STAR = Room('Galaxy Reactor', "There is a dark orb floating in the center of a large "
+                                   "platform. You take a step forward."
+                                   "\n Suddenly... the orb transforms into: DARK BOWSER!", None, None,
+                 None, None, None, 'ROAD')
+TEMPLE2 = Room('Temple of Time (Entrance)', "You look in front of you to see an temple with open doors, "
+                                            "there is also a "
+                                            "staircase leading down, and to the South is another strange temple",
+               None, 'LIGHT', 'MARKET', None, None, 'TOT_SHOP')
+LIGHT = Room('Light Temple', "You've (ironically) entered a very dark place. "
+                             "There are stairs leading up.", TEMPLE2, None, None, None, 'U_NECROZMA')
+U_NECROZMA = Room('Megalo Tower', "You see a golden dragon towering over you. "
+                                  "\n Ultra Necrozma: Lie..."
+                                  " Lieeee.... LIGHT!!!!!!       "
+                                  "\n                 Time to see who will prevail in battle", None, None, None, None,
+                  None, 'LIGHT')
+TOT_SHOP = Room('Temple Shop', 'ROBOT: BEEP BOOP, What do you want to buy? ZZZZZT! '
+                               '\n '
+                               'We have a thunder sword, increased health and MP, Directions through the '
+                               'Lost Woods, and Armor', None, None, None, None, 'TEMPLE2')
+TOWER = Room('Sheikah Tower', "You look up at the tower in front of you. you can climb it,"
+                              " and it looks like there'll be a reward at the top for you", None, None, None,
+             'DESERT_FIGHT', 'TOP_TOWER')
+TOP_TOWER = Room('Shiekah Tower (Top)', 'You look in front of you and see two pedestals, one has an axe'
+                                        ' on it, one has a shield.'
+                                        '\n '
+                                        'There appears to be a sign in between them that says "ONLY TAKE ONE".'
+                                        ' Will you listen to it?', None, None, None, None, None, 'TOWER')
+VOLCANO = Room('Volcano', "You are in front of a volcano... do you want to jump in?", None, None, None,
+               None, None, None, 'INTERIOR')
+INTERIOR = Room('Inside Volcano', "HOLY HECK, YOU'RE ALIVE!!"
+                                  "\n .... Anyways, there is a fragment of a key here", None, None, None, None, VOLCANO)
 MT_SILVER = Room('Mt. Silver', "You are on top of the mountain. Hail is plummeting down and the wind is howling. "
                                "There is someone at the edge of the cliff you're standing on"
                                "\n Red:..............!!!", None, None, None, None, None, 'MTN_BASE')
@@ -32,6 +76,19 @@ MTN_PASS = Room('Mountain Pass', "There is a frozen path leading west, a shop to
 MTN_SHOP = Room('Mountain Shop', "There is engraving on stone: BUY SOMETHING AND LEAVE THE MONEY OR ELSE..."
                                  "\n There is a keycard, armor, health upgrades, and a space helmet",
                 None, None, 'CLIMB', 'MTN_PASS')
+CLIMB = Room('Dangerous Climb', "You feel like this place isn't safe, when suddenly, you're attacked!", None, None,
+             None, 'MTN_SHOP', 'PEAK', 'BAY')
+PEAK = Room('Mountain Peak', "You are at the top of a mountain, you can see into space from here."
+                             "\n There is floating wreckage here, if only you could see what this "
+                             "place looked like in the past"
+                             "\n You feel like you can walk west, there is no platform there,"
+                             " but your instincts tell you to do it.", None, None, None, 'SUBSPACE_ENTER', None,
+            'CLIMB', 'NOVA_1')
+SUBSPACE_ENTER = Room('Edge of the Universe', "You stand in front of a dark void... unsure"
+                                              " of what will become of you once you enter, there is only one thing you "
+                                              "know for sure..."
+                                              "\n Your adventure is nearing its end", None, None, 'PEAK', None, None,
+                      'INTERIOR')
 BAY = Room('Great Bay', 'There is an open ocean around you, you can see a strange structure under the water',
            None, None, None, 'RIVER', None, 'TEMPLE')
 BEGIN = Room("An Adventure's Beginning", "You stand atop a hill looking ahead at the forest to "
@@ -43,7 +100,7 @@ MARKET = Room('Desert Market', "You browse the fine selection of goods, you see 
                                "gear, and an odd key "
                                "\n You also see a battered rubber door mat saying 'WELCOME TO ZORK', but it "
                                "seems to be worthless. "
-                               "\n You can buy or sell something here.")
+                               "\n You can buy or sell something here.", 'TOWN', 'DESERT_FIGHT', 'CASTLE', 'TEMPLE2')
 TOWN = Room('Desert Town', "You are in a barren town, there isn't much to see here, save for some bags of gold..."
                            "\n But you wouldn't steal from innocent people... would you?",
             'BEGIN', 'MARKET', 'DESERT_FIGHT')
