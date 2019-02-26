@@ -14,6 +14,43 @@ class Room(object):
 
 
 # Option 2 - Use strings, but more difficult controller
+TEMPLE_1 = Room('Lock Room', "You are in a room with a locked door leading east. "
+                "\n You can continue through the temple to the north", 'TEMPLE_2', 'TEMPLE', 'WATER_MP')
+TEMPLE_2 = Room('Empty Chamber', "There is a locked door to the east and a door leading north. "
+                                 "\n You feel like something in the water is watching you, "
+                                 "when you're suddenly attacked", 'TEMPLE_3', 'TEMPLE_1', 'D_LINK')
+TRAP = Room('Trap', "As you walk to the west, the floor beneath you crumbles, "
+                    "dropping you into a large pool of piranha-infested waters"
+                    "\n You struggle to survive but you realize it's futile, you are not going to survive")
+TEMPLE_3 = Room('Boss Room', "In front of you is a large door that has a fittingly over-sized lock."
+                             "\n You look to the east and west, either direction can hold the key", 'CHAOS_FIGHT',
+                'TEMPLE_2', 'TRAP', 'TEMPLE_4')
+CHAOS_FIGHT = Room('Chaos Battle', "You are face to face with Chaos 0! The strange watery creature looks angry. "
+                                   "Since normal weapons phase through it, ice or electricity "
+                                   "would likely be most effective to "
+                                   "attack it", None, 'TEMPLE_3', None, None, 'BAY')
+TEMPLE_4 = Room('Gold Room', "You are in a room that is entirely made of gold, a sign says:"
+                             "\n DO NOT BE GREEDY, TAKE NO MORE THAN 150 GOLD!"
+                             "\n It's up to you whether or not you should heed this warning"
+                             " You can head north to continue through the temple", 'TEMPLE_5', None, None, 'TEMPLE_3')
+TEMPLE_5 = Room('Skeleton Room', "You are in a room full of bones. "
+                                 "\n On top of a particularly large pile of bones is a skeleton key that will unlock"
+                                 " any room in the temple"
+                                 "\n climbing up the pile might be risky but it's the only way to "
+                                 "fight the temple's boss", None, 'TEMPLE_4', None, None, 'KEY')
+KEY = Room('Top of Pile', "You've made it to the top of the pile, the key is yours for the taking."
+                          "\n Dropping down the pile will not be as risky as climbing the pile", None, None, None,
+           None, None, 'TEMPLE_5')
+D_LINK = Room('Reflecting Pond', "You find yourself in a room where the floor is covered in a thin layer of of water. "
+                                 "In the middle of the room there is a small mound of dirt with a "
+                                 "large black tree growing out of it."
+                                 "\n As you walk through the room, you look down and see your reflection is gone. "
+                                 "You turn around and see Dark Link!"
+                                 "\n The evil version of the fabled hero won't be pulling any punches, "
+                                 "but you clutch your weapon and ready yourself for a fight.", None, None, None,
+              'TEMPLE_2')
+WATER_MP = Room('Magic Room', "You look around the room. There are strange characters etched into the walls."
+                              "\n You feel your MP get restored as well as increase", None, None, None, 'TEMPLE_1')
 DESERT_FIGHT = Room('Empty Expanse', 'You look around the large vast desert. It feels like something is here... '
                                      'watching you...'
                                      '\n '
@@ -88,9 +125,12 @@ SUBSPACE_ENTER = Room('Edge of the Universe', "You stand in front of a dark void
                                               " of what will become of you once you enter, there is only one thing you "
                                               "know for sure..."
                                               "\n Your adventure is nearing its end", None, None, 'PEAK', None, None,
-                      'INTERIOR')
+                      'INTERIOR', 'SUBSPACE_1')
 BAY = Room('Great Bay', 'There is an open ocean around you, you can see a strange structure under the water',
            None, None, None, 'RIVER', None, 'TEMPLE')
+TEMPLE = Room('Water Temple', 'You are in the first room of the Water Temple. '
+                              '\n You can swim back up or head north to the second room', 'TEMPLE_1', None, None, None,
+              "BAY")
 BEGIN = Room("An Adventure's Beginning", "You stand atop a hill looking ahead at the forest to "
                                          "the north and turn around to see the desert to the south. "
                                          "\n You're ready for your quest.", 'FOREST', 'TOWN', 'OASIS',
