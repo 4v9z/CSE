@@ -499,7 +499,7 @@ world_map = {
     },
     'TOT1': {
         'NAME': "Temple of Time",
-        'DESCRIPTION': "You have entered the temple, you can continur=e through a door to the north",
+        'DESCRIPTION': "You have entered the temple, you can continue through a door to the north",
         'PATHS': {
             'NORTH': 'TOT2',
             'LEAVE': "TEMPLE2"

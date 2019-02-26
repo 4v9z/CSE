@@ -13,6 +13,36 @@ class Room(object):
         self.down = down
 
 
+class Player(object):
+    def __init__(self, starting_location, helmet=None, chestplate='Leather Shirt', boots='Leather Boots',
+                 weapon="Wooden Sword"):
+        self.health = 50
+        self.inventory = []
+        self.current_location = starting_location
+        self.helmet = helmet
+        self.chestplate = chestplate
+        self.boots = boots
+        self.defense = 5
+        self.MP = 15
+        self.weapon = weapon
+
+    def move(self, new_location):
+        """ This method moves a player to a new location
+
+        :param new_location: The room object that we move to
+        """
+        self.current_location = new_location
+
+    def find_room(self, direction):
+        """This method takes a direction and finds the variable of the room
+
+        :param direction: A String (all lowercase), with a cardinal direction
+        :return: A room object if it exists, None if it does not exist
+        """
+        room_name = getattr(self.current_location, direction)
+        return globals()[room_name]
+
+
 # Option 2 - Use strings, but more difficult controller
 TEMPLE_1 = Room('Lock Room', "You are in a room with a locked door leading east. "
                 "\n You can continue through the temple to the north", 'TEMPLE_2', 'TEMPLE', 'WATER_MP')
@@ -61,6 +91,31 @@ CASTLE_BACK = Room('Desert Castle (Back)', "You are behind a large castle, there
 CASTLE = Room('Desert Castle', 'There is a large stone castle in front of you, it towers over you ominously. '
                                'There is a large door in front of you',
               'BACK_CASTLE', 'ROAD', None, 'MARKET', None, None, 'CASTLE_1')
+CASTLE_1 = Room("Castle Entrance", "You have just entered the castle, looking ahead, "
+                                   "there is a room full of rotating saw blades.", 'CASTLE_2', None, None, None, None,
+                None, None, 'CASTLE')
+CASTLE_2 = Room('Saw Room', "You are in a room in which saws are rotating on a set path, "
+                            "you can sprint North to make it through here."
+                            "\n However, this is risky, and it can lead to your demise", 'CASTLE_3', 'CASTLE_1')
+CASTLE_3 = Room('Lava Room', "You are walking on a narrow platform, looking down, there's a pit of lava."
+                             "\n !!!"
+                             "\n The lava is now rising! Climbing up is your only option!", None, 'CASTLE_2', None,
+                None, 'CASTLE_4')
+CASTLE_4 = Room('Empty Room?', "You feel uneasy, like you're being watched. There is a door leading east, "
+                               "but you feel like you're about to be ambushed", None, None, 'CASTLE_5', None,
+                None, 'CASTLE_3')
+CASTLE_5 = Room('Boss Room', "You are at the end of the castle, you can head north through the "
+                             "large doors or east towards the back exit", "BOWSER", None, 'CASTLE_6')
+CASTLE_6 = Room('Near Back Exit', "You are near the back exit of a castle, "
+                                  "but to get there you'd have to hop across rocks floating in a river of lava"
+                                  "\n To the west is the room before the boss in this castle", 'CASTLE_7',
+                None, None, 'CASTLE_5')
+CASTLE_7 = Room('Back Exit', "You are at the back exit of the castle. To go further through the castle, "
+                             "you'd have to hop across rocks floating in a river of lava, or you can leave now",
+                None, 'CASTLE_6', None, None, None, None, None, 'CASTLE_BACK')
+BOWSER = Room('Bowser Battle', "After walking through the door you find yourself face to face "
+                               "with the King of Koopas, Bowser!"
+                               "\n Ready? FIGHT!", None, 'CASTLE_5')
 ROAD = Room('Rainbow Road', "You are standing in front of a rainbow that appears to continue through "
                             "the atmosphere and into space"
                             "\n"
@@ -72,7 +127,13 @@ DARK_STAR = Room('Galaxy Reactor', "There is a dark orb floating in the center o
 TEMPLE2 = Room('Temple of Time (Entrance)', "You look in front of you to see an temple with open doors, "
                                             "there is also a "
                                             "staircase leading down, and to the South is another strange temple",
-               None, 'LIGHT', 'MARKET', None, None, 'TOT_SHOP')
+               None, 'LIGHT', 'MARKET', None, None, 'TOT_SHOP', 'TOT1')
+TOT1 = Room('Temple of Time', "You have entered the temple, you can continue through a door to the north", 'TOT2',
+            None, None, None, None, None, None, 'TEMPLE2')
+TOT2 = Room('Watch Room', "In the center of the room there is a magic pocket watch. You sigh as you realize "
+                          "some time-travel shenanigans will ensue"
+                          "\n You can use the watch to open up paths to the east or west that existed in "
+                          "the past or future")
 LIGHT = Room('Light Temple', "You've (ironically) entered a very dark place. "
                              "There are stairs leading up.", TEMPLE2, None, None, None, 'U_NECROZMA')
 U_NECROZMA = Room('Megalo Tower', "You see a golden dragon towering over you. "
@@ -187,3 +248,29 @@ JEVIL_ENTRANCE = Room('???????????', "*There is a cage-like gate in front of you
 JEVIL_FIGHT = Room("???????", "JEVIL: 'I CAN DO ANYTHING!!' Watch out! Here comes JEVIL! "
                               "There's no strategy to beat this enemy, Good Luck! LET THE GAMES BEGIN!",
                    None, None, None, None, None, None, None, 'JEVIL_ENTRANCE')
+
+
+player = Player(BEGIN)
+
+directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave']
+playing = True
+
+# Controller
+while playing:
+    print(player.current_location.name)
+
+    command = input(">_")
+    if command.lower() in ['q', 'quit', 'exit', 'altf4']:
+        playing = False
+    elif command == "":
+        print(player.current_location.description)
+    elif command == "recognized":
+        print("Command not reco- Oh... VERY funny! HA! HA! HA! Don't do that again")
+    elif command.upper() in directions:
+        try:
+            next_room = player.find_room(command)
+            player.move(next_room)
+        except KeyError:
+            print("I can't do this or go this way")
+    else:
+        print("Command not recognized, if you inputted a direction, write it again in all lowercase")
