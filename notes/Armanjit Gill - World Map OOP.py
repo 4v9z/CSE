@@ -43,7 +43,22 @@ class Player(object):
         return globals()[room_name]
 
 
+class NPC(object):
+    def __init__(self, dialogue="SAMPLE TEXT", name="NAMEHERE", money=300, gives_item=False, robbable=True):
+        self.dialogue = dialogue
+        self.robbable = robbable
+        self.money = money
+        self.name = name
+        self.gives_item = gives_item
+
+
+Kirby = NPC('HI!', 'Kirby', 25)
+Dog = NPC('Woof', "Dog", 9999999999999999999999999999999, True)
+EGG = NPC('EGG', 'EGG', 0, True)
+
+
 # Option 2 - Use strings, but more difficult controller
+
 TEMPLE_1 = Room('Lock Room', "You are in a room with a locked door leading east. "
                 "\n You can continue through the temple to the north", 'TEMPLE_2', 'TEMPLE', 'WATER_MP')
 TEMPLE_2 = Room('Empty Chamber', "There is a locked door to the east and a door leading north. "
@@ -133,7 +148,56 @@ TOT1 = Room('Temple of Time', "You have entered the temple, you can continue thr
 TOT2 = Room('Watch Room', "In the center of the room there is a magic pocket watch. You sigh as you realize "
                           "some time-travel shenanigans will ensue"
                           "\n You can use the watch to open up paths to the east or west that existed in "
-                          "the past or future")
+                          "the past or future", 'TOT3', 'TOT1', 'PAST1', 'FUTURE1')
+TOT3 = Room('Boss Room', "There is a large door in front of you with a large padlock on it, "
+                         "it appears that a keys is needed. "
+                         "\n You can use the watch to open up pathways to the east and west in the past and future.",
+            'GHOMA', 'TOT2', 'FUTURE2', 'PAST2')
+GHOMA = Room('Ghoma Fight', "In this room is the disgusting abomination of a spider: Ghoma"
+                            "\n The strategy for this is to hit it with magic, as numerous "
+                            "defeats has led to this boss gaining a resistance to swords and other similar weapons",
+             'PORTAL', 'TOT3')
+PORTAL = Room('Time Portal', "In front of you is a portal that leads into a future ~12,000 years after the "
+                             "extinction of humans. "
+                             "\n You can go south to reenter the temple or you can enter the portal", None, 'GHOMA',
+              None, None, None, None, 'SPLAT1')
+SPLAT1 = Room('Octo Valley', "You are on a strange floating platform, you "
+                             "can enter the time portal from here or head north to continue", 'SPLAT2', None, None,
+              None, None, None, 'PORTAL')
+SPLAT2 = Room('Moray Towers', "You are climbing a tower currently, you can go back south, head"
+                              " north, or go east or west"
+                              "\n Going East requires some way to swim through ink", 'SPLAT3', 'SPLAT1',
+              'SPLAT4', 'SPLAT5')
+SPLAT3 = Room('Urchin Underpass', 'You are in an are filled with conveyor belts and is surrounded by water.'
+                                  '\n You can go north or east, but you will require some way to swim through ink',
+              'SPLAT6', 'SPLAT2', 'SPLAT7')
+SPLAT6 = Room('Arowana Mall', )
+SPLAT4 = Room('Octo Canyon', "After swimming through the ink, you have reached a large canyon. "
+                             "\n Looking down in the canyon you can see something that looks like"
+                             " a cross between a squid and a kid...", None, None, None, 'SPLAT2', None, '_3')
+_3 = Room('Agent 3 Battle', "Upon getting closer, the squid-kid sees you. She turns around and she looks ready to fight"
+                            "\n this 'Inkling' is known as Agent 3, and she will be one of your most "
+                            "difficult battles yet."
+                            "\n You can only defeat her with a weapon that fires ink, and either way... Good Luck!",
+          None, None, None, None, 'SPLAT4')
+SPLAT5 = Room('Bluefin Depot', "You are on a platform floating in the water, there is a large crate "
+                               "here that can be opened", None, None, 'SPLAT2')
+PAST2 = Room('Coin Room (Past)', "Upon a pedestal in this room is a single coin from the past."
+                                 "\n This coin is worthless today: It's worth nothing in the present",
+             None, None, 'TOT3')
+FUTURE2 = Room('Key Room (Future)', "While the path leading here has caved "
+                                    "in during our present day, and this "
+                                    "path had not yet been built in the past you can visit, "
+                                    "\n the key in this "
+                                    "room appears to be broken. In our present day, "
+                                    "this key was most definitely intact",
+               None, None, None, 'TOT3')
+FUTURE1 = Room('Gold Room (Future)', "In this room, there is a single coin upon a pedestal."
+                                     "\n Because this is the future, this single "
+                                     "coin is worth about 1,537 coins in the present", None, None, 'TOT2')
+PAST1 = Room('Empty Citadel (Past)', "You enter this room in the past."
+                                     "\n You feel this room has nothing to see, when suddenly you're attacked!",
+             None, None, None, 'TOT2')
 LIGHT = Room('Light Temple', "You've (ironically) entered a very dark place. "
                              "There are stairs leading up.", TEMPLE2, None, None, None, 'U_NECROZMA')
 U_NECROZMA = Room('Megalo Tower', "You see a golden dragon towering over you. "
@@ -216,7 +280,7 @@ M_MARIO = Room('Inside the Factory', "You are in a fight with Metal Mario, a Rob
                                      "copy of the beloved plumber! Let's see if you can win!",
                None, None, None, None, None, None, None, 'FACTORY')
 FOREST = Room("Lost Woods", 'You are in a forest that feels mysterious, if you make a wrong move,'
-                            ' you will be sent back to the first room of the forest.', 'FOREST2', 'FOREST',
+                            ' you will be sent back to the first room of the forest.', 'FOREST2', 'BEGIN',
               'FOREST', 'FOREST')
 FOREST2 = Room("Lost Woods", 'You are in a forest that feels mysterious, if you make a wrong move, '
                              ' you will be sent back to the first room of the forest.', 'FOREST3', 'FOREST',
@@ -252,20 +316,48 @@ JEVIL_FIGHT = Room("???????", "JEVIL: 'I CAN DO ANYTHING!!' Watch out! Here come
 
 player = Player(BEGIN)
 
-directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave']
+directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave', 'NORTH', 'SOUTH', 'EAST', 'WEST', 'UP',
+              'DOWN', 'ENTER', 'LEAVE']
 playing = True
 
 # Controller
 while playing:
     print(player.current_location.name)
-
+    print(player.current_location.description)
     command = input(">_")
     if command.lower() in ['q', 'quit', 'exit', 'altf4']:
         playing = False
     elif command == "":
-        print(player.current_location.description)
+        print()
+    elif command == "scream":
+        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+    elif command in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason', 'kill self']:
+        player.health -= player.health
+        print("Welp, you're dead now. Good job, you decided you wouldn't"
+              " die from an enemy. You made sure of it by killing yourself...")
+        print()
+        print()
+        print()
+        print("Quick Question.... WHY????????????"
+              "\n Oh well, I give up on trying to find your reasoning..."
+              "\n"
+              "\n"
+              "\n..."
+              "\n"
+              "\n"
+              "\n GAME OVER")
+        playing = False
     elif command == "recognized":
         print("Command not reco- Oh... VERY funny! HA! HA! HA! Don't do that again")
+    elif command == 'rob':
+        #  This will be used to take money from NPCs
+        print(Kirby.dialogue)
+    elif command.lower() in directions:
+        try:
+            next_room = player.find_room(command)
+            player.move(next_room)
+        except KeyError:
+            print("I can't do this or go this way")
     elif command.upper() in directions:
         try:
             next_room = player.find_room(command)

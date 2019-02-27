@@ -662,8 +662,9 @@ world_map = {
     },
     '3': {
       'NAME': "Agent 3 battle",
-      'DESCRIPTION': "Upon getting closer, the squid-kid sees you.She turns around and she looks ready to fight"
-                     "\n this 'Inkling' is known as Agent 3, and she will be one of your most difficult battles yet.",
+      'DESCRIPTION': "Upon getting closer, the squid-kid sees you. She turns around and she looks ready to fight"
+                     "\n this 'Inkling' is known as Agent 3, and she will be one of your most difficult battles yet."
+                     "\n You can only defeat her with a weapon that fires ink, and either way... Good Luck!",
       'PATHS': {
           'UP': "SPLAT5"
       }
