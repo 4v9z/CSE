@@ -171,7 +171,19 @@ SPLAT2 = Room('Moray Towers', "You are climbing a tower currently, you can go ba
 SPLAT3 = Room('Urchin Underpass', 'You are in an are filled with conveyor belts and is surrounded by water.'
                                   '\n You can go north or east, but you will require some way to swim through ink',
               'SPLAT6', 'SPLAT2', 'SPLAT7')
-SPLAT6 = Room('Arowana Mall', )
+SPLAT7 = Room('Hammerhead Bridge', "You are walking across a large bridge leading to the east."
+                                   "\n To the east is what looks to be a dark and removed part of "
+                                   "this world. cast way, in the shadows", None, None, 'SPLAT8', 'SPLAT3')
+SPLAT8 = Room('Cephalon HQ', "You are in an area with floating platforms. "
+                             "Below you is a toxic sludge with stone tentacles rising out of it", 'DJOCTAVIO', None,
+              None, 'SPLAT7')
+DJOCTAVIO = Room("DJ Octavio Fight", "You find that you have entered a stadium of some sort. "
+                                     "In front of you is a giant floating mech with an octopus inside"
+                                     "\n You'll need some sort of ink firing weapon to win,"
+                                     " otherwise, you will easily perish", None, 'SPLAT8')
+SPLAT6 = Room('Arowana Mall', "You are in a shopping mall. Here you can buy upgrades to your health or magic, "
+                              "as well as buy items to restore your health."
+                              "\n You also can buy a weapon that can fire ink here")
 SPLAT4 = Room('Octo Canyon', "After swimming through the ink, you have reached a large canyon. "
                              "\n Looking down in the canyon you can see something that looks like"
                              " a cross between a squid and a kid...", None, None, None, 'SPLAT2', None, '_3')
