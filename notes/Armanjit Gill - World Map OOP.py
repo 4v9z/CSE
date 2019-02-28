@@ -258,6 +258,12 @@ PEAK = Room('Mountain Peak', "You are at the top of a mountain, you can see into
                              "\n You feel like you can walk west, there is no platform there,"
                              " but your instincts tell you to do it.", None, None, None, 'SUBSPACE_ENTER', None,
             'CLIMB', 'NOVA_1')
+NOVA_1 = Room("Milkyway Pathway", "You are on some sort of star littered path. You have gained "
+                                  "the ability to fly, but only in set paths."
+                                  " You can leave this area or fly north or west through space", 'NOVA3', None,
+              None, 'NOVA2', None, None, None, 'PEAK')
+NOVA2 = Room('Gourmet Room', "You find yourself in a room in which there is a large quantity of food, "
+                             "you can eat the food to restore all of your health.", None, None, 'NOVA_1')
 SUBSPACE_ENTER = Room('Edge of the Universe', "You stand in front of a dark void... unsure"
                                               " of what will become of you once you enter, there is only one thing you "
                                               "know for sure..."
