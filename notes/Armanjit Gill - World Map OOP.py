@@ -291,7 +291,7 @@ CHEATS = Room()
 OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only water here. "
                              "\n There is a waterway barely big enough for you in the water.",
              'RIVER', 'DESERT_FIGHT', None, 'BEGIN', None, 'TOWN')
-LOSS = Room('|     |i   ||  |__', '|     |i   ||  |__')
+LOSS = Room('|     |i   ||  |__', '|     |i   ||  |__', 'LOSS')
 FACTORY = Room('Factory', "You are looking at a strange factory, will you enter it?", None, None, 'BEGIN', None,
                'M_MARIO')
 M_MARIO = Room('Inside the Factory', "You are in a fight with Metal Mario, a Robotic "
