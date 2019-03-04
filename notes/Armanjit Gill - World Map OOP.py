@@ -264,11 +264,63 @@ NOVA_1 = Room("Milkyway Pathway", "You are on some sort of star littered path. Y
               None, 'NOVA2', None, None, None, 'PEAK')
 NOVA2 = Room('Gourmet Room', "You find yourself in a room in which there is a large quantity of food, "
                              "you can eat the food to restore all of your health.", None, None, 'NOVA_1')
+NOVA3 = Room('Barren Planet', "You are on an empty planet and then you get attacked", 'NOVA4', 'NOVA_1', 'NOVA5')
+NOVA5 = Room("Long Stone Bridge", 'You are on a long, stone bridge suddenly you are attacked', None, 'NOVA6', None, 'NOVA3')
+NOVA6 = Room('Galacta Knight Fight', "You see a floating pink crystal, suddenly, it cracks and shatters!"
+                                     "\n You are face to face with the strongest warrior in the galaxy:"
+                                     "\n GALACTA KNIGHT")
+NOVA4 = Room("Riddle Room", "Engraved into a wall is a riddle:"
+                            "\n Marking mortal privation, when firmly in place. An enduring summation, "
+                            "engraved in my face."
+                            "\n What am I?"
+                            "\n It appears there is a stone keyboard you can use to type in your response",
+             None, 'NOVA3', 'NOVA7')
+NOVA7 = Room('Mysterious Dimension', 'You have made it past the riddle, and you now see that in front of you is a '
+                                     'strange portal, you can go north to enter it, or you can go back west', 'MARX', None, None, 'NOVA4')
+MARX = Room('Marx Fight', "There... seems to be absolutely nothing here... Or at least, that's what you thought"
+            "\n You turn around and see the cosmic jester Marx! He rises into the air, and changes into his "
+            "True Form!!", None, 'NOVA7')
 SUBSPACE_ENTER = Room('Edge of the Universe', "You stand in front of a dark void... unsure"
                                               " of what will become of you once you enter, there is only one thing you "
                                               "know for sure..."
                                               "\n Your adventure is nearing its end", None, None, 'PEAK', None, None,
-                      'INTERIOR', 'SUBSPACE_1')
+                      'INTERIOR', 'SUBSPACE1')
+SUBSPACE1 = Room('Entrance to Subspace', 'You enter through the dark portal and find yourself on a strange '
+                                         'blue floating platform'
+                                         '\n All of a sudden, strange purple orbs fly onto the platform and they '
+                                         'get absorbed into one giant monster!', 'SUBSPACE2', None, None, None,
+                 None, None, None, 'SUBSPACE_ENTER')
+SUBSPACE2 = Room('Riddle Room', 'On a stone tablet there is a riddle written on it:'
+                                '\n Designed solely for combat, this fighter was deemed too dangerous to brawl. '
+                                '\n He yearns to return for revenge'
+                                '\n There seems to be a stone keyboard you can use to type in your response'
+                                'You can go north to continue or enter the riddle correctly to open the door '
+                                'to the east to a health and MP upgrade'
+                                '\n However, be careful, for you only get one opportunity to answer the riddle '
+                                'correctly, otherwise, you will perish', 'SUBSPACE3', 'SUBSPACE1', 'SUBSPACE4')
+SUBSPACE3 = Room("Gold Room", 'You find yourself in a room in which you find some gold on the floor'
+                              '\n You csn go north or back south', 'SUBSPACE5', 'SUBSPACE2')
+SUBSPACE5 = Room('Abandoned Platform', 'You find yourself on an empty platform, when more orbs appear!'
+                                       '\n They group together and form a giant robot!', 'SUBSPACE6', 'SUBSPACE3')
+SUBSPACE6 = Room('End of a Journey', "You find yourself in the last room of your journey. "
+                                     "\n You can go East or West to fight one of two strange disembodied floating "
+                                     "hands.", 'TABUU', 'SUBSPACE5', 'C_HAND', 'M_HAND')
+# You can go North after beating the bosses to the east and west
+
+TABUU = Room("            ", "You are on a glowing floating platform."
+                             "\n In front of you is the puppet-master who has been controlling everything:"
+                             "\n TABUU!"
+                             "\n You clutch your weapon knowing this is the end of your journey"
+                             "\n You will either succeed here, or you'll have had come this far just to fail", None, 'SUBSPACE6')
+# This room is meant to have no name
+
+C_HAND = Room("Crazy Hand Fight", "After going east you find yourself in a fight against Crazy Hand!"
+              "\n This more erratic hand is hard to beat, Good Luck! You'll need it", None, None, None, 'SUBSPACE6')
+M_HAND = Room('Master Hand Fight', "After going west you find yourself face to fa- er... face to hand... with Master "
+                                   "Hand!"
+                                   "\n This fight is going to be difficult, so try your best", None, None, 'SUBSPACE6')
+SUBSPACE4 = Room('Upgrade Room', 'You enter this room and find that your HP and MP have been increased.', None, None, None, 'SUBSPACE2')
+
 BAY = Room('Great Bay', 'There is an open ocean around you, you can see a strange structure under the water',
            None, None, None, 'RIVER', None, 'TEMPLE')
 TEMPLE = Room('Water Temple', 'You are in the first room of the Water Temple. '

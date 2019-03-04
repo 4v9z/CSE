@@ -214,7 +214,7 @@ world_map = {
       'DESCRIPTION': "Engraved into a wall is a riddle:"
                      "\n Marking mortal privation, when firmly in place. An enduring summation, engraved in my face."
                      "\n What am I?"
-                     "\n It appears there is a stone keyboard you can use to "
+                     "\n It appears there is a stone keyboard you can use to type in your response"
     },
     'NOVA2': {
       'NAME': "Gourmet Room",
