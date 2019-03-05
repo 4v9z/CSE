@@ -1,5 +1,5 @@
 # HELP
-# Swords  Guns  Armor    Upgrades    Health Items   Keys  Watch
+# Weapons  Armor    Upgrades  Health Items   Keys  Watch  Riddle
 
 
 class Vehicle(object):
@@ -35,9 +35,37 @@ class Viper(Car):
         super(Viper, self).__init__("Viper")
 
 
+class Tesla(Car):
+    def __init__(self):
+        super(Tesla, self).__init__('Tesla')
+
+    def start_engine(self):
+        self.engine_status = True
+        print('You push the button and the engine starts')
+
+
 guled_car = Viper()
 guled_car.start_engine()
 guled_car.move_forward()
 guled_car.turn_left()
 guled_car.move_forward()
 guled_car.turn_off()
+print()
+
+bethany_car = Tesla()
+bethany_car.start_engine()
+bethany_car.move_forward()
+bethany_car.turn_left()
+bethany_car.turn_left()
+bethany_car.turn_left()
+bethany_car.turn_left()
+bethany_car.turn_left()
+bethany_car.turn_left()
+bethany_car.turn_left()
+bethany_car.turn_left()
+bethany_car.turn_left()
+bethany_car.turn_left()
+bethany_car.turn_left()
+bethany_car.turn_left()
+bethany_car.turn_left()
+bethany_car.turn_left()

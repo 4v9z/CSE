@@ -1,3 +1,6 @@
+retry = ""
+
+
 class Room(object):
     def __init__(self, name='ROOM', description='This is a room', north=None, south=None, east=None, west=None,
                  up=None, down=None, enter=None, leave=None):
@@ -265,7 +268,8 @@ NOVA_1 = Room("Milkyway Pathway", "You are on some sort of star littered path. Y
 NOVA2 = Room('Gourmet Room', "You find yourself in a room in which there is a large quantity of food, "
                              "you can eat the food to restore all of your health.", None, None, 'NOVA_1')
 NOVA3 = Room('Barren Planet', "You are on an empty planet and then you get attacked", 'NOVA4', 'NOVA_1', 'NOVA5')
-NOVA5 = Room("Long Stone Bridge", 'You are on a long, stone bridge suddenly you are attacked', None, 'NOVA6', None, 'NOVA3')
+NOVA5 = Room("Long Stone Bridge", 'You are on a long, stone bridge suddenly you are attacked', None, 'NOVA6', None,
+             'NOVA3')
 NOVA6 = Room('Galacta Knight Fight', "You see a floating pink crystal, suddenly, it cracks and shatters!"
                                      "\n You are face to face with the strongest warrior in the galaxy:"
                                      "\n GALACTA KNIGHT")
@@ -276,7 +280,8 @@ NOVA4 = Room("Riddle Room", "Engraved into a wall is a riddle:"
                             "\n It appears there is a stone keyboard you can use to type in your response",
              None, 'NOVA3', 'NOVA7')
 NOVA7 = Room('Mysterious Dimension', 'You have made it past the riddle, and you now see that in front of you is a '
-                                     'strange portal, you can go north to enter it, or you can go back west', 'MARX', None, None, 'NOVA4')
+                                     'strange portal, you can go north to enter it, or you can go back west', 'MARX',
+             None, None, 'NOVA4')
 MARX = Room('Marx Fight', "There... seems to be absolutely nothing here... Or at least, that's what you thought"
             "\n You turn around and see the cosmic jester Marx! He rises into the air, and changes into his "
             "True Form!!", None, 'NOVA7')
@@ -311,7 +316,8 @@ TABUU = Room("            ", "You are on a glowing floating platform."
                              "\n In front of you is the puppet-master who has been controlling everything:"
                              "\n TABUU!"
                              "\n You clutch your weapon knowing this is the end of your journey"
-                             "\n You will either succeed here, or you'll have had come this far just to fail", None, 'SUBSPACE6')
+                             "\n You will either succeed here, or you'll have had come this far just to fail", None,
+             'SUBSPACE6')
 # This room is meant to have no name
 
 C_HAND = Room("Crazy Hand Fight", "After going east you find yourself in a fight against Crazy Hand!"
@@ -319,7 +325,8 @@ C_HAND = Room("Crazy Hand Fight", "After going east you find yourself in a fight
 M_HAND = Room('Master Hand Fight', "After going west you find yourself face to fa- er... face to hand... with Master "
                                    "Hand!"
                                    "\n This fight is going to be difficult, so try your best", None, None, 'SUBSPACE6')
-SUBSPACE4 = Room('Upgrade Room', 'You enter this room and find that your HP and MP have been increased.', None, None, None, 'SUBSPACE2')
+SUBSPACE4 = Room('Upgrade Room', 'You enter this room and find that your HP and MP have been increased.', None, None,
+                 None, 'SUBSPACE2')
 
 BAY = Room('Great Bay', 'There is an open ocean around you, you can see a strange structure under the water',
            None, None, None, 'RIVER', None, 'TEMPLE')
@@ -339,7 +346,9 @@ MARKET = Room('Desert Market', "You browse the fine selection of goods, you see 
 TOWN = Room('Desert Town', "You are in a barren town, there isn't much to see here, save for some bags of gold..."
                            "\n But you wouldn't steal from innocent people... would you?",
             'BEGIN', 'MARKET', 'DESERT_FIGHT')
-CHEATS = Room()
+CHEATS = Room("Traceback (most recent call last): File 'C:/Users/4v9z/Documents/GitHub/"
+              "CSE/notes/Armanjit Gill - Dictionary Map.py", "@#%$*@(#^@*!*#&$^hdqoY&*#",
+              'SUBSPACE_ENTER', 'PEAK')
 OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only water here. "
                              "\n There is a waterway barely big enough for you in the water.",
              'RIVER', 'DESERT_FIGHT', None, 'BEGIN', None, 'TOWN')
