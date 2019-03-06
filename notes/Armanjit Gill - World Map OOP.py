@@ -1,4 +1,5 @@
 retry = ""
+GAME = True
 
 
 class Room(object):
@@ -400,48 +401,57 @@ directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave', 
 playing = True
 
 # Controller
-while playing:
-    print(player.current_location.name)
-    print(player.current_location.description)
-    command = input(">_")
-    if command.lower() in ['q', 'quit', 'exit', 'altf4']:
-        playing = False
-    elif command == "":
-        print()
-    elif command == "scream":
-        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-    elif command in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason', 'kill self']:
-        player.health -= player.health
-        print("Welp, you're dead now. Good job, you decided you wouldn't"
-              " die from an enemy. You made sure of it by killing yourself...")
-        print()
-        print()
-        print()
-        print("Quick Question.... WHY????????????"
-              "\n Oh well, I give up on trying to find your reasoning..."
-              "\n"
-              "\n"
-              "\n..."
-              "\n"
-              "\n"
-              "\n GAME OVER")
-        playing = False
-    elif command == "recognized":
-        print("Command not reco- Oh... VERY funny! HA! HA! HA! Don't do that again")
-    elif command == 'rob':
-        #  This will be used to take money from NPCs
-        print(Kirby.dialogue)
-    elif command.lower() in directions:
-        try:
-            next_room = player.find_room(command)
-            player.move(next_room)
-        except KeyError:
-            print("I can't do this or go this way")
-    elif command.upper() in directions:
-        try:
-            next_room = player.find_room(command)
-            player.move(next_room)
-        except KeyError:
-            print("I can't do this or go this way")
-    else:
-        print("Command not recognized, if you inputted a direction, write it again in all lowercase")
+while GAME:
+    while playing:
+        print(player.current_location.name)
+        print(player.current_location.description)
+        command = input(">_")
+        if command.lower() in ['q', 'quit', 'exit', 'altf4']:
+            playing = False
+        elif command == "":
+            print()
+        elif command == "scream":
+            print('AAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+        elif command in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason', 'kill self']:
+            player.health -= player.health
+            print("Welp, you're dead now. Good job, you decided you wouldn't"
+                  " die from an enemy. You made sure of it by killing yourself...")
+            print()
+            print()
+            print()
+            print("Quick Question.... WHY????????????"
+                  "\n Oh well, I give up on trying to find your reasoning..."
+                  "\n"
+                  "\n"
+                  "\n..."
+                  "\n"
+                  "\n"
+                  "\n GAME OVER")
+            playing = False
+        elif command == "recognized":
+            print("Command not reco- Oh... VERY funny! HA! HA! HA! Don't do that again")
+        elif command == 'rob':
+            #  This will be used to take money from NPCs
+            print(Kirby.dialogue)
+        elif command.lower() in directions:
+            try:
+                next_room = player.find_room(command)
+                player.move(next_room)
+            except KeyError:
+                print("I can't do this or go this way")
+        elif command.upper() in directions:
+            try:
+                next_room = player.find_room(command)
+                player.move(next_room)
+            except KeyError:
+                print("I can't do this or go this way")
+        else:
+            print("Command not recognized, if you inputted a direction, write it again in all lowercase")
+
+        if not playing:
+            retry = input("Do you want to replay the game?")
+        if retry.lower() == "yes":
+            playing = True
+        elif retry.lower() == "no":
+            print("  ")
+            GAME = False
