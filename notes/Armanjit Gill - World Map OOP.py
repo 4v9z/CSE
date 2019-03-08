@@ -252,7 +252,7 @@ MTN_PASS = Room('Mountain Pass', "There is a frozen path leading west, a shop to
                                  "and towering above you, a mountain",
                 None, None, 'MTN_SHOP', "CAVE", 'MTN_BASE')
 MTN_SHOP = Room('Mountain Shop', "There is engraving on stone: BUY SOMETHING AND LEAVE THE MONEY OR ELSE..."
-                                 "\n There is a keycard, armor, health upgrades, and a space helmet",
+                                 "\n There is a keycard, armor, health upgrades, a blue potion, and a space helmet",
                 None, None, 'CLIMB', 'MTN_PASS')
 CLIMB = Room('Dangerous Climb', "You feel like this place isn't safe, when suddenly, you're attacked!", None, None,
              None, 'MTN_SHOP', 'PEAK', 'BAY')
@@ -340,7 +340,7 @@ BEGIN = Room("An Adventure's Beginning", "You stand atop a hill looking ahead at
              'FACTORY', 'CHEATS', 'LOSS')
 MARKET = Room('Desert Market', "You browse the fine selection of goods, you see potions that increase health and MP,"
                                "\n a strange pendant with a drop of water engraved on it, a scimitar, strange scuba "
-                               "gear, and an odd key "
+                               "gear, items that restore MP, and an odd key "
                                "\n You also see a battered rubber door mat saying 'WELCOME TO ZORK', but it "
                                "seems to be worthless. "
                                "\n You can buy or sell something here.", 'TOWN', 'DESERT_FIGHT', 'CASTLE', 'TEMPLE2')

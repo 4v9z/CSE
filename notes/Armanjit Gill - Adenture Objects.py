@@ -1,3 +1,37 @@
+class Player(object):
+    def __init__(self, starting_location, health=50, helmet=None, chestplate='Leather Shirt', boots='Leather Boots',
+                 weapon="Wooden Sword"):
+        self.health = health
+        self.inventory = []
+        self.current_location = starting_location
+        self.helmet = helmet
+        self.chestplate = chestplate
+        self.boots = boots
+        self.defense = 5
+        self.MP = 15
+        self.weapon = weapon
+        self.max_health = health
+
+    def move(self, new_location):
+        """ This method moves a player to a new location
+
+        :param new_location: The room object that we move to
+        """
+        self.current_location = new_location
+
+    def find_room(self, direction):
+        """This method takes a direction and finds the variable of the room
+
+        :param direction: A String (all lowercase), with a cardinal direction
+        :return: A room object if it exists, None if it does not exist
+        """
+        room_name = getattr(self.current_location, direction)
+        return globals()[room_name]
+
+
+player = Player('AA')
+
+
 class Bag(object):
     def __init__(self):
         self.inventory = []
@@ -190,6 +224,84 @@ class Consumables(object):
         self.name = name
         self.grabbed = False
 
+
+class Health(Consumables):
+    def __init__(self, name="", restore1=20):
+        super(Health, self).__init__("")
+        self.name = name
+        self.restore = restore1
+
     def use(self):
         if self.grabbed:
-            print("You drink")
+
+            if player.health + self.restore <= player.health:
+                player.health += self.restore
+                print("You eat the %s, and restore %i health" % (self.name, self.restore))
+            elif player.health + self.restore > player.health:
+                print("You eat the %s and your health is maxed out" % self.name)
+                player.health = player.max_health
+
+    def grab(self):
+        if self.grabbed:
+            print("You already have this")
+        else:
+            print("You pick up the %s" % self.name)
+            self.grabbed = True
+            Inventory.inventory.append(self)
+            # add stuff to bag
+
+    def drop(self):
+        if not self.grabbed:
+            print("You don't have this item")
+        else:
+            print("You drop the %s" % self.name)
+            self.grabbed = False
+            Inventory.inventory.remove(self)
+
+    def check(self):
+        if self.grabbed:
+            print(self.name)
+            print("Restores %s health" % self.restore)
+
+
+class Potion1(Health):
+    def __init__(self, restore2=20, name=""):
+        super(Potion1, self).__init__("", 20)
+        self.restore = restore2
+        self.name = name
+
+    def check(self):
+        if self.grabbed:
+            print(self.name)
+            print("Restores %s health" % self.restore)
+
+    def use(self):
+        if self.grabbed:
+            if player.health + self.restore <= player.health:
+                player.health += self.restore
+                print("You drink the %s, and restore %i health" % (self.name, self.restore))
+            else:
+                print("You drink the %s and your health is maxed out" % self.name)
+                player.health = player.max_health
+
+
+class Eat1(Health):
+    def __init__(self, restore=30, name=""):
+        super(Eat1, self).__init__()
+        self.restore = restore
+        self.name = name
+        self.grabbed = False
+
+    def check(self):
+        if self.grabbed:
+            print(self.name)
+            print("Restores %s health" % self.restore)
+
+
+rage_candy = Eat1(20, "Rage Candy Bar")
+
+fruit = Eat1(9999999999999999999999999999999999999, "Hearty Simmered Fruit")
+
+sandwich = Eat1(45, "Crusty Seanwich")
+
+tomato = Eat1(9999999999999999999999999999999999999999999999999999999, "Maximum Tomato")
