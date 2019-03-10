@@ -1,7 +1,8 @@
 class Player(object):
     def __init__(self, starting_location, health=50, helmet=None, chestplate='Leather Shirt', boots='Leather Boots',
-                 weapon="Wooden Sword", mp=15, defense=3):
+                 weapon="Wooden Sword", mp=15, defense=3, leggings="Leather Leggings"):
         self.health = health
+        self.leggings = leggings
         self.inventory = []
         self.current_location = starting_location
         self.helmet = helmet
@@ -509,7 +510,7 @@ class Helmet(Armor):
 
     def equip(self):
         if self.grabbed:
-            if self.defense == self.defense:  # Fix this later!
+            if player.helmet is None:  # Fix this later!
                 print("You equip the %s" % self.name)
                 player.helmet = self
                 player.defense += self.defense
@@ -521,4 +522,93 @@ class Helmet(Armor):
 
     def unequip(self):
         if self.grabbed:
-            print("You remove the %s")
+            if player.helmet is None:
+                print(".......... you have nothing equipped already.... what do you want to remove")
+            else:
+                print("You remove the %s")
+                player.helmet = None
+
+
+class Chestplate(Armor):
+    def __init__(self, defense, name=""):
+        super(Chestplate, self).__init__(2020, "")
+        self.defense = defense
+        self.name = name
+
+    def equip(self):
+        if self.grabbed:
+            if player.chestplate is None:  # Fix this later!
+                print("You equip the %s" % self.name)
+                player.chestplate = self
+                player.defense += self.defense
+                Inventory.inventory.remove(self)
+            else:
+                print("You already have a Chestplate equiped, unequip your current chestplate to equip this chestplate")
+        else:
+            print()
+
+    def unequip(self):
+        if self.grabbed:
+            if player.chestplate is None:
+                print(".......... you have nothing equipped already.... what do you want to remove")
+            else:
+                print("You remove the %s")
+                player.chestplate = undershirt
+
+
+class Boots(Armor):
+    def __init__(self, defense, name=""):
+        super(Boots, self).__init__(2020, "")
+        self.defense = defense
+        self.name = name
+
+    def equip(self):
+        if self.grabbed:
+            if player.boots is None:  # Fix this later!
+                print("You equip the %s" % self.name)
+                player.boots = self
+                player.defense += self.defense
+                Inventory.inventory.remove(self)
+            else:
+                print("You already have boots equiped, unequip your current boots to equip these boots")
+        else:
+            print()
+
+    def unequip(self):
+        if self.grabbed:
+            if player.boots is None:
+                print(".......... you have nothing equipped already.... what do you want to remove")
+            else:
+                print("You remove the %s")
+                player.boots = None
+
+
+class Leggings(Armor):
+    def __init__(self, defense, name=""):
+        super(Leggings, self).__init__(2020, "")
+        self.defense = defense
+        self.name = name
+
+    def equip(self):
+        if self.grabbed:
+            if player.leggings is None:  # Fix this later!
+                print("You equip the %s" % self.name)
+                player.leggings = self
+                player.defense += self.defense
+                Inventory.inventory.remove(self)
+            else:
+                print("You already have leggings equiped, unequip your current leggings to equip this leggings")
+        else:
+            print()
+
+    def unequip(self):
+        if self.grabbed:
+            if player.leggings is None:
+                print(".......... you have nothing equipped already.... what do you want to remove")
+            else:
+                print("You remove the %s")
+                player.leggings = underwear
+
+
+undershirt = Chestplate(0, "Undershirt")
+underwear = Leggings(0, "Underwear")
