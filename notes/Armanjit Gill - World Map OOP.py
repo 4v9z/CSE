@@ -382,7 +382,7 @@ CLEARING = Room('Clearing', "You've made it to a clearing, you can move East, We
                             "\n "
                             "There is also a strange sword embedded in the ground, however, "
                             "it's dark and seems to have lost all of it's power", "MTN_PASS",
-                "FOREST", "JEVIL_ENTRANCE", "RIVER")
+                "FOREST", "RIVER", "JEVIL_ENTRANCE")
 RIVER = Room('River Path', 'There is a small river flowing next to you.'
                            '\n You can follow it to the east or you can go North, South, or West',
              'MTN_SHOP', 'OASIS', 'BAY', 'CLEARING')
