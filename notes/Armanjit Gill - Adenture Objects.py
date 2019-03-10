@@ -518,7 +518,7 @@ class Helmet(Armor):
                 print("You already have a helmet equiped, unequip your current helmet to equip this helmet")
         else:
             print()
-    
+
     def unequip(self):
         if self.grabbed:
             print("You remove the %s")
