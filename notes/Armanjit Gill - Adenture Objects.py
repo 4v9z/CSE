@@ -173,6 +173,8 @@ class Axe(Blade):
         self.base_durability = durability
 
 
+F_Sword = Sword(40, True, False, 200, "Frost Sword")
+
 Money_Sword = Sword(1, True, False, 999999999999999999999999999999999999999999, "Money Sword")
 
 E_Sword = Sword(45, True, False, 100, "Lightning Sword")
@@ -268,6 +270,26 @@ class Consumables(object):
     def __init__(self, name=""):
         self.name = name
         self.grabbed = False
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the %s" % self.name)
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
+
+    def drop(self):
+        if not self.grabbed:
+            print("You don't have this item")
+        else:
+            print("You drop the %s" % self.name)
+            self.grabbed = False
+            Inventory.inventory.remove(self)
 
 
 class Health(Consumables):
@@ -469,6 +491,8 @@ candy2 = Eat2(40, "MP Candy")
 
 void = ALL(999999999999999999999, 99999999999999999999999999, "Void Candy")
 
+cake = ALL(64, 64, "Princess Peach's Cake")
+
 
 class Armor(object):
     def __init__(self, defense, name=""):
@@ -612,3 +636,88 @@ class Leggings(Armor):
 
 undershirt = Chestplate(0, "Undershirt")
 underwear = Leggings(0, "Underwear")
+
+frost_helmet = Helmet(5, "Frost Helmet")
+
+Cape = Chestplate(15, "Hero Cape replica + Hero Jacket replica")
+
+scuba = Helmet(2, "Strange Scuba Mask")
+
+space = Helmet(4, "Space Helmet")
+
+ancient1 = Leggings(10, "Ancient Leggings")
+
+ancient2 = Boots(5, "Ancient Boots")
+
+ancient3 = Chestplate(13, "Ancient Chestplate")
+
+ancient4 = Helmet(7, "Ancient Helmet")
+
+lava = Leggings(8, "Lava Leggings")
+
+lava2 = Boots(3, "Lava Boots")
+
+light = Boots(4, "Light Boots")
+
+light2 = Leggings(9, "Light Leggings")
+
+light3 = Helmet(6, "Light Helmet")
+
+light4 = Chestplate(11, "Light Chestplate")
+
+class Upgrades(Consumables):
+    def __init__(self, upgrade=10):
+        super(Upgrades, self).__init__()
+        self.upgrade = upgrade
+
+
+class Inroomrestore(object):
+    def __init__(self, restore=20):
+        self.restore = restore
+
+
+class Health2(Inroomrestore):
+    def __init__(self, filler=1):
+        super(Health2, self).__init__()
+        self.filler = filler
+
+    def use(self):
+        print("You eat some of the provided food and your HP is maxed out")
+        player.health = player.max_health
+        self.filler = self.filler
+
+
+class Healthupgrade(Upgrades):
+    def __init__(self, upgrade=10):
+        super(Healthupgrade, self).__init__()
+        self.activated = False
+        self.upgrade = upgrade
+
+    def grab(self):
+        self.activated = True
+        if self.activated:
+            print("You use the health upgrade and your HP gets maxed out."
+                  "\n Your HP is also increased by %i" % self.upgrade)
+            player.max_health += self.upgrade
+            player.health = player.max_health
+
+
+upgrade1 = Healthupgrade()
+
+
+class MPupgrade(Upgrades):
+    def __init__(self, upgrade=25):
+        super(MPupgrade, self).__init__()
+        self.upgrade = upgrade
+        self.activated = False
+
+    def grab(self):
+        self.activated = True
+        if self.activated:
+            print("You use the MP upgrade and your MP gets maxed out."
+                  "\n Your MP is also increased by %i" % self.upgrade)
+            player.max_MP += self.upgrade
+            player.MP = player.max_MP
+
+
+upgrade2 = MPupgrade()

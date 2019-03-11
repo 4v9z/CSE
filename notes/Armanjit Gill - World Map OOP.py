@@ -236,7 +236,8 @@ TOP_TOWER = Room('Shiekah Tower (Top)', 'You look in front of you and see two pe
 VOLCANO = Room('Volcano', "You are in front of a volcano... do you want to jump in?", None, None, None,
                None, None, None, 'INTERIOR')
 INTERIOR = Room('Inside Volcano', "HOLY HECK, YOU'RE ALIVE!!"
-                                  "\n .... Anyways, there is a fragment of a key here", None, None, None, None, VOLCANO)
+                                  "\n .... Anyways, there is a fragment of a key here", None, None, None, None,
+                'VOLCANO')
 MT_SILVER = Room('Mt. Silver', "You are on top of the mountain. Hail is plummeting down and the wind is howling. "
                                "There is someone at the edge of the cliff you're standing on"
                                "\n Red:..............!!!", None, None, None, None, None, 'MTN_BASE')
@@ -245,7 +246,8 @@ MTN_BASE = Room('Mt. Silver Base', "You are at the base of a snowy mountain. You
                 'MT_SILVER', 'MTN_PASS')
 CAVE = Room('Frozen Cave', "You are in a cold cave. The ground and walls are frozen and "
                            "there are icicles hanging from the ceiling"
-                           "\n In the center of the cave is an icy sword encased in an impenetrable layer of ice. "
+                           "\n In the center of the cave is an icy sword and a helmet encased in "
+                           "an impenetrable layer of ice. "
                            "It seems like this ice wasn't here before... If only you could rewind time...",
             None, None, 'MTN_PASS')
 MTN_PASS = Room('Mountain Pass', "There is a frozen path leading west, a shop to the east, "
@@ -339,8 +341,8 @@ BEGIN = Room("An Adventure's Beginning", "You stand atop a hill looking ahead at
                                          "\n You're ready for your quest.", 'FOREST', 'TOWN', 'OASIS',
              'FACTORY', 'CHEATS', 'LOSS')
 MARKET = Room('Desert Market', "You browse the fine selection of goods, you see potions that increase health and MP,"
-                               "\n a strange pendant with a drop of water engraved on it, a scimitar, strange scuba "
-                               "gear, items that restore MP, and an odd key "
+                               "\n a strange pendant with a drop of water engraved on it, armor, a scimitar, "
+                               "\n strange scuba gear, items that restore MP, and an odd key "
                                "\n You also see a battered rubber door mat saying 'WELCOME TO ZORK', but it "
                                "seems to be worthless. "
                                "\n You can buy or sell something here.", 'TOWN', 'DESERT_FIGHT', 'CASTLE', 'TEMPLE2')
