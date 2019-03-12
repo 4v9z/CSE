@@ -47,6 +47,10 @@ class Bag(object):
             print(str(num + 1) + ": " + item.name)
         print()
 
+    def fuse(self):
+        if key_1 and key_2 and key_3 and key_4 in self.inventory:
+            self.max_space = self.max_space
+
 
 Inventory = Bag()
 
@@ -665,6 +669,7 @@ light3 = Helmet(6, "Light Helmet")
 
 light4 = Chestplate(11, "Light Chestplate")
 
+
 class Upgrades(Consumables):
     def __init__(self, upgrade=10):
         super(Upgrades, self).__init__()
@@ -721,3 +726,86 @@ class MPupgrade(Upgrades):
 
 
 upgrade2 = MPupgrade()
+
+
+class Key(object):
+    def __init__(self, name=""):
+        self.grabbed = False
+        self.name = name
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the key")
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
+
+    def drop(self):
+        if not self.grabbed:
+            print("You don't have this item")
+        else:
+            print("You drop the key")
+            self.grabbed = False
+            Inventory.inventory.remove(self)
+
+
+class SKey(Key):
+    def __init__(self, name=""):
+        super(SKey, self).__init__()
+        self.name = name
+
+    def use(self):
+        if self.grabbed:
+            print("* You use the door key"
+                  "\n * The door key created a door")
+
+
+key_1 = Key("Key Fragment 1")
+key_2 = Key("Key Fragment 2")
+key_3 = Key("Key Fragment 3")
+key_4 = Key("Key Fragment 4")
+
+JEVIL = SKey("Door Key")
+
+
+class Watch(object):
+    def __init__(self):
+        self.past = False
+        self.future = False
+
+    def use(self, time):
+        if time.lower() == "past":
+            self.past = True
+            self.future = False
+            print("You travel backwards in time to the past")
+        elif time.lower() == "present":
+            self.past = False
+            self.future = False
+            print("You go back to the present")
+        elif time.lower() == "future":
+            self.past = False
+            self.future = True
+            print("You go to the future")
+
+
+watch = Watch()
+
+
+class Wreckage(object):
+    def __init__(self):
+        self.activated = False
+        if watch.past:
+            self.activated = True
+
+
+class Shield(object):
+    def __init__(self, defense=10):
+        self.defense = defense
+
+    def block(self):
+        self.defense = self.defense * 1.25
