@@ -1,58 +1,172 @@
-class Player(object):
-    def __init__(self, starting_location, health=50, helmet=None, chestplate='Leather Shirt', boots='Leather Boots',
-                 weapon="Wooden Sword", mp=15, defense=3, leggings="Leather Leggings"):
+class Character(object):
+    def __init__(self, weapon, armor, health=20, name="", current_location=None):
         self.health = health
-        self.leggings = leggings
-        self.inventory = []
-        self.current_location = starting_location
-        self.helmet = helmet
-        self.chestplate = chestplate
-        self.boots = boots
-        self.defense = 5
-        self.MP = mp
+        self.name = name
         self.weapon = weapon
-        self.max_health = health
-        self.max_MP = mp
+        self.armor = armor
+        self.current_location = current_location
+
+    def take_damage(self, damage):
+        if damage < self.armor.defense:
+            print("You took no damage!")
+        else:
+            self.health -= damage - self.armor.defense
+            if self.health < 0:
+                self.health = 0
+                print("%s has been defeated!" % self.name)
+        print("%s has %d health left" % (self.name, self.health))
+
+    def attack(self, target):
+        print("%s attacks %s for %d damage" %
+              (self.name, target.name, self.weapon.attack_stat))
+        target.take_damage(self.weapon.attack_stat)
+
+
+class NPC(Character):
+    def __init__(self, name, hp, power):
+        super(NPC, self).__init__(hp, name, None, None, None)
+        self.items = []
+        self.power = power
+
+
+class Armor(object):
+    def __init__(self, defense, name=""):
         self.defense = defense
+        self.grabbed = False
+        self.name = name
 
-    def move(self, new_location):
-        """ This method moves a player to a new location
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the %s" % self.name)
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
 
-        :param new_location: The room object that we move to
-        """
-        self.current_location = new_location
-
-    def find_room(self, direction):
-        """This method takes a direction and finds the variable of the room
-
-        :param direction: A String (all lowercase), with a cardinal direction
-        :return: A room object if it exists, None if it does not exist
-        """
-        room_name = getattr(self.current_location, direction)
-        return globals()[room_name]
-
-
-player = Player('AA')
-
-
-class Bag(object):
-    def __init__(self):
-        self.inventory = []
-        self.max_space = 15
+    def drop(self):
+        if not self.grabbed:
+            print("You don't have this item")
+        else:
+            print("You drop the %s" % self.name)
+            self.grabbed = False
+            Inventory.inventory.remove(self)
 
     def check(self):
-        print()
-        print("You have the following items: ")
-        for num, item in enumerate(self.inventory):
-            print(str(num + 1) + ": " + item.name)
-        print()
-
-    def fuse(self):
-        if key_1 and key_2 and key_3 and key_4 in self.inventory:
-            self.max_space = self.max_space
+        if self.grabbed:
+            print(self.name)
+            print("Defense: %i" % self.defense)
 
 
-Inventory = Bag()
+class Helmet(Armor):
+    def __init__(self, defense, name=""):
+        super(Helmet, self).__init__(2020, "")
+        self.defense = defense
+        self.name = name
+
+    def equip(self):
+        if self.grabbed:
+            if player.helmet is None:  # Fix this later!
+                print("You equip the %s" % self.name)
+                player.helmet = self
+                player.defense += self.defense
+                Inventory.inventory.remove(self)
+            else:
+                print("You already have a helmet equiped, unequip your current helmet to equip this helmet")
+        else:
+            print()
+
+    def unequip(self):
+        if self.grabbed:
+            if player.helmet is None:
+                print(".......... you have nothing equipped already.... what do you want to remove")
+            else:
+                print("You remove the %s")
+                player.helmet = None
+
+
+class Chestplate(Armor):
+    def __init__(self, defense, name=""):
+        super(Chestplate, self).__init__(2020, "")
+        self.defense = defense
+        self.name = name
+
+    def equip(self):
+        if self.grabbed:
+            if player.chestplate is None:  # Fix this later!
+                print("You equip the %s" % self.name)
+                player.chestplate = self
+                player.defense += self.defense
+                Inventory.inventory.remove(self)
+            else:
+                print("You already have a Chestplate equiped, unequip your current chestplate to equip this chestplate")
+        else:
+            print()
+
+    def unequip(self):
+        if self.grabbed:
+            if player.chestplate is None:
+                print(".......... you have nothing equipped already.... what do you want to remove")
+            else:
+                print("You remove the %s")
+                player.chestplate = undershirt
+
+
+class Boots(Armor):
+    def __init__(self, defense, name=""):
+        super(Boots, self).__init__(2020, "")
+        self.defense = defense
+        self.name = name
+
+    def equip(self):
+        if self.grabbed:
+            if player.boots is None:  # Fix this later!
+                print("You equip the %s" % self.name)
+                player.boots = self
+                player.defense += self.defense
+                Inventory.inventory.remove(self)
+            else:
+                print("You already have boots equiped, unequip your current boots to equip these boots")
+        else:
+            print()
+
+    def unequip(self):
+        if self.grabbed:
+            if player.boots is None:
+                print(".......... you have nothing equipped already.... what do you want to remove")
+            else:
+                print("You remove the %s")
+                player.boots = None
+
+
+class Leggings(Armor):
+    def __init__(self, defense, name=""):
+        super(Leggings, self).__init__(2020, "")
+        self.defense = defense
+        self.name = name
+
+    def equip(self):
+        if self.grabbed:
+            if player.leggings is None:  # Fix this later!
+                print("You equip the %s" % self.name)
+                player.leggings = self
+                player.defense += self.defense
+                Inventory.inventory.remove(self)
+            else:
+                print("You already have leggings equiped, unequip your current leggings to equip this leggings")
+        else:
+            print()
+
+    def unequip(self):
+        if self.grabbed:
+            if player.leggings is None:
+                print(".......... you have nothing equipped already.... what do you want to remove")
+            else:
+                print("You remove the %s")
+                player.leggings = underwear
 
 
 class Weapon(object):
@@ -177,6 +291,80 @@ class Axe(Blade):
         self.base_durability = durability
 
 
+leather1 = Boots(1, "Leather Boots")
+
+leather2 = Leggings(2, "Leather leggings")
+
+leather3 = Chestplate(3, "Leather Chestplate")
+
+Wooden_Sword = Sword(5, True, False, 5, "Wooden Sword")
+
+Magic_Sword = Sword(999999999, True, False, 999999999999999999999999, "Magic Sword")
+
+Wiebe_Armor = Chestplate(99999999999999999999999999999999999999999999999999999999, "Wiebe Armor")
+
+
+class Player(object):
+    def __init__(self, starting_location, health=50, helmet=None, chestplate=leather3, boots=leather1,
+                 weapon=Wooden_Sword, mp=15, defense=3, leggings=leather2):
+        self.health = health
+        self.leggings = leggings
+        self.inventory = []
+        self.current_location = starting_location
+        self.helmet = helmet
+        self.chestplate = chestplate
+        self.boots = boots
+        self.defense = 5
+        self.MP = mp
+        self.weapon = weapon
+        self.max_health = health
+        self.max_MP = mp
+        self.defense = defense
+
+    def move(self, new_location):
+        """ This method moves a player to a new location
+
+        :param new_location: The room object that we move to
+        """
+        self.current_location = new_location
+
+    def find_room(self, direction):
+        """This method takes a direction and finds the variable of the room
+
+        :param direction: A String (all lowercase), with a cardinal direction
+        :return: A room object if it exists, None if it does not exist
+        """
+        room_name = getattr(self.current_location, direction)
+        return globals()[room_name]
+
+
+player = Player('AA')
+
+
+orc = Character(100, "Orc", Wooden_Sword, None)
+
+wiebe = Character(999999999999999999999999,Magic_Sword, Wiebe_Armor, "Wiebe" )
+
+
+class Bag(object):
+    def __init__(self):
+        self.inventory = []
+        self.max_space = 15
+
+    def check(self):
+        print()
+        print("You have the following items: ")
+        for num, item in enumerate(self.inventory):
+            print(str(num + 1) + ": " + item.name)
+        print()
+
+    def fuse(self):
+        if key_1 and key_2 and key_3 and key_4 in self.inventory:
+            self.max_space = self.max_space
+
+
+Inventory = Bag()
+
 F_Sword = Sword(40, True, False, 200, "Frost Sword")
 
 Money_Sword = Sword(1, True, False, 999999999999999999999999999999999999999999, "Money Sword")
@@ -186,8 +374,6 @@ E_Sword = Sword(45, True, False, 100, "Lightning Sword")
 Light_Sword = Specialsword(40, True, False, 125, "Light Sword")
 
 One_Shot = Sword(99999999999, True, False, 100000, "One-Shot Sword")
-
-Wooden_Sword = Sword(5, True, False, 5, "Wooden Sword")
 
 Ancient_axe = Axe(30, True, False, 999999999999999999999999999999999999, "Ancient Axe")
 
@@ -497,148 +683,8 @@ void = ALL(999999999999999999999, 99999999999999999999999999, "Void Candy")
 
 cake = ALL(64, 64, "Princess Peach's Cake")
 
-
-class Armor(object):
-    def __init__(self, defense, name=""):
-        self.defense = defense
-        self.grabbed = False
-        self.name = name
-
-    def grab(self):
-        if Inventory.inventory.__len__() < Inventory.max_space:
-            if self.grabbed:
-                print("You already have this")
-            else:
-                print("You pick up the %s" % self.name)
-                self.grabbed = True
-                Inventory.inventory.append(self)
-                # add stuff to bag
-        else:
-            print("You can't carry any more items, you need to drop some items to make space")
-
-    def drop(self):
-        if not self.grabbed:
-            print("You don't have this item")
-        else:
-            print("You drop the %s" % self.name)
-            self.grabbed = False
-            Inventory.inventory.remove(self)
-
-    def check(self):
-        if self.grabbed:
-            print(self.name)
-            print("Defense: %i" % self.defense)
-
-
-class Helmet(Armor):
-    def __init__(self, defense, name=""):
-        super(Helmet, self).__init__(2020, "")
-        self.defense = defense
-        self.name = name
-
-    def equip(self):
-        if self.grabbed:
-            if player.helmet is None:  # Fix this later!
-                print("You equip the %s" % self.name)
-                player.helmet = self
-                player.defense += self.defense
-                Inventory.inventory.remove(self)
-            else:
-                print("You already have a helmet equiped, unequip your current helmet to equip this helmet")
-        else:
-            print()
-
-    def unequip(self):
-        if self.grabbed:
-            if player.helmet is None:
-                print(".......... you have nothing equipped already.... what do you want to remove")
-            else:
-                print("You remove the %s")
-                player.helmet = None
-
-
-class Chestplate(Armor):
-    def __init__(self, defense, name=""):
-        super(Chestplate, self).__init__(2020, "")
-        self.defense = defense
-        self.name = name
-
-    def equip(self):
-        if self.grabbed:
-            if player.chestplate is None:  # Fix this later!
-                print("You equip the %s" % self.name)
-                player.chestplate = self
-                player.defense += self.defense
-                Inventory.inventory.remove(self)
-            else:
-                print("You already have a Chestplate equiped, unequip your current chestplate to equip this chestplate")
-        else:
-            print()
-
-    def unequip(self):
-        if self.grabbed:
-            if player.chestplate is None:
-                print(".......... you have nothing equipped already.... what do you want to remove")
-            else:
-                print("You remove the %s")
-                player.chestplate = undershirt
-
-
-class Boots(Armor):
-    def __init__(self, defense, name=""):
-        super(Boots, self).__init__(2020, "")
-        self.defense = defense
-        self.name = name
-
-    def equip(self):
-        if self.grabbed:
-            if player.boots is None:  # Fix this later!
-                print("You equip the %s" % self.name)
-                player.boots = self
-                player.defense += self.defense
-                Inventory.inventory.remove(self)
-            else:
-                print("You already have boots equiped, unequip your current boots to equip these boots")
-        else:
-            print()
-
-    def unequip(self):
-        if self.grabbed:
-            if player.boots is None:
-                print(".......... you have nothing equipped already.... what do you want to remove")
-            else:
-                print("You remove the %s")
-                player.boots = None
-
-
-class Leggings(Armor):
-    def __init__(self, defense, name=""):
-        super(Leggings, self).__init__(2020, "")
-        self.defense = defense
-        self.name = name
-
-    def equip(self):
-        if self.grabbed:
-            if player.leggings is None:  # Fix this later!
-                print("You equip the %s" % self.name)
-                player.leggings = self
-                player.defense += self.defense
-                Inventory.inventory.remove(self)
-            else:
-                print("You already have leggings equiped, unequip your current leggings to equip this leggings")
-        else:
-            print()
-
-    def unequip(self):
-        if self.grabbed:
-            if player.leggings is None:
-                print(".......... you have nothing equipped already.... what do you want to remove")
-            else:
-                print("You remove the %s")
-                player.leggings = underwear
-
-
 undershirt = Chestplate(0, "Undershirt")
+
 underwear = Leggings(0, "Underwear")
 
 frost_helmet = Helmet(5, "Frost Helmet")
@@ -662,6 +708,8 @@ lava = Leggings(8, "Lava Leggings")
 lava2 = Boots(3, "Lava Boots")
 
 light = Boots(4, "Light Boots")
+
+tabuu = Chestplate(200, "")
 
 light2 = Leggings(9, "Light Leggings")
 
@@ -806,6 +854,20 @@ class Wreckage(object):
 class Shield(object):
     def __init__(self, defense=10):
         self.defense = defense
+        self.blocking = False
+        self.normal_defense = defense
 
     def block(self):
-        self.defense = self.defense * 1.25
+        if not self.blocking:
+            self.defense = self.defense * 1.25
+            self.blocking = True
+
+    def stop_blocking(self):
+        if self.blocking:
+            self.defense = self.normal_defense
+            self.blocking = False
+
+
+orc.attack(wiebe)
+
+wiebe.attack(orc)
