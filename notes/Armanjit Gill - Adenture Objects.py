@@ -1,3 +1,20 @@
+class Bag(object):
+    def __init__(self):
+        self.inventory = []
+        self.max_space = 15
+
+    def check(self):
+        print()
+        print("You have the following items: ")
+        for num, item in enumerate(self.inventory):
+            print(str(num + 1) + ": " + item.name)
+        print()
+
+    def fuse(self):
+        if key_1 and key_2 and key_3 and key_4 in self.inventory:
+            self.max_space = self.max_space
+
+
 class Character(object):
     def __init__(self, weapon, armor, health=20, name="", current_location=None):
         self.health = health
@@ -8,7 +25,7 @@ class Character(object):
 
     def take_damage(self, damage):
         if damage < self.armor.defense:
-            print("You took no damage!")
+            print("No damage was taken!")
         else:
             self.health -= damage - self.armor.defense
             if self.health < 0:
@@ -24,7 +41,7 @@ class Character(object):
 
 class NPC(Character):
     def __init__(self, name, hp, power):
-        super(NPC, self).__init__(hp, name, None, None, None)
+        super(NPC, self).__init__(None, None, hp, name, None)
         self.items = []
         self.power = power
 
@@ -102,7 +119,8 @@ class Chestplate(Armor):
                 player.defense += self.defense
                 Inventory.inventory.remove(self)
             else:
-                print("You already have a Chestplate equiped, unequip your current chestplate to equip this chestplate")
+                print("You already have a Chestplate equipped, unequip your current chestplate to equip "
+                      "this chestplate")
         else:
             print()
 
@@ -339,29 +357,6 @@ class Player(object):
 
 
 player = Player('AA')
-
-
-orc = Character(100, "Orc", Wooden_Sword, None)
-
-wiebe = Character(999999999999999999999999,Magic_Sword, Wiebe_Armor, "Wiebe" )
-
-
-class Bag(object):
-    def __init__(self):
-        self.inventory = []
-        self.max_space = 15
-
-    def check(self):
-        print()
-        print("You have the following items: ")
-        for num, item in enumerate(self.inventory):
-            print(str(num + 1) + ": " + item.name)
-        print()
-
-    def fuse(self):
-        if key_1 and key_2 and key_3 and key_4 in self.inventory:
-            self.max_space = self.max_space
-
 
 Inventory = Bag()
 
@@ -851,23 +846,60 @@ class Wreckage(object):
             self.activated = True
 
 
-class Shield(object):
-    def __init__(self, defense=10):
-        self.defense = defense
-        self.blocking = False
-        self.normal_defense = defense
+class Ball(Eat1):
+    def __init__(self, restore, name=""):
+        super(Ball, self).__init__(restore, name)
 
-    def block(self):
-        if not self.blocking:
-            self.defense = self.defense * 1.25
-            self.blocking = True
-
-    def stop_blocking(self):
-        if self.blocking:
-            self.defense = self.normal_defense
-            self.blocking = False
+    def use(self):
+        print("You eat the.... ball.... and you restore 1 health...."
+              "\n WHAT?! Your weapon has magically increased in strength by a slight amount")
+        player.weapon.attack_stat *= 1.15
 
 
-orc.attack(wiebe)
+Inventory.inventory.append(Wooden_Sword)
 
-wiebe.attack(orc)
+Wooden_Sword.grabbed = True
+
+leather1.grabbed = True
+
+leather2.grabbed = True
+
+leather3.grabbed = True
+
+ball = Ball(1, "Rubber? Ball")
+
+
+class Filler(object):
+    def __init__(self, name=""):
+        self.name = name
+
+    def drop(self):
+        if self in Inventory:
+            Inventory.inventory.remove(self)
+            print("You forever parted ways with the %s."
+                  "\nYou can never retrieve it, it vanishes as soon as it hits the ground"
+                  "\nGoodbye %s" % (self.name, self.name))
+
+
+CG = Gun("Coconut Gun", 30)
+
+Egg = Filler("EGG")
+
+Briefcase = Filler("Locked Briefcase")
+
+Melee = Filler("Unopened Copy of Smash Bros Melee")
+
+egg2 = Filler("EGG 2: ELECTRIC BOOGALOO")
+
+egg3 = Filler("EGG 3: THE VOID BECKONS")
+
+egg4 = Filler("EGG 4: THE QUARTET UNITED")
+
+egg5 = Filler("EGG 5: THE VOID IS COMING")
+
+egg6 = Filler("3GG 6: The2435i43WORLD1323059450CAN'T483280HANDLE4982355fdzjjANYMORE93053484032EGGS")
+
+eggg = Filler("EGG # 90239040320053937865531994736486164623559875"
+              "535321324899464656444446446465496       there are too many eggs")
+
+Book = Filler("Book")
