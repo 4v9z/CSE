@@ -13,6 +13,16 @@ class Bag(object):
     def fuse(self):
         if key_1 and key_2 and key_3 and key_4 in self.inventory:
             self.max_space = self.max_space
+            JEVIL_KEY.grabbed = True
+            Inventory.inventory.append(JEVIL_KEY)
+            key_1.grabbed = False
+            Inventory.inventory.remove(key_1)
+            key_2.grabbed = False
+            Inventory.inventory.remove(key_2)
+            key_3.grabbed = False
+            Inventory.inventory.remove(key_3)
+            key_4.grabbed = False
+            Inventory.inventory.remove(key_4)
 
 
 class Character(object):
@@ -40,10 +50,11 @@ class Character(object):
 
 
 class NPC(Character):
-    def __init__(self, name, hp, power):
+    def __init__(self, name, hp, power, money):
         super(NPC, self).__init__(None, None, hp, name, None)
         self.items = []
         self.power = power
+        self.money = money
 
 
 class Armor(object):
@@ -324,7 +335,7 @@ Wiebe_Armor = Chestplate(9999999999999999999999999999999999999999999999999999999
 
 class Player(object):
     def __init__(self, starting_location, health=50, helmet=None, chestplate=leather3, boots=leather1,
-                 weapon=Wooden_Sword, mp=15, defense=3, leggings=leather2):
+                 weapon=Wooden_Sword, mp=15, leggings=leather2):
         self.health = health
         self.leggings = leggings
         self.inventory = []
@@ -337,7 +348,17 @@ class Player(object):
         self.weapon = weapon
         self.max_health = health
         self.max_MP = mp
-        self.defense = defense
+        self.defense = self.helmet.defense + self.chestplate.defense + self.leggings.defense + self.boots.defense
+
+    def take_damage(self, damage):
+        if damage * 1.2 < self.defense:
+            print("No damage was taken!")
+        else:
+            self.health -= damage*1.2 - self.defense
+            if self.health < 0:
+                self.health = 0
+                print("You have been defeated!")
+        print("You have %d health left" % self.health)
 
     def move(self, new_location):
         """ This method moves a player to a new location
@@ -438,7 +459,7 @@ class Splattershot(Gun):
 
 Splattershot_Jr = Splattershot('Splattershot Jr')
 
-Hero_Shot = Splattershot("Hero Shot", 400, 20)
+Hero_Shot = Splattershot("Hero Shot", 400, 35)
 
 Inventory.check()
 
@@ -813,7 +834,7 @@ key_2 = Key("Key Fragment 2")
 key_3 = Key("Key Fragment 3")
 key_4 = Key("Key Fragment 4")
 
-JEVIL = SKey("Door Key")
+JEVIL_KEY = SKey("Door Key")
 
 
 class Watch(object):
@@ -893,7 +914,7 @@ egg2 = Filler("EGG 2: ELECTRIC BOOGALOO")
 
 egg3 = Filler("EGG 3: THE VOID BECKONS")
 
-egg4 = Filler("EGG 4: THE QUARTET UNITED")
+egg4 = Filler("EGG 4: SOME MORE LORE")
 
 egg5 = Filler("EGG 5: THE VOID IS COMING")
 
@@ -903,3 +924,30 @@ eggg = Filler("EGG # 90239040320053937865531994736486164623559875"
               "535321324899464656444446446465496       there are too many eggs")
 
 Book = Filler("Book")
+
+
+A_3 = NPC("Agent 3", 99999999999999999, 9999999999999999999999999999999999, 99999999999999)
+
+A_3.items.append(Hero_Shot)
+
+A_3.items.append(Cape)
+
+NPC1 = NPC("Gregg", 10, 1, 20)
+
+NPC1.items.append(Egg)
+
+NPC2 = NPC("Danny DeVito", 900, 20, 9999999999)
+
+NPC2.items.append(egg2)
+
+NPC2.items.append(egg3)
+
+NPC2.items.append(egg4)
+
+NPC3 = NPC("Johnny", 1, 0, 1)
+
+NPC4 = NPC("Bob", 0, 6, 666)
+
+NPC5 = NPC("Jim", 20, 8, 100)
+
+NPC6 = NPC("Gnorman", 99999999, 99999999999999999999, 1000000000000)
