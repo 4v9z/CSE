@@ -332,9 +332,11 @@ Magic_Sword = Sword(999999999, True, False, 999999999999999999999999, "Magic Swo
 
 Wiebe_Armor = Chestplate(99999999999999999999999999999999999999999999999999999999, "Wiebe Armor")
 
+leather4 = Helmet(3, "Leather Helmet")
+
 
 class Player(object):
-    def __init__(self, starting_location, health=50, helmet=None, chestplate=leather3, boots=leather1,
+    def __init__(self, starting_location, health=50, helmet=leather4, chestplate=leather3, boots=leather1,
                  weapon=Wooden_Sword, mp=15, leggings=leather2):
         self.health = health
         self.leggings = leggings
@@ -926,7 +928,7 @@ eggg = Filler("EGG # 90239040320053937865531994736486164623559875"
 Book = Filler("Book")
 
 
-A_3 = NPC("Agent 3", 99999999999999999, 9999999999999999999999999999999999, 99999999999999)
+A_3 = NPC("Agent 3", 99999999999999999, 99999999999999999999999999999999999999999999999, 99999999999999)
 
 A_3.items.append(Hero_Shot)
 
@@ -946,7 +948,7 @@ NPC2.items.append(egg4)
 
 NPC3 = NPC("Johnny", 1, 0, 1)
 
-NPC4 = NPC("Bob", 0, 6, 666)
+NPC4 = NPC("Bob", 999999999, 20, 99999)
 
 NPC5 = NPC("Jim", 20, 8, 100)
 
