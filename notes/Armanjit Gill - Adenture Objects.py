@@ -1055,6 +1055,7 @@ class Ball(Eat1):
         print("You eat the.... %s.... and you restore 1 health...."
               "\n WHAT?! Your weapon has magically increased in strength by %i times" % (self.name, self.multiply))
         player.weapon.attack_stat *= self.multiply
+        Inventory.inventory.remove(self)
 
 
 Inventory.inventory.append(Wooden_Sword)
@@ -1268,5 +1269,13 @@ egg6.grab()
 eggg.grab()
 
 Inventory.fuse()
+
+Inventory.check()
+
+U_Egg.use()
+
+U_Egg2.use()
+
+temple_bot.buy()
 
 Inventory.check()
