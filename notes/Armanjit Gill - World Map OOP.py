@@ -1,7 +1,3 @@
-retry = ""
-GAME = True
-
-
 class Room(object):
     def __init__(self, name='ROOM', description='This is a room', north=None, south=None, east=None, west=None,
                  up=None, down=None, enter=None, leave=None):
@@ -15,6 +11,12 @@ class Room(object):
         self.leave = leave
         self.up = up
         self.down = down
+
+
+class Item(object):
+    def __init__(self, name):
+        self.name = name
+
 
 
 class Player(object):
@@ -402,9 +404,27 @@ directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave', 
               'DOWN', 'ENTER', 'LEAVE']
 playing = True
 
+
+class Keyboard2(object):
+    def __init__(self, solution=""):
+        self.solution = solution
+        self.solv = ""
+
+    def solve(self):
+        self.solv = input("What is the answer?")
+        if self.solv.lower() == self.solution:
+            print("Correct!")
+        else:
+            print("WRONG!!! PREPARE FOR THE DRAINING OF YOUR LIFE FORCE")
+            player.health -= player.health
+
+
 # Controller
 
 while playing:
+        if player.health <= 0:
+            playing = False
+
         print(player.current_location.name)
         print(player.current_location.description)
         command = input(">_")

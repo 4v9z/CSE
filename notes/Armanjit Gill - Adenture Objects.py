@@ -44,7 +44,7 @@ class Bag(object):
             egg6.grabbed = False
             Inventory.inventory.remove(egg6)
             eggg.grabbed = False
-            Inventory.inventory.remove(Egg)
+            Inventory.inventory.remove(eggg)
 
 
 class Character(object):
@@ -128,11 +128,18 @@ class NPC(Character):
         self.shopkeeper = shop
         self.option = ""
 
-    def shop(self):
-        if self.shop():
+    def buy(self):
+        if self.shopkeeper:
             self.option = input("%s: What do you want to buy?" % self.name)
-            if self.option.lower() in self.items:
-                player.money -= option.price           # FIX THIS NOW
+            for i in range(len(self.items)):
+                if self.items[i].name.lower() == self.option.lower():
+                    if player.money >= self.items[i].price:
+                        player.money -= self.items[i].price           # FIX THIS NOW
+                        self.items[i].grabbed = True
+                        Inventory.inventory.append(self.items[i])
+                        print("Here is your %s" % self.items[i].name)
+                    else:
+                        print("Sorry, you do not have enough money to purchase this")
 
 
 class Armor(object):
@@ -309,13 +316,13 @@ class Weapon(object):
 
 
 class Blade(Weapon):
-    def __init__(self, attack_stat=None, sharp=True, dull=False, durability=None, title="", price=0):
+    def __init__(self, attack_stat=None, sharp=True, dull=False, durability=None, name="", price=0):
         super(Blade, self).__init__("  ", price)
         self.attack_stat = attack_stat
         self.sharp = sharp
         self.dull = dull
         self.durability = durability
-        self.title = title
+        self.name = name
         self.base_durability = durability
         self.base_attack = attack_stat
         self.grabbed = False
@@ -344,7 +351,7 @@ class Blade(Weapon):
 
     def check(self):
         if self.grabbed:
-            print(self.title)
+            print(self.name)
             print("Attack: %s" % self.attack_stat)
             print("Remaining durability: %s" % self.durability)
 
@@ -353,7 +360,7 @@ class Blade(Weapon):
             if self.grabbed:
                 print("You already have this")
             else:
-                print("You pick up the %s" % self.title)
+                print("You pick up the %s" % self.name)
                 self.grabbed = True
                 Inventory.inventory.append(self)
                 # add stuff to bag
@@ -364,30 +371,30 @@ class Blade(Weapon):
         if not self.grabbed:
             print("You don't have this item")
         else:
-            print("You drop the %s" % self.title)
+            print("You drop the %s" % self.name)
             self.grabbed = False
             Inventory.inventory.remove(self)
 
 
 class Sword(Blade):
-    def __init__(self, attack_stat, sharp, dull, durability, title, price=0):
+    def __init__(self, attack_stat, sharp, dull, durability, name, price=0):
         super(Sword, self).__init__(5, True, False, 20, "", price)
         self.attack_stat = attack_stat
         self.sharp = sharp
         self.dull = dull
         self.durability = durability
-        self.title = title
+        self.name = name
         self.base_durability = durability
 
 
 class Specialsword(Sword):
-    def __init__(self, attack_stat, sharp, dull, durability, title, can_get=False, price=0):
+    def __init__(self, attack_stat, sharp, dull, durability, name, can_get=False, price=0):
         super(Specialsword, self).__init__(30, True, False, 20, "", price)
         self.attack_stat = attack_stat
         self.sharp = sharp
         self.dull = dull
         self.durability = durability
-        self.title = title
+        self.name = name
         self.base_durability = durability
         self.activated = can_get
 
@@ -397,7 +404,7 @@ class Specialsword(Sword):
                     if self.grabbed:
                         print("You already have this")
                     else:
-                        print("You pick up the %s" % self.title)
+                        print("You pick up the %s" % self.name)
                         self.grabbed = True
                         Inventory.inventory.append(self)
                         # add stuff to bag
@@ -410,19 +417,19 @@ class Specialsword(Sword):
         if not self.grabbed:
             print("You don't have this item")
         else:
-            print("You drop the %s" % self.title)
+            print("You drop the %s" % self.name)
             self.grabbed = False
             Inventory.inventory.remove(self)
 
 
 class Axe(Blade):
-    def __init__(self, attack_stat, sharp, dull, durability, title, price=0):
-        super(Axe, self).__init__(title, sharp, dull, price)
+    def __init__(self, attack_stat, sharp, dull, durability, name, price=0):
+        super(Axe, self).__init__(name, sharp, dull, price)
         self.attack_stat = attack_stat
         self.sharp = sharp
         self.dull = dull
         self.durability = durability
-        self.title = title
+        self.name = name
         self.base_durability = durability
 
 
@@ -1066,6 +1073,16 @@ ball = Ball(1, "Rubber? Ball")
 class Filler(object):
     def __init__(self, name=""):
         self.name = name
+        self.grabbed = False
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the %s" % self.name)
+                self.grabbed = True
+                Inventory.inventory.append(self)
 
     def drop(self):
         if self in Inventory:
@@ -1196,7 +1213,7 @@ octoling1 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling")
 octoling2 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling")
 octoling3 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling")
 
-goomba = Enemy( foot, 5, False, False, True, "Goomba")
+goomba = Enemy(foot, 5, False, False, True, "Goomba")
 
 
 class Keyboard(object):
@@ -1225,7 +1242,31 @@ class Keyboard2(object):
         else:
             print("WRONG!!! PREPARE FOR THE DRAINING OF YOUR LIFE FORCE")
             player.health -= player.health
-            playing = False
 
 
 sub_board = Keyboard2("mewtwo")
+
+temple_bot = NPC("Shopkeeper bot model NX HAC serial no 84493587", 99999999999999, 0, 0, True)
+
+temple_bot.items.append(E_Sword)
+
+temple_bot.items.append(Unnamed_gun)
+
+
+Egg.grab()
+
+egg2.grab()
+
+egg3.grab()
+
+egg4.grab()
+
+egg5.grab()
+
+egg6.grab()
+
+eggg.grab()
+
+Inventory.fuse()
+
+Inventory.check()
