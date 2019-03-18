@@ -403,8 +403,8 @@ directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave', 
 playing = True
 
 # Controller
-while GAME:
-    while playing:
+
+while playing:
         print(player.current_location.name)
         print(player.current_location.description)
         command = input(">_")
@@ -449,11 +449,3 @@ while GAME:
                 print("I can't do this or go this way")
         else:
             print("Command not recognized, if you inputted a direction, write it again in all lowercase")
-
-        if not playing:
-            retry = input("Do you want to replay the game?")
-        if retry.lower() == "yes":
-            playing = True
-        elif retry.lower() == "no":
-            print("  ")
-            GAME = False
