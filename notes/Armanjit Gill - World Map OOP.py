@@ -18,7 +18,6 @@ class Item(object):
         self.name = name
 
 
-
 class Player(object):
     def __init__(self, starting_location, helmet=None, chestplate='Leather Shirt', boots='Leather Boots',
                  weapon="Wooden Sword"):
@@ -156,7 +155,7 @@ TOT2 = Room('Watch Room', "In the center of the room there is a magic pocket wat
                           "\n You can use the watch to open up paths to the east or west that existed in "
                           "the past or future", 'TOT3', 'TOT1', 'PAST1', 'FUTURE1')
 TOT3 = Room('Boss Room', "There is a large door in front of you with a large padlock on it, "
-                         "it appears that a keys is needed. "
+                         "it appears that a key is needed. "
                          "\n You can use the watch to open up pathways to the east and west in the past and future.",
             'GHOMA', 'TOT2', 'FUTURE2', 'PAST2')
 GHOMA = Room('Ghoma Fight', "In this room is the disgusting abomination of a spider: Ghoma"
@@ -256,7 +255,8 @@ MTN_PASS = Room('Mountain Pass', "There is a frozen path leading west, a shop to
                                  "and towering above you, a mountain",
                 None, None, 'MTN_SHOP', "CAVE", 'MTN_BASE')
 MTN_SHOP = Room('Mountain Shop', "There is engraving on stone: BUY SOMETHING AND LEAVE THE MONEY OR ELSE..."
-                                 "\n There is a keycard, armor, health upgrades, a blue potion, and a space helmet",
+                                 "\n There is a keycard, armor, health upgrades, a key fragment, a blue potion,"
+                                 " and a space helmet",
                 None, None, 'CLIMB', 'MTN_PASS')
 CLIMB = Room('Dangerous Climb', "You feel like this place isn't safe, when suddenly, you're attacked!", None, None,
              None, 'MTN_SHOP', 'PEAK', 'BAY')
@@ -355,7 +355,8 @@ CHEATS = Room("Traceback (most recent call last): File 'C:/Users/4v9z/Documents/
               "CSE/notes/Armanjit Gill - Dictionary Map.py", "@#%$*@(#^@*!*#&$^hdqoY&*#",
               'SUBSPACE_ENTER', 'PEAK')
 OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only water here. "
-                             "\n There is a waterway barely big enough for you in the water.",
+                             "\n There is a waterway barely big enough for you in the water. It appears that there is"
+                             " something in the water",
              'RIVER', 'DESERT_FIGHT', None, 'BEGIN', None, 'TOWN')
 LOSS = Room('|     |i   ||  |__', '|     |i   ||  |__', 'LOSS')
 FACTORY = Room('Factory', "You are looking at a strange factory, will you enter it?", None, None, 'BEGIN', None,
@@ -391,7 +392,8 @@ RIVER = Room('River Path', 'There is a small river flowing next to you.'
                            '\n You can follow it to the east or you can go North, South, or West',
              'MTN_SHOP', 'OASIS', 'BAY', 'CLEARING')
 JEVIL_ENTRANCE = Room('???????????', "*There is a cage-like gate in front of you, "
-                                     "* There's a note saying: 'Collect the 4 keys to enter'",
+                                     "* There's a note saying: 'Collect the 4 keys to enter'"
+                                     "\n* There is one fragment of a key here",
                       None, None, 'CLEARING', None, None, None, 'JEVIL_FIGHT')
 JEVIL_FIGHT = Room("???????", "JEVIL: 'I CAN DO ANYTHING!!' Watch out! Here comes JEVIL! "
                               "There's no strategy to beat this enemy, Good Luck! LET THE GAMES BEGIN!",

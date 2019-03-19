@@ -26,6 +26,7 @@ class Bag(object):
             Inventory.inventory.remove(key_3)
             key_4.grabbed = False
             Inventory.inventory.remove(key_4)
+            print("* You put the 4 key pieces together and form the Door Key")
         if Egg and egg2 and egg3 and egg4 and egg5 and egg6 and eggg in self.inventory:
             Inventory.inventory.append(U_Egg)
             Inventory.inventory.append(U_Egg2)
@@ -45,6 +46,8 @@ class Bag(object):
             Inventory.inventory.remove(egg6)
             eggg.grabbed = False
             Inventory.inventory.remove(eggg)
+            print("The eggs are fused together in a blinding light. When the light clears, two eggs fly into your "
+                  "inventory")
 
 
 class Character(object):
@@ -1163,6 +1166,48 @@ class Enemy(Character):
         self.elecfrost = can_physical
         self.no_weapon = attack
 
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                if not self.elecfrost:
+                    print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                    self.health -= 20
+                    player.MP -= 5
+                    if self.health < 0:
+                        self.health = 0
+                        print("%s has been defeated!" % self.name)
+                        player.money += self.money
+                    print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+                else:
+                print("You cannot attack this enemy with Fire")
+
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 35
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
     def take_damage(self, damage):
         if not self.only_ink:
             if not self.elecfrost:
@@ -1210,11 +1255,38 @@ class Enemy(Character):
 
 foot = Blade(2, True, False, 9999999999999999999999999999)
 
+shell = Blade(5, True, False, 9999999999999999999999999999)
+
+foot2 = Blade(10, True, False, 9999999999999999999999999999)
+
+Iron_Blade = Blade(15, True, False, 9999999999999999999999999)
+
+Claw = Blade(20, True, False, 999999999999)
+
 octoling1 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling")
 octoling2 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling")
 octoling3 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling")
 
 goomba = Enemy(foot, 5, False, False, True, "Goomba")
+Koopa = Enemy(shell, 10, False, False, True, "Koopa Troopa")
+Spiny = Enemy(shell, 14, False, False, True, "Spiny")
+
+Bokkoblin = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin")
+Bokkoblin2 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin")
+Bokkoblin3 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin")
+
+Frosty = Enemy(F_Sword, 30, False, False, True, "Mr. Frosty")
+
+Dee = Enemy(foot2, 20, False, False, True, "Big Waddle Dee")
+
+G_Knights = Enemy(E_Sword, 25, False, False, True, "Galactic Knights")
+
+Lizalfos = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos")
+Lizalfos2 = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos")
+
+Dynablade = Enemy(Claw, 45, False, False, True, "Dynablade")
+
+caterkiller = Enemy(Iron_Blade, 25, False, False, True, "Giant Caterkiller")
 
 
 class Keyboard(object):
@@ -1253,29 +1325,3 @@ temple_bot.items.append(E_Sword)
 
 temple_bot.items.append(Unnamed_gun)
 
-
-Egg.grab()
-
-egg2.grab()
-
-egg3.grab()
-
-egg4.grab()
-
-egg5.grab()
-
-egg6.grab()
-
-eggg.grab()
-
-Inventory.fuse()
-
-Inventory.check()
-
-U_Egg.use()
-
-U_Egg2.use()
-
-temple_bot.buy()
-
-Inventory.check()
