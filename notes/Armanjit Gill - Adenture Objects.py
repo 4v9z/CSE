@@ -1,6 +1,3 @@
-option = ""
-
-
 class Bag(object):
     def __init__(self):
         self.inventory = []
@@ -123,22 +120,41 @@ class Character(object):
 
 
 class NPC(Character):
-    def __init__(self, name, hp, power, money, shop=False):
-        super(NPC, self).__init__(None, None, hp, name, None, False)
+    def __init__(self, name, hp, power, money, shop=False, dialogue=''):
+        super(NPC, self).__init__(none, none5, hp, name, money)
         self.items = []
         self.power = power
-        self.money = money
         self.shopkeeper = shop
         self.option = ""
+        self.dialogue = dialogue
+        self.like = 0
+
+    def talk(self):
+        if self.like == 0:
+            print("%s: %s" % (self.name, self.dialogue))
+            self.like += 1
+        elif self.like == 1:
+            if len(self.items) == 0:
+                print("%s: %s" % (self.name, self.dialogue))
+            else:
+                if len(Inventory.inventory) + len(self.items) <= 15:
+                    print("%s: I would like to give you this")
+                else:
+                    print("%s: I'm not sure you have enough space in your bag to hold my items....")
 
     def buy(self):
         if self.shopkeeper:
+            print()
+            for num, item in enumerate(self.items):
+                print(str(num + 1) + ": " + item.name)
+            print()
             self.option = input("%s: What do you want to buy?" % self.name)
             for i in range(len(self.items)):
                 if self.items[i].name.lower() == self.option.lower():
                     if player.money >= self.items[i].price:
                         player.money -= self.items[i].price           # FIX THIS NOW
                         self.items[i].grabbed = True
+                        self.items.remove(self.items[i])
                         Inventory.inventory.append(self.items[i])
                         print("Here is your %s" % self.items[i].name)
                     else:
@@ -146,10 +162,11 @@ class NPC(Character):
 
 
 class Armor(object):
-    def __init__(self, defense, name=""):
+    def __init__(self, defense, name="", price=0):
         self.defense = defense
         self.grabbed = False
         self.name = name
+        self.price = price
 
     def grab(self):
         if Inventory.inventory.__len__() < Inventory.max_space:
@@ -178,8 +195,8 @@ class Armor(object):
 
 
 class Helmet(Armor):
-    def __init__(self, defense, name=""):
-        super(Helmet, self).__init__(2020, "")
+    def __init__(self, defense, name="", price=0):
+        super(Helmet, self).__init__(2020, "", price)
         self.defense = defense
         self.name = name
 
@@ -206,8 +223,8 @@ class Helmet(Armor):
 
 
 class Chestplate(Armor):
-    def __init__(self, defense, name=""):
-        super(Chestplate, self).__init__(2020, "")
+    def __init__(self, defense, name="", price=0):
+        super(Chestplate, self).__init__(2020, "", price)
         self.defense = defense
         self.name = name
 
@@ -235,8 +252,8 @@ class Chestplate(Armor):
 
 
 class Boots(Armor):
-    def __init__(self, defense, name=""):
-        super(Boots, self).__init__(2020, "")
+    def __init__(self, defense, name="", price=0):
+        super(Boots, self).__init__(2020, "", price)
         self.defense = defense
         self.name = name
 
@@ -263,8 +280,8 @@ class Boots(Armor):
 
 
 class Leggings(Armor):
-    def __init__(self, defense, name=""):
-        super(Leggings, self).__init__(2020, "")
+    def __init__(self, defense, name="", price=0):
+        super(Leggings, self).__init__(2020, "", price)
         self.defense = defense
         self.name = name
 
@@ -381,25 +398,15 @@ class Blade(Weapon):
 
 class Sword(Blade):
     def __init__(self, attack_stat, sharp, dull, durability, name, price=0):
-        super(Sword, self).__init__(5, True, False, 20, "", price)
-        self.attack_stat = attack_stat
-        self.sharp = sharp
-        self.dull = dull
-        self.durability = durability
-        self.name = name
-        self.base_durability = durability
+        super(Sword, self).__init__(attack_stat, sharp, dull, durability, name, price)
+        self.grabbed = False
 
 
 class Specialsword(Sword):
     def __init__(self, attack_stat, sharp, dull, durability, name, can_get=False, price=0):
-        super(Specialsword, self).__init__(30, True, False, 20, "", price)
-        self.attack_stat = attack_stat
-        self.sharp = sharp
-        self.dull = dull
-        self.durability = durability
-        self.name = name
-        self.base_durability = durability
+        super(Specialsword, self).__init__(attack_stat, sharp, dull, durability, name, price)
         self.activated = can_get
+        self.grabbed = False
 
     def grab(self):
             if Inventory.inventory.__len__() < Inventory.max_space:
@@ -426,8 +433,8 @@ class Specialsword(Sword):
 
 
 class Axe(Blade):
-    def __init__(self, attack_stat, sharp, dull, durability, name, price=0):
-        super(Axe, self).__init__(name, sharp, dull, price)
+    def __init__(self, attack_stat, sharp, dull, durability, name="", price=0):
+        super(Axe, self).__init__(attack_stat, sharp, dull, durability, name, price)
         self.attack_stat = attack_stat
         self.sharp = sharp
         self.dull = dull
@@ -457,6 +464,8 @@ none2 = Chestplate(0, "None")
 none3 = Leggings(0)
 
 none4 = Boots(0)
+
+none5 = Blade(0)
 
 
 class Player(object):
@@ -889,21 +898,21 @@ frost_helmet = Helmet(5, "Frost Helmet")
 
 Cape = Chestplate(15, "Hero Cape replica + Hero Jacket replica")
 
-scuba = Helmet(2, "Strange Scuba Mask")
+scuba = Helmet(2, "Strange Scuba Mask", 35)
 
-space = Helmet(4, "Space Helmet")
+space = Helmet(4, "Space Helmet", 30)
 
-ancient1 = Leggings(10, "Ancient Leggings")
+ancient1 = Leggings(10, "Ancient Leggings", 67)
 
-ancient2 = Boots(5, "Ancient Boots")
+ancient2 = Boots(5, "Ancient Boots", 40)
 
-ancient3 = Chestplate(13, "Ancient Chestplate")
+ancient3 = Chestplate(13, "Ancient Chestplate", 85)
 
-ancient4 = Helmet(7, "Ancient Helmet")
+ancient4 = Helmet(7, "Ancient Helmet", 20)
 
-lava = Leggings(8, "Lava Leggings")
+lava = Leggings(8, "Lava Leggings", 41)
 
-lava2 = Boots(3, "Lava Boots")
+lava2 = Boots(3, "Lava Boots", 26)
 
 light = Boots(4, "Light Boots")
 
@@ -1000,6 +1009,39 @@ class Key(object):
             Inventory.inventory.remove(self)
 
 
+class Key2(object):
+    def __init__(self, unlock, r_b4, name=""):
+        self.grabbed = False
+        self.name = name
+        self.unlocks = unlock
+        self.r_b4 = r_b4
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the key")
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
+
+    def drop(self):
+        if not self.grabbed:
+            print("You don't have this item")
+        else:
+            print("You drop the key")
+            self.grabbed = False
+            Inventory.inventory.remove(self)
+
+    def use(self):
+        if self.grabbed:
+            if player.current_location == self.r_b4:
+                self.r_b4 = self.unlocks
+
+
 class SKey(Key):
     def __init__(self, name=""):
         super(SKey, self).__init__()
@@ -1007,8 +1049,9 @@ class SKey(Key):
 
     def use(self):
         if self.grabbed:
-            print("* You use the door key"
-                  "\n * The door key created a door")
+            if player.current_location == JEVIL_ENTRANCE:
+                print("* You use the door key"
+                      "\n * The door key created a door")
 
 
 key_1 = Key("Key Fragment 1")
@@ -1075,9 +1118,10 @@ ball = Ball(1, "Rubber? Ball")
 
 
 class Filler(object):
-    def __init__(self, name=""):
+    def __init__(self, name="", price=0):
         self.name = name
         self.grabbed = False
+        self.price = price
 
     def grab(self):
         if Inventory.inventory.__len__() < Inventory.max_space:
@@ -1151,6 +1195,10 @@ U_Egg = ALL(9999999, 9999999, "Ultimate Egg #1")
 U_Egg2 = Ball(99999999, "Ultimate Egg #2", 2)
 
 NPC7 = NPC("Jack Handey", 99, 20, 1000)
+
+dog = NPC("Dog", 20, 5, 0, False, "Bark Bark!")
+
+dog.items.append(ball)
 
 NPC8 = NPC("Sarah", 99, 20, 800)
 
@@ -1319,8 +1367,29 @@ class Keyboard2(object):
 sub_board = Keyboard2("mewtwo")
 
 temple_bot = NPC("Shopkeeper bot model NX HAC serial no 84493587", 99999999999999, 0, 0, True)
+forest_directions = Filler("UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT"
+                           "\nKEY: UP = NORTH, DOWN = SOUTH, LEFT = WEST, RIGHT = EAST", 0)
+zork_mat = Filler("Battered Rubber Mat that reads 'WELCOME TO ZORK'")
+rock = NPC("", 0, 0, 0, True)
 
 temple_bot.items.append(E_Sword)
-
 temple_bot.items.append(Unnamed_gun)
+temple_bot.items.append(ancient1)
+temple_bot.items.append(ancient2)
+temple_bot.items.append(ancient3)
+temple_bot.items.append(ancient4)
+temple_bot.items.append(forest_directions)
+
+rock.items.append(lava)
+rock.items.append(lava2)
+rock.items.append(space)
+rock.items.append(upgrade1)
+rock.items.append(key_4)
+
+Skel_Key = Key2(CHAOS_FIGHT, TEMPLE_3.north, "Skeleton Key")
+Skel_Key2 = Key2(WATER_MP, TEMPLE_1.east, "Skeleton Key")
+Skel_Key3 = Key2(D_LINK, TEMPLE_2.east, "Skeleton Key")
+tot_key = Key2(GHOMA_FIGHT, TOT3.north, "Boss Key")
+factory = Key2(M_MARIO, FACTORY.enter, "Strange Keycard")
+
 

@@ -344,7 +344,7 @@ BEGIN = Room("An Adventure's Beginning", "You stand atop a hill looking ahead at
              'FACTORY', 'CHEATS', 'LOSS')
 MARKET = Room('Desert Market', "You browse the fine selection of goods, you see potions that increase health and MP,"
                                "\n a strange pendant with a drop of water engraved on it, armor, a scimitar, "
-                               "\n strange scuba gear, items that restore MP, and an odd key "
+                               "\n strange scuba gear, items that restore MP"
                                "\n You also see a battered rubber door mat saying 'WELCOME TO ZORK', but it "
                                "seems to be worthless. "
                                "\n You can buy or sell something here.", 'TOWN', 'DESERT_FIGHT', 'CASTLE', 'TEMPLE2')
@@ -359,7 +359,7 @@ OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only 
                              " something in the water",
              'RIVER', 'DESERT_FIGHT', None, 'BEGIN', None, 'TOWN')
 LOSS = Room('|     |i   ||  |__', '|     |i   ||  |__', 'LOSS')
-FACTORY = Room('Factory', "You are looking at a strange factory, will you enter it?", None, None, 'BEGIN', None,
+FACTORY = Room('Factory', "You are looking at a strange factory, it appears some sort of keycard is required to enter it", None, None, 'BEGIN', None,
                'M_MARIO')
 M_MARIO = Room('Inside the Factory', "You are in a fight with Metal Mario, a Robotic "
                                      "copy of the beloved plumber! Let's see if you can win!",
