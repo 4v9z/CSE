@@ -1168,8 +1168,8 @@ class Enemy(Character):
 
     def take_mp(self):
         if player.choice.lower() == "fire blast":
-            if player.MP >= 5:
-                if not self.elecfrost:
+            if not self.elecfrost:
+                if player.MP >= 5:
                     print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
                     self.health -= 20
                     player.MP -= 5
@@ -1178,11 +1178,10 @@ class Enemy(Character):
                         print("%s has been defeated!" % self.name)
                         player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
-            else:
-                print("You do not have enough MP to cast this")
                 else:
-                print("You cannot attack this enemy with Fire")
-
+                    print("You do not have enough MP to cast this")
+            else:
+                print("You cannot damage this enemy with fire")
         elif player.choice.lower() == "thunder":
             if player.MP >= 10:
                 print("Thunder is casted on %s and 25 damage is taken" % self.name)
