@@ -1052,7 +1052,6 @@ class SKey(Key):
             if player.current_location == JEVIL_ENTRANCE:
                 print("* You use the door key"
                       "\n * The door key created a door")
-                JEVIL_ENTRANCE.enter = JEVIL_FIGHT
 
 
 key_1 = Key("Key Fragment 1")
@@ -1387,92 +1386,10 @@ rock.items.append(space)
 rock.items.append(upgrade1)
 rock.items.append(key_4)
 
+Skel_Key = Key2(CHAOS_FIGHT, TEMPLE_3.north, "Skeleton Key")
+Skel_Key2 = Key2(WATER_MP, TEMPLE_1.east, "Skeleton Key")
+Skel_Key3 = Key2(D_LINK, TEMPLE_2.east, "Skeleton Key")
+tot_key = Key2(GHOMA_FIGHT, TOT3.north, "Boss Key")
+factory = Key2(M_MARIO, FACTORY.enter, "Strange Keycard")
 
-class Boss(Enemy):
-    def __init__(self):
-        super(Boss, self).__init__()
 
-    def take_mp(self):
-        if player.choice.lower() == "fire blast":
-            if not self.elecfrost:
-                if player.MP >= 5:
-                    print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
-                    self.health -= 20
-                    player.MP -= 5
-                    if self.health < 0:
-                        self.health = 0
-                        print("%s has been defeated!" % self.name)
-                        player.money += self.money
-                    print("%s has %d health left" % (self.name, self.health))
-                else:
-                    print("You do not have enough MP to cast this")
-            else:
-                print("You cannot damage this enemy with fire")
-        elif player.choice.lower() == "thunder":
-            if player.MP >= 10:
-                print("Thunder is casted on %s and 25 damage is taken" % self.name)
-                self.health -= 25
-                player.MP -= 10
-                if self.health < 0:
-                    self.health = 0
-                    print("%s has been defeated!" % self.name)
-                    print("%s has %d health left" % (self.name, self.health))
-                    player.money += self.money
-            else:
-                print("You do not have enough MP to cast this")
-        elif player.choice.lower() == "blizzard":
-            if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
-                player.MP -= 15
-                self.health -= 35
-                if self.health < 0:
-                    self.health = 0
-                    print("%s has been defeated!" % self.name)
-                    player.money += self.money
-                print("%s has %d health left" % (self.name, self.health))
-            else:
-                print("You don't have enough MP to cast this")
-
-    def take_damage(self, damage):
-        if not self.only_ink:
-            if not self.elecfrost:
-                if self.no_weapon:
-                    if damage < self.armor.defense:
-                        print("No damage was taken!")
-                    else:
-                        self.health -= damage - self.armor.defense
-                        if self.health < 0:
-                            self.health = 0
-                            print("%s has been defeated!" % self.name)
-                            player.money += self.money
-                    print("%s has %d health left" % (self.name, self.health))
-                else:
-                    print("This enemy can only be damaged by Magic attacks")
-
-            elif self.elecfrost:
-                if player.weapon is E_Sword or F_Sword:
-                    if damage < self.armor.defense:
-                        print("No damage was taken!")
-                    else:
-                        self.health -= damage - self.armor.defense
-                        if self.health < 0:
-                            self.health = 0
-                            print("%s has been defeated!" % self.name)
-                            player.money += self.money
-                    print("%s has %d health left" % (self.name, self.health))
-                else:
-                    print("Enemy takes 0 damage as they can only be hit by ice or electricity")
-
-        elif self.only_ink:
-            if player.weapon.__class__ is Splattershot:
-                if damage < self.armor.defense:
-                    print("No damage was taken!")
-                else:
-                    self.health -= damage - self.armor.defense
-                    if self.health < 0:
-                        self.health = 0
-                        print("%s has been defeated!" % self.name)
-                        player.money += self.money
-                print("%s has %d health left" % (self.name, self.health))
-            else:
-                print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
