@@ -1,3 +1,6 @@
+import random
+
+
 class Bag(object):
     def __init__(self):
         self.inventory = []
@@ -48,12 +51,11 @@ class Bag(object):
 
 
 class Character(object):
-    def __init__(self, weapon, armor, health=20, name="", current_location=None, inked=False, mon=0):
+    def __init__(self, weapon, armor, health=20, name="", inked=False, mon=0):
         self.health = health
         self.name = name
         self.weapon = weapon
         self.armor = armor
-        self.current_location = current_location
         self.inked = inked
         self.money = mon
         self.can_attack = False
@@ -108,9 +110,6 @@ class Character(object):
         print("%s has %d health left" % (self.name, self.health))
 
     def attack(self, target):
-        if self.current_location is player.current_location:
-            self.can_attack = True
-        if self.can_attack:
             print("%s attacks %s for %d damage" %
                   (self.name, target.name, self.weapon.attack_stat))
             target.take_damage(self.weapon.attack_stat)
@@ -121,7 +120,7 @@ class Character(object):
 
 class NPC(Character):
     def __init__(self, name, hp, power, money, shop=False, dialogue=''):
-        super(NPC, self).__init__(none, none5, hp, name, money)
+        super(NPC, self).__init__(none, none5, hp, name, False, money)
         self.items = []
         self.power = power
         self.shopkeeper = shop
@@ -199,6 +198,22 @@ class Helmet(Armor):
         super(Helmet, self).__init__(2020, "", price)
         self.defense = defense
         self.name = name
+        self.activated = False
+
+    def grab(self):
+        if self.activated:
+            if Inventory.inventory.__len__() < Inventory.max_space:
+                if self.grabbed:
+                    print("You already have this")
+                else:
+                    print("You pick up the %s" % self.name)
+                    self.grabbed = True
+                    Inventory.inventory.append(self)
+                    # add stuff to bag
+            else:
+                print("You can't carry any more items, you need to drop some items to make space")
+        else:
+            print("You can't grab this yet")
 
     def equip(self):
         if self.grabbed:
@@ -580,7 +595,7 @@ player = Player('AA')
 
 Inventory = Bag()
 
-F_Sword = Sword(40, True, False, 200, "Frost Sword")
+F_Sword = Specialsword(40, True, False, 200, "Frost Sword")
 
 Money_Sword = Sword(1, True, False, 999999999999999999999999999999999999999999, "Money Sword")
 
@@ -658,9 +673,9 @@ class Splattershot(Gun):
             self.ammo -= 5
 
 
-Splattershot_Jr = Splattershot('Splattershot Jr', 200, 0, 400)
+Splattershot_Jr = Splattershot('Splattershot Jr', 200, 15, 400)
 
-Hero_Shot = Splattershot("Hero Shot", 400, 35)
+Hero_Shot = Splattershot("Hero Shot", 400, 40)
 
 
 class Consumables(object):
@@ -916,8 +931,6 @@ lava2 = Boots(3, "Lava Boots", 26)
 
 light = Boots(4, "Light Boots")
 
-enemy = Boots(8, "")
-
 light2 = Leggings(9, "Light Leggings")
 
 light3 = Helmet(6, "Light Helmet")
@@ -1089,7 +1102,7 @@ class Wreckage(object):
     def __init__(self):
         self.activated = False
         if watch.past:
-            self.activated = True
+            PEAK.enter = NOVA_1
 
 
 class Ball(Eat1):
@@ -1205,14 +1218,25 @@ NPC8 = NPC("Sarah", 99, 20, 800)
 NPC9 = NPC('Cheyanne', 10, 10, 10)
 
 NPC10 = NPC("Zo R. Kuh", 70,  20, 1980)
+# weapon, armor, health=20, name="", current_location=None, inked=False, mon=0
 
 
 class Enemy(Character):
-    def __init__(self, weapon=None, health=0, can_ink=False, can_physical=False, attack=True, name=""):
-        super(Enemy, self).__init__(enemy, weapon, health, name)
+    def __init__(self, weapon=None, health=0, can_ink=False, elecfrost=False, can_weapon=True, name="", defense=0,
+                 mon=0):
+        super(Enemy, self).__init__(weapon, None, health, name, False, mon)
         self.only_ink = can_ink
-        self.elecfrost = can_physical
-        self.no_weapon = attack
+        self.elecfrost = elecfrost
+        self.no_weapon = can_weapon
+        self.defense = defense
+
+    def attack(self, target):
+            print("%s attacks %s for %d damage" %
+                  (self.name, target.name, self.weapon.attack_stat))
+            target.take_damage(self.weapon.attack_stat)
+            if self.weapon.__class__ is Splattershot:
+                target.inked = True
+                print("You have been inked and attacks now do double damage")
 
     def take_mp(self):
         if player.choice.lower() == "fire blast":
@@ -1259,10 +1283,10 @@ class Enemy(Character):
         if not self.only_ink:
             if not self.elecfrost:
                 if self.no_weapon:
-                    if damage < self.armor.defense:
+                    if damage < self.defense:
                         print("No damage was taken!")
                     else:
-                        self.health -= damage - self.armor.defense
+                        self.health -= damage - self.defense
                         if self.health < 0:
                             self.health = 0
                             print("%s has been defeated!" % self.name)
@@ -1273,10 +1297,10 @@ class Enemy(Character):
 
             elif self.elecfrost:
                 if player.weapon is E_Sword or F_Sword:
-                    if damage < self.armor.defense:
+                    if damage < self.defense:
                         print("No damage was taken!")
                     else:
-                        self.health -= damage - self.armor.defense
+                        self.health -= damage - self.defense
                         if self.health < 0:
                             self.health = 0
                             print("%s has been defeated!" % self.name)
@@ -1287,10 +1311,10 @@ class Enemy(Character):
 
         elif self.only_ink:
             if player.weapon.__class__ is Splattershot:
-                if damage < self.armor.defense:
+                if damage < self.defense:
                     print("No damage was taken!")
                 else:
-                    self.health -= damage - self.armor.defense
+                    self.health -= damage - self.defense
                     if self.health < 0:
                         self.health = 0
                         print("%s has been defeated!" % self.name)
@@ -1310,30 +1334,30 @@ Iron_Blade = Blade(15, True, False, 9999999999999999999999999)
 
 Claw = Blade(20, True, False, 999999999999)
 
-octoling1 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling")
-octoling2 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling")
-octoling3 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling")
+octoling1 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling", 5)
+octoling2 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling", 5)
+octoling3 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling", 8)
 
-goomba = Enemy(foot, 5, False, False, True, "Goomba")
-Koopa = Enemy(shell, 10, False, False, True, "Koopa Troopa")
-Spiny = Enemy(shell, 14, False, False, True, "Spiny")
+goomba = Enemy(foot, 5, False, False, True, "Goomba", 2)
+Koopa = Enemy(shell, 10, False, False, True, "Koopa Troopa", 6)
+Spiny = Enemy(shell, 14, False, False, True, "Spiny", 8)
 
-Bokkoblin = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin")
-Bokkoblin2 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin")
-Bokkoblin3 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin")
+Bokkoblin = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9)
+Bokkoblin2 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9)
+Bokkoblin3 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9)
 
-Frosty = Enemy(F_Sword, 30, False, False, True, "Mr. Frosty")
+Frosty = Enemy(F_Sword, 30, False, False, True, "Mr. Frosty", 12)
 
-Dee = Enemy(foot2, 20, False, False, True, "Big Waddle Dee")
+Dee = Enemy(foot2, 20, False, False, True, "Big Waddle Dee", 10)
 
-G_Knights = Enemy(E_Sword, 25, False, False, True, "Galactic Knights")
+G_Knights = Enemy(E_Sword, 25, False, False, True, "Galactic Knights", 12)
 
-Lizalfos = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos")
-Lizalfos2 = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos")
+Lizalfos = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10)
+Lizalfos2 = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10)
 
-Dynablade = Enemy(Claw, 45, False, False, True, "Dynablade")
+Dynablade = Enemy(Claw, 45, False, False, True, "Dynablade", 15)
 
-caterkiller = Enemy(Iron_Blade, 25, False, False, True, "Giant Caterkiller")
+caterkiller = Enemy(Iron_Blade, 25, False, False, True, "Giant Caterkiller", 12)
 
 
 class Keyboard(object):
@@ -1345,6 +1369,7 @@ class Keyboard(object):
         self.solv = input("What is the answer?")
         if self.solv.lower() == self.solution:
             print("Correct!")
+            NOVA4.east = NOVA7
 
 
 marx_board = Keyboard("tombstone")
@@ -1359,6 +1384,7 @@ class Keyboard2(object):
         self.solv = input("What is the answer?")
         if self.solv.lower() == self.solution:
             print("Correct!")
+            SUBSPACE3.east = SUBSPACE4
         else:
             print("WRONG!!! PREPARE FOR THE DRAINING OF YOUR LIFE FORCE")
             player.health -= player.health
@@ -1386,10 +1412,31 @@ rock.items.append(space)
 rock.items.append(upgrade1)
 rock.items.append(key_4)
 
-Skel_Key = Key2(CHAOS_FIGHT, TEMPLE_3.north, "Skeleton Key")
-Skel_Key2 = Key2(WATER_MP, TEMPLE_1.east, "Skeleton Key")
-Skel_Key3 = Key2(D_LINK, TEMPLE_2.east, "Skeleton Key")
-tot_key = Key2(GHOMA_FIGHT, TOT3.north, "Boss Key")
-factory = Key2(M_MARIO, FACTORY.enter, "Strange Keycard")
+
+class Ice(object):
+    def __init__(self):
+        self.activated = False
+        if watch.past:
+            F_Sword.activated = True
+            frost_helmet.activated = True
 
 
+class Boss(Enemy):
+    def __init__(self, weapon, health, can_ink, elecfrost, can_weapon, name, defense, mon):
+        super(Boss, self).__init__(weapon, health, can_ink, elecfrost, can_weapon, name, defense, mon)
+        self.attack_choice = random.randint(1,7)
+
+
+class Bowser(Boss):
+    def __init__(self):
+        super(Bowser, self).__init__(Claw, 60, False, False, False, "Bowser", 10, 1500)
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1,7)
+        if self.attack_choice == 1:
+        elif self.attack_choice == 2:
+        elif self.attack_choice == 3:
+        elif self.attack_choice == 4:
+        elif self.attack_choice == 5:
+        elif self.attack_choice == 6:
+        elif self.attack_choice == 7:
