@@ -1462,37 +1462,37 @@ class Bowser(Boss):
         elif self.attack_choice == 2:
             if self.dodge_chance != 3:
                 print("Bowser attacks with a fireball!")
-                target.take_damage(60)
+                target.take_damage(30)
             else:
                 print("Bowser attacks with a fireball but misses!")
         elif self.attack_choice == 3:
             if self.dodge_chance != 1:
                 print("Bowser attacks with his shell!")
-                target.take_damage(55)
+                target.take_damage(28)
             else:
                 print("Bowser attacks with his shell but misses")
         elif self.attack_choice == 4:
             if self.dodge_chance != 4 or 5 or 6:
                 print("Bowser grows in size for one quick attack!")
-                target.take_damage(50)
+                target.take_damage(25)
             else:
                 print("Bowser attacks but misses")
         elif self.attack_choice == 5:
             if self.dodge_chance != 8 or 9:
                 print(print("Bowser breathes a large amount of fire to attack you"))
-                target.take_damage(45)
+                target.take_damage(27)
             else:
                 print("Bowser breathes fire in your direction but misses")
         elif self.attack_choice == 6:
             if self.dodge_chance != 10:
                 print("Bowser charges at you")
-                target.take_damage(20)
+                target.take_damage(22)
             else:
                 print("Bowser charges at you but misses")
         elif self.attack_choice == 7:
             if self.dodge_chance != 11 or 12:
                 print("Bowser winds up a large punch and hits you")
-                target.take_damage(40)
+                target.take_damage(30)
             else:
                 print("Bowser tries to punch you but misses")
 
@@ -1575,39 +1575,39 @@ class Ghoma(Boss):
         elif self.attack_choice == 2:
             if self.dodge_chance != 3:
                 print("Ghoma attacks with a laser from its eye")
-                target.take_damage(30)
+                target.take_damage(14)
             else:
                 print("Ghoma tries to hit you with a laser from its eye but misses")
         elif self.attack_choice == 3:
             if self.dodge_chance != 1:
-                print("Bowser attacks with his shell!")
-                target.take_damage(55)
+                print("Ghoma bites you!")
+                target.take_damage(17)
             else:
-                print("Bowser attacks with his shell but misses")
+                print("Ghoma tries to bite you but misses")
         elif self.attack_choice == 4:
             if self.dodge_chance != 4 or 5 or 6:
-                print("Bowser grows in size for one quick attack!")
-                target.take_damage(50)
+                print("Ghoma launches a harmful web at you")
+                target.take_damage(24)
             else:
-                print("Bowser attacks but misses")
+                print("Ghoma launches a powerful web at you but misses")
         elif self.attack_choice == 5:
             if self.dodge_chance != 8 or 9:
-                print(print("Bowser breathes a large amount of fire to attack you"))
-                target.take_damage(45)
+                print(print("Ghoma tries to stomp on you"))
+                target.take_damage(14)
             else:
-                print("Bowser breathes fire in your direction but misses")
+                print("Ghoma tries to stomp on you but misses")
         elif self.attack_choice == 6:
             if self.dodge_chance != 10:
-                print("Bowser charges at you")
-                target.take_damage(20)
+                print("Ghoma charges at you")
+                target.take_damage(13)
             else:
-                print("Bowser charges at you but misses")
+                print("Ghoma charges at you but misses")
         elif self.attack_choice == 7:
             if self.dodge_chance != 11 or 12:
-                print("Bowser winds up a large punch and hits you")
-                target.take_damage(40)
+                print("Ghoma launches a sweeping attack with its legs and hits you")
+                target.take_damage(12)
             else:
-                print("Bowser tries to punch you but misses")
+                print("Bowser launches a sweeping attack with its legs but misses")
 
     def take_mp(self):
         if player.choice.lower() == "fire blast":
@@ -1619,8 +1619,8 @@ class Ghoma(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
-                    player.max_health += 20
-                    player.health = player.max_health
+                    player.max_MP += 35
+                    player.MP = player.max_MP
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You do not have enough MP to cast this")
@@ -1634,8 +1634,8 @@ class Ghoma(Boss):
                     print("%s has been defeated!" % self.name)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
-                    player.max_health += 20
-                    player.health = player.max_health
+                    player.max_MP += 35
+                    player.MP = player.max_MP
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
@@ -1647,8 +1647,8 @@ class Ghoma(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
-                    player.max_health += 20
-                    player.health = player.max_health
+                    player.max_MP += 35
+                    player.MP = player.max_MP
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You don't have enough MP to cast this")
@@ -1662,6 +1662,6 @@ class Ghoma(Boss):
                 self.health = 0
                 print("%s has been defeated!" % self.name)
                 player.money += self.money
-                player.max_health += 20
-                player.health = player.max_health
+                player.max_MP += 35
+                player.MP = player.max_MP
         print("%s has %d health left" % (self.name, self.health))
