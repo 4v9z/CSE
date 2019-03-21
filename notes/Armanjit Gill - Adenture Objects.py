@@ -127,21 +127,33 @@ class NPC(Character):
         self.option = ""
         self.dialogue = dialogue
         self.like = 0
+        self.aaaaaaa = 0
 
     def talk(self):
+
         if self.like == 0:
             print("%s: %s" % (self.name, self.dialogue))
             self.like += 1
+            self.aaaaaaa = len(self.items)
         elif self.like == 1:
-            if len(self.items) == 0:
+            if self.aaaaaaa == 0:
                 print("%s: %s" % (self.name, self.dialogue))
             else:
-                if len(Inventory.inventory) + len(self.items) <= 15:
-                    print("%s: I would like to give you this" % self.name)
+                if len(Inventory.inventory) + len(self.items) <= Inventory.max_space:
+                    if self.name == "Dog":
+                        print("Bark! Bark! Bark!")
+                    elif self.name == "Gnorman":
+                        print("*Interpretive dances and gives you something*")
+                    else:
+                        print("%s: I would like to give you this" % self.name)
                     for i in range(len(self.items)):
                         Inventory.inventory.append(self.items[i])
+                        self.aaaaaaa = 0
+                        if self.name != "Gnorman" or "Dog":
+                            self.dialogue = "Hello, nice to see you today"
                 else:
-                    print("%s: I'm not sure you have enough space in your bag to hold my items....")
+                    print("%s: I would like to give you thi-- Oh... I'm not sure you have enough"
+                          " space in your bag to hold my items...." % self.name)
 
     def buy(self):
         if self.shopkeeper:
@@ -1193,7 +1205,7 @@ Book = Filler("Book")
 
 
 A_3 = NPC("Agent 3", 99999999999999999, 99999999999999999999999999999999999999999999999, 99999999999999, False,
-          "Your're pretty powerful. I've never been beaten before, the only other time I was beaten was "
+          "You're pretty powerful. I've never been beaten before, the only other time I was beaten was "
           "\nonly when someone thought of a hole in my attack pattern.")
 
 A_3.items.append(Hero_Shot)
@@ -1214,7 +1226,7 @@ NPC2.items.append(egg4)
 
 NPC3 = NPC("Johnny", 1, 0, 1, False, "Hello, my name is Johnny.")
 
-NPC4 = NPC("Bob", 35, 15, 99999,  False,"Hi, I'm Bob")
+NPC4 = NPC("Bob", 35, 15, 99999,  False, "Hi, I'm Bob")
 
 NPC5 = NPC("Jim", 20, 8, 100, False, "Hello, my name is Jim")
 
@@ -1239,8 +1251,9 @@ NPC9 = NPC('Cheyanne', 10, 10, 10, False, "Hello there, I'm from Wyoming")
 NPC10 = NPC("Zo R. Kuh", 70,  20, 1980, False, "Hey there, I was named after some text based game, those things are "
                                                "boring. "
                                                "\nWhy would anyone play one??? (please don't quit playing now)")
-NPC10.items.append(egg5)
-NPC
+NPC2.items.append(egg5)
+NPC3.items.append(egg6)
+NPC6.items.append(eggg)
 # weapon, armor, health=20, name="", current_location=None, inked=False, mon=0
 
 
@@ -1749,8 +1762,12 @@ class Ghoma(Boss):
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
 
 
-A_3.talk()
+ghoma = Ghoma()
 
-A_3.talk()
+NPC6.talk()
+NPC6.talk()
+NPC6.talk()
 
-Inventory.check()
+dog.talk()
+dog.talk()
+dog.talk()
