@@ -1910,4 +1910,143 @@ class Chaos(Boss):
 
 chaos0 = Chaos()
 
-chaos0.attack(player)
+metal = Blade()
+
+
+class Metalmario(Boss):
+    def __init__(self, name="Metal Mario"):
+        super(Metalmario, self).__init__(metal, 75, False, True, True, name, 13, 2000)
+        self.name = "Metal Mario"
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 7)
+        self.dodge_chance = random.randint(1, 12)
+        if self.attack_choice == 1:
+            if self.dodge_chance == 3:
+                print("Chaos extends out its claws to attack! But it misses!")
+            else:
+                print("Chaos attacks for %d with its watery claws!" % self.weapon.attack_stat)
+                target.take_damage(self.weapon.attack_stat)
+        elif self.attack_choice == 2:
+            if self.dodge_chance != 3:
+                print("Chaos turns into a shark and attacks you!")
+                target.take_damage(50)
+            else:
+                print("Choas turns into a shark, tries to attack you, but misses")
+        elif self.attack_choice == 3:
+            if self.dodge_chance != 1:
+                print("Chaos launches some sort of energy blast")
+                target.take_damage(46)
+            else:
+                print("Chaos launches some sort of energy blast, but misses!")
+        elif self.attack_choice == 4:
+            if self.dodge_chance != 4 or 5 or 6:
+                print("Choas turns into a giant monster and launches a massive laser at you")
+                target.take_damage(67)
+            else:
+                print("Choas turns into a giant monster and launches a massive laser at you, but misses")
+        elif self.attack_choice == 5:
+            if self.dodge_chance != 8 or 9:
+                print("Chaos grows in size and punches you")
+                target.take_damage(40)
+            else:
+                print("Chaos attacks, but misses")
+        elif self.attack_choice == 6:
+            if self.dodge_chance != 10:
+                print("Chaos glides into you")
+                target.take_damage(25)
+            else:
+                print("Chaos tries to glide into you but misses")
+        elif self.attack_choice == 7:
+            if self.dodge_chance != 11 or 12:
+                print("Chaos stretches his arms out to punch you")
+                target.take_damage(39)
+            else:
+                print("Chaos stretches his arms out to punch you but misses")
+
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                self.health -= 20
+                player.MP -= 5
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.weapon.attack_stat += 7
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+                    player.weapon.attack_stat += 7
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 50
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.weapon.attack_stat += 7
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
+    def take_damage(self, damage):
+        if not self.only_ink:
+            if not self.elecfrost:
+                if self.no_weapon:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.weapon.attack_stat += 7
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("This enemy can not be damaged by Physical attacks")
+
+            elif self.elecfrost:
+                if player.weapon is E_Sword or F_Sword:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.weapon.attack_stat += 7
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("Enemy takes 0 damage as they can only be hit by ice or electricity")
+            elif self.only_ink:
+                if player.weapon.__class__ is Splattershot:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.weapon.attack_stat += 7
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
