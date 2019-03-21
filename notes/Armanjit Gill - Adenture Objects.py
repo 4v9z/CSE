@@ -119,8 +119,8 @@ class Character(object):
 
 
 class NPC(Character):
-    def __init__(self, name, hp, power, money, shop=False, dialogue=''):
-        super(NPC, self).__init__(none, none5, hp, name, False, money)
+    def __init__(self, name, health, power, money, shop=False, dialogue=''):
+        super(NPC, self).__init__(none, none5, health, name, False, money)
         self.items = []
         self.power = power
         self.shopkeeper = shop
@@ -416,6 +416,19 @@ class Sword(Blade):
         super(Sword, self).__init__(attack_stat, sharp, dull, durability, name, price)
         self.grabbed = False
 
+    def check(self):
+        if self.grabbed:
+            print(self.name)
+            print("Attack: %s" % self.attack_stat)
+            print("Remaining durability: %s" % self.durability)
+            print("While this weapon can defeat any enemy in one hit, your HP is constantly going to be at 1HP")
+
+
+class Shword(Sword):
+    def __init__(self, attack_stat, sharp, dull, durability, name, price=0):
+        super(Shword, self).__init__(attack_stat, sharp, dull, durability, name, price)
+        self.grabbed = False
+
 
 class Specialsword(Sword):
     def __init__(self, attack_stat, sharp, dull, durability, name, can_get=False, price=0):
@@ -603,7 +616,7 @@ E_Sword = Sword(45, True, False, 100, "Lightning Sword", 200)
 
 Light_Sword = Specialsword(40, True, False, 125, "Light Sword")
 
-One_Shot = Sword(99999999999, True, False, 100000, "One-Shot Sword", 9999999999)
+One_Shot = Shword(99999999999, True, False, 100000, "One-Shot Sword", 9999999999)
 
 Ancient_axe = Axe(30, True, False, 999999999999999999999999999999999999, "Ancient Axe")
 
@@ -1231,12 +1244,15 @@ class Enemy(Character):
         self.defense = defense
 
     def attack(self, target):
-            print("%s attacks %s for %d damage" %
-                  (self.name, target.name, self.weapon.attack_stat))
-            target.take_damage(self.weapon.attack_stat)
-            if self.weapon.__class__ is Splattershot:
-                target.inked = True
-                print("You have been inked and attacks now do double damage")
+        if target.inked:
+            self.weapon.attack_stat *= 2
+
+        print("%s attacks %s for %d damage" %
+              (self.name, target.name, self.weapon.attack_stat))
+        target.take_damage(self.weapon.attack_stat)
+        if self.weapon.__class__ is Splattershot:
+            target.inked = True
+            print("You have been inked and attacks now do double damage")
 
     def take_mp(self):
         if player.choice.lower() == "fire blast":
@@ -1334,6 +1350,8 @@ Iron_Blade = Blade(15, True, False, 9999999999999999999999999)
 
 Claw = Blade(20, True, False, 999999999999)
 
+Claw2 = Blade(15, True, False, 99999999999999)
+
 octoling1 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling", 5)
 octoling2 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling", 5)
 octoling3 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling", 8)
@@ -1355,7 +1373,7 @@ G_Knights = Enemy(E_Sword, 25, False, False, True, "Galactic Knights", 12)
 Lizalfos = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10)
 Lizalfos2 = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10)
 
-Dynablade = Enemy(Claw, 45, False, False, True, "Dynablade", 15)
+Dynablade = Enemy(Claw2, 45, False, False, True, "Dynablade", 15)
 
 caterkiller = Enemy(Iron_Blade, 25, False, False, True, "Giant Caterkiller", 12)
 
@@ -1424,19 +1442,226 @@ class Ice(object):
 class Boss(Enemy):
     def __init__(self, weapon, health, can_ink, elecfrost, can_weapon, name, defense, mon):
         super(Boss, self).__init__(weapon, health, can_ink, elecfrost, can_weapon, name, defense, mon)
-        self.attack_choice = random.randint(1,7)
+        self.attack_choice = random.randint(1, 7)
+        self.dodge_chance = random.randint(1, 12)
 
 
 class Bowser(Boss):
     def __init__(self):
-        super(Bowser, self).__init__(Claw, 60, False, False, False, "Bowser", 10, 1500)
+        super(Bowser, self).__init__(Claw, 60, False, False, True, "Bowser", 10, 1500)
 
     def attack(self, target):
-        self.attack_choice = random.randint(1,7)
+        self.attack_choice = random.randint(1, 7)
+        self.dodge_chance = random.randint(1, 12)
         if self.attack_choice == 1:
+            if self.dodge_chance == 3:
+                print("Bowser attacks with his claws! But he misses!")
+            else:
+                print("Bowser attacks for %d with his claws!" % self.weapon.attack_stat)
+                target.take_damage(self.weapon.attack_stat)
         elif self.attack_choice == 2:
+            if self.dodge_chance != 3:
+                print("Bowser attacks with a fireball!")
+                target.take_damage(60)
+            else:
+                print("Bowser attacks with a fireball but misses!")
         elif self.attack_choice == 3:
+            if self.dodge_chance != 1:
+                print("Bowser attacks with his shell!")
+                target.take_damage(55)
+            else:
+                print("Bowser attacks with his shell but misses")
         elif self.attack_choice == 4:
+            if self.dodge_chance != 4 or 5 or 6:
+                print("Bowser grows in size for one quick attack!")
+                target.take_damage(50)
+            else:
+                print("Bowser attacks but misses")
         elif self.attack_choice == 5:
+            if self.dodge_chance != 8 or 9:
+                print(print("Bowser breathes a large amount of fire to attack you"))
+                target.take_damage(45)
+            else:
+                print("Bowser breathes fire in your direction but misses")
         elif self.attack_choice == 6:
+            if self.dodge_chance != 10:
+                print("Bowser charges at you")
+                target.take_damage(20)
+            else:
+                print("Bowser charges at you but misses")
         elif self.attack_choice == 7:
+            if self.dodge_chance != 11 or 12:
+                print("Bowser winds up a large punch and hits you")
+                target.take_damage(40)
+            else:
+                print("Bowser tries to punch you but misses")
+
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                self.health -= 20
+                player.MP -= 5
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.max_health += 20
+                    player.health = player.max_health
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+                    player.max_health += 20
+                    player.health = player.max_health
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 35
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.max_health += 20
+                    player.health = player.max_health
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
+    def take_damage(self, damage):
+        if damage < self.armor.defense:
+            print("No damage was taken!")
+        else:
+            self.health -= damage - self.armor.defense
+            if self.health < 0:
+                self.health = 0
+                print("%s has been defeated!" % self.name)
+                player.money += self.money
+                player.max_health += 20
+                player.health = player.max_health
+        print("%s has %d health left" % (self.name, self.health))
+
+
+bowser = Bowser()
+
+spider_leg = Blade(9, True, False, 9999999999999999999)
+
+
+class Ghoma(Boss):
+    def __init__(self):
+        super(Ghoma, self).__init__(Claw, 45, False, False, True, "Ghoma", 8, 1000)
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 7)
+        self.dodge_chance = random.randint(1, 12)
+        if self.attack_choice == 1:
+            if self.dodge_chance == 3:
+                print("Ghoma attacks with its legs! But it misses!")
+            else:
+                print("Ghoma attacks for %d with its legs!" % self.weapon.attack_stat)
+                target.take_damage(self.weapon.attack_stat)
+        elif self.attack_choice == 2:
+            if self.dodge_chance != 3:
+                print("Ghoma attacks with a laser from its eye")
+                target.take_damage(30)
+            else:
+                print("Ghoma tries to hit you with a laser from its eye but misses")
+        elif self.attack_choice == 3:
+            if self.dodge_chance != 1:
+                print("Bowser attacks with his shell!")
+                target.take_damage(55)
+            else:
+                print("Bowser attacks with his shell but misses")
+        elif self.attack_choice == 4:
+            if self.dodge_chance != 4 or 5 or 6:
+                print("Bowser grows in size for one quick attack!")
+                target.take_damage(50)
+            else:
+                print("Bowser attacks but misses")
+        elif self.attack_choice == 5:
+            if self.dodge_chance != 8 or 9:
+                print(print("Bowser breathes a large amount of fire to attack you"))
+                target.take_damage(45)
+            else:
+                print("Bowser breathes fire in your direction but misses")
+        elif self.attack_choice == 6:
+            if self.dodge_chance != 10:
+                print("Bowser charges at you")
+                target.take_damage(20)
+            else:
+                print("Bowser charges at you but misses")
+        elif self.attack_choice == 7:
+            if self.dodge_chance != 11 or 12:
+                print("Bowser winds up a large punch and hits you")
+                target.take_damage(40)
+            else:
+                print("Bowser tries to punch you but misses")
+
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                self.health -= 20
+                player.MP -= 5
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.max_health += 20
+                    player.health = player.max_health
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+                    player.max_health += 20
+                    player.health = player.max_health
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 35
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.max_health += 20
+                    player.health = player.max_health
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
+    def take_damage(self, damage):
+        if damage < self.armor.defense:
+            print("No damage was taken!")
+        else:
+            self.health -= damage - self.armor.defense
+            if self.health < 0:
+                self.health = 0
+                print("%s has been defeated!" % self.name)
+                player.money += self.money
+                player.max_health += 20
+                player.health = player.max_health
+        print("%s has %d health left" % (self.name, self.health))
