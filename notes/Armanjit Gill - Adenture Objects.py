@@ -137,7 +137,9 @@ class NPC(Character):
                 print("%s: %s" % (self.name, self.dialogue))
             else:
                 if len(Inventory.inventory) + len(self.items) <= 15:
-                    print("%s: I would like to give you this")
+                    print("%s: I would like to give you this" % self.name)
+                    for i in range(len(self.items)):
+                        Inventory.inventory.append(self.items[i])
                 else:
                     print("%s: I'm not sure you have enough space in your bag to hold my items....")
 
@@ -536,10 +538,10 @@ class Player(object):
 
     def cast(self, target):
         if target != self:
-            target.take_mp()
             self.choice = input("What do you want to attack with?"
                                 "\nFire Blast, Thunder, or Blizzard"
                                 "\n   5MP       10MP      15MP    ")
+            target.take_mp()
         elif target == self:
             self.choice = input("Do you want to cast heal on yourself?")
             if self.choice.lower() == "yes":
@@ -1190,17 +1192,19 @@ eggg = Filler("EGG # 90239040320053937865531994736486164623559875"
 Book = Filler("Book")
 
 
-A_3 = NPC("Agent 3", 99999999999999999, 99999999999999999999999999999999999999999999999, 99999999999999)
+A_3 = NPC("Agent 3", 99999999999999999, 99999999999999999999999999999999999999999999999, 99999999999999, False,
+          "Your're pretty powerful. I've never been beaten before, the only other time I was beaten was "
+          "\nonly when someone thought of a hole in my attack pattern.")
 
 A_3.items.append(Hero_Shot)
 
 A_3.items.append(Cape)
 
-NPC1 = NPC("Gregg", 10, 1, 20)
+NPC1 = NPC("Gregg", 10, 1, 20, False, "Here. Egg. My name no longer Gregg, my name now Gr, because I now no have egg.")
 
 NPC1.items.append(Egg)
 
-NPC2 = NPC("Danny DeVito", 900, 20, 9999999999)
+NPC2 = NPC("Danny DeVito", 900, 20, 9999999999, False, "May I offer you an egg in these trying times?")
 
 NPC2.items.append(egg2)
 
@@ -1208,29 +1212,35 @@ NPC2.items.append(egg3)
 
 NPC2.items.append(egg4)
 
-NPC3 = NPC("Johnny", 1, 0, 1)
+NPC3 = NPC("Johnny", 1, 0, 1, False, "Hello, my name is Johnny.")
 
-NPC4 = NPC("Bob", 999999999, 20, 99999)
+NPC4 = NPC("Bob", 35, 15, 99999,  False,"Hi, I'm Bob")
 
-NPC5 = NPC("Jim", 20, 8, 100)
+NPC5 = NPC("Jim", 20, 8, 100, False, "Hello, my name is Jim")
 
-NPC6 = NPC("Gnorman", 99999999, 99999999999999999999, 1000000000000)
+NPC6 = NPC("Gnorman", 99999999, 99999999999999999999, 1000000000000, False, "*Interpretive dances*")
 
 U_Egg = ALL(9999999, 9999999, "Ultimate Egg #1")
 
 U_Egg2 = Ball(99999999, "Ultimate Egg #2", 2)
 
-NPC7 = NPC("Jack Handey", 99, 20, 1000)
+NPC7 = NPC("Jack Handey", 99, 20, 1000, False, "Here, have a book of my greatest deep thoughts")
+
+NPC7.items.append(Book)
 
 dog = NPC("Dog", 20, 5, 0, False, "Bark Bark!")
 
 dog.items.append(ball)
 
-NPC8 = NPC("Sarah", 99, 20, 800)
+NPC8 = NPC("Sarah", 99, 20, 800, False, "Hello")
 
-NPC9 = NPC('Cheyanne', 10, 10, 10)
+NPC9 = NPC('Cheyanne', 10, 10, 10, False, "Hello there, I'm from Wyoming")
 
-NPC10 = NPC("Zo R. Kuh", 70,  20, 1980)
+NPC10 = NPC("Zo R. Kuh", 70,  20, 1980, False, "Hey there, I was named after some text based game, those things are "
+                                               "boring. "
+                                               "\nWhy would anyone play one??? (please don't quit playing now)")
+NPC10.items.append(egg5)
+NPC
 # weapon, armor, health=20, name="", current_location=None, inked=False, mon=0
 
 
@@ -1449,6 +1459,7 @@ class Boss(Enemy):
 class Bowser(Boss):
     def __init__(self):
         super(Bowser, self).__init__(Claw, 60, False, False, True, "Bowser", 10, 1500)
+        self.name = "Bowser"
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
@@ -1541,17 +1552,51 @@ class Bowser(Boss):
                 print("You don't have enough MP to cast this")
 
     def take_damage(self, damage):
-        if damage < self.armor.defense:
-            print("No damage was taken!")
-        else:
-            self.health -= damage - self.armor.defense
-            if self.health < 0:
-                self.health = 0
-                print("%s has been defeated!" % self.name)
-                player.money += self.money
-                player.max_health += 20
-                player.health = player.max_health
-        print("%s has %d health left" % (self.name, self.health))
+        if not self.only_ink:
+            if not self.elecfrost:
+                if self.no_weapon:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.max_health += 20
+                            player.health = player.max_health
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("This enemy can only be damaged by Magic attacks")
+
+            elif self.elecfrost:
+                if player.weapon is E_Sword or F_Sword:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.max_health += 20
+                            player.health = player.max_health
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("Enemy takes 0 damage as they can only be hit by ice or electricity")
+            elif self.only_ink:
+                if player.weapon.__class__ is Splattershot:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
 
 
 bowser = Bowser()
@@ -1560,8 +1605,9 @@ spider_leg = Blade(9, True, False, 9999999999999999999)
 
 
 class Ghoma(Boss):
-    def __init__(self):
-        super(Ghoma, self).__init__(Claw, 45, False, False, True, "Ghoma", 8, 1000)
+    def __init__(self, name="Ghoma"):
+        super(Ghoma, self).__init__(Claw, 45, False, False, True, name, 8, 1000)
+        self.name = "Ghoma"
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
@@ -1607,7 +1653,7 @@ class Ghoma(Boss):
                 print("Ghoma launches a sweeping attack with its legs and hits you")
                 target.take_damage(12)
             else:
-                print("Bowser launches a sweeping attack with its legs but misses")
+                print("Ghoma launches a sweeping attack with its legs but misses")
 
     def take_mp(self):
         if player.choice.lower() == "fire blast":
@@ -1654,14 +1700,57 @@ class Ghoma(Boss):
                 print("You don't have enough MP to cast this")
 
     def take_damage(self, damage):
-        if damage < self.armor.defense:
-            print("No damage was taken!")
-        else:
-            self.health -= damage - self.armor.defense
-            if self.health < 0:
-                self.health = 0
-                print("%s has been defeated!" % self.name)
-                player.money += self.money
-                player.max_MP += 35
-                player.MP = player.max_MP
-        print("%s has %d health left" % (self.name, self.health))
+        if not self.only_ink:
+            if not self.elecfrost:
+                if self.no_weapon:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.max_MP += 35
+                            player.MP = player.max_MP
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("This enemy can only be damaged by Magic attacks")
+
+            elif self.elecfrost:
+                if player.weapon is E_Sword or F_Sword:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.max_MP += 35
+                            player.MP = player.max_MP
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("Enemy takes 0 damage as they can only be hit by ice or electricity")
+            elif self.only_ink:
+                if player.weapon.__class__ is Splattershot:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.max_MP += 35
+                            player.MP = player.max_MP
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
+
+
+A_3.talk()
+
+A_3.talk()
+
+Inventory.check()
