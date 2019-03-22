@@ -2057,9 +2057,9 @@ m_mario = Metalmario()
 Claw3 = Blade(47)
 
 
-class D_Bowser(Boss):
+class Dbowser(Boss):
     def __init__(self):
-        super(D_Bowser, self).__init__(Claw, 100, False, False, True, "Dark Bowser", 10, 2008)
+        super(Dbowser, self).__init__(Claw, 100, False, False, True, "Dark Bowser", 10, 2008)
         self.name = "Dark Bowser"
 
     def attack(self, target):
@@ -2202,14 +2202,14 @@ class D_Bowser(Boss):
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
 
 
-d_bowser = D_Bowser
+d_bowser = Dbowser
 
 d_m_sword = Blade(37)
 
 
-class Dark_Link(Boss):
+class Darklink(Boss):
     def __init__(self):
-        super(Dark_Link, self).__init__(d_m_sword, 90, False, False, True, "Dark Link", 15, 3059)
+        super(Darklink, self).__init__(d_m_sword, 90, False, False, True, "Dark Link", 15, 3059)
         self.name = "Dark Link"
 
     def attack(self, target):
@@ -2342,8 +2342,161 @@ class Dark_Link(Boss):
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
 
 
-dark_link = Dark_Link()
+dark_link = Darklink()
 
-dark_link.attack(m_mario)
 
-m_mario.attack(dark_link)
+class Marx(Boss):
+    def __init__(self):
+        super(Marx, self).__init__(None, 100, False, False, True, "Marx", 14, 9298)
+        self.name = "Marx"
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 7)
+        self.dodge_chance = random.randint(1, 12)
+        if self.attack_choice == 1:
+            if self.dodge_chance == 3:
+                print("Marx launches out 4 crescent blades! But he misses!")
+            else:
+                print("Marx launches out 4 crescent blades!!")
+                target.take_damage(30)
+        elif self.attack_choice == 2:
+            if self.dodge_chance != 3:
+                print("Marx split himself in half and turns into fire, flying into you many times and reverting back")
+                target.take_damage(40)
+            else:
+                print("Marx split himself in half and turns into fire, trying to fly into you many times and reverting "
+                      "back after missing")
+        elif self.attack_choice == 3:
+            if self.dodge_chance != 1 or 2 or 3:
+                print("Marx's face stretches into a deformed shape and he shoots a massive laser from his mouth")
+                target.take_damage(47)
+            else:
+                print("Marx's face stretches into a deformed shape and he shoots a massive laser from his "
+                      "mouth but he misses")
+        elif self.attack_choice == 4:
+            if self.dodge_chance != 4 or 5 or 6 or 7:
+                print("Marx splits his body in half in order to create a black hole")
+                target.take_damage(65)
+            else:
+                print("Marx splits his body in half in order to create a black hole but you somehow avoid being "
+                      "sucked in")
+        elif self.attack_choice == 5:
+            if self.dodge_chance != 8 or 9:
+                print("Marx launches down strange black seeds, these seeds quickly grow into sharp vines which then "
+                      "hit you")
+                target.take_damage(37)
+            else:
+                print("Marx launches down strange black seeds, these seeds quickly grow into sharp vines "
+                      "which then barely graze you")
+                target.take_damage(5)
+        elif self.attack_choice == 6:
+            if self.dodge_chance != 10 or 3:
+                print("Marx flies quickly down into the ground, then, when you least expect it, he rises out quickly, "
+                      "ramming you while laughing eerily")
+                target.take_damage(32)
+            else:
+                print("Marx flies quickly down into the ground and flies out to try to ram into you, but he misses")
+        elif self.attack_choice == 7:
+            if self.dodge_chance != 11:
+                print("Marx's eyes go blacks a black orbs start coming from his eyes."
+                      "\n The orbs then quickly fly into you to do damage")
+                target.take_damage(27)
+            else:
+                print("Marx's eyes go blacks a black orbs start coming from his eyes."
+                      "\n The orbs then try to fly into you, but they miss")
+
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                self.health -= 20
+                player.MP -= 5
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.max_MP += 40
+                    player.MP = player.max_MP
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+                    player.max_MP += 40
+                    player.MP = player.max_MP
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 50
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.max_MP += 40
+                    player.MP = player.max_MP
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
+    def take_damage(self, damage):
+        if not self.only_ink:
+            if not self.elecfrost:
+                if self.no_weapon:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.max_MP += 40
+                            player.MP = player.max_MP
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("This enemy can not be damaged by physical attacks")
+
+            elif self.elecfrost:
+                if player.weapon is E_Sword or F_Sword:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.max_MP += 40
+                            player.MP = player.max_MP
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("Enemy takes 0 damage as they can only be hit by ice or electricity")
+            elif self.only_ink:
+                if player.weapon.__class__ is Splattershot:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.max_MP += 40
+                            player.MP = player.max_MP
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
+
+
+marx = Marx()
