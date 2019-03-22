@@ -359,7 +359,8 @@ OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only 
                              " something in the water",
              'RIVER', 'DESERT_FIGHT', None, 'BEGIN', None, 'TOWN')
 LOSS = Room('|     |i   ||  |__', '|     |i   ||  |__', 'LOSS')
-FACTORY = Room('Factory', "You are looking at a strange factory, it appears some sort of keycard is required to enter it", None, None, 'BEGIN', None,
+FACTORY = Room('Factory', "You are looking at a strange factory, it "
+                          "appears some sort of keycard is required to enter it", None, None, 'BEGIN', None,
                'M_MARIO')
 M_MARIO = Room('Inside the Factory', "You are in a fight with Metal Mario, a Robotic "
                                      "copy of the beloved plumber! Let's see if you can win!",
@@ -405,20 +406,6 @@ player = Player(BEGIN)
 directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave', 'NORTH', 'SOUTH', 'EAST', 'WEST', 'UP',
               'DOWN', 'ENTER', 'LEAVE']
 playing = True
-
-
-class Keyboard2(object):
-    def __init__(self, solution=""):
-        self.solution = solution
-        self.solv = ""
-
-    def solve(self):
-        self.solv = input("What is the answer?")
-        if self.solv.lower() == self.solution:
-            print("Correct!")
-        else:
-            print("WRONG!!! PREPARE FOR THE DRAINING OF YOUR LIFE FORCE")
-            player.health -= player.health
 
 
 # Controller
