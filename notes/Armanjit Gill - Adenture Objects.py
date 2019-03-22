@@ -1771,7 +1771,7 @@ gohma = Ghoma()
 
 class Chaos(Boss):
     def __init__(self, name="Chaos"):
-        super(Chaos, self).__init__(Claw, 75, False, True, True, name, 13, 2000)
+        super(Chaos, self).__init__(Claw, 75, False, True, False, name, 13, 2000)
         self.name = "Chaos"
 
     def attack(self, target):
@@ -1910,12 +1910,12 @@ class Chaos(Boss):
 
 chaos0 = Chaos()
 
-metal = Blade()
+metal = Blade(29)
 
 
 class Metalmario(Boss):
     def __init__(self, name="Metal Mario"):
-        super(Metalmario, self).__init__(metal, 75, False, True, True, name, 13, 2000)
+        super(Metalmario, self).__init__(metal, 85, False, False, True, name, 20, 6464)
         self.name = "Metal Mario"
 
     def attack(self, target):
@@ -1923,46 +1923,46 @@ class Metalmario(Boss):
         self.dodge_chance = random.randint(1, 12)
         if self.attack_choice == 1:
             if self.dodge_chance == 3:
-                print("Chaos extends out its claws to attack! But it misses!")
+                print("Metal Mario punches you but misses")
             else:
-                print("Chaos attacks for %d with its watery claws!" % self.weapon.attack_stat)
+                print("Metal Mario attacks for %d with his fists!" % self.weapon.attack_stat)
                 target.take_damage(self.weapon.attack_stat)
         elif self.attack_choice == 2:
             if self.dodge_chance != 3:
-                print("Chaos turns into a shark and attacks you!")
-                target.take_damage(50)
+                print("Metal Mario hits you with a forward ariel!")
+                target.take_damage(30)
             else:
-                print("Choas turns into a shark, tries to attack you, but misses")
+                print("Metal Mario tries to hit you with a forward ariel, but misses")
         elif self.attack_choice == 3:
             if self.dodge_chance != 1:
-                print("Chaos launches some sort of energy blast")
-                target.take_damage(46)
+                print("Metal Mario spins into you")
+                target.take_damage(26)
             else:
-                print("Chaos launches some sort of energy blast, but misses!")
+                print("Metal Mario tries to spin into you but misses!")
         elif self.attack_choice == 4:
             if self.dodge_chance != 4 or 5 or 6:
-                print("Choas turns into a giant monster and launches a massive laser at you")
-                target.take_damage(67)
+                print("Metal Mario uses his Super Jump Punch!")
+                target.take_damage(37)
             else:
-                print("Choas turns into a giant monster and launches a massive laser at you, but misses")
+                print("Metal Mario uses his Super Jump Punch, but misses!")
         elif self.attack_choice == 5:
             if self.dodge_chance != 8 or 9:
-                print("Chaos grows in size and punches you")
+                print("Metal Mario launches a fireball at you!")
                 target.take_damage(40)
             else:
-                print("Chaos attacks, but misses")
+                print("Metal Mario launches a fireball at you, but misses")
         elif self.attack_choice == 6:
             if self.dodge_chance != 10:
-                print("Chaos glides into you")
+                print("Metal Mario slides into you!")
                 target.take_damage(25)
             else:
-                print("Chaos tries to glide into you but misses")
+                print("Metal Mario tries to slide into you, but misses")
         elif self.attack_choice == 7:
             if self.dodge_chance != 11 or 12:
-                print("Chaos stretches his arms out to punch you")
-                target.take_damage(39)
+                print("Metal Mario charges and launches a Smash attack")
+                target.take_damage(33)
             else:
-                print("Chaos stretches his arms out to punch you but misses")
+                print("Metal Mario charges and launches a Smash attack but misses")
 
     def take_mp(self):
         if player.choice.lower() == "fire blast":
@@ -1974,7 +1974,7 @@ class Metalmario(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
-                    player.weapon.attack_stat += 7
+                    player.chestplate.defense += 10
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You do not have enough MP to cast this")
@@ -1988,7 +1988,7 @@ class Metalmario(Boss):
                     print("%s has been defeated!" % self.name)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
-                    player.weapon.attack_stat += 7
+                    player.chestplate.defense += 10
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
@@ -2000,7 +2000,7 @@ class Metalmario(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
-                    player.weapon.attack_stat += 7
+                    player.chestplate.defense += 10
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You don't have enough MP to cast this")
@@ -2017,7 +2017,7 @@ class Metalmario(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
-                            player.weapon.attack_stat += 7
+                            player.chestplate.defense += 10
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("This enemy can not be damaged by Physical attacks")
@@ -2032,7 +2032,7 @@ class Metalmario(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
-                            player.weapon.attack_stat += 7
+                            player.chestplate.defense += 10
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("Enemy takes 0 damage as they can only be hit by ice or electricity")
@@ -2046,7 +2046,304 @@ class Metalmario(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
-                            player.weapon.attack_stat += 7
+                            player.chestplate.defense += 10
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
+
+
+m_mario = Metalmario()
+
+Claw3 = Blade(47)
+
+
+class D_Bowser(Boss):
+    def __init__(self):
+        super(D_Bowser, self).__init__(Claw, 100, False, False, True, "Dark Bowser", 10, 2008)
+        self.name = "Dark Bowser"
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 7)
+        self.dodge_chance = random.randint(1, 12)
+        if self.attack_choice == 1:
+            if self.dodge_chance == 3:
+                print("Dark Bowser attacks with his claws! But he misses!")
+            else:
+                print("Dark Bowser attacks for %d with his claws!" % self.weapon.attack_stat)
+                target.take_damage(self.weapon.attack_stat)
+        elif self.attack_choice == 2:
+            if self.dodge_chance != 3:
+                print("Dark Bowser attacks with a fireball!")
+                target.take_damage(38)
+            else:
+                print("Dark Bowser attacks with a fireball but misses!")
+        elif self.attack_choice == 3:
+            if self.dodge_chance != 1:
+                print("Dark Bowser attacks with his shell!")
+                target.take_damage(32)
+            else:
+                print("Dark Bowser attacks with his shell but misses")
+        elif self.attack_choice == 4:
+            if self.dodge_chance != 4 or 5 or 6:
+                print("Dark Bowser grows in size for one quick attack!")
+                target.take_damage(51)
+            else:
+                print("Bowser attacks but misses")
+        elif self.attack_choice == 5:
+            if self.dodge_chance != 8 or 9:
+                print("Bowser breathes a large amount of fire to attack you")
+                target.take_damage(41)
+            else:
+                print("Bowser breathes fire in your direction but misses")
+        elif self.attack_choice == 6:
+            if self.dodge_chance != 10:
+                print("Bowser charges at you")
+                target.take_damage(32)
+            else:
+                print("Bowser charges at you but misses")
+        elif self.attack_choice == 7:
+            if self.dodge_chance != 11 or 12:
+                print("Bowser winds up a large punch and hits you")
+                target.take_damage(39)
+            else:
+                print("Bowser tries to punch you but misses")
+
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                self.health -= 20
+                player.MP -= 5
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.max_health += 30
+                    player.health = player.max_health
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+                    player.max_health += 30
+                    player.health = player.max_health
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 50
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.max_health += 30
+                    player.health = player.max_health
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
+    def take_damage(self, damage):
+        if not self.only_ink:
+            if not self.elecfrost:
+                if self.no_weapon:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.max_health += 30
+                            player.health = player.max_health
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("This enemy can not be damaged by physical attacks")
+
+            elif self.elecfrost:
+                if player.weapon is E_Sword or F_Sword:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.max_health += 30
+                            player.health = player.max_health
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("Enemy takes 0 damage as they can only be hit by ice or electricity")
+            elif self.only_ink:
+                if player.weapon.__class__ is Splattershot:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.max_health += 30
+                            player.health = player.max_health
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
+
+
+d_bowser = D_Bowser
+
+d_m_sword = Blade(37)
+
+
+class Dark_Link(Boss):
+    def __init__(self):
+        super(Dark_Link, self).__init__(d_m_sword, 90, False, False, True, "Dark Link", 15, 3059)
+        self.name = "Dark Link"
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 7)
+        self.dodge_chance = random.randint(1, 12)
+        if self.attack_choice == 1:
+            if self.dodge_chance == 3:
+                print("Dark Link attacks with his sword! But he misses!")
+            else:
+                print("Dark Link attacks for %d with his sword!" % self.weapon.attack_stat)
+                target.take_damage(self.weapon.attack_stat)
+        elif self.attack_choice == 2:
+            if self.dodge_chance != 3:
+                print("Dark Link attacks with a sword beam!")
+                target.take_damage(15)
+            else:
+                print("Dark Link attacks with a sword beam but misses!")
+        elif self.attack_choice == 3:
+            if self.dodge_chance != 1:
+                print("Dark Link attacks with a Fire Arrow from his bow!")
+                target.take_damage(F_Sword.attack_stat)
+            else:
+                print("Dark Link attacks with a Fire Arrow from his bow but misses")
+        elif self.attack_choice == 4:
+            if self.dodge_chance != 4 or 5 or 6:
+                print("Dark Link unleashes a series of quick slashes and then hits you with one final powerful slash")
+                target.take_damage(64)
+            else:
+                print("Dark Link unleashes a series of quick slashes and then misses with one final slash, "
+                      "\nhowever he still grazed you with some other slashes")
+                target.take_damage(12)
+        elif self.attack_choice == 5:
+            if self.dodge_chance != 8 or 9:
+                print("Dark Link uses a spin attack!")
+                target.take_damage(27)
+            else:
+                print("Dark Link uses a spin attack but misses")
+        elif self.attack_choice == 6:
+            if self.dodge_chance != 10:
+                print("Dark Link charges at you with his sword")
+                target.take_damage(22)
+            else:
+                print("Dark Link charges at you with his sword but misses")
+        elif self.attack_choice == 7:
+            if self.dodge_chance != 11 or 12:
+                print("Dark Link hits you with an Ice Arrow")
+                target.take_damage(F_Sword.attack_stat)
+            else:
+                print("Dark Link tries to hit you with an Ice Arrow but misses")
+
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                self.health -= 20
+                player.MP -= 5
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 50
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
+    def take_damage(self, damage):
+        if not self.only_ink:
+            if not self.elecfrost:
+                if self.no_weapon:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("This enemy can not be damaged by physical attacks")
+
+            elif self.elecfrost:
+                if player.weapon is E_Sword or F_Sword:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("Enemy takes 0 damage as they can only be hit by ice or electricity")
+            elif self.only_ink:
+                if player.weapon.__class__ is Splattershot:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
+
+
+dark_link = Dark_Link()
+
+dark_link.attack(m_mario)
+
+m_mario.attack(dark_link)
