@@ -229,11 +229,7 @@ TOT_SHOP = Room('Temple Shop', 'ROBOT: BEEP BOOP, What do you want to buy? ZZZZZ
 TOWER = Room('Sheikah Tower', "You look up at the tower in front of you. you can climb it,"
                               " and it looks like there'll be a reward at the top for you", None, None, None,
              'DESERT_FIGHT', 'TOP_TOWER')
-TOP_TOWER = Room('Shiekah Tower (Top)', 'You look in front of you and see two pedestals, one has an axe'
-                                        ' on it, one has a shield.'
-                                        '\n '
-                                        'There appears to be a sign in between them that says "ONLY TAKE ONE".'
-                                        ' Will you listen to it?', None, None, None, None, None, 'TOWER')
+TOP_TOWER = Room('Shiekah Tower (Top)', 'You look in front of you and see an axe on a pedestal.', None, None, None, None, None, 'TOWER')
 VOLCANO = Room('Volcano', "You are in front of a volcano... do you want to jump in?", None, None, None,
                None, None, None, 'INTERIOR')
 INTERIOR = Room('Inside Volcano', "HOLY HECK, YOU'RE ALIVE!!"
@@ -346,8 +342,7 @@ MARKET = Room('Desert Market', "You browse the fine selection of goods, you see 
                                "\n a strange pendant with a drop of water engraved on it, armor, a scimitar, "
                                "\n strange scuba gear, items that restore MP"
                                "\n You also see a battered rubber door mat saying 'WELCOME TO ZORK', but it "
-                               "seems to be worthless. "
-                               "\n You can buy or sell something here.", 'TOWN', 'DESERT_FIGHT', 'CASTLE', 'TEMPLE2')
+                               "seems to be worthless. ", 'TOWN', 'DESERT_FIGHT', 'CASTLE', 'TEMPLE2')
 TOWN = Room('Desert Town', "You are in a barren town, there isn't much to see here, save for some bags of gold..."
                            "\n But you wouldn't steal from innocent people... would you?",
             'BEGIN', 'MARKET', 'DESERT_FIGHT')
