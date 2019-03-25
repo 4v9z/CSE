@@ -4645,6 +4645,10 @@ tot_key = Key2(GHOMA, TOT3.north, "Boss Key")
 factory = Key2(M_MARIO, FACTORY.enter, "Strange Keycard")
 Skel_key = Skelkey(CHAOS_FIGHT, TEMPLE_3.north, WATER_MP, TEMPLE_1.east, D_LINK, TEMPLE_2.east,"Skeleton Key")
 
+player.money += 1000000000000
+
+Sheldon.buy()
+
 
 # Controller
 
