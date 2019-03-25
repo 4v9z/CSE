@@ -229,7 +229,8 @@ TOT_SHOP = Room('Temple Shop', 'ROBOT: BEEP BOOP, What do you want to buy? ZZZZZ
 TOWER = Room('Sheikah Tower', "You look up at the tower in front of you. you can climb it,"
                               " and it looks like there'll be a reward at the top for you", None, None, None,
              'DESERT_FIGHT', 'TOP_TOWER')
-TOP_TOWER = Room('Shiekah Tower (Top)', 'You look in front of you and see an axe on a pedestal.', None, None, None, None, None, 'TOWER')
+TOP_TOWER = Room('Shiekah Tower (Top)', 'You look in front of you and see an axe on a pedestal.', None, None, None, None,
+                 None, 'TOWER')
 VOLCANO = Room('Volcano', "You are in front of a volcano... do you want to jump in?", None, None, None,
                None, None, None, 'INTERIOR')
 INTERIOR = Room('Inside Volcano', "HOLY HECK, YOU'RE ALIVE!!"

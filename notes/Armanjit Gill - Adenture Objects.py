@@ -4219,8 +4219,6 @@ class Agent3(Boss):
 
 Agent_3 = Agent3()
 
-#  name, health, power, money, shop=False, dialogue=''
-
 Sheldon = NPC("Sheldon", 50, 10, 2000, True)
 
 Sheldon.items.append(fruit)
