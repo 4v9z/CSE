@@ -1169,6 +1169,44 @@ class Key2(object):
                 self.r_b4 = self.unlocks
 
 
+class Skelkey(Key2):
+    def __init__(self, unlock, r_b4,unlock2, r_b42, unlock3, r_b43, name=""):
+        super(Skelkey, self).__init__(unlock, r_b4, name)
+        self.grabbed = False
+        self.name = name
+        self.unlocks2 = unlock2
+        self.r_b42 = r_b42
+        self.unlocks3 = unlock3
+        self.r_b43 = r_b43
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the key")
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
+
+    def drop(self):
+        if not self.grabbed:
+            print("You don't have this item")
+        else:
+            print("You drop the key")
+            self.grabbed = False
+            Inventory.inventory.remove(self)
+
+    def use(self):
+        if self.grabbed:
+            if player.current_location == self.r_b4:
+                self.r_b4 = self.unlocks
+                self.r_b42 = self.unlocks2
+                self.r_b43 = self.unlocks3
+
+
 class SKey(Key):
     def __init__(self, name=""):
         super(SKey, self).__init__()
@@ -4602,6 +4640,10 @@ player = Player(BEGIN)
 directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave', 'NORTH', 'SOUTH', 'EAST', 'WEST', 'UP',
               'DOWN', 'ENTER', 'LEAVE']
 playing = True
+
+tot_key = Key2(GHOMA, TOT3.north, "Boss Key")
+factory = Key2(M_MARIO, FACTORY.enter, "Strange Keycard")
+Skel_key = Skelkey(CHAOS_FIGHT, TEMPLE_3.north, WATER_MP, TEMPLE_1.east, D_LINK, TEMPLE_2.east,"Skeleton Key")
 
 
 # Controller
