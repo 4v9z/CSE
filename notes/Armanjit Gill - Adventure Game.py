@@ -4069,6 +4069,149 @@ class Tabuu(Boss):
 tabuu = Tabuu()
 
 
+class Wiebe(Boss):
+    def __init__(self):
+        super(Wiebe, self).__init__(None, 105, False, False, True, "Mr. Wiebe", 17, 99999999999999999999999)
+        self.name = "Mr.Wiebe"
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 7)
+        self.dodge_chance = random.randint(1, 12)
+        if self.attack_choice == 1:
+            if self.dodge_chance == 3:
+                print("Wiebe tries to attack you, but he misses")
+            else:
+                print("Wiebe launches a Key Error at you (somehow...)!")
+                target.take_damage(56)
+        elif self.attack_choice == 2:
+            if self.dodge_chance != 3:
+                print("Mr. Wiebe runs the command target.take_damage(40)!")
+                target.take_damage(40)
+            else:
+                print("Mr. Wiebe runs the command target.Take_damage(40)! Howver, he added a capital letter and"
+                      " the command failed")
+        elif self.attack_choice == 3:
+            if self.dodge_chance != 1:
+                print("Mr. Wiebe does self.health += 35!")
+                self.health += 35
+            else:
+                print("Mr. Wiebe does self.Health += 35, but he added a capital letter and the command failed!")
+        elif self.attack_choice == 4:
+            if self.dodge_chance != 4:
+                print("Mr. Wiebe hits you with a barrage of random code!")
+                target.take_damage(54)
+            else:
+                print("Mr. Wiebe hits you with a barrage of random code but you dodge the attack")
+        elif self.attack_choice == 5:
+            if self.dodge_chance != 8 or 9 or 10 or 11 or 12 or 1 or 2 or 3 or 4 or 5 or 6:
+                print("Mr. Wiebe runs self.health += 60")
+                self.health += 60
+            else:
+                print("Mr. Wiebe runs self.health += 60, but the move fails!")
+        elif self.attack_choice == 6:
+            if self.dodge_chance != 10:
+                print("Wiebe reverts a commit that gave you more HP, now your HP has been set to 50,"
+                      " regardless of if this was helpful or not")
+                target.health = 50
+            else:
+                print("Wiebe reverts a commit that gave you more HP, but GitHub crashed (for some reason)!")
+        elif self.attack_choice == 7:
+            if self.dodge_chance != 11 or 2 or 3 or 4 or 5 or 6 or 7:
+                print("Wiebe up and deletes your character")
+                target.take_damage(9999999999999999999999999999999999999999999999999999999999999999999999)
+            else:
+                print("Wiebe tries to delete you from the game but this fails!")
+
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                self.health -= 20
+                player.MP -= 5
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 50
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
+    def take_damage(self, damage):
+        if self.dodge_chance == 6 or 7 or 8 or 9 or 10:
+            if self.inked:
+                damage *= 2
+            if not self.only_ink:
+                if not self.elecfrost:
+                    if self.no_weapon:
+                        if damage < self.defense:
+                            print("No damage was taken!")
+                        else:
+                            self.health -= damage - self.defense
+                            if self.health < 0:
+                                self.health = 0
+                                print("%s has been defeated!" % self.name)
+                                player.money += self.money
+                        print("%s has %d health left" % (self.name, self.health))
+                    else:
+                        print("This enemy can not be damaged by physical attacks")
+
+                elif self.elecfrost:
+                    if player.weapon is E_Sword or F_Sword:
+                        if damage < self.defense:
+                            print("No damage was taken!")
+                        else:
+                            self.health -= damage - self.defense
+                            if self.health < 0:
+                                self.health = 0
+                                print("%s has been defeated!" % self.name)
+                                player.money += self.money
+                        print("%s has %d health left" % (self.name, self.health))
+                    else:
+                        print("Enemy takes 0 damage as they can only be hit by ice or electricity")
+                elif self.only_ink:
+                    if player.weapon.__class__ is Splattershot:
+                        if damage < self.defense:
+                            print("No damage was taken!")
+                        else:
+                            self.health -= damage - self.defense
+                            if self.health < 0:
+                                self.health = 0
+                                print("%s has been defeated!" % self.name)
+                                player.money += self.money
+                        print("%s has %d health left" % (self.name, self.health))
+                    else:
+                        print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
+        else:
+            print("Tabuu quickly teleports away from your attack")
+
+
+wiebe = Wiebe()
+
+
 class Agent3(Boss):
     def __init__(self):
         super(Agent3, self).__init__(Hero_Shot, 100, True, False, False, "Agent 3", 12, 5252)
@@ -4601,8 +4744,8 @@ player = Player(BEGIN)
 
 directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave', 'NORTH', 'SOUTH', 'EAST', 'WEST', 'UP',
               'DOWN', 'ENTER', 'LEAVE']
-playing = True
 
+playing = True
 
 # Controller
 
@@ -4639,13 +4782,13 @@ while playing:
             print("Command not reco- Oh... VERY funny! HA! HA! HA! Don't do that again")
         elif command.lower() in directions:
             try:
-                next_room = player.find_room(command)
+                next_room = player.find_room(command.lower())
                 player.move(next_room)
             except KeyError:
                 print("I can't do this or go this way")
         elif command.upper() in directions:
             try:
-                next_room = player.find_room(command)
+                next_room = player.find_room(command.lower())
                 player.move(next_room)
             except KeyError:
                 print("I can't do this or go this way")
