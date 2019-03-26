@@ -190,19 +190,18 @@ class NPC(Character):
         if self.shopkeeper:
             print()
             for num, item in enumerate(self.items):
-                print(str(num + 1) + ": " + item.name)
+                print(str(num + 1) + ": " + item.name + " - " + "%i" % item.price)
             print()
             self.option = input("%s: What do you want to buy?" % self.name)
             for i in range(len(self.items)):
-                if self.name == "Rock" and self.option.lower == "key fragment 4":
-                    print("* There is not price tag on the key fragment, so you take the key no questions asked")
                 if self.items[i].name.lower() == self.option.lower():
                     if player.money >= self.items[i].price:
                         player.money -= self.items[i].price           # FIX THIS NOW
                         self.items[i].grabbed = True
-                        self.items.remove(self.items[i])
                         Inventory.inventory.append(self.items[i])
                         print("Here is your %s" % self.items[i].name)
+                        self.items.remove(self.items[i])
+
                     else:
                         print("Sorry, you do not have enough money to purchase this")
 
@@ -1075,10 +1074,12 @@ class Health2(Inroomrestore):
 
 
 class Healthupgrade(Upgrades):
-    def __init__(self, upgrade=10):
+    def __init__(self, upgrade=10, price=0, name=""):
         super(Healthupgrade, self).__init__()
         self.activated = False
         self.upgrade = upgrade
+        self.price = price
+        self.name = name
 
     def grab(self):
         self.activated = True
@@ -1091,12 +1092,16 @@ class Healthupgrade(Upgrades):
 
 upgrade1 = Healthupgrade()
 
+upgrade3 = Healthupgrade(15, 50, "Health Upgrade")
+
 
 class MPupgrade(Upgrades):
-    def __init__(self, upgrade=25):
+    def __init__(self, upgrade=25, price=0, name=""):
         super(MPupgrade, self).__init__()
         self.upgrade = upgrade
         self.activated = False
+        self.price = price
+        self.name = name
 
     def grab(self):
         self.activated = True
@@ -1111,9 +1116,10 @@ upgrade2 = MPupgrade()
 
 
 class Key(object):
-    def __init__(self, name=""):
+    def __init__(self, name="", price=0):
         self.grabbed = False
         self.name = name
+        self.price = price
 
     def grab(self):
         if Inventory.inventory.__len__() < Inventory.max_space:
@@ -1170,7 +1176,7 @@ class Key2(object):
 
 
 class Skelkey(Key2):
-    def __init__(self, unlock, r_b4,unlock2, r_b42, unlock3, r_b43, name=""):
+    def __init__(self, unlock, r_b4, unlock2, r_b42, unlock3, r_b43, name=""):
         super(Skelkey, self).__init__(unlock, r_b4, name)
         self.grabbed = False
         self.name = name
@@ -1222,7 +1228,7 @@ class SKey(Key):
 key_1 = Key("Key Fragment 1")
 key_2 = Key("Key Fragment 2")
 key_3 = Key("Key Fragment 3")
-key_4 = Key("Key Fragment 4")
+key_4 = Key("Key Fragment 4", 0)
 
 JEVIL_KEY = SKey("Door Key")
 
@@ -1566,7 +1572,7 @@ temple_bot = NPC("Shopkeeper bot model NX HAC serial no 84493587", 9999999999999
 forest_directions = Filler("UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT"
                            "\nKEY: UP = NORTH, DOWN = SOUTH, LEFT = WEST, RIGHT = EAST", 0)
 zork_mat = Filler("Battered Rubber Mat that reads 'WELCOME TO ZORK'")
-rock = NPC("", 0, 0, 0, True)
+rock = NPC("Stone Tablet", 0, 0, 0, True)
 
 temple_bot.items.append(E_Sword)
 temple_bot.items.append(Unnamed_gun)
@@ -1579,7 +1585,7 @@ temple_bot.items.append(forest_directions)
 rock.items.append(lava)
 rock.items.append(lava2)
 rock.items.append(space)
-rock.items.append(upgrade1)
+rock.items.append(upgrade3)
 rock.items.append(key_4)
 
 
@@ -3958,53 +3964,55 @@ jevil = Jevil()
 
 class Tabuu(Boss):
     def __init__(self):
-        super(Tabuu, self).__init__(None, 120, False, False, True, "Tabuu", 18, 2008)
+        super(Tabuu, self).__init__(None, 150, False, False, True, "Tabuu", 18, 2008)
         self.name = "Tabuu"
+        self.dodges = random.randint(1, 12)
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
         self.dodge_chance = random.randint(1, 12)
+        self.dodges = random.randint(1, 12)
         if self.attack_choice == 1:
             if self.dodge_chance == 3:
                 print("Tabuu pulls out a shimmering golden whip and tries to skewer you with it, but he misses")
             else:
                 print("Tabuu skewers you with a shimmering golden whip")
-                target.take_damage(77)
+                target.take_damage(87)
         elif self.attack_choice == 2:
             if self.dodge_chance != 3:
                 print("Tabuu launches out a stream of bullets from his hand and then one final big blast")
-                target.take_damage(70)
+                target.take_damage(80)
             else:
                 print("Tabuu launches out a stream of bullets from his hand and then one final big blast"
                       "\n You dodge the individual bullets, but the final blast hits you, catching you off-guard")
-                target.take_damage(50)
+                target.take_damage(75)
         elif self.attack_choice == 3:
             if self.dodge_chance != 1:
                 print("Tabuu grows in size and shoots powerful beams out from his eyes!")
-                target.take_damage(72)
+                target.take_damage(82)
             else:
                 print("Tabuu grows in size and shoots powerful beams out from his eyes but you dodge them")
         elif self.attack_choice == 4:
             if self.dodge_chance != 4:
                 print("Tabuu summons some sort of dragon head that shoots out a powerful laser out at you")
-                target.take_damage(74)
+                target.take_damage(84)
             else:
                 print("Tabuu summons some sort of dragon head that shoots out a powerful laser out at you"
                       " but you dodge the attack")
         elif self.attack_choice == 5:
             if self.dodge_chance != 8:
                 print("Tabuu, enraged, karate chops you a couple hundred times")
-                target.take_damage(73)
+                target.take_damage(83)
             else:
                 print("Tabuu tries to barrage you with karate chops, but you dodge them")
         elif self.attack_choice == 6:
             if self.dodge_chance != 10:
                 print("Tabuu duplicates himself and said duplicates then proceed to blow up!")
-                target.take_damage(75)
+                target.take_damage(85)
             else:
                 print("Tabuu duplicates himself and said duplicates then proceed to blow up, you try to dodge the "
                       "attack, but you get caught off guard by a few clones")
-                target.take_damage(52)
+                target.take_damage(82)
         elif self.attack_choice == 7:
             if self.dodge_chance != 11 or 2 or 3 or 4 or 5 or 6 or 7:
                 print("Tabuu grows strange butterfly wings made out of some strange energy"
@@ -4015,7 +4023,7 @@ class Tabuu(Boss):
                 print("Tabuu grows strange butterfly wings made out of some strange energy"
                       "\n Tabuu then shoots out a deadly shockwave that you nearly dodge the attack, but the attack "
                       "still, just by barely grazing you, you take massive damage!")
-                target.take_damage(71)
+                target.take_damage(81)
 
     def take_mp(self):
         if player.choice.lower() == "fire blast":
@@ -4056,7 +4064,7 @@ class Tabuu(Boss):
                 print("You don't have enough MP to cast this")
 
     def take_damage(self, damage):
-        if self.dodge_chance == 6 or 7 or 8 or 9 or 10:
+        if self.dodges == 6 or 7 or 8 or 9 or 10:
             if self.inked:
                 damage *= 2
             if not self.only_ink:
@@ -4111,10 +4119,12 @@ class Agent3(Boss):
     def __init__(self):
         super(Agent3, self).__init__(Hero_Shot, 100, True, False, False, "Agent 3", 12, 5252)
         self.name = "Agent 3"
+        self.dodges = random.randint(1, 12)
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
         self.dodge_chance = random.randint(1, 12)
+        self.dodges = random.randint(1, 12)
         if self.attack_choice == 1:
             print("Agent 3 shoots at you with her Hero Shot")
             target.take_damage(self.weapon.attack_stat)
@@ -4224,7 +4234,7 @@ class Agent3(Boss):
                 print("You don't have enough MP to cast this")
 
     def take_damage(self, damage):
-        if self.dodge_chance == 3 or 4 or 8 or 1 or 2:
+        if self.dodges == 3 or 4 or 8 or 1 or 2:
             if self.inked:
                 damage *= 2
             if player.weapon.__class__ is Splattershot:
@@ -4576,7 +4586,7 @@ TEMPLE = Room('Water Temple', 'You are in the first room of the Water Temple. '
 BEGIN = Room("An Adventure's Beginning", "You stand atop a hill looking ahead at the forest to "
                                          "the north and turn around to see the desert to the south. "
                                          "\n You're ready for your quest.", 'FOREST', 'TOWN', 'OASIS',
-             'FACTORY', 'CHEATS', 'LOSS')
+             'FACTORY', 'CHEATS')
 MARKET = Room('Desert Market', "You browse the fine selection of goods, you see potions that increase health and MP,"
                                "\n a strange pendant with a drop of water engraved on it, armor, a scimitar, "
                                "\n strange scuba gear, items that restore MP"
@@ -4592,7 +4602,6 @@ OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only 
                              "\n There is a waterway barely big enough for you in the water. It appears that there is"
                              " something in the water",
              'RIVER', 'DESERT_FIGHT', None, 'BEGIN', None, 'TOWN')
-LOSS = Room('|     |i   ||  |__', '|     |i   ||  |__', 'LOSS')
 FACTORY = Room('Factory', "You are looking at a strange factory, it "
                           "appears some sort of keycard is required to enter it", None, None, 'BEGIN', None,
                'M_MARIO')
@@ -4643,12 +4652,9 @@ playing = True
 
 tot_key = Key2(GHOMA, TOT3.north, "Boss Key")
 factory = Key2(M_MARIO, FACTORY.enter, "Strange Keycard")
-Skel_key = Skelkey(CHAOS_FIGHT, TEMPLE_3.north, WATER_MP, TEMPLE_1.east, D_LINK, TEMPLE_2.east,"Skeleton Key")
+Skel_key = Skelkey(CHAOS_FIGHT, TEMPLE_3.north, WATER_MP, TEMPLE_1.east, D_LINK, TEMPLE_2.east, "Skeleton Key")
 
-player.money += 1000000000000
-
-Sheldon.buy()
-
+rock.buy()
 
 # Controller
 
@@ -4691,7 +4697,7 @@ while playing:
                 print("I can't do this or go this way")
         elif command.upper() in directions:
             try:
-                next_room = player.find_room(command)
+                next_room = player.find_room(command.lower())
                 player.move(next_room)
             except KeyError:
                 print("I can't do this or go this way")
