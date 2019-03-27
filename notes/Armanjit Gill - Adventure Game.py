@@ -15,6 +15,8 @@ class Room(object):
         self.up = up
         self.down = down
         self.items = []
+        self.characters = []
+        self.bosses = []
 
 
 class Item(object):
@@ -48,27 +50,6 @@ class Bag(object):
             key_4.grabbed = False
             Inventory.inventory.remove(key_4)
             print("* You put the 4 key pieces together and form the Door Key")
-        if Egg and egg2 and egg3 and egg4 and egg5 and egg6 and eggg in self.inventory:
-            Inventory.inventory.append(U_Egg)
-            Inventory.inventory.append(U_Egg2)
-            U_Egg.grabbed = True
-            U_Egg2.grabbed = True
-            Egg.grabbed = False
-            Inventory.inventory.remove(Egg)
-            egg2.grabbed = False
-            Inventory.inventory.remove(egg2)
-            egg3.grabbed = False
-            Inventory.inventory.remove(egg3)
-            egg4.grabbed = False
-            Inventory.inventory.remove(egg4)
-            egg5.grabbed = False
-            Inventory.inventory.remove(egg5)
-            egg6.grabbed = False
-            Inventory.inventory.remove(egg6)
-            eggg.grabbed = False
-            Inventory.inventory.remove(eggg)
-            print("The eggs are fused together in a blinding light. When the light clears, two eggs fly into your "
-                  "inventory")
 
 
 class Character(object):
@@ -169,22 +150,21 @@ class NPC(Character):
                     if len(Inventory.inventory) + len(self.items) <= Inventory.max_space:
                         if self.name == "Dog":
                             print("Bark! Bark! Bark!")
-                        elif self.name == "Gnorman":
-                            print("*Interpretive dances and gives you something*")
                         else:
                             print("%s: I would like to give you this" % self.name)
                         for i in range(len(self.items)):
                             Inventory.inventory.append(self.items[i])
                             self.aaaaaaa = 0
-                            if self.name == "Gnorman":
-                                print()
-                            elif self.name == "Dog":
-                                print()
+                            if self.name == "Dog":
+                                self.dialogue = self.dialogue
                             else:
                                 self.dialogue = "Hello, nice to see you today"
                     else:
-                        print("%s: I would like to give you thi-- Oh... I'm not sure you have enough"
-                              " space in your bag to hold my items...." % self.name)
+                        if self.name == "Dog":
+                            print("The dog barks sadly, you can't carry what he wants to give you")
+                        else:
+                            print("%s: I would like to give you thi-- Oh... I'm not sure you have enough"
+                                  " space in your bag to hold my items...." % self.name)
 
     def buy(self):
         if self.shopkeeper:
@@ -194,16 +174,17 @@ class NPC(Character):
             print()
             self.option = input("%s: What do you want to buy?" % self.name)
             for i in range(len(self.items)):
-                if self.items[i].name.lower() == self.option.lower():
-                    if player.money >= self.items[i].price:
-                        player.money -= self.items[i].price           # FIX THIS NOW
-                        self.items[i].grabbed = True
-                        Inventory.inventory.append(self.items[i])
-                        print("Here is your %s" % self.items[i].name)
-                        self.items.remove(self.items[i])
-
-                    else:
-                        print("Sorry, you do not have enough money to purchase this")
+                if i < len(self.items):
+                    if self.items[i].name.lower() == self.option.lower():
+                        if player.money >= self.items[i].price:
+                            player.money -= self.items[i].price           # FIX THIS NOW
+                            self.items[i].grabbed = True
+                            Inventory.inventory.append(self.items[i])
+                            print("Here is/are your %s" % self.items[i].name)
+                            print(self.items)
+                            self.items.remove(self.items[i])
+                        else:
+                            print("Sorry, you do not have enough money to purchase this")
 
 
 class Armor(object):
@@ -567,6 +548,8 @@ Wooden_Sword = Sword(5, True, False, 5, "Wooden Sword")
 
 Magic_Sword = Sword(20, True, False, 999999999999999999999999, "Magic Sword")
 
+Fire = Sword(30, True, False, 20, "Burning Blade", 0)
+
 leather4 = Helmet(3, "Leather Helmet")
 
 none = Helmet(0, "None")
@@ -582,7 +565,7 @@ none5 = Sword(0, True, False, 000, "")
 
 class Player(object):
     def __init__(self, starting_location, health=50, helmet=leather4, chestplate=leather3, boots=leather1,
-                 weapon=Wooden_Sword, mp=15, leggings=leather2, inked=False):
+                 weapon=Wooden_Sword, mp=15, leggings=leather2, inked=False, money=30):
         self.health = health
         self.leggings = leggings
         self.inventory = []
@@ -598,7 +581,7 @@ class Player(object):
         self.defense = self.helmet.defense + self.chestplate.defense + self.leggings.defense + self.boots.defense
         self.name = "you"
         self.inked = inked
-        self.money = 30
+        self.money = money
         self.can_attack = False
         self.choice = ""
 
@@ -1321,17 +1304,6 @@ Melee = Filler("Unopened Copy of Smash Bros Melee")
 
 egg2 = Filler("EGG 2: ELECTRIC BOOGALOO")
 
-egg3 = Filler("EGG 3: THE VOID BECKONS")
-
-egg4 = Filler("EGG 4: SOME MORE LORE")
-
-egg5 = Filler("EGG 5: THE VOID IS COMING")
-
-egg6 = Filler("3GG 6: The2435i43WORLD1323059450CAN'T483280HANDLE4982355fdzjjANYMORE93053484032EGGS")
-
-eggg = Filler("EGG # 90239040320053937865531994736486164623559875"
-              "535321324899464656444446446465496       there are too many eggs")
-
 Book = Filler("Book")
 
 
@@ -1343,17 +1315,13 @@ A_3.items.append(Hero_Shot)
 
 A_3.items.append(Cape)
 
-NPC1 = NPC("Gregg", 10, 1, 20, False, "Here. Egg. My name no longer Gregg, my name now Gr, because I now no have egg.")
+NPC1 = NPC("Greg", 10, 1, 20, False, "Hello there sir. How are you?")
 
 NPC1.items.append(Egg)
 
-NPC2 = NPC("Danny DeVito", 900, 20, 9999999999, False, "May I offer you an egg in these trying times?")
+NPC2 = NPC("Egg Vendor", 900, 20, 9999999999, False, "May I offer you an egg in these trying times?")
 
 NPC2.items.append(egg2)
-
-NPC2.items.append(egg3)
-
-NPC2.items.append(egg4)
 
 NPC3 = NPC("Johnny", 1, 0, 1, False, "Hello, my name is Johnny.")
 
@@ -1361,13 +1329,7 @@ NPC4 = NPC("Bob", 35, 15, 99999,  False, "Hi, I'm Bob")
 
 NPC5 = NPC("Jim", 20, 8, 100, False, "Hello, my name is Jim")
 
-NPC6 = NPC("Gnorman", 99999999, 99999999999999999999, 1000000000000, False, "*Interpretive dances*")
-
-U_Egg = ALL(9999999, 9999999, "Ultimate Egg #1")
-
-U_Egg2 = Ball(99999999, "Ultimate Egg #2", 2)
-
-NPC7 = NPC("Jack Handey", 99, 20, 1000, False, "Here, have a book of my greatest deep thoughts")
+NPC7 = NPC("Jack Handey", 99, 20, 1000, False, "Would you like to here some deep thoughts?")
 
 NPC7.items.append(Book)
 
@@ -1382,10 +1344,6 @@ NPC9 = NPC('Cheyanne', 10, 10, 10, False, "Hello there, I'm from Wyoming")
 NPC10 = NPC("Zo R. Kuh", 70,  20, 1980, False, "Hey there, I was named after some text based game, those things are "
                                                "boring. "
                                                "\nWhy would anyone play one??? (please don't quit playing now)")
-NPC2.items.append(egg5)
-NPC3.items.append(egg6)
-NPC6.items.append(eggg)
-# weapon, armor, health=20, name="", current_location=None, inked=False, mon=0
 
 
 class Enemy(Character):
@@ -4648,13 +4606,16 @@ player = Player(BEGIN)
 
 directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave', 'NORTH', 'SOUTH', 'EAST', 'WEST', 'UP',
               'DOWN', 'ENTER', 'LEAVE']
+
 playing = True
 
 tot_key = Key2(GHOMA, TOT3.north, "Boss Key")
 factory = Key2(M_MARIO, FACTORY.enter, "Strange Keycard")
 Skel_key = Skelkey(CHAOS_FIGHT, TEMPLE_3.north, WATER_MP, TEMPLE_1.east, D_LINK, TEMPLE_2.east, "Skeleton Key")
 
-rock.buy()
+player.money += 9999999999999999999999999999999999999999
+
+Inventory.check()
 
 # Controller
 
@@ -4667,11 +4628,11 @@ while playing:
         command = input(">_")
         if command.lower() in ['q', 'quit', 'exit', 'altf4']:
             playing = False
-        elif command == "":
+        elif command.lower() == "":
             print()
-        elif command == "scream":
+        elif command.lower() == "scream":
             print('AAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-        elif command in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason', 'kill self']:
+        elif command.lower() in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason', 'kill self']:
             player.health -= player.health
             print("Welp, you're dead now. Good job, you decided you wouldn't"
                   " die from an enemy. You made sure of it by killing yourself...")
@@ -4687,15 +4648,17 @@ while playing:
                   "\n"
                   "\n GAME OVER")
             playing = False
-        elif command == "recognized":
+        elif command.lower() == "recognized":
             print("Command not reco- Oh... VERY funny! HA! HA! HA! Don't do that again")
         elif command.lower() in directions:
+            command = command.lower()
             try:
                 next_room = player.find_room(command)
                 player.move(next_room)
             except KeyError:
                 print("I can't do this or go this way")
         elif command.upper() in directions:
+            command = command.lower()
             try:
                 next_room = player.find_room(command.lower())
                 player.move(next_room)
