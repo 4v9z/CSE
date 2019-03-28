@@ -4649,6 +4649,12 @@ _3.bosses.append(Agent_3)
 DJOCTAVIO.bosses.append(octavio)
 CHAOS_FIGHT.bosses.append(chaos0)
 GHOMA.bosses.append(gohma)
+JEVIL_FIGHT.bosses.append(jevil)
+SUBSPACE1.bosses.append(galleom)
+SUBSPACE5.bosses.append(duon)
+TABUU.bosses.append(tabuu)
+C_HAND.bosses.append(crazy_hand)
+M_HAND.bosses.append(master_hand)
 
 playing = True
 
