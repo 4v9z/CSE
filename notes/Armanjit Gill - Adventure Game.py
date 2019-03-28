@@ -17,6 +17,7 @@ class Room(object):
         self.items = []
         self.characters = []
         self.bosses = []
+        self.enemies = []
 
 
 class Item(object):
@@ -676,6 +677,8 @@ class Player(object):
         print("Total Defense: %i" % self.defense)
         print("Health: %i/%d" % (self.health, self.max_health))
         print("MP: %i/%d" % (self.MP, self.max_MP))
+        print("Money: %i" % self.money)
+        Inventory.check()
 
 
 Inventory = Bag()
@@ -1468,30 +1471,26 @@ Claw = Sword(20, True, False, 999999999999, "")
 
 Claw2 = Sword(15, True, False, 99999999999999, "")
 
-octoling1 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling", 5)
-octoling2 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling", 5)
-octoling3 = Enemy(Splattershot_Jr, 30, True, False, False, "Octoling", 8)
+goomba = Enemy(foot, 5, False, False, True, "Goomba", 2, 15)
+Koopa = Enemy(shell, 10, False, False, True, "Koopa Troopa", 6, 25)
+Spiny = Enemy(shell, 14, False, False, True, "Spiny", 8, 40)
 
-goomba = Enemy(foot, 5, False, False, True, "Goomba", 2)
-Koopa = Enemy(shell, 10, False, False, True, "Koopa Troopa", 6)
-Spiny = Enemy(shell, 14, False, False, True, "Spiny", 8)
+Bokkoblin = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 60)
+Bokkoblin2 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 65)
+Bokkoblin3 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 70)
 
-Bokkoblin = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9)
-Bokkoblin2 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9)
-Bokkoblin3 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9)
+Frosty = Enemy(F_Sword, 30, False, False, True, "Mr. Frosty", 12, 89)
 
-Frosty = Enemy(F_Sword, 30, False, False, True, "Mr. Frosty", 12)
+Dee = Enemy(foot2, 20, False, False, True, "Big Waddle Dee", 10, 99)
 
-Dee = Enemy(foot2, 20, False, False, True, "Big Waddle Dee", 10)
+G_Knights = Enemy(E_Sword, 25, False, False, True, "Galactic Knights", 12, 100)
 
-G_Knights = Enemy(E_Sword, 25, False, False, True, "Galactic Knights", 12)
+Lizalfos = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10, 116)
+Lizalfos2 = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10, 106)
 
-Lizalfos = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10)
-Lizalfos2 = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10)
+Dynablade = Enemy(Claw2, 45, False, False, True, "Dynablade", 15, 130)
 
-Dynablade = Enemy(Claw2, 45, False, False, True, "Dynablade", 15)
-
-caterkiller = Enemy(Iron_Blade, 25, False, False, True, "Giant Caterkiller", 12)
+caterkiller = Enemy(Iron_Blade, 25, False, False, True, "Giant Caterkiller", 12, 60)
 
 
 class Keyboard(object):
@@ -2974,7 +2973,7 @@ class Red(Boss):
                 player.MP -= 5
                 if self.health < 0:
                     self.health = 0
-                    print("%s has been defeated!" % self.name)
+                    print("You defeated all of Red's Pokemon!")
                     player.money += self.money
                 print("%s has %d health left" % (self.name, self.health))
             else:
@@ -2986,7 +2985,7 @@ class Red(Boss):
                 player.MP -= 10
                 if self.health < 0:
                     self.health = 0
-                    print("%s has been defeated!" % self.name)
+                    print("You defeated all of Red's Pokemon!")
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
             else:
@@ -2998,7 +2997,7 @@ class Red(Boss):
                 self.health -= 50
                 if self.health < 0:
                     self.health = 0
-                    print("%s has been defeated!" % self.name)
+                    print("You defeated all of Red's Pokemon!")
                     player.money += self.money
                 print("%s has %d health left" % (self.name, self.health))
             else:
@@ -3016,7 +3015,7 @@ class Red(Boss):
                         self.health -= damage - self.defense
                         if self.health < 0:
                             self.health = 0
-                            print("%s has been defeated!" % self.name)
+                            print("You defeated all of Red's Pokemon!")
                             player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -3030,7 +3029,7 @@ class Red(Boss):
                         self.health -= damage - self.defense
                         if self.health < 0:
                             self.health = 0
-                            print("%s has been defeated!" % self.name)
+                            print("You defeated all of Red's Pokemon!")
                             player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -3043,7 +3042,7 @@ class Red(Boss):
                         self.health -= damage - self.defense
                         if self.health < 0:
                             self.health = 0
-                            print("%s has been defeated!" % self.name)
+                            print("You defeated all of Red's Pokemon!")
                             player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -4607,15 +4606,55 @@ player = Player(BEGIN)
 directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave', 'NORTH', 'SOUTH', 'EAST', 'WEST', 'UP',
               'DOWN', 'ENTER', 'LEAVE']
 
+# Adding NPCs + Shopkeepers
+
+MARKET.characters.append(NPC1)
+MARKET.characters.append(NPC2)
+MARKET.characters.append(NPC3)
+MARKET.characters.append(NPC4)
+MARKET.characters.append(NPC5)
+MARKET.characters.append(NPC7)
+MARKET.characters.append(dog)
+MARKET.characters.append(NPC8)
+MARKET.characters.append(NPC9)
+MARKET.characters.append(NPC10)
+MARKET.characters.append(Gerudo)
+MTN_SHOP.characters.append(rock)
+SPLAT6.characters.append(Sheldon)
+TOT_SHOP.characters.append(temple_bot)
+
+# Adding Enemies
+
+NOVA5.enemies.append(G_Knights)
+NOVA3.enemies.append(Frosty)
+NOVA3.enemies.append(Dee)
+DESERT_FIGHT.enemies.append(caterkiller)
+TEMPLE_2.enemies.append(Lizalfos)
+TEMPLE_2.enemies.append(Lizalfos2)
+PAST1.enemies.append(Bokkoblin)
+PAST1.enemies.append(Bokkoblin2)
+PAST1.enemies.append(Bokkoblin3)
+CLIMB.enemies.append(Dynablade)
+CASTLE_4.enemies.append(goomba)
+CASTLE_4.enemies.append(Koopa)
+CASTLE_4.enemies.append(Spiny)
+
+# Adding Bosses
+
+BOWSER.bosses.append(bowser)
+DARK_STAR.bosses.append(d_bowser)
+D_LINK.bosses.append(dark_link)
+MT_SILVER.bosses.append(red)
+_3.bosses.append(Agent_3)
+DJOCTAVIO.bosses.append(octavio)
+CHAOS_FIGHT.bosses.append(chaos0)
+GHOMA.bosses.append(gohma)
+
 playing = True
 
 tot_key = Key2(GHOMA, TOT3.north, "Boss Key")
 factory = Key2(M_MARIO, FACTORY.enter, "Strange Keycard")
 Skel_key = Skelkey(CHAOS_FIGHT, TEMPLE_3.north, WATER_MP, TEMPLE_1.east, D_LINK, TEMPLE_2.east, "Skeleton Key")
-
-player.money += 9999999999999999999999999999999999999999
-
-Inventory.check()
 
 # Controller
 
@@ -4632,7 +4671,8 @@ while playing:
             print()
         elif command.lower() == "scream":
             print('AAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-        elif command.lower() in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason', 'kill self']:
+        elif command.lower() in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason',
+                                 'kill self']:
             player.health -= player.health
             print("Welp, you're dead now. Good job, you decided you wouldn't"
                   " die from an enemy. You made sure of it by killing yourself...")
