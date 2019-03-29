@@ -565,7 +565,7 @@ none5 = Sword(0, True, False, 000, "")
 
 
 class Player(object):
-    def __init__(self, starting_location, health=50, helmet=leather4, chestplate=leather3, boots=leather1,
+    def __init__(self, starting_location, health=80, helmet=leather4, chestplate=leather3, boots=leather1,
                  weapon=Wooden_Sword, mp=15, leggings=leather2, inked=False, money=30):
         self.health = health
         self.leggings = leggings
@@ -683,7 +683,7 @@ class Player(object):
 
 Inventory = Bag()
 
-F_Sword = Specialsword(40, True, False, 200, "Frost Sword")
+F_Sword = Sword(40, True, False, 200, "Frost Sword")
 
 Money_Sword = Swword(1, True, False, 999999999999999999999999999999999999999999, "Money Sword")
 
@@ -1463,7 +1463,7 @@ foot = Sword(2, True, False, 9999999999999999999999999999, "")
 
 shell = Sword(5, True, False, 9999999999999999999999999999, "")
 
-foot2 = Sword(10, True, False, 9999999999999999999999999999, "")
+parasol = Sword(18, True, False, 9999999999999999999999999999, "")
 
 Iron_Blade = Sword(15, True, False, 9999999999999999999999999, "")
 
@@ -1481,7 +1481,7 @@ Bokkoblin3 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 70)
 
 Frosty = Enemy(F_Sword, 30, False, False, True, "Mr. Frosty", 12, 89)
 
-Dee = Enemy(foot2, 20, False, False, True, "Big Waddle Dee", 10, 99)
+Dee = Enemy(parasol, 20, False, False, True, "Big Waddle Dee", 10, 99)
 
 G_Knights = Enemy(E_Sword, 25, False, False, True, "Galactic Knights", 12, 100)
 
@@ -3614,8 +3614,8 @@ crazy_hand = Hand2()
 
 class Necrozma(Boss):
     def __init__(self):
-        super(Necrozma, self).__init__(None, 90, False, False, True, "Necrozma", 9, 4052)
-        self.name = "Necrozma"
+        super(Necrozma, self).__init__(None, 90, False, False, True, "Ultra Necrozma", 9, 4052)
+        self.name = "Ultra Necrozma"
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
@@ -3677,6 +3677,10 @@ class Necrozma(Boss):
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
                     Light_Sword.activated = True
+                    U_NECROZMA.items.append(light)
+                    U_NECROZMA.items.append(light2)
+                    U_NECROZMA.items.append(light3)
+                    U_NECROZMA.items.append(light4)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You do not have enough MP to cast this")
@@ -3691,6 +3695,10 @@ class Necrozma(Boss):
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
                     Light_Sword.activated = True
+                    U_NECROZMA.items.append(light)
+                    U_NECROZMA.items.append(light2)
+                    U_NECROZMA.items.append(light3)
+                    U_NECROZMA.items.append(light4)
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
@@ -3703,6 +3711,10 @@ class Necrozma(Boss):
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
                     Light_Sword.activated = True
+                    U_NECROZMA.items.append(light)
+                    U_NECROZMA.items.append(light2)
+                    U_NECROZMA.items.append(light3)
+                    U_NECROZMA.items.append(light4)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You don't have enough MP to cast this")
@@ -3722,6 +3734,10 @@ class Necrozma(Boss):
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
                             Light_Sword.activated = True
+                            U_NECROZMA.items.append(light)
+                            U_NECROZMA.items.append(light2)
+                            U_NECROZMA.items.append(light3)
+                            U_NECROZMA.items.append(light4)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("This enemy can not be damaged by physical attacks")
@@ -3737,6 +3753,10 @@ class Necrozma(Boss):
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
                             Light_Sword.activated = True
+                            U_NECROZMA.items.append(light)
+                            U_NECROZMA.items.append(light2)
+                            U_NECROZMA.items.append(light3)
+                            U_NECROZMA.items.append(light4)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("Enemy takes 0 damage as they can only be hit by ice or electricity")
@@ -3751,6 +3771,10 @@ class Necrozma(Boss):
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
                             Light_Sword.activated = True
+                            U_NECROZMA.items.append(light)
+                            U_NECROZMA.items.append(light2)
+                            U_NECROZMA.items.append(light3)
+                            U_NECROZMA.items.append(light4)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
@@ -4655,6 +4679,14 @@ SUBSPACE5.bosses.append(duon)
 TABUU.bosses.append(tabuu)
 C_HAND.bosses.append(crazy_hand)
 M_HAND.bosses.append(master_hand)
+U_NECROZMA.bosses.append(ultra_necrozma)
+M_MARIO.bosses.append(m_mario)
+MARX.bosses.append(marx)
+NOVA6.bosses.append(galacta_knight)
+
+# Adding Items
+CLEARING.items.append(Light_Sword)
+KEY.items.append(Skel_key)
 
 playing = True
 
