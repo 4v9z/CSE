@@ -1207,9 +1207,7 @@ key_4 = Key("Key Fragment 4")
 
 JEVIL_KEY = SKey("Door Key")
 
-tot_key = Key2(GHOMA, TOT3.north, "Boss Key")
-factory = Key2(M_MARIO, FACTORY.enter, "Strange Keycard")
-Skel_key = Skelkey(CHAOS_FIGHT, TEMPLE_3.north, WATER_MP, TEMPLE_1.east, D_LINK, TEMPLE_2.east,"Skeleton Key")
+
 
 
 class Watch(object):
@@ -4286,3 +4284,7 @@ Gerudo.items.append(candy2)
 Gerudo.items.append(super_mushroom)
 Gerudo.items.append(Green_Potion)
 Gerudo.items.append(desert_helmet)
+
+while tabuu.health > 0  and Agent_3.health > 0:
+    tabuu.attack(Agent_3)
+    Agent_3.attack(tabuu)

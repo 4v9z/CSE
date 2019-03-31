@@ -15,6 +15,8 @@ class Room(object):
         self.up = up
         self.down = down
         self.items = []
+        self.characters = []
+        self.bosses = []
 
 
 class Item(object):
@@ -48,27 +50,6 @@ class Bag(object):
             key_4.grabbed = False
             Inventory.inventory.remove(key_4)
             print("* You put the 4 key pieces together and form the Door Key")
-        if Egg and egg2 and egg3 and egg4 and egg5 and egg6 and eggg in self.inventory:
-            Inventory.inventory.append(U_Egg)
-            Inventory.inventory.append(U_Egg2)
-            U_Egg.grabbed = True
-            U_Egg2.grabbed = True
-            Egg.grabbed = False
-            Inventory.inventory.remove(Egg)
-            egg2.grabbed = False
-            Inventory.inventory.remove(egg2)
-            egg3.grabbed = False
-            Inventory.inventory.remove(egg3)
-            egg4.grabbed = False
-            Inventory.inventory.remove(egg4)
-            egg5.grabbed = False
-            Inventory.inventory.remove(egg5)
-            egg6.grabbed = False
-            Inventory.inventory.remove(egg6)
-            eggg.grabbed = False
-            Inventory.inventory.remove(eggg)
-            print("The eggs are fused together in a blinding light. When the light clears, two eggs fly into your "
-                  "inventory")
 
 
 class Character(object):
@@ -169,42 +150,41 @@ class NPC(Character):
                     if len(Inventory.inventory) + len(self.items) <= Inventory.max_space:
                         if self.name == "Dog":
                             print("Bark! Bark! Bark!")
-                        elif self.name == "Gnorman":
-                            print("*Interpretive dances and gives you something*")
                         else:
                             print("%s: I would like to give you this" % self.name)
                         for i in range(len(self.items)):
                             Inventory.inventory.append(self.items[i])
                             self.aaaaaaa = 0
-                            if self.name == "Gnorman":
-                                print()
-                            elif self.name == "Dog":
-                                print()
+                            if self.name == "Dog":
+                                self.dialogue = self.dialogue
                             else:
                                 self.dialogue = "Hello, nice to see you today"
                     else:
-                        print("%s: I would like to give you thi-- Oh... I'm not sure you have enough"
-                              " space in your bag to hold my items...." % self.name)
+                        if self.name == "Dog":
+                            print("The dog barks sadly, you can't carry what he wants to give you")
+                        else:
+                            print("%s: I would like to give you thi-- Oh... I'm not sure you have enough"
+                                  " space in your bag to hold my items...." % self.name)
 
     def buy(self):
         if self.shopkeeper:
             print()
             for num, item in enumerate(self.items):
-                print(str(num + 1) + ": " + item.name)
+                print(str(num + 1) + ": " + item.name + " - " + "%i" % item.price)
             print()
             self.option = input("%s: What do you want to buy?" % self.name)
             for i in range(len(self.items)):
-                if self.name == "Rock" and self.option.lower == "key fragment 4":
-                    print("* There is not price tag on the key fragment, so you take the key no questions asked")
-                if self.items[i].name.lower() == self.option.lower():
-                    if player.money >= self.items[i].price:
-                        player.money -= self.items[i].price           # FIX THIS NOW
-                        self.items[i].grabbed = True
-                        self.items.remove(self.items[i])
-                        Inventory.inventory.append(self.items[i])
-                        print("Here is your %s" % self.items[i].name)
-                    else:
-                        print("Sorry, you do not have enough money to purchase this")
+                if i < len(self.items):
+                    if self.items[i].name.lower() == self.option.lower():
+                        if player.money >= self.items[i].price:
+                            player.money -= self.items[i].price           # FIX THIS NOW
+                            self.items[i].grabbed = True
+                            Inventory.inventory.append(self.items[i])
+                            print("Here is/are your %s" % self.items[i].name)
+                            print(self.items)
+                            self.items.remove(self.items[i])
+                        else:
+                            print("Sorry, you do not have enough money to purchase this")
 
 
 class Armor(object):
@@ -568,6 +548,8 @@ Wooden_Sword = Sword(5, True, False, 5, "Wooden Sword")
 
 Magic_Sword = Sword(20, True, False, 999999999999999999999999, "Magic Sword")
 
+Fire = Sword(30, True, False, 20, "Burning Blade", 0)
+
 leather4 = Helmet(3, "Leather Helmet")
 
 none = Helmet(0, "None")
@@ -583,7 +565,7 @@ none5 = Sword(0, True, False, 000, "")
 
 class Player(object):
     def __init__(self, starting_location, health=50, helmet=leather4, chestplate=leather3, boots=leather1,
-                 weapon=Wooden_Sword, mp=15, leggings=leather2, inked=False):
+                 weapon=Wooden_Sword, mp=15, leggings=leather2, inked=False, money=30):
         self.health = health
         self.leggings = leggings
         self.inventory = []
@@ -599,7 +581,7 @@ class Player(object):
         self.defense = self.helmet.defense + self.chestplate.defense + self.leggings.defense + self.boots.defense
         self.name = "you"
         self.inked = inked
-        self.money = 30
+        self.money = money
         self.can_attack = False
         self.choice = ""
 
@@ -1075,10 +1057,12 @@ class Health2(Inroomrestore):
 
 
 class Healthupgrade(Upgrades):
-    def __init__(self, upgrade=10):
+    def __init__(self, upgrade=10, price=0, name=""):
         super(Healthupgrade, self).__init__()
         self.activated = False
         self.upgrade = upgrade
+        self.price = price
+        self.name = name
 
     def grab(self):
         self.activated = True
@@ -1091,12 +1075,16 @@ class Healthupgrade(Upgrades):
 
 upgrade1 = Healthupgrade()
 
+upgrade3 = Healthupgrade(15, 50, "Health Upgrade")
+
 
 class MPupgrade(Upgrades):
-    def __init__(self, upgrade=25):
+    def __init__(self, upgrade=25, price=0, name=""):
         super(MPupgrade, self).__init__()
         self.upgrade = upgrade
         self.activated = False
+        self.price = price
+        self.name = name
 
     def grab(self):
         self.activated = True
@@ -1111,9 +1099,10 @@ upgrade2 = MPupgrade()
 
 
 class Key(object):
-    def __init__(self, name=""):
+    def __init__(self, name="", price=0):
         self.grabbed = False
         self.name = name
+        self.price = price
 
     def grab(self):
         if Inventory.inventory.__len__() < Inventory.max_space:
@@ -1170,7 +1159,7 @@ class Key2(object):
 
 
 class Skelkey(Key2):
-    def __init__(self, unlock, r_b4,unlock2, r_b42, unlock3, r_b43, name=""):
+    def __init__(self, unlock, r_b4, unlock2, r_b42, unlock3, r_b43, name=""):
         super(Skelkey, self).__init__(unlock, r_b4, name)
         self.grabbed = False
         self.name = name
@@ -1222,7 +1211,7 @@ class SKey(Key):
 key_1 = Key("Key Fragment 1")
 key_2 = Key("Key Fragment 2")
 key_3 = Key("Key Fragment 3")
-key_4 = Key("Key Fragment 4")
+key_4 = Key("Key Fragment 4", 0)
 
 JEVIL_KEY = SKey("Door Key")
 
@@ -1315,17 +1304,6 @@ Melee = Filler("Unopened Copy of Smash Bros Melee")
 
 egg2 = Filler("EGG 2: ELECTRIC BOOGALOO")
 
-egg3 = Filler("EGG 3: THE VOID BECKONS")
-
-egg4 = Filler("EGG 4: SOME MORE LORE")
-
-egg5 = Filler("EGG 5: THE VOID IS COMING")
-
-egg6 = Filler("3GG 6: The2435i43WORLD1323059450CAN'T483280HANDLE4982355fdzjjANYMORE93053484032EGGS")
-
-eggg = Filler("EGG # 90239040320053937865531994736486164623559875"
-              "535321324899464656444446446465496       there are too many eggs")
-
 Book = Filler("Book")
 
 
@@ -1337,17 +1315,13 @@ A_3.items.append(Hero_Shot)
 
 A_3.items.append(Cape)
 
-NPC1 = NPC("Gregg", 10, 1, 20, False, "Here. Egg. My name no longer Gregg, my name now Gr, because I now no have egg.")
+NPC1 = NPC("Greg", 10, 1, 20, False, "Hello there sir. How are you?")
 
 NPC1.items.append(Egg)
 
-NPC2 = NPC("Danny DeVito", 900, 20, 9999999999, False, "May I offer you an egg in these trying times?")
+NPC2 = NPC("Egg Vendor", 900, 20, 9999999999, False, "May I offer you an egg in these trying times?")
 
 NPC2.items.append(egg2)
-
-NPC2.items.append(egg3)
-
-NPC2.items.append(egg4)
 
 NPC3 = NPC("Johnny", 1, 0, 1, False, "Hello, my name is Johnny.")
 
@@ -1355,13 +1329,7 @@ NPC4 = NPC("Bob", 35, 15, 99999,  False, "Hi, I'm Bob")
 
 NPC5 = NPC("Jim", 20, 8, 100, False, "Hello, my name is Jim")
 
-NPC6 = NPC("Gnorman", 99999999, 99999999999999999999, 1000000000000, False, "*Interpretive dances*")
-
-U_Egg = ALL(9999999, 9999999, "Ultimate Egg #1")
-
-U_Egg2 = Ball(99999999, "Ultimate Egg #2", 2)
-
-NPC7 = NPC("Jack Handey", 99, 20, 1000, False, "Here, have a book of my greatest deep thoughts")
+NPC7 = NPC("Jack Handey", 99, 20, 1000, False, "Would you like to here some deep thoughts?")
 
 NPC7.items.append(Book)
 
@@ -1376,10 +1344,6 @@ NPC9 = NPC('Cheyanne', 10, 10, 10, False, "Hello there, I'm from Wyoming")
 NPC10 = NPC("Zo R. Kuh", 70,  20, 1980, False, "Hey there, I was named after some text based game, those things are "
                                                "boring. "
                                                "\nWhy would anyone play one??? (please don't quit playing now)")
-NPC2.items.append(egg5)
-NPC3.items.append(egg6)
-NPC6.items.append(eggg)
-# weapon, armor, health=20, name="", current_location=None, inked=False, mon=0
 
 
 class Enemy(Character):
@@ -1566,7 +1530,7 @@ temple_bot = NPC("Shopkeeper bot model NX HAC serial no 84493587", 9999999999999
 forest_directions = Filler("UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT"
                            "\nKEY: UP = NORTH, DOWN = SOUTH, LEFT = WEST, RIGHT = EAST", 0)
 zork_mat = Filler("Battered Rubber Mat that reads 'WELCOME TO ZORK'")
-rock = NPC("", 0, 0, 0, True)
+rock = NPC("Stone Tablet", 0, 0, 0, True)
 
 temple_bot.items.append(E_Sword)
 temple_bot.items.append(Unnamed_gun)
@@ -1579,7 +1543,7 @@ temple_bot.items.append(forest_directions)
 rock.items.append(lava)
 rock.items.append(lava2)
 rock.items.append(space)
-rock.items.append(upgrade1)
+rock.items.append(upgrade3)
 rock.items.append(key_4)
 
 
@@ -3958,53 +3922,55 @@ jevil = Jevil()
 
 class Tabuu(Boss):
     def __init__(self):
-        super(Tabuu, self).__init__(None, 120, False, False, True, "Tabuu", 18, 2008)
+        super(Tabuu, self).__init__(None, 150, False, False, True, "Tabuu", 18, 2008)
         self.name = "Tabuu"
+        self.dodges = random.randint(1, 12)
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
         self.dodge_chance = random.randint(1, 12)
+        self.dodges = random.randint(1, 12)
         if self.attack_choice == 1:
             if self.dodge_chance == 3:
                 print("Tabuu pulls out a shimmering golden whip and tries to skewer you with it, but he misses")
             else:
                 print("Tabuu skewers you with a shimmering golden whip")
-                target.take_damage(77)
+                target.take_damage(87)
         elif self.attack_choice == 2:
             if self.dodge_chance != 3:
                 print("Tabuu launches out a stream of bullets from his hand and then one final big blast")
-                target.take_damage(70)
+                target.take_damage(80)
             else:
                 print("Tabuu launches out a stream of bullets from his hand and then one final big blast"
                       "\n You dodge the individual bullets, but the final blast hits you, catching you off-guard")
-                target.take_damage(50)
+                target.take_damage(75)
         elif self.attack_choice == 3:
             if self.dodge_chance != 1:
                 print("Tabuu grows in size and shoots powerful beams out from his eyes!")
-                target.take_damage(72)
+                target.take_damage(82)
             else:
                 print("Tabuu grows in size and shoots powerful beams out from his eyes but you dodge them")
         elif self.attack_choice == 4:
             if self.dodge_chance != 4:
                 print("Tabuu summons some sort of dragon head that shoots out a powerful laser out at you")
-                target.take_damage(74)
+                target.take_damage(84)
             else:
                 print("Tabuu summons some sort of dragon head that shoots out a powerful laser out at you"
                       " but you dodge the attack")
         elif self.attack_choice == 5:
             if self.dodge_chance != 8:
                 print("Tabuu, enraged, karate chops you a couple hundred times")
-                target.take_damage(73)
+                target.take_damage(83)
             else:
                 print("Tabuu tries to barrage you with karate chops, but you dodge them")
         elif self.attack_choice == 6:
             if self.dodge_chance != 10:
                 print("Tabuu duplicates himself and said duplicates then proceed to blow up!")
-                target.take_damage(75)
+                target.take_damage(85)
             else:
                 print("Tabuu duplicates himself and said duplicates then proceed to blow up, you try to dodge the "
                       "attack, but you get caught off guard by a few clones")
-                target.take_damage(52)
+                target.take_damage(82)
         elif self.attack_choice == 7:
             if self.dodge_chance != 11 or 2 or 3 or 4 or 5 or 6 or 7:
                 print("Tabuu grows strange butterfly wings made out of some strange energy"
@@ -4015,7 +3981,7 @@ class Tabuu(Boss):
                 print("Tabuu grows strange butterfly wings made out of some strange energy"
                       "\n Tabuu then shoots out a deadly shockwave that you nearly dodge the attack, but the attack "
                       "still, just by barely grazing you, you take massive damage!")
-                target.take_damage(71)
+                target.take_damage(81)
 
     def take_mp(self):
         if player.choice.lower() == "fire blast":
@@ -4056,7 +4022,7 @@ class Tabuu(Boss):
                 print("You don't have enough MP to cast this")
 
     def take_damage(self, damage):
-        if self.dodge_chance == 6 or 7 or 8 or 9 or 10:
+        if self.dodges == 6 or 7 or 8 or 9 or 10:
             if self.inked:
                 damage *= 2
             if not self.only_ink:
@@ -4111,10 +4077,12 @@ class Agent3(Boss):
     def __init__(self):
         super(Agent3, self).__init__(Hero_Shot, 100, True, False, False, "Agent 3", 12, 5252)
         self.name = "Agent 3"
+        self.dodges = random.randint(1, 12)
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
         self.dodge_chance = random.randint(1, 12)
+        self.dodges = random.randint(1, 12)
         if self.attack_choice == 1:
             print("Agent 3 shoots at you with her Hero Shot")
             target.take_damage(self.weapon.attack_stat)
@@ -4224,7 +4192,7 @@ class Agent3(Boss):
                 print("You don't have enough MP to cast this")
 
     def take_damage(self, damage):
-        if self.dodge_chance == 3 or 4 or 8 or 1 or 2:
+        if self.dodges == 3 or 4 or 8 or 1 or 2:
             if self.inked:
                 damage *= 2
             if player.weapon.__class__ is Splattershot:
@@ -4576,7 +4544,7 @@ TEMPLE = Room('Water Temple', 'You are in the first room of the Water Temple. '
 BEGIN = Room("An Adventure's Beginning", "You stand atop a hill looking ahead at the forest to "
                                          "the north and turn around to see the desert to the south. "
                                          "\n You're ready for your quest.", 'FOREST', 'TOWN', 'OASIS',
-             'FACTORY', 'CHEATS', 'LOSS')
+             'FACTORY', 'CHEATS')
 MARKET = Room('Desert Market', "You browse the fine selection of goods, you see potions that increase health and MP,"
                                "\n a strange pendant with a drop of water engraved on it, armor, a scimitar, "
                                "\n strange scuba gear, items that restore MP"
@@ -4592,7 +4560,6 @@ OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only 
                              "\n There is a waterway barely big enough for you in the water. It appears that there is"
                              " something in the water",
              'RIVER', 'DESERT_FIGHT', None, 'BEGIN', None, 'TOWN')
-LOSS = Room('|     |i   ||  |__', '|     |i   ||  |__', 'LOSS')
 FACTORY = Room('Factory', "You are looking at a strange factory, it "
                           "appears some sort of keycard is required to enter it", None, None, 'BEGIN', None,
                'M_MARIO')
@@ -4639,16 +4606,22 @@ player = Player(BEGIN)
 
 directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave', 'NORTH', 'SOUTH', 'EAST', 'WEST', 'UP',
               'DOWN', 'ENTER', 'LEAVE']
+
 playing = True
 
 tot_key = Key2(GHOMA, TOT3.north, "Boss Key")
 factory = Key2(M_MARIO, FACTORY.enter, "Strange Keycard")
-Skel_key = Skelkey(CHAOS_FIGHT, TEMPLE_3.north, WATER_MP, TEMPLE_1.east, D_LINK, TEMPLE_2.east,"Skeleton Key")
+Skel_key = Skelkey(CHAOS_FIGHT, TEMPLE_3.north, WATER_MP, TEMPLE_1.east, D_LINK, TEMPLE_2.east, "Skeleton Key")
 
+<<<<<<< HEAD
 player.money += 1000000000000
 
-Sheldon.buy()
+rock.buy()
+=======
+player.money += 9999999999999999999999999999999999999999
+>>>>>>> f3af7c2d2ae6198438920b429821443921e4b4e3
 
+Inventory.check()
 
 # Controller
 
@@ -4661,11 +4634,11 @@ while playing:
         command = input(">_")
         if command.lower() in ['q', 'quit', 'exit', 'altf4']:
             playing = False
-        elif command == "":
+        elif command.lower() == "":
             print()
-        elif command == "scream":
+        elif command.lower() == "scream":
             print('AAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-        elif command in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason', 'kill self']:
+        elif command.lower() in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason', 'kill self']:
             player.health -= player.health
             print("Welp, you're dead now. Good job, you decided you wouldn't"
                   " die from an enemy. You made sure of it by killing yourself...")
@@ -4681,17 +4654,19 @@ while playing:
                   "\n"
                   "\n GAME OVER")
             playing = False
-        elif command == "recognized":
+        elif command.lower() == "recognized":
             print("Command not reco- Oh... VERY funny! HA! HA! HA! Don't do that again")
         elif command.lower() in directions:
+            command = command.lower()
             try:
                 next_room = player.find_room(command)
                 player.move(next_room)
             except KeyError:
                 print("I can't do this or go this way")
         elif command.upper() in directions:
+            command = command.lower()
             try:
-                next_room = player.find_room(command)
+                next_room = player.find_room(command.lower())
                 player.move(next_room)
             except KeyError:
                 print("I can't do this or go this way")
