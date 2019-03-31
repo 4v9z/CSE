@@ -229,8 +229,8 @@ TOT_SHOP = Room('Temple Shop', 'ROBOT: BEEP BOOP, What do you want to buy? ZZZZZ
 TOWER = Room('Sheikah Tower', "You look up at the tower in front of you. you can climb it,"
                               " and it looks like there'll be a reward at the top for you", None, None, None,
              'DESERT_FIGHT', 'TOP_TOWER')
-TOP_TOWER = Room('Shiekah Tower (Top)', 'You look in front of you and see an axe on a pedestal.', None, None, None, None,
-                 None, 'TOWER')
+TOP_TOWER = Room('Shiekah Tower (Top)', 'You look in front of you and see an axe on a pedestal.', None, None, None,
+                 None, None, 'TOWER')
 VOLCANO = Room('Volcano', "You are in front of a volcano... do you want to jump in?", None, None, None,
                None, None, None, 'INTERIOR')
 INTERIOR = Room('Inside Volcano', "HOLY HECK, YOU'RE ALIVE!!"
@@ -274,7 +274,8 @@ NOVA5 = Room("Long Stone Bridge", 'You are on a long, stone bridge suddenly you 
              'NOVA3')
 NOVA6 = Room('Galacta Knight Fight', "You see a floating pink crystal, suddenly, it cracks and shatters!"
                                      "\n You are face to face with the strongest warrior in the galaxy:"
-                                     "\n GALACTA KNIGHT")
+                                     "\n GALACTA KNIGHT"
+                                     "\n Prepare yourself for one of the most difficult battles you will have!")
 NOVA4 = Room("Riddle Room", "Engraved into a wall is a riddle:"
                             "\n Marking mortal privation, when firmly in place. An enduring summation, "
                             "engraved in my face."
