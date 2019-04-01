@@ -624,13 +624,21 @@ class Player(object):
 
     def rob(self, target):
         if target.__class__ is NPC:
-            if self.weapon.attack_stat > target.power:
-                self.money += target.money
-                target.money -= target.money
-                print("You rob and overpower %s and take their money" % target.name)
+            if target.name != "Dog":
+                if self.weapon.attack_stat > target.power:
+                    self.money += target.money
+                    target.money -= target.money
+                    print("You rob and overpower %s and take their money" % target.name)
+                else:
+                    print("You try to rob %s, but they easily overpower you and they take some of "
+                          "your money" % target.name)
+                    player.money -= player.money/9
+                    target.attack(self, target.power)
             else:
-                print("You try to rob %s, but they easily overpower you and they take some of your money" % target.name)
-                player.money -= player.money/9
+                print("The dog bites you and while you are stunned, the dog takes all of your money and eats it"
+                      " in front of your eyes")
+                self.take_damage(10)
+                self.money = 0
         else:
             print("You can't rob this being")
 
@@ -1129,11 +1137,12 @@ class Key(object):
 
 
 class Key2(object):
-    def __init__(self, unlock, r_b4, name=""):
+    def __init__(self, unlock, r_b4, name="", price=0):
         self.grabbed = False
         self.name = name
         self.unlocks = unlock
         self.r_b4 = r_b4
+        self.price = price
 
     def grab(self):
         if Inventory.inventory.__len__() < Inventory.max_space:
@@ -1217,36 +1226,6 @@ key_3 = Key("Key Fragment 3")
 key_4 = Key("Key Fragment 4", 0)
 
 JEVIL_KEY = SKey("Door Key")
-
-
-class Watch(object):
-    def __init__(self):
-        self.past = False
-        self.future = False
-
-    def use(self, time):
-        if time.lower() == "past":
-            self.past = True
-            self.future = False
-            print("You travel backwards in time to the past")
-        elif time.lower() == "present":
-            self.past = False
-            self.future = False
-            print("You go back to the present")
-        elif time.lower() == "future":
-            self.past = False
-            self.future = True
-            print("You go to the future")
-
-
-watch = Watch()
-
-
-class Wreckage(object):
-    def __init__(self):
-        self.activated = False
-        if watch.past:
-            PEAK.enter = NOVA_1
 
 
 class Ball(Eat1):
@@ -1544,14 +1523,6 @@ rock.items.append(lava2)
 rock.items.append(space)
 rock.items.append(upgrade3)
 rock.items.append(key_4)
-
-
-class Ice(object):
-    def __init__(self):
-        self.activated = False
-        if watch.past:
-            F_Sword.activated = True
-            frost_helmet.activated = True
 
 
 class Boss(Enemy):
@@ -4433,9 +4404,9 @@ PAST2 = Room('Coin Room (Past)', "Upon a pedestal in this room is a single coin 
              None, None, 'TOT3')
 FUTURE2 = Room('Key Room (Future)', "While the path leading here has caved "
                                     "in during our present day, and this "
-                                    "path had not yet been built in the past you can visit, "
-                                    "\n the key in this "
-                                    "room appears to be broken. In our present day, "
+                                    "path had not yet been built in the past you can visit this room in the future. "
+                                    "\n The key in this "
+                                    "room appears to be broken. In a time between our present day and the past, "
                                     "this key was most definitely intact",
                None, None, None, 'TOT3')
 FUTURE1 = Room('Gold Room (Future)', "In this room, there is a single coin upon a pedestal."
@@ -4689,19 +4660,85 @@ NOVA6.bosses.append(galacta_knight)
 playing = True
 
 tot_key = Key2(GHOMA, TOT3.north, "Boss Key")
-factory = Key2(M_MARIO, FACTORY.enter, "Strange Keycard")
+factory = Key2(M_MARIO, FACTORY.enter, "Strange Keycard", 64)
 Skel_key = Skelkey(CHAOS_FIGHT, TEMPLE_3.north, WATER_MP, TEMPLE_1.east, D_LINK, TEMPLE_2.east, "Skeleton Key")
+
+rock.items.append(factory)
 
 # Adding Items
 CLEARING.items.append(Light_Sword)
 KEY.items.append(Skel_key)
 
+
+class Watch(object):
+    def __init__(self):
+        self.past = False
+        self.future = False
+
+    def use(self, time):
+        if time.lower() == "past":
+            self.past = True
+            self.future = False
+            print("You travel backwards in time to the past")
+            TOT2.east = PAST1
+            TOT3.west = PAST2
+            TOT2.west = None
+            TOT2.east = None
+            FUTURE2.items.remove(tot_key)
+        elif time.lower() == "present":
+            self.past = False
+            self.future = False
+            print("You go back to the present")
+            TOT2.east = None
+            TOT3.west = None
+            TOT2.west = None
+            TOT2.east = None
+            FUTURE2.items.append(tot_key)
+        elif time.lower() == "future":
+            self.past = False
+            self.future = True
+            print("You go to the future")
+            TOT2.east = None
+            TOT3.west = None
+            TOT2.west = FUTURE1
+            TOT2.east = FUTURE2
+            FUTURE2.items.remove(tot_key)
+
+
+the_watch = Watch()
+
+
+class Wreckage(object):
+        def __init__(self):
+            self.activated = False
+
+        def be_unlocked(self):
+            if the_watch.past:
+                PEAK.enter = NOVA_1
+                self.activated = True
+
+
+nova = Wreckage
+
+
+class Ice(object):
+    def __init__(self):
+        self.activated = False
+        if the_watch.past:
+            CAVE.items.append(F_Sword)
+            CAVE.items.append(frost_helmet)
+
+
+ice = Ice
 # Controller
 
 while playing:
         if player.health <= 0:
             playing = False
-
+            print('GAME OVER')
+        if tabuu.health <= 0:
+            playing = False
+            print("YOU WIN! CONGRATULATIONS")
         print(player.current_location.name)
         print(player.current_location.description)
         command = input(">_")
@@ -4709,8 +4746,11 @@ while playing:
             playing = False
         elif command.lower() == "":
             print()
+        elif command.lower() in ["speak", "talk"]:
+            command2 = input("What would you like to say?")
+            print("You: " + command2)
         elif command.lower() == "scream":
-            print('AAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
         elif command.lower() in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason',
                                  'kill self']:
             player.health -= player.health

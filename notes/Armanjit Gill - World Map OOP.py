@@ -204,7 +204,7 @@ PAST2 = Room('Coin Room (Past)', "Upon a pedestal in this room is a single coin 
              None, None, 'TOT3')
 FUTURE2 = Room('Key Room (Future)', "While the path leading here has caved "
                                     "in during our present day, and this "
-                                    "path had not yet been built in the past you can visit, "
+                                    "path had not yet been built in the past you can visit this room in the future "
                                     "\n the key in this "
                                     "room appears to be broken. In our present day, "
                                     "this key was most definitely intact",
