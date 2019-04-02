@@ -585,6 +585,7 @@ class Player(object):
         self.money = money
         self.can_attack = False
         self.choice = ""
+        self.random = 0
 
     def attack(self, target):
         if self.current_location is player.current_location:
@@ -667,8 +668,99 @@ class Player(object):
 
         :param new_location: The room object that we move to
         """
-        self.current_location = new_location
-        self.inked = False
+        if new_location == TEMPLE:
+            if self.helmet is water_pendant:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to swim down to the structure, but you drown...")
+                self.health -= self.health
+        elif new_location == NOVA_1:
+            if self.helmet is space:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to go through the giant clockwork star but it turns out "
+                      "that you kinda need a space helmet to survive in space...")
+                self.health -= self.health
+        elif new_location == SPLAT4:
+            if self.helmet is scuba:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You can't swim through ink, so you're kind of stuck here....")
+        elif new_location == SPLAT6:
+            if self.helmet is scuba:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You can't swim through ink, so you're kind of stuck here....")
+        elif new_location == SPLAT7:
+            if self.helmet is scuba:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You can't swim through ink, so you're kind of stuck here....")
+        elif new_location == INTERIOR:
+            self.random = random.randint(1, 10)
+            if self.current_location == SUBSPACE_ENTER:
+                print("You jump down into the volcano and...")
+                if self.random == 1 or 2 or 7:
+                    print("You survived!")
+                    self.current_location = new_location
+                    self.inked = False
+                else:
+                    print("You fall into molten lava and burn to death...")
+                    self.health = 0
+            else:
+                self.current_location = new_location
+                self.inked = False
+        elif new_location == BAY:
+            if player.helmet is water_pendant:
+                self.random = random.randint(5, 10)
+            else:
+                self.random = random.randint(1, 10)
+            if self.current_location == CLIMB:
+                print("You jump down into the bay and...")
+                if self.random == 9 or 6 or 7 or 8 or 10:
+                    print("You survived!")
+                    self.current_location = new_location
+                    self.inked = False
+                else:
+                    if self.random == 1 or 2 or 3:
+                        print("You fall onto the ground and die!")
+                        self.health = 0
+                    else:
+                        print("You fall too far down into the water and drown!")
+                        self.health = 0
+            else:
+                self.current_location = new_location
+                self.inked = False
+        elif new_location == MT_SILVER:
+            self.random = random.randint(1, 10)
+            if self.current_location == MTN_BASE:
+                print("You try to climb the mountain and...")
+                if self.random == 1 or 6 or 3 or 8 or 10:
+                    print("You survived!")
+                    self.current_location = new_location
+                    self.inked = False
+                else:
+                    print("You fall onto the ground and die!")
+                    self.health = 0
+        elif new_location == KEY:
+            self.random = random.randint(1, 10)
+            if self.current_location == TEMPLE_5:
+                print("You try to climb the pile and...")
+                if self.random == 1 or 6 or 3 or 8 or 10:
+                    print("You survived!")
+                    self.current_location = new_location
+                    self.inked = False
+                else:
+                    print("You fall onto the ground and die!")
+                    self.health = 0
+        else:
+            self.current_location = new_location
+            self.inked = False
 
     def find_room(self, direction):
         """This method takes a direction and finds the variable of the room
@@ -4668,6 +4760,7 @@ rock.items.append(factory)
 # Adding Items
 CLEARING.items.append(Light_Sword)
 KEY.items.append(Skel_key)
+TOP_TOWER.items.append(Ancient_axe)
 
 
 class Watch(object):
@@ -4724,9 +4817,15 @@ nova = Wreckage
 class Ice(object):
     def __init__(self):
         self.activated = False
+
+    def un_ice(self):
+        self.activated = True
         if the_watch.past:
             CAVE.items.append(F_Sword)
             CAVE.items.append(frost_helmet)
+        else:
+            CAVE.items.remove(F_Sword)
+            CAVE.items.remove(frost_helmet)
 
 
 ice = Ice
@@ -4736,6 +4835,7 @@ while playing:
         if player.health <= 0:
             playing = False
             print('GAME OVER')
+            break
         if tabuu.health <= 0:
             playing = False
             print("YOU WIN! CONGRATULATIONS")
