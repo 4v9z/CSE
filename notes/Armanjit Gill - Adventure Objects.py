@@ -632,7 +632,7 @@ class Player(object):
 
     def take_damage(self, damage):
         if not self.inked:
-            if damage  < self.defense:
+            if damage < self.defense:
                 print("No damage was taken!")
             else:
                 self.health -= damage*1.2 - self.defense
@@ -1206,8 +1206,6 @@ key_3 = Key("Key Fragment 3")
 key_4 = Key("Key Fragment 4")
 
 JEVIL_KEY = SKey("Door Key")
-
-
 
 
 class Watch(object):

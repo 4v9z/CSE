@@ -135,6 +135,7 @@ class NPC(Character):
         self.dialogue = dialogue
         self.like = 0
         self.aaaaaaa = 0
+        self.oo = 0
 
     def talk(self):
         if self.shopkeeper:
@@ -146,7 +147,34 @@ class NPC(Character):
                 self.aaaaaaa = len(self.items)
             elif self.like == 1:
                 if self.aaaaaaa == 0:
-                    print("%s: %s" % (self.name, self.dialogue))
+                    if self.name != "Agent 3":
+                        print("%s: %s" % (self.name, self.dialogue))
+                    elif self.name == "Agent 3":
+                        self.oo += 1
+                    if self.oo == 1:
+                        print("Agent 3: So... on a quest to save the world? Sounds fun.")
+                    elif self.oo == 2:
+                        print("Agent 3: I've saved the world before... It was pretty exhilarating")
+                    elif self.oo == 3:
+                        print("Agent 3: Let's fight again! Heh, just kidding. "
+                              "\n Based on the look on your face, I'd assume that you wouldn't enjoy that.")
+                    elif self.oo == 4:
+                        print("Agent 3: ........")
+                    elif self.oo == 5:
+                        print("Agent 3: (This person is quite the talker....)")
+                    elif self.oo == 6:
+                        print("Agent 3: (I wonder how all my friends are doing?)")
+                    elif self.oo == 7:
+                        print("Agent 3: (Maybe if I act like I'm bored, they'll leave)")
+                    elif self.oo == 8:
+                        print("Agent 3: (Why is this person talking to me so much???)")
+                    elif self.oo == 9:
+                        print("Agent 3: (I miss Agent 8, wonder what she's up to?)")
+                    elif self.oo == 10:
+                        print("Agent 3: (While this person is still here I guess I'll just listen to some music)")
+                    elif self.oo == 11:
+                        print("Agent 3 is humming a tune overly loud to try to annoy you into "
+                              "bailing from the conversation")
                 else:
                     if len(Inventory.inventory) + len(self.items) <= Inventory.max_space:
                         if self.name == "Dog":
@@ -158,8 +186,10 @@ class NPC(Character):
                             self.aaaaaaa = 0
                             if self.name == "Dog":
                                 self.dialogue = self.dialogue
+                            elif self.name == "Agent 3":
+                                self.dialogue = ("%s: Nice to see ya again!" % self.name)
                             else:
-                                self.dialogue = "Hello, nice to see you today"
+                                self.dialogue = ("%s: Hello, nice to see you!" % self.name)
                     else:
                         if self.name == "Dog":
                             print("The dog barks sadly, you can't carry what he wants to give you")
@@ -683,6 +713,54 @@ class Player(object):
                 print("You try to go through the giant clockwork star but it turns out "
                       "that you kinda need a space helmet to survive in space...")
                 self.health -= self.health
+        elif new_location == NOVA2:
+            if self.helmet is space:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to go on but it turns out "
+                      "that you kinda need a space helmet to survive in space...")
+                self.health -= self.health
+        elif new_location == NOVA3:
+            if self.helmet is space:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to go on but it turns out "
+                      "that you kinda need a space helmet to survive in space...")
+                self.health -= self.health
+        elif new_location == NOVA4:
+            if self.helmet is space:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to go on but it turns out "
+                      "that you kinda need a space helmet to survive in space...")
+                self.health -= self.health
+        elif new_location == NOVA5:
+            if self.helmet is space:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to go on but it turns out "
+                      "that you kinda need a space helmet to survive in space...")
+                self.health -= self.health
+        elif new_location == NOVA7:
+            if self.helmet is space:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to go on but it turns out "
+                      "that you kinda need a space helmet to survive in space...")
+                self.health -= self.health
+        elif new_location == NOVA6:
+            print("You do no need a space helmet to breathe in this room")
+            self.current_location = new_location
+            self.inked = False
+        elif new_location == MARX:
+            print("You do no need a space helmet to breathe in this room")
+            self.current_location = new_location
+            self.inked = False
         elif new_location == SPLAT4:
             if self.helmet is scuba:
                 self.current_location = new_location
@@ -1260,6 +1338,8 @@ class Key2(object):
         if self.grabbed:
             if player.current_location == self.r_b4:
                 self.r_b4 = self.unlocks
+            else:
+                print("There is no use for this key in this room")
 
 
 class Skelkey(Key2):
@@ -1573,7 +1653,11 @@ class Keyboard(object):
         self.solv = input("What is the answer?")
         if self.solv.lower() == self.solution:
             print("Correct!")
-            NOVA4.east = NOVA7
+            NOVA4.east = 'NOVA7'
+            NOVA4.description = "You have solved the riddle needed to progress" \
+                                "\n You can go east or you can go south"
+        else:
+            print("Incorrect! The wall that blocks your path is still here")
 
 
 marx_board = Keyboard("tombstone")
@@ -1588,7 +1672,9 @@ class Keyboard2(object):
         self.solv = input("What is the answer?")
         if self.solv.lower() == self.solution:
             print("Correct!")
-            SUBSPACE3.east = SUBSPACE4
+            SUBSPACE2.east = 'SUBSPACE4'
+            SUBSPACE2.description = "Now that you have solved the riddle, the path to the east has opened up and " \
+                                    "\nnow you can go east to get an upgrade or go north to continue"
         else:
             print("WRONG!!! PREPARE FOR THE DRAINING OF YOUR LIFE FORCE")
             player.health -= player.health
@@ -4572,7 +4658,7 @@ NOVA4 = Room("Riddle Room", "Engraved into a wall is a riddle:"
                             "engraved in my face."
                             "\n What am I?"
                             "\n It appears there is a stone keyboard you can use to type in your response",
-             None, 'NOVA3', 'NOVA7')
+             None, 'NOVA3')
 NOVA7 = Room('Mysterious Dimension', 'You have made it past the riddle, and you now see that in front of you is a '
                                      'strange portal, you can go north to enter it, or you can go back west', 'MARX',
              None, None, 'NOVA4')
@@ -4596,7 +4682,7 @@ SUBSPACE2 = Room('Riddle Room', 'On a stone tablet there is a riddle written on 
                                 'You can go north to continue or enter the riddle correctly to open the door '
                                 'to the east to a health and MP upgrade'
                                 '\n However, be careful, for you only get one opportunity to answer the riddle '
-                                'correctly, otherwise, you will perish', 'SUBSPACE3', 'SUBSPACE1', 'SUBSPACE4')
+                                'correctly, otherwise, you will perish', 'SUBSPACE3', 'SUBSPACE1')
 SUBSPACE3 = Room("Gold Room", 'You find yourself in a room in which you find some gold on the floor'
                               '\n You csn go north or back south', 'SUBSPACE5', 'SUBSPACE2')
 SUBSPACE5 = Room('Abandoned Platform', 'You find yourself on an empty platform, when more orbs appear!'
@@ -4641,7 +4727,7 @@ TOWN = Room('Desert Town', "You are in a barren town, there isn't much to see he
             'BEGIN', 'MARKET', 'DESERT_FIGHT')
 CHEATS = Room("Traceback (most recent call last): File 'C:/Users/4v9z/Documents/GitHub/"
               "CSE/notes/Armanjit Gill - Dictionary Map.py", "@#%$*@(#^@*!*#&$^hdqoY&*#",
-              'SUBSPACE_ENTER', 'PEAK')
+              'SUBSPACE_ENTER', 'PEAK', "NOVA4")
 OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only water here. "
                              "\n There is a waterway barely big enough for you in the water. It appears that there is"
                              " something in the water",
@@ -4751,9 +4837,9 @@ NOVA6.bosses.append(galacta_knight)
 
 playing = True
 
-tot_key = Key2(GHOMA, TOT3.north, "Boss Key")
-factory = Key2(M_MARIO, FACTORY.enter, "Strange Keycard", 64)
-Skel_key = Skelkey(CHAOS_FIGHT, TEMPLE_3.north, WATER_MP, TEMPLE_1.east, D_LINK, TEMPLE_2.east, "Skeleton Key")
+tot_key = Key2('GHOMA', TOT3.north, "Boss Key")
+factory = Key2('M_MARIO', FACTORY.enter, "Strange Keycard", 64)
+Skel_key = Skelkey('CHAOS_FIGHT', TEMPLE_3.north, WATER_MP, TEMPLE_1.east, D_LINK, TEMPLE_2.east, "Skeleton Key")
 
 rock.items.append(factory)
 
