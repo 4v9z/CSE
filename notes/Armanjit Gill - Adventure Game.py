@@ -599,6 +599,7 @@ class Player(object):
                  weapon=Wooden_Sword, mp=15, leggings=leather2, inked=False, money=30):
         self.health = health
         self.leggings = leggings
+        self.stored_weapon = weapon
         self.inventory = []
         self.current_location = starting_location
         self.helmet = helmet
@@ -1196,7 +1197,7 @@ ancient1 = Leggings(10, "Ancient Leggings", 67)
 
 ancient2 = Boots(5, "Ancient Boots", 40)
 
-desert_helmet = Helmet(10, "Golden Helmet", 50)
+desert_helmet = Helmet(6, "Golden Helmet", 50)
 
 ancient3 = Chestplate(13, "Ancient Chestplate", 85)
 
@@ -2453,7 +2454,7 @@ class Dbowser(Boss):
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
 
 
-d_bowser = Dbowser
+d_bowser = Dbowser()
 
 d_m_sword = Blade(37)
 
@@ -4915,6 +4916,12 @@ class Ice(object):
 
 
 ice = Ice
+
+shimmering_whip = Sword(85, True, False, 9999999999999999999999999999999, "Shimmering Golden Whip")
+tabuu1 = Helmet(11, "")
+tabuu2 = Leggings(13, "")
+tabuu3 = Boots(10, "")
+tabuu4 = Chestplate(17, "Tabuu's Wings")
 # Controller
 
 while playing:
@@ -4925,6 +4932,7 @@ while playing:
         if tabuu.health <= 0:
             playing = False
             print("YOU WIN! CONGRATULATIONS")
+            break
         print(player.current_location.name)
         print(player.current_location.description)
         command = input(">_")
@@ -4970,5 +4978,72 @@ while playing:
                 player.move(next_room)
             except KeyError:
                 print("I can't do this or go this way")
+        elif command.upper() == "UPUPDOWNDOWNLEFTRIGHTLEFTRIGHTBASTART":
+            print(".")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print("..")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print("...")
+            command2 = input("WHAT CHEAT WOULD YOU LIKE?"
+                             "\n1. ALL BOSSES (EXCEPT FINAL BOSS) DEFEATED"
+                             "\n2. BEAT THE GAME"
+                             "\n3. + 75 HEALTH UPGRADE"
+                             "\n4. + 75 MP"
+                             "\n5. TABUU MODE"
+                             "\n Pick a number: ")
+            if command2 == "1":
+                bowser.take_damage(999999999999999)
+                d_bowser.take_damage(999999999999999999)
+                dark_link.take_damage(9999999999999999)
+                red.take_damage(9999999999999999)
+                player.current_weapon = player.weapon
+                player.weapon = Hero_Shot
+                Agent_3.take_damage(9999999999999999999)
+                octavio.take_damage(99999999999999999)
+                chaos0.take_damage(9999999999999999999999)
+                player.choice = "blizzard"
+                gohma.take_mp()
+                player.mp = player.max_MP
+                jevil.take_damage(99999999999999999999)
+                galleom.take_damage(99999999999999)
+                duon.take_damage(999999999999999)
+                crazy_hand.take_damage(999999999999999)
+                master_hand.take_damage(999999999999999999)
+                ultra_necrozma.take_damage(999999999999999999999)
+                m_mario.take_damage(9999999999999999999999)
+                marx.take_damage(99999999999999999999)
+                galacta_knight.take_damage(9999999999999999999999999)
+                player.weapon = player.current_weapon
+        elif command.upper() == "ROSEBUD":
+            player.money += 9999999999999999999999999999999999
+        elif command.upper() == "GODMODE":
+            player.max_health = 9999999999999999999999999999999999999999999999
+            player.health = player.max_health
+            player.chestplate.defense += 9999999999999999999
+            player.weapon.attack_stat += 99999999999999999999999
+            player.max_MP += 999999999999999999999999999999999
+            player.MP = player.max_MP
         else:
             print("Command not recognized, if you inputted a direction, write it again in all lowercase")
