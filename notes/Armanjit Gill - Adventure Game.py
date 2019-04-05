@@ -290,7 +290,7 @@ class Helmet(Armor):
             if player.helmet is None:
                 print(".......... you have nothing equipped already.... what do you want to remove")
             else:
-                print("You remove the %s")
+                print("You remove the %s" % self.name)
                 player.helmet = none
                 Inventory.inventory.append(self)
 
@@ -319,7 +319,7 @@ class Chestplate(Armor):
             if player.chestplate is None:
                 print(".......... you have nothing equipped already.... what do you want to remove")
             else:
-                print("You remove the %s")
+                print("You remove the %s" % self.name)
                 player.chestplate = undershirt
                 Inventory.inventory.append(self)
 
@@ -347,7 +347,7 @@ class Boots(Armor):
             if player.boots is None:
                 print(".......... you have nothing equipped already.... what do you want to remove")
             else:
-                print("You remove the %s")
+                print("You remove the %s" % self.name)
                 player.boots = none4
                 Inventory.inventory.append(self)
 
@@ -375,7 +375,7 @@ class Leggings(Armor):
             if player.leggings is None:
                 print(".......... you have nothing equipped already.... what do you want to remove")
             else:
-                print("You remove the %s")
+                print("You remove the %s" % self.name)
                 player.leggings = underwear
                 Inventory.inventory.append(self)
 
@@ -403,7 +403,7 @@ class Weapon(object):
             if player.weapon is None:
                 print(".......... you have nothing equipped already.... what do you want to remove")
             else:
-                print("You remove the %s")
+                print("You remove the %s" % self.name)
                 player.weapon = None
                 Inventory.inventory.append(self)
 
@@ -605,7 +605,6 @@ class Player(object):
         self.helmet = helmet
         self.chestplate = chestplate
         self.boots = boots
-        self.defense = 5
         self.MP = mp
         self.weapon = weapon
         self.max_health = health
@@ -619,13 +618,9 @@ class Player(object):
         self.random = 0
 
     def attack(self, target):
-        if self.current_location is player.current_location:
-            self.can_attack = True
-        if self.can_attack:
-            print("You attack %s for %d damage" %
-                  (target.name, self.weapon.attack_stat))
-            target.take_damage(self.weapon.attack_stat)
-            if self.weapon.__class__ is Blade:
+            if self.weapon.__class__ is Sword:
+                self.weapon.attack()
+            if self.weapon.__class__ is Axe:
                 self.weapon.attack()
             if self.weapon.__class__ is Gun:
                 self.weapon.shoot()
@@ -633,6 +628,11 @@ class Player(object):
                 self.weapon.shoot()
                 target.inked = True
                 print("Your enemy has been inked and attacks now do double damage")
+            print("You attack %s for %d damage" %
+                  (target.name, self.weapon.attack_stat))
+            target.take_damage(self.weapon.attack_stat)
+
+
 
     def cast(self, target):
         if target != self:
@@ -1216,31 +1216,13 @@ light3 = Helmet(6, "Light Helmet")
 light4 = Chestplate(11, "Light Chestplate")
 
 
-class Upgrades(Consumables):
-    def __init__(self, upgrade=10):
-        super(Upgrades, self).__init__()
-        self.upgrade = upgrade
-
-
 class Inroomrestore(object):
     def __init__(self, restore=20):
         self.restore = restore
 
 
-class Health2(Inroomrestore):
-    def __init__(self, filler=1):
-        super(Health2, self).__init__()
-        self.filler = filler
-
-    def use(self):
-        print("You eat some of the provided food and your HP is maxed out")
-        player.health = player.max_health
-        self.filler = self.filler
-
-
-class Healthupgrade(Upgrades):
+class Healthupgrade(object):
     def __init__(self, upgrade=10, price=0, name=""):
-        super(Healthupgrade, self).__init__()
         self.activated = False
         self.upgrade = upgrade
         self.price = price
@@ -1255,29 +1237,7 @@ class Healthupgrade(Upgrades):
             player.health = player.max_health
 
 
-upgrade1 = Healthupgrade()
-
 upgrade3 = Healthupgrade(15, 50, "Health Upgrade")
-
-
-class MPupgrade(Upgrades):
-    def __init__(self, upgrade=25, price=0, name=""):
-        super(MPupgrade, self).__init__()
-        self.upgrade = upgrade
-        self.activated = False
-        self.price = price
-        self.name = name
-
-    def grab(self):
-        self.activated = True
-        if self.activated:
-            print("You use the MP upgrade and your MP gets maxed out."
-                  "\n Your MP is also increased by %i" % self.upgrade)
-            player.max_MP += self.upgrade
-            player.MP = player.max_MP
-
-
-upgrade2 = MPupgrade()
 
 
 class Key(object):
@@ -4898,7 +4858,7 @@ class Wreckage(object):
                 self.activated = True
 
 
-nova = Wreckage
+nova = Wreckage()
 
 
 class Ice(object):
@@ -4915,7 +4875,7 @@ class Ice(object):
             CAVE.items.remove(frost_helmet)
 
 
-ice = Ice
+ice = Ice()
 
 shimmering_whip = Sword(85, True, False, 9999999999999999999999999999999, "Shimmering Golden Whip")
 tabuu1 = Helmet(11, "")
@@ -4924,7 +4884,20 @@ tabuu3 = Boots(10, "")
 tabuu4 = Chestplate(17, "Tabuu's Wings")
 # Controller
 
+player.weapon = Unnamed_gun
+
+Unnamed_gun.grab()
+
+Wooden_Sword.unequip()
+
+Unnamed_gun.equip()
+
+player.attack(goomba)
+
 while playing:
+        player.defense = player.helmet.defense + player.chestplate.defense
+        player.defense += player.leggings.defense
+        player.defense += player.boots.defense
         if player.health <= 0:
             playing = False
             print('GAME OVER')
@@ -4979,7 +4952,7 @@ while playing:
             except KeyError:
                 print("I can't do this or go this way")
         elif command.upper() == "UPUPDOWNDOWNLEFTRIGHTLEFTRIGHTBASTART":
-            print(".")
+            input(".")
             print()
             print()
             print()
@@ -4992,7 +4965,7 @@ while playing:
             print()
             print()
             print()
-            print("..")
+            input("..")
             print()
             print()
             print()
@@ -5005,13 +4978,15 @@ while playing:
             print()
             print()
             print()
-            print("...")
+            input("...")
+            print()
+            print("cheat code accepted")
             command2 = input("WHAT CHEAT WOULD YOU LIKE?"
                              "\n1. ALL BOSSES (EXCEPT FINAL BOSS) DEFEATED"
                              "\n2. BEAT THE GAME"
                              "\n3. + 75 HEALTH UPGRADE"
                              "\n4. + 75 MP"
-                             "\n5. TABUU MODE"
+                             "\n5. TABUU ARMOR"
                              "\n Pick a number: ")
             if command2 == "1":
                 bowser.take_damage(999999999999999)
@@ -5036,9 +5011,81 @@ while playing:
                 marx.take_damage(99999999999999999999)
                 galacta_knight.take_damage(9999999999999999999999999)
                 player.weapon = player.current_weapon
+            elif command2 == "2":
+                tabuu.health = 0
+            elif command2 == "3":
+                player.max_health += 75
+                player.health = player.max_health
+            elif command2 == "4":
+                player.max_MP += 75
+                player.health = player.mp
+            elif command2 == "5":
+                player.helmet = tabuu1
+                player.leggings = tabuu2
+                player.boots = tabuu3
+                player.chestplate = tabuu4
+                player.weapon = shimmering_whip
         elif command.upper() == "ROSEBUD":
+            input(".")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            input("..")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            input("...")
+            print()
+            print("cheat code accepted")
             player.money += 9999999999999999999999999999999999
         elif command.upper() == "GODMODE":
+            input(".")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            input("..")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            input("...")
+            print()
+            print("cheat code accepted")
             player.max_health = 9999999999999999999999999999999999999999999999
             player.health = player.max_health
             player.chestplate.defense += 9999999999999999999
