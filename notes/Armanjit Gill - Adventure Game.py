@@ -714,6 +714,8 @@ class Player(object):
                 print("You try to go through the giant clockwork star but it turns out "
                       "that you kinda need a space helmet to survive in space...")
                 self.health -= self.health
+        elif new_location == TRAP:
+            self.health -= self.health
         elif new_location == NOVA2:
             if self.helmet is space:
                 self.current_location = new_location
@@ -1267,12 +1269,13 @@ class Key(object):
             Inventory.inventory.remove(self)
 
 
-class Key2(object):
-    def __init__(self, unlock, r_b4, name="", price=0):
+class Key3(object):
+    def __init__(self, unlock, r_b4, r, name="", price=0):
         self.grabbed = False
         self.name = name
         self.unlocks = unlock
         self.r_b4 = r_b4
+        self. r = r
         self.price = price
 
     def grab(self):
@@ -1297,20 +1300,57 @@ class Key2(object):
 
     def use(self):
         if self.grabbed:
-            if player.current_location == self.r_b4:
-                self.r_b4 = self.unlocks
+            if player.current_location == self.r:
+                TOT3.north = "GHOMA"
+                print("You use the key and unlock a room")
             else:
                 print("There is no use for this key in this room")
 
 
+class Key2(object):
+    def __init__(self, unlock, r_b4, r, name="", price=0):
+        self.grabbed = False
+        self.name = name
+        self.unlocks = unlock
+        self.r_b4 = r_b4
+        self. r = r
+        self.price = price
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the key")
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
+
+    def drop(self):
+        if not self.grabbed:
+            print("You don't have this item")
+        else:
+            print("You drop the key")
+            self.grabbed = False
+            Inventory.inventory.remove(self)
+
+    def use(self):
+        if self.grabbed:
+            if player.current_location == self.r:
+                FACTORY.enter = "M_MARIO"
+                print("You use the keycard and unlock the factory")
+            else:
+                print("There is no use for this keycard in this room")
+
+
 class Skelkey(Key2):
-    def __init__(self, unlock, r_b4, unlock2, r_b42, unlock3, r_b43, name=""):
+    def __init__(self, unlock, r_b4, r_b42, r_b43, name=""):
         super(Skelkey, self).__init__(unlock, r_b4, name)
         self.grabbed = False
         self.name = name
-        self.unlocks2 = unlock2
         self.r_b42 = r_b42
-        self.unlocks3 = unlock3
         self.r_b43 = r_b43
 
     def grab(self):
@@ -1335,10 +1375,11 @@ class Skelkey(Key2):
 
     def use(self):
         if self.grabbed:
-            if player.current_location == self.r_b4:
-                self.r_b4 = self.unlocks
-                self.r_b42 = self.unlocks2
-                self.r_b43 = self.unlocks3
+            self.r_b43 = self.r_b42
+            TEMPLE_3.north = "CHAOS_FIGHT"
+            TEMPLE_1.east = "WATER_MP"
+            TEMPLE_2.east = "D_LINK"
+            print("The Key flies out of your hand and unlocks the doors of the temple")
 
 
 class SKey(Key):
@@ -4404,15 +4445,15 @@ Gerudo.items.append(Green_Potion)
 Gerudo.items.append(desert_helmet)
 
 TEMPLE_1 = Room('Lock Room', "You are in a room with a locked door leading east. "
-                "\n You can continue through the temple to the north", 'TEMPLE_2', 'TEMPLE', 'WATER_MP')
+                "\n You can continue through the temple to the north", 'TEMPLE_2', 'TEMPLE')
 TEMPLE_2 = Room('Empty Chamber', "There is a locked door to the east and a door leading north. "
                                  "\n You feel like something in the water is watching you, "
-                                 "when you're suddenly attacked", 'TEMPLE_3', 'TEMPLE_1', 'D_LINK')
+                                 "when you're suddenly attacked", 'TEMPLE_3', 'TEMPLE_1')
 TRAP = Room('Trap', "As you walk to the west, the floor beneath you crumbles, "
                     "dropping you into a large pool of piranha-infested waters"
                     "\n You struggle to survive but you realize it's futile, you are not going to survive")
 TEMPLE_3 = Room('Boss Room', "In front of you is a large door that has a fittingly over-sized lock."
-                             "\n You look to the east and west, either direction can hold the key", 'CHAOS_FIGHT',
+                             "\n You look to the east and west, either direction can hold the key", None,
                 'TEMPLE_2', 'TRAP', 'TEMPLE_4')
 CHAOS_FIGHT = Room('Chaos Battle', "You are face to face with Chaos 0! The strange watery creature looks angry. "
                                    "Since normal weapons phase through it, ice or electricity "
@@ -4688,7 +4729,7 @@ TOWN = Room('Desert Town', "You are in a barren town, there isn't much to see he
             'BEGIN', 'MARKET', 'DESERT_FIGHT')
 CHEATS = Room("Traceback (most recent call last): File 'C:/Users/4v9z/Documents/GitHub/"
               "CSE/notes/Armanjit Gill - Dictionary Map.py", "@#%$*@(#^@*!*#&$^hdqoY&*#",
-              'SUBSPACE_ENTER', 'PEAK', "NOVA4")
+              'SUBSPACE_ENTER', 'PEAK', "NOVA4", "CLEARING")
 OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only water here. "
                              "\n There is a waterway barely big enough for you in the water. It appears that there is"
                              " something in the water",
@@ -4739,6 +4780,7 @@ player = Player(BEGIN)
 
 directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave', 'NORTH', 'SOUTH', 'EAST', 'WEST', 'UP',
               'DOWN', 'ENTER', 'LEAVE']
+short_directions = ['n', 's', 'e', 'w', 'u', 'd', 'in', 'out']
 
 
 # Adding NPCs + Shopkeepers
@@ -4798,9 +4840,9 @@ NOVA6.bosses.append(galacta_knight)
 
 playing = True
 
-tot_key = Key2('GHOMA', TOT3.north, "Boss Key")
-factory = Key2('M_MARIO', FACTORY.enter, "Strange Keycard", 64)
-Skel_key = Skelkey('CHAOS_FIGHT', TEMPLE_3.north, WATER_MP, TEMPLE_1.east, D_LINK, TEMPLE_2.east, "Skeleton Key")
+tot_key = Key3("aaa", "aaaa", TOT3, "Boss Key")
+factory = Key2("M_MARIO", "aaaaa", FACTORY, "Strange Keycard", 64)
+Skel_key = Skelkey("aaa", "aaaa", "aaa", "aaaa", "Skeleton Key")
 
 rock.items.append(factory)
 
@@ -4884,17 +4926,10 @@ tabuu3 = Boots(10, "")
 tabuu4 = Chestplate(17, "Tabuu's Wings")
 # Controller
 
-player.weapon = Unnamed_gun
-
-Unnamed_gun.grab()
-
-Wooden_Sword.unequip()
-
-Unnamed_gun.equip()
-
-player.attack(goomba)
+factory.grab()
 
 while playing:
+        factory.use()
         player.defense = player.helmet.defense + player.chestplate.defense
         player.defense += player.leggings.defense
         player.defense += player.boots.defense
@@ -4909,8 +4944,12 @@ while playing:
         print(player.current_location.name)
         print(player.current_location.description)
         command = input(">_")
+        if command.lower() in short_directions:
+            pos = short_directions.index(command.lower())
+            command = directions[pos]
         if command.lower() in ['q', 'quit', 'exit', 'altf4']:
             playing = False
+
         elif command.lower() == "":
             print()
         elif command.lower() in ["speak", "talk"]:
@@ -4989,6 +5028,35 @@ while playing:
                              "\n5. TABUU ARMOR"
                              "\n Pick a number: ")
             if command2 == "1":
+                input(".")
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                input("..")
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                input("...")
+                print()
+                print("cheat code accepted")
                 bowser.take_damage(999999999999999)
                 d_bowser.take_damage(999999999999999999)
                 dark_link.take_damage(9999999999999999)
@@ -5012,19 +5080,165 @@ while playing:
                 galacta_knight.take_damage(9999999999999999999999999)
                 player.weapon = player.current_weapon
             elif command2 == "2":
+                input(".")
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                input("..")
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                input("...")
+                print()
+                print("cheat code accepted")
                 tabuu.health = 0
             elif command2 == "3":
+                input(".")
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                input("..")
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                input("...")
+                print()
+                print("cheat code accepted")
                 player.max_health += 75
                 player.health = player.max_health
             elif command2 == "4":
+                input(".")
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                input("..")
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                input("...")
+                print()
+                print("cheat code accepted")
                 player.max_MP += 75
                 player.health = player.mp
             elif command2 == "5":
+                input(".")
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                input("..")
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                input("...")
+                print()
+                print("cheat code accepted")
                 player.helmet = tabuu1
                 player.leggings = tabuu2
                 player.boots = tabuu3
                 player.chestplate = tabuu4
                 player.weapon = shimmering_whip
+            else:
+                input(".")
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                input("..")
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                print()
+                input("...")
+                print()
+                print("error - not a valid cheat code")
         elif command.upper() == "ROSEBUD":
             input(".")
             print()

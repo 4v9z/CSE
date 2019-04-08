@@ -1150,20 +1150,8 @@ class Key2(object):
                 self.r_b4 = self.unlocks
 
 
-class SKey(Key):
-    def __init__(self, name=""):
-        super(SKey, self).__init__()
-        self.name = name
-
-    def use(self):
-        if self.grabbed:
-            if player.current_location == JEVIL_ENTRANCE:
-                print("* You use the door key"
-                      "\n * The door key created a door")
-
-
 class Skelkey(Key2):
-    def __init__(self, unlock, r_b4,unlock2, r_b42, unlock3, r_b43, name=""):
+    def __init__(self, unlock, r_b4, unlock2, r_b42, unlock3, r_b43, name=""):
         super(Skelkey, self).__init__(unlock, r_b4, name)
         self.grabbed = False
         self.name = name
