@@ -1,6 +1,15 @@
 import random
 
 
+class Gold(object):
+    def __init__(self, worth=0):
+        self.worth = worth
+
+    def grab(self):
+        player.money += self.worth
+        print("You picked up the gold")
+
+
 class Room(object):
     def __init__(self, name='ROOM', description='This is a room', north=None, south=None, east=None, west=None,
                  up=None, down=None, enter=None, leave=None):
@@ -716,6 +725,20 @@ class Player(object):
                 self.health -= self.health
         elif new_location == TRAP:
             self.health -= self.health
+        elif new_location == TOWN:
+            if self.current_location == OASIS:
+                if player.helmet == water_pendant:
+                    print("While you're in the water...")
+                    key_2.grab()
+                    self.current_location = new_location
+                    self.inked = False
+                else:
+                    print("You hop into the water where you drown. "
+                          "\n You emerge from the waterway in a town where people are somehow "
+                          "scared of a corpse in their drinking water that is now contaminated.")
+            else:
+                self.current_location = new_location
+                self.inked = False
         elif new_location == NOVA2:
             if self.helmet is space:
                 self.current_location = new_location
@@ -1253,7 +1276,7 @@ class Key(object):
             if self.grabbed:
                 print("You already have this")
             else:
-                print("You pick up the key")
+                print("You pick up the key fragment")
                 self.grabbed = True
                 Inventory.inventory.append(self)
                 # add stuff to bag
@@ -4459,9 +4482,7 @@ CHAOS_FIGHT = Room('Chaos Battle', "You are face to face with Chaos 0! The stran
                                    "Since normal weapons phase through it, ice or electricity "
                                    "would likely be most effective to "
                                    "attack it", None, 'TEMPLE_3', None, None, 'BAY')
-TEMPLE_4 = Room('Gold Room', "You are in a room that is entirely made of gold, a sign says:"
-                             "\n DO NOT BE GREEDY, TAKE NO MORE THAN 150 GOLD!"
-                             "\n It's up to you whether or not you should heed this warning"
+TEMPLE_4 = Room('Gold Room', "You are in a room filled with a large pile of gold, about 150 coins"
                              " You can head north to continue through the temple", 'TEMPLE_5', None, None, 'TEMPLE_3')
 TEMPLE_5 = Room('Skeleton Room', "You are in a room full of bones. "
                                  "\n On top of a particularly large pile of bones is a skeleton key that will unlock"
@@ -4577,8 +4598,8 @@ _3 = Room('Agent 3 Battle', "Upon getting closer, the squid-kid sees you. She tu
                             "difficult battles yet."
                             "\n You can only defeat her with a weapon that fires ink, and either way... Good Luck!",
           None, None, None, None, 'SPLAT4')
-SPLAT5 = Room('Bluefin Depot', "You are on a platform floating in the water, there is a large crate "
-                               "here that can be opened", None, None, 'SPLAT2')
+SPLAT5 = Room('Bluefin Depot', "You are on a platform floating in the water, there are two guns here", None, None,
+              'SPLAT2')
 PAST2 = Room('Coin Room (Past)', "Upon a pedestal in this room is a single coin from the past."
                                  "\n This coin is worthless today: It's worth nothing in the present",
              None, None, 'TOT3')
@@ -4778,8 +4799,7 @@ JEVIL_FIGHT = Room("???????", "JEVIL: 'I CAN DO ANYTHING!!' Watch out! Here come
 
 player = Player(BEGIN)
 
-directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave', 'NORTH', 'SOUTH', 'EAST', 'WEST', 'UP',
-              'DOWN', 'ENTER', 'LEAVE']
+directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave']
 short_directions = ['n', 's', 'e', 'w', 'u', 'd', 'in', 'out']
 
 
@@ -4846,10 +4866,30 @@ Skel_key = Skelkey("aaa", "aaaa", "aaa", "aaaa", "Skeleton Key")
 
 rock.items.append(factory)
 
-# Adding Items
-CLEARING.items.append(Light_Sword)
-KEY.items.append(Skel_key)
-TOP_TOWER.items.append(Ancient_axe)
+gold_room = Gold(150)
+
+past_coin = Gold(1)
+Future_coin = Gold(1537)
+sub_gold = Gold(812)
+
+dualies = Splattershot("Splat Dualies", 150, 22)
+
+
+class Ice(object):
+    def __init__(self):
+        self.activated = False
+
+    def un_ice(self):
+        self.activated = True
+        if the_watch.past:
+            CAVE.items.append(F_Sword)
+            CAVE.items.append(frost_helmet)
+        else:
+            CAVE.items.remove(F_Sword)
+            CAVE.items.remove(frost_helmet)
+
+
+ice = Ice()
 
 
 class Watch(object):
@@ -4889,6 +4929,20 @@ class Watch(object):
 
 the_watch = Watch()
 
+# Adding Items
+CLEARING.items.append(Light_Sword)
+KEY.items.append(Skel_key)
+TOP_TOWER.items.append(Ancient_axe)
+JEVIL_ENTRANCE.items.append(key_1)
+INTERIOR.items.append(key_3)
+TEMPLE_4.items.append(gold_room)
+SUBSPACE3.items.append(sub_gold)
+FUTURE1.items.append(Future_coin)
+PAST2.items.append(past_coin)
+SPLAT5.items.append(dualies)
+CAVE.items.append(ice)
+TOT2.items.append(the_watch)
+
 
 class Wreckage(object):
         def __init__(self):
@@ -4902,23 +4956,6 @@ class Wreckage(object):
 
 nova = Wreckage()
 
-
-class Ice(object):
-    def __init__(self):
-        self.activated = False
-
-    def un_ice(self):
-        self.activated = True
-        if the_watch.past:
-            CAVE.items.append(F_Sword)
-            CAVE.items.append(frost_helmet)
-        else:
-            CAVE.items.remove(F_Sword)
-            CAVE.items.remove(frost_helmet)
-
-
-ice = Ice()
-
 shimmering_whip = Sword(85, True, False, 9999999999999999999999999999999, "Shimmering Golden Whip")
 tabuu1 = Helmet(11, "")
 tabuu2 = Leggings(13, "")
@@ -4926,10 +4963,9 @@ tabuu3 = Boots(10, "")
 tabuu4 = Chestplate(17, "Tabuu's Wings")
 # Controller
 
-factory.grab()
-
 while playing:
-        factory.use()
+        if player.current_location == MT_SILVER:
+            player.health -= 12
         player.defense = player.helmet.defense + player.chestplate.defense
         player.defense += player.leggings.defense
         player.defense += player.boots.defense
@@ -4949,7 +4985,8 @@ while playing:
             command = directions[pos]
         if command.lower() in ['q', 'quit', 'exit', 'altf4']:
             playing = False
-
+        elif command.lower() in ["check inventory", "open inventory", 'i']:
+            Inventory.check()
         elif command.lower() == "":
             print()
         elif command.lower() in ["speak", "talk"]:
@@ -4980,13 +5017,6 @@ while playing:
             command = command.lower()
             try:
                 next_room = player.find_room(command)
-                player.move(next_room)
-            except KeyError:
-                print("I can't do this or go this way")
-        elif command.upper() in directions:
-            command = command.lower()
-            try:
-                next_room = player.find_room(command.lower())
                 player.move(next_room)
             except KeyError:
                 print("I can't do this or go this way")

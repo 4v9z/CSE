@@ -48,32 +48,18 @@ class Player(object):
         return globals()[room_name]
 
 
-class NPC(object):
-    def __init__(self, dialogue="SAMPLE TEXT", name="NAMEHERE", money=300, gives_item=False, robbable=True):
-        self.dialogue = dialogue
-        self.robbable = robbable
-        self.money = money
-        self.name = name
-        self.gives_item = gives_item
-
-
-Kirby = NPC('HI!', 'Kirby', 25)
-Dog = NPC('Woof', "Dog", 9999999999999999999999999999999, True)
-EGG = NPC('EGG', 'EGG', 0, True)
-
-
 # Option 2 - Use strings, but more difficult controller
 
 TEMPLE_1 = Room('Lock Room', "You are in a room with a locked door leading east. "
-                "\n You can continue through the temple to the north", 'TEMPLE_2', 'TEMPLE', 'WATER_MP')
+                "\n You can continue through the temple to the north", 'TEMPLE_2', 'TEMPLE')
 TEMPLE_2 = Room('Empty Chamber', "There is a locked door to the east and a door leading north. "
                                  "\n You feel like something in the water is watching you, "
-                                 "when you're suddenly attacked", 'TEMPLE_3', 'TEMPLE_1', 'D_LINK')
+                                 "when you're suddenly attacked", 'TEMPLE_3', 'TEMPLE_1')
 TRAP = Room('Trap', "As you walk to the west, the floor beneath you crumbles, "
                     "dropping you into a large pool of piranha-infested waters"
                     "\n You struggle to survive but you realize it's futile, you are not going to survive")
 TEMPLE_3 = Room('Boss Room', "In front of you is a large door that has a fittingly over-sized lock."
-                             "\n You look to the east and west, either direction can hold the key", 'CHAOS_FIGHT',
+                             "\n You look to the east and west, either direction can hold the key", None,
                 'TEMPLE_2', 'TRAP', 'TEMPLE_4')
 CHAOS_FIGHT = Room('Chaos Battle', "You are face to face with Chaos 0! The strange watery creature looks angry. "
                                    "Since normal weapons phase through it, ice or electricity "
@@ -197,16 +183,15 @@ _3 = Room('Agent 3 Battle', "Upon getting closer, the squid-kid sees you. She tu
                             "difficult battles yet."
                             "\n You can only defeat her with a weapon that fires ink, and either way... Good Luck!",
           None, None, None, None, 'SPLAT4')
-SPLAT5 = Room('Bluefin Depot', "You are on a platform floating in the water, there is a large crate "
-                               "here that can be opened", None, None, 'SPLAT2')
+SPLAT5 = Room('Bluefin Depot', "You are on a platform floating in the water, there is a gun here", None, None, 'SPLAT2')
 PAST2 = Room('Coin Room (Past)', "Upon a pedestal in this room is a single coin from the past."
                                  "\n This coin is worthless today: It's worth nothing in the present",
              None, None, 'TOT3')
 FUTURE2 = Room('Key Room (Future)', "While the path leading here has caved "
                                     "in during our present day, and this "
-                                    "path had not yet been built in the past you can visit this room in the future "
-                                    "\n the key in this "
-                                    "room appears to be broken. In our present day, "
+                                    "path had not yet been built in the past you can visit this room in the future. "
+                                    "\n The key in this "
+                                    "room appears to be broken. In a time between our present day and the past, "
                                     "this key was most definitely intact",
                None, None, None, 'TOT3')
 FUTURE1 = Room('Gold Room (Future)', "In this room, there is a single coin upon a pedestal."
@@ -274,14 +259,13 @@ NOVA5 = Room("Long Stone Bridge", 'You are on a long, stone bridge suddenly you 
              'NOVA3')
 NOVA6 = Room('Galacta Knight Fight', "You see a floating pink crystal, suddenly, it cracks and shatters!"
                                      "\n You are face to face with the strongest warrior in the galaxy:"
-                                     "\n GALACTA KNIGHT"
-                                     "\n Prepare yourself for one of the most difficult battles you will have!")
+                                     "\n GALACTA KNIGHT")
 NOVA4 = Room("Riddle Room", "Engraved into a wall is a riddle:"
                             "\n Marking mortal privation, when firmly in place. An enduring summation, "
                             "engraved in my face."
                             "\n What am I?"
                             "\n It appears there is a stone keyboard you can use to type in your response",
-             None, 'NOVA3', 'NOVA7')
+             None, 'NOVA3')
 NOVA7 = Room('Mysterious Dimension', 'You have made it past the riddle, and you now see that in front of you is a '
                                      'strange portal, you can go north to enter it, or you can go back west', 'MARX',
              None, None, 'NOVA4')
@@ -305,7 +289,7 @@ SUBSPACE2 = Room('Riddle Room', 'On a stone tablet there is a riddle written on 
                                 'You can go north to continue or enter the riddle correctly to open the door '
                                 'to the east to a health and MP upgrade'
                                 '\n However, be careful, for you only get one opportunity to answer the riddle '
-                                'correctly, otherwise, you will perish', 'SUBSPACE3', 'SUBSPACE1', 'SUBSPACE4')
+                                'correctly, otherwise, you will perish', 'SUBSPACE3', 'SUBSPACE1')
 SUBSPACE3 = Room("Gold Room", 'You find yourself in a room in which you find some gold on the floor'
                               '\n You csn go north or back south', 'SUBSPACE5', 'SUBSPACE2')
 SUBSPACE5 = Room('Abandoned Platform', 'You find yourself on an empty platform, when more orbs appear!'
@@ -339,7 +323,7 @@ TEMPLE = Room('Water Temple', 'You are in the first room of the Water Temple. '
 BEGIN = Room("An Adventure's Beginning", "You stand atop a hill looking ahead at the forest to "
                                          "the north and turn around to see the desert to the south. "
                                          "\n You're ready for your quest.", 'FOREST', 'TOWN', 'OASIS',
-             'FACTORY', 'CHEATS', 'LOSS')
+             'FACTORY', 'CHEATS')
 MARKET = Room('Desert Market', "You browse the fine selection of goods, you see potions that increase health and MP,"
                                "\n a strange pendant with a drop of water engraved on it, armor, a scimitar, "
                                "\n strange scuba gear, items that restore MP"
@@ -350,12 +334,11 @@ TOWN = Room('Desert Town', "You are in a barren town, there isn't much to see he
             'BEGIN', 'MARKET', 'DESERT_FIGHT')
 CHEATS = Room("Traceback (most recent call last): File 'C:/Users/4v9z/Documents/GitHub/"
               "CSE/notes/Armanjit Gill - Dictionary Map.py", "@#%$*@(#^@*!*#&$^hdqoY&*#",
-              'SUBSPACE_ENTER', 'PEAK')
+              'SUBSPACE_ENTER', 'PEAK', "NOVA4", "CLEARING")
 OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only water here. "
                              "\n There is a waterway barely big enough for you in the water. It appears that there is"
                              " something in the water",
              'RIVER', 'DESERT_FIGHT', None, 'BEGIN', None, 'TOWN')
-LOSS = Room('|     |i   ||  |__', '|     |i   ||  |__', 'LOSS')
 FACTORY = Room('Factory', "You are looking at a strange factory, it "
                           "appears some sort of keycard is required to enter it", None, None, 'BEGIN', None,
                'M_MARIO')
@@ -438,9 +421,6 @@ while playing:
             playing = False
         elif command == "recognized":
             print("Command not reco- Oh... VERY funny! HA! HA! HA! Don't do that again")
-        elif command == 'rob':
-            #  This will be used to take money from NPCs
-            print(Kirby.dialogue)
         elif command.lower() in directions:
             try:
                 next_room = player.find_room(command)

@@ -1118,11 +1118,13 @@ class Key(object):
 
 
 class Key2(object):
-    def __init__(self, unlock, r_b4, name=""):
+    def __init__(self, unlock, r_b4, r, name="", price=0):
         self.grabbed = False
         self.name = name
         self.unlocks = unlock
         self.r_b4 = r_b4
+        self. r = r
+        self.price = price
 
     def grab(self):
         if Inventory.inventory.__len__() < Inventory.max_space:
@@ -1146,18 +1148,69 @@ class Key2(object):
 
     def use(self):
         if self.grabbed:
-            if player.current_location == self.r_b4:
-                self.r_b4 = self.unlocks
+            if player.current_location == self.r:
+                FACTORY.enter = "M_MARIO"
+                print("You use the keycard and unlock the factory")
+            else:
+                print("There is no use for this keycard in this room")
+
+
+class Key3(object):
+    def __init__(self, unlock, r_b4, r, name="", price=0):
+        self.grabbed = False
+        self.name = name
+        self.unlocks = unlock
+        self.r_b4 = r_b4
+        self. r = r
+        self.price = price
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the key")
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
+
+    def drop(self):
+        if not self.grabbed:
+            print("You don't have this item")
+        else:
+            print("You drop the key")
+            self.grabbed = False
+            Inventory.inventory.remove(self)
+
+    def use(self):
+        if self.grabbed:
+            if player.current_location == self.r:
+                TOT3.north = "GHOMA"
+                print("You use the key and unlock a room")
+            else:
+                print("There is no use for this key in this room")
+
+
+class SKey(Key):
+    def __init__(self, name=""):
+        super(SKey, self).__init__()
+        self.name = name
+
+    def use(self):
+        if self.grabbed:
+            if player.current_location == JEVIL_ENTRANCE:
+                print("* You use the door key"
+                      "\n * The door key created a door")
 
 
 class Skelkey(Key2):
-    def __init__(self, unlock, r_b4, unlock2, r_b42, unlock3, r_b43, name=""):
+    def __init__(self, unlock, r_b4, r_b42, r_b43, name=""):
         super(Skelkey, self).__init__(unlock, r_b4, name)
         self.grabbed = False
         self.name = name
-        self.unlocks2 = unlock2
         self.r_b42 = r_b42
-        self.unlocks3 = unlock3
         self.r_b43 = r_b43
 
     def grab(self):
@@ -1182,10 +1235,11 @@ class Skelkey(Key2):
 
     def use(self):
         if self.grabbed:
-            if player.current_location == self.r_b4:
-                self.r_b4 = self.unlocks
-                self.r_b42 = self.unlocks2
-                self.r_b43 = self.unlocks3
+            self.r_b43 = self.r_b42
+            TEMPLE_3.north = "CHAOS_FIGHT"
+            TEMPLE_1.east = "WATER_MP"
+            TEMPLE_2.east = "D_LINK"
+            print("The Key flies out of your hand and unlocks the doors of the temple")
 
 
 key_1 = Key("Key Fragment 1")
@@ -4271,6 +4325,4 @@ Gerudo.items.append(super_mushroom)
 Gerudo.items.append(Green_Potion)
 Gerudo.items.append(desert_helmet)
 
-while tabuu.health > 0  and Agent_3.health > 0:
-    tabuu.attack(Agent_3)
-    Agent_3.attack(tabuu)
+Skel_key = Skelkey("aaa", "aaaa", "aaa", "aaaa", "Skeleton Key")
