@@ -4607,7 +4607,8 @@ FUTURE2 = Room('Key Room (Future)', "While the path leading here has caved "
                                     "in during our present day, and this "
                                     "path had not yet been built in the past you can visit this room in the future. "
                                     "\n The key in this "
-                                    "room appears to be broken. In a time between our present day and the past, "
+                                    "room appears to be broken. In  a time between our present day and the past"
+                                    " and before the future, "
                                     "this key was most definitely intact",
                None, None, None, 'TOT3')
 FUTURE1 = Room('Gold Room (Future)', "In this room, there is a single coin upon a pedestal."
@@ -4896,6 +4897,20 @@ class Watch(object):
     def __init__(self):
         self.past = False
         self.future = False
+        self.name = "Magic Stopwatch"
+        self.grabbed = False
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the %s" % self.name)
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
 
     def use(self, time):
         if time.lower() == "past":
@@ -4906,7 +4921,9 @@ class Watch(object):
             TOT3.west = PAST2
             TOT2.west = None
             TOT2.east = None
-            FUTURE2.items.remove(tot_key)
+            ice.un_ice()
+            if tot_key in FUTURE2.items:
+                FUTURE2.items.remove(tot_key)
         elif time.lower() == "present":
             self.past = False
             self.future = False
@@ -4915,7 +4932,8 @@ class Watch(object):
             TOT3.west = None
             TOT2.west = None
             TOT2.east = None
-            FUTURE2.items.append(tot_key)
+            if tot_key in FUTURE2.items:
+                FUTURE2.items.append(tot_key)
         elif time.lower() == "future":
             self.past = False
             self.future = True
@@ -4924,7 +4942,8 @@ class Watch(object):
             TOT3.west = None
             TOT2.west = FUTURE1
             TOT2.east = FUTURE2
-            FUTURE2.items.remove(tot_key)
+            if tot_key in FUTURE2.items:
+                FUTURE2.items.remove(tot_key)
 
 
 the_watch = Watch()
@@ -4942,6 +4961,7 @@ PAST2.items.append(past_coin)
 SPLAT5.items.append(dualies)
 CAVE.items.append(ice)
 TOT2.items.append(the_watch)
+BEGIN.items.append(the_watch)
 
 
 class Wreckage(object):
@@ -4985,6 +5005,18 @@ while playing:
             command = directions[pos]
         if command.lower() in ['q', 'quit', 'exit', 'altf4']:
             playing = False
+        elif 'take ' in command.lower():
+            item_name = command[5:]
+
+            item_obj = None
+            for item in player.current_location.items:
+                if item.name == item_name:
+                    item_obj = item
+
+                    item_obj.grab()
+        elif command.lower() in ["change time", "travel through time", 'time travel']:
+            command2 = input("Would you like to go to the past, present, or future?")
+            the_watch.use(command2.lower())
         elif command.lower() in ["check inventory", "open inventory", 'i']:
             Inventory.check()
         elif command.lower() == "":
@@ -4993,7 +5025,8 @@ while playing:
             command2 = input("What would you like to say?")
             print("You: " + command2)
         elif command.lower() == "scream":
-            print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
+            print('AAAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRGGGGGGGGGGGHHHHHHHHH'
+                  'HHHHHHHHHHHHHHHHHHHHHHHHH')
         elif command.lower() in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason',
                                  'kill self']:
             player.health -= player.health
