@@ -172,8 +172,7 @@ DJOCTAVIO = Room("DJ Octavio Fight", "You find that you have entered a stadium o
                                      "In front of you is a giant floating mech with an octopus inside"
                                      "\n You'll need some sort of ink firing weapon to win,"
                                      " otherwise, you will easily perish", None, 'SPLAT8')
-SPLAT6 = Room('Arowana Mall', "You are in a shopping mall. Here you can buy upgrades to your health or magic, "
-                              "as well as buy items to restore your health."
+SPLAT6 = Room('Arowana Mall', "You are in a shopping mall. Here you can buy items to restore your health."
                               "\n You also can buy a weapon that can fire ink here")
 SPLAT4 = Room('Octo Canyon', "After swimming through the ink, you have reached a large canyon. "
                              "\n Looking down in the canyon you can see something that looks like"

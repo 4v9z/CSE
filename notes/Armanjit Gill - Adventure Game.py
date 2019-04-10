@@ -149,7 +149,7 @@ class NPC(Character):
 
     def talk(self):
         if self.shopkeeper:
-            print("%s: I'm not supposed to talk to the customer, sorry" % self.name)
+            input("%s: I'm not supposed to talk to the customer, sorry" % self.name)
         else:
             if self.like == 0:
                 print("%s: %s" % (self.name, self.dialogue))
@@ -158,39 +158,39 @@ class NPC(Character):
             elif self.like == 1:
                 if self.aaaaaaa == 0:
                     if self.name != "Agent 3":
-                        print("%s: %s" % (self.name, self.dialogue))
+                        input("%s: %s" % (self.name, self.dialogue))
                     elif self.name == "Agent 3":
                         self.oo += 1
                     if self.oo == 1:
-                        print("Agent 3: So... on a quest to save the world? Sounds fun.")
+                        input("Agent 3: So... on a quest to save the world? Sounds fun.")
                     elif self.oo == 2:
-                        print("Agent 3: I've saved the world before... It was pretty exhilarating")
+                        input("Agent 3: I've saved the world before... It was pretty exhilarating")
                     elif self.oo == 3:
-                        print("Agent 3: Let's fight again! Heh, just kidding. "
+                        input("Agent 3: Let's fight again! Heh, just kidding. "
                               "\n Based on the look on your face, I'd assume that you wouldn't enjoy that.")
                     elif self.oo == 4:
-                        print("Agent 3: ........")
+                        input("Agent 3: ........")
                     elif self.oo == 5:
-                        print("Agent 3: (This person is quite the talker....)")
+                        input("Agent 3: (This person is quite the talker....)")
                     elif self.oo == 6:
-                        print("Agent 3: (I wonder how all my friends are doing?)")
+                        input("Agent 3: (I wonder how all my friends are doing?)")
                     elif self.oo == 7:
-                        print("Agent 3: (Maybe if I act like I'm bored, they'll leave)")
+                        input("Agent 3: (Maybe if I act like I'm bored, they'll leave)")
                     elif self.oo == 8:
-                        print("Agent 3: (Why is this person talking to me so much???)")
+                        input("Agent 3: (Why is this person talking to me so much???)")
                     elif self.oo == 9:
-                        print("Agent 3: (I miss Agent 8, wonder what she's up to?)")
+                        input("Agent 3: (I miss Agent 8, wonder what she's up to?)")
                     elif self.oo == 10:
-                        print("Agent 3: (While this person is still here I guess I'll just listen to some music)")
+                        input("Agent 3: (While this person is still here I guess I'll just listen to some music)")
                     elif self.oo == 11:
-                        print("Agent 3 is humming a tune overly loud to try to annoy you into "
+                        input("Agent 3 is humming a tune overly loud to try to annoy you into "
                               "bailing from the conversation")
                 else:
                     if len(Inventory.inventory) + len(self.items) <= Inventory.max_space:
                         if self.name == "Dog":
-                            print("Bark! Bark! Bark!")
+                            input("Bark! Bark! Bark!")
                         else:
-                            print("%s: I would like to give you this" % self.name)
+                            input("%s: I would like to give you this" % self.name)
                         for i in range(len(self.items)):
                             Inventory.inventory.append(self.items[i])
                             self.aaaaaaa = 0
@@ -737,7 +737,59 @@ class Player(object):
                     self.inked = False
             else:
                     self.health = 0
-                    print("Wait.... Why did you think going back into the room that filled to the top with lava was a good idea?!")
+                    print("Wait.... Why did you think going back into the room that filled to the top "
+                          "with lava was a good idea?!")
+        elif new_location == KEY:
+            self.random = random.randint(1, 10)
+            if self.random == 1 or 6:
+                self.health -= self.health
+                print("You fell of the pile of bones while climbing it and died!")
+            else:
+                self.current_location = new_location
+                self.inked = False
+        elif new_location == CHAOS_FIGHT:
+            if chaos0.health > 0:
+                print("You are face to face with Chaos 0! The strange watery creature looks angry. "
+                      "Since normal weapons phase through it, ice or electricity "
+                      "would likely be most effective to "
+                      "attack it")
+        elif new_location == BOWSER:
+                if bowser.health > 0:
+                    print("After walking through the door you find yourself face to face "
+                          "with the King of Koopas, Bowser!")
+        elif new_location == D_LINK:
+                if dark_link.health > 0:
+                    print("\n As you walk through the room, you look down and see your reflection is gone. "
+                          "You turn around and see Dark Link!"
+                          "\n The evil version of the fabled hero won't be pulling any punches, "
+                          "but you clutch your weapon and ready yourself for a fight.")
+        elif new_location == DARK_STAR:
+                if d_bowser.health > 0:
+                    print("There is a dark orb floating in the center of a large "
+                          "platform. You take a step forward."
+                          "\n Suddenly... the orb transforms into: DARK BOWSER!")
+        elif new_location == GHOMA:
+                if gohma.health > 0:
+                    print("In this room is the disgusting abomination of a spider: Ghoma"
+                          "\n The strategy for this is to hit it with magic, as numerous "
+                          "defeats has led to this boss gaining a resistance to swords and other similar weapons")
+        elif new_location == U_NECROZMA:
+            if ultra_necrozma.health > 0:
+                print("You see a golden dragon towering over you. "
+                      "\n Ultra Necrozma: Lie..."
+                      " Lieeee.... LIGHT!!!!!!       "
+                      "\n                 Time to see who will prevail in battle")
+        elif new_location == WATER_MP:
+            self.max_MP += 15
+            self.MP = self.max_MP
+            WATER_MP.description = "There are strange characters etched into the walls" \
+                                   "You have absorbed the MP upgrade in this room"
+        elif new_location == SUBSPACE4:
+            self.max_MP += 35
+            self.MP = self.max_MP
+            self.max_health += 40
+            self.health = self.max_health
+            SUBSPACE4.description = "You have absorbed the HP and MP upgrade in this room"
         elif new_location == CASTLE_1:
             if self.current_location == CASTLE_2:
                 self.random = random.randint(1, 10)
@@ -1230,7 +1282,7 @@ super_mushroom = Eat2(10, "Super Mushroom", 30)
 
 red_potion = Potion1(50, "Red Potion", 40)
 
-candy2 = Eat2(40, "MP Candy")
+candy2 = Eat2(40, "MP Candy", 15)
 
 void = ALL(999999999999999999999, 99999999999999999999999999, "Void Candy")
 
@@ -4507,11 +4559,11 @@ Sheldon.items.append(sandwich)
 Sheldon.items.append(Splattershot_Pro)
 Sheldon.items.append(red_potion)
 
-water_pendant = Helmet(15, "Water Pendant")
+water_pendant = Helmet(15, "Water Pendant", 40)
 
 Gerudo = NPC("Gerudo Shopkeeper", 100, 20, 5000, True)
 
-scimitar = Sword(37, True, False, 60, "Scimitar")
+scimitar = Sword(37, True, False, 60, "Scimitar", 50)
 
 Gerudo.items.append(scimitar)
 
@@ -4533,10 +4585,7 @@ TRAP = Room('Trap', "As you walk to the west, the floor beneath you crumbles, "
 TEMPLE_3 = Room('Boss Room', "In front of you is a large door that has a fittingly over-sized lock."
                              "\n You look to the east and west, either direction can hold the key", None,
                 'TEMPLE_2', 'TRAP', 'TEMPLE_4')
-CHAOS_FIGHT = Room('Chaos Battle', "You are face to face with Chaos 0! The strange watery creature looks angry. "
-                                   "Since normal weapons phase through it, ice or electricity "
-                                   "would likely be most effective to "
-                                   "attack it", None, 'TEMPLE_3', None, None, 'BAY')
+CHAOS_FIGHT = Room('Chaos Battle', "You are in a room filled with water", None, 'TEMPLE_3', None, None, 'BAY')
 TEMPLE_4 = Room('Gold Room', "You are in a room filled with a large pile of gold, about 150 coins"
                              " You can head north to continue through the temple", 'TEMPLE_5', None, None, 'TEMPLE_3')
 TEMPLE_5 = Room('Skeleton Room', "You are in a room full of bones. "
@@ -4549,11 +4598,7 @@ KEY = Room('Top of Pile', "You've made it to the top of the pile, the key is you
            None, None, 'TEMPLE_5')
 D_LINK = Room('Reflecting Pond', "You find yourself in a room where the floor is covered in a thin layer of of water. "
                                  "In the middle of the room there is a small mound of dirt with a "
-                                 "large black tree growing out of it."
-                                 "\n As you walk through the room, you look down and see your reflection is gone. "
-                                 "You turn around and see Dark Link!"
-                                 "\n The evil version of the fabled hero won't be pulling any punches, "
-                                 "but you clutch your weapon and ready yourself for a fight.", None, None, None,
+                                 "large black tree growing out of it.", None, None, None,
               'TEMPLE_2')
 WATER_MP = Room('Magic Room', "You look around the room. There are strange characters etched into the walls."
                               "\n You feel your MP get restored as well as increase", None, None, None, 'TEMPLE_1')
@@ -4589,16 +4634,13 @@ CASTLE_6 = Room('Near Back Exit', "You are near the back exit of a castle, "
 CASTLE_7 = Room('Back Exit', "You are at the back exit of the castle. To go further through the castle, "
                              "you'd have to hop across rocks floating in a river of lava, or you can leave now",
                 None, 'CASTLE_6', None, None, None, None, None, 'CASTLE_BACK')
-BOWSER = Room('Bowser Battle', "After walking through the door you find yourself face to face "
-                               "with the King of Koopas, Bowser!"
-                               "\n Ready? FIGHT!", None, 'CASTLE_5')
+BOWSER = Room('Bowser Battle', "You are in a room where you are on a giant stone platform surrounded by lava",
+              None, 'CASTLE_5')
 ROAD = Room('Rainbow Road', "You are standing in front of a rainbow that appears to continue through "
                             "the atmosphere and into space"
                             "\n"
                             "You can walk up the rainbow", 'CASTLE', None, None, None, 'DARK_STAR')
-DARK_STAR = Room('Galaxy Reactor', "There is a dark orb floating in the center of a large "
-                                   "platform. You take a step forward."
-                                   "\n Suddenly... the orb transforms into: DARK BOWSER!", None, None,
+DARK_STAR = Room('Galaxy Reactor', "You are on a dark platform with spikes coming out of it", None, None,
                  None, None, None, 'ROAD')
 TEMPLE2 = Room('Temple of Time (Entrance)', "You look in front of you to see an temple with open doors, "
                                             "there is also a "
@@ -4606,7 +4648,7 @@ TEMPLE2 = Room('Temple of Time (Entrance)', "You look in front of you to see an 
                None, 'LIGHT', 'MARKET', None, None, 'TOT_SHOP', 'TOT1')
 TOT1 = Room('Temple of Time', "You have entered the temple, you can continue through a door to the north", 'TOT2',
             None, None, None, None, None, None, 'TEMPLE2')
-TOT2 = Room('Watch Room', "In the center of the room there is a pedastal labeled 'MAGIC STOPWATCH'. "
+TOT2 = Room('Watch Room', "In the center of the room there is a pedestal labeled 'MAGIC STOPWATCH'. "
                           "You sigh as you realize "
                           "some time-travel shenanigans will ensue"
                           "\n You can use the watch to open up paths to the east or west that existed in "
@@ -4615,9 +4657,7 @@ TOT3 = Room('Boss Room', "There is a large door in front of you with a large pad
                          "it appears that a key is needed. "
                          "\n You can use the watch to open up pathways to the east and west in the past and future.",
             'GHOMA', 'TOT2', 'FUTURE2', 'PAST2')
-GHOMA = Room('Ghoma Fight', "In this room is the disgusting abomination of a spider: Ghoma"
-                            "\n The strategy for this is to hit it with magic, as numerous "
-                            "defeats has led to this boss gaining a resistance to swords and other similar weapons",
+GHOMA = Room('Ghoma Fight', "You are in a cold dark stone room",
              'PORTAL', 'TOT3')
 PORTAL = Room('Time Portal', "In front of you is a portal that leads into a future ~12,000 years after the "
                              "extinction of humans. "
@@ -4656,8 +4696,8 @@ _3 = Room('Agent 3 Battle', "Upon getting closer, the squid-kid sees you. She tu
           None, None, None, None, 'SPLAT4')
 SPLAT5 = Room('Bluefin Depot', "You are on a platform floating in the water",
               None, None, 'SPLAT2')
-PAST2 = Room('Coin Room (Past)', "Upon a pedestal in this room is a an old ancient coin on the floor worth 1 coin today",
-             None, None, 'TOT3')
+PAST2 = Room('Coin Room (Past)', "Upon a pedestal in this room is a an old ancient coin on the floor"
+                                 " worth 1 coin today", None, None, 'TOT3')
 FUTURE2 = Room('Key Room (Future)', "While the path leading here has caved "
                                     "in during our present day, and this "
                                     "path had not yet been built in the past you can visit this room in the future. "
@@ -4666,17 +4706,14 @@ FUTURE2 = Room('Key Room (Future)', "While the path leading here has caved "
                                     " and before the future, "
                                     "this key was most definitely intact",
                None, None, None, 'TOT3')
-FUTURE1 = Room('Gold Room (Future)', "In this room, there is a pedastal labeled 'A COIN FROM THE FUTURE'", None, None,
+FUTURE1 = Room('Gold Room (Future)', "In this room, there is a pedestal labeled 'A COIN FROM THE FUTURE'", None, None,
                'TOT2')
 PAST1 = Room('Empty Citadel (Past)', "You enter this room in the past."
                                      "\n You feel this room has nothing to see, when suddenly you're attacked!",
              None, None, None, 'TOT2')
 LIGHT = Room('Light Temple', "You've (ironically) entered a very dark place. "
-                             "There are stairs leading up.", TEMPLE2, None, None, None, 'U_NECROZMA')
-U_NECROZMA = Room('Megalo Tower', "You see a golden dragon towering over you. "
-                                  "\n Ultra Necrozma: Lie..."
-                                  " Lieeee.... LIGHT!!!!!!       "
-                                  "\n                 Time to see who will prevail in battle", None, None, None, None,
+                             "There are stairs leading up.", 'TEMPLE2', None, None, None, 'U_NECROZMA')
+U_NECROZMA = Room('Megalo Tower', "You are on top of a black tower", None, None, None, None,
                   None, 'LIGHT')
 TOT_SHOP = Room('Temple Shop', 'ROBOT: BEEP BOOP, What do you want to buy? ZZZZZT! '
                                '\n '
@@ -5094,6 +5131,12 @@ while playing:
             for nums, persons in enumerate(player.current_location.characters):
                 print(str(nums + 1) + ": " + persons.name)
             print()
+        if len(player.current_location.enemies) > 0:
+            print()
+            print("The following enemies are in this room: ")
+            for nums, persons in enumerate(player.current_location.enemies):
+                print(str(nums + 1) + ": " + persons.name)
+            print()
         command = input(">_")
         if command.lower() in short_directions:
             pos = short_directions.index(command.lower())
@@ -5109,7 +5152,9 @@ while playing:
                     item_obj = the_item
 
                     item_obj.grab()
-                    player.current_location.items.remove(the_item)
+                    player.current_location.items.remove(item_obj)
+                    if item_obj == past_coin:
+                        PAST2.description = "You are in a room that is completely empty"
         elif 'grab ' in command.lower():
             item_name = command[5:]
 
@@ -5119,9 +5164,11 @@ while playing:
                     item_obj = the_item
 
                     item_obj.grab()
-                    player.current_location.items.remove(the_item)
+                    player.current_location.items.remove(item_obj)
+                    if item_obj == past_coin:
+                        PAST2.description = "You are in a room that is completely empty"
         elif 'pick up ' in command.lower():
-            item_name = command[8:]
+            item_name = command[5:]
 
             item_obj = None
             for the_item in player.current_location.items:
@@ -5129,7 +5176,9 @@ while playing:
                     item_obj = the_item
 
                     item_obj.grab()
-                    player.current_location.items.remove(the_item)
+                    player.current_location.items.remove(item_obj)
+                    if item_obj == past_coin:
+                        PAST2.description = "You are in a room that is completely empty"
         elif 'attack ' in command.lower():
             targets_name = command[7:]
 
@@ -5179,7 +5228,10 @@ while playing:
                 if stuff.name.lower() == items_name.lower():
                     the_item = stuff
 
-                    the_item.equip()
+                    try:
+                        the_item.equip()
+                    except AttributeError:
+                        print("You can't equip this")
         elif 'unequip ' in command.lower():
             items_name = command[8:]
 
@@ -5188,7 +5240,10 @@ while playing:
                 if stuff.name.lower() == items_name.lower():
                     the_item = stuff
 
-                    the_item.unequip()
+                    try:
+                        the_item.unequip()
+                    except AttributeError:
+                        print("You can't unequip this")
         elif 'use ' in command.lower():
             items_name = command[4:]
 
@@ -5196,8 +5251,10 @@ while playing:
             for stuff in Inventory.inventory:
                 if stuff.name.lower() == items_name.lower():
                     the_item = stuff
-
-                    the_item.use()
+                    try:
+                        the_item.use()
+                    except AttributeError:
+                        print("You can't use this")
         elif 'drop ' in command.lower():
             items_name = command[5:]
 
@@ -5206,8 +5263,12 @@ while playing:
                 if stuff.name.lower() == items_name.lower():
                     the_item = stuff
 
-                    the_item.drop()
-                    player.current_location.items.append(the_item)
+                    try:
+                        the_item.drop()
+                    except AttributeError:
+                        print("You can't drop this")
+                    if the_item.__class__ is not Filler:
+                        player.current_location.items.append(the_item)
         elif 'sharpen ' in command.lower():
             items_name = command[7:]
 
@@ -5215,15 +5276,21 @@ while playing:
             if player.weapon.name.lower() == items_name.lower():
                 the_item = player.weapon
 
-                the_item.sharpen()
-        elif 'refill ' in command.lower():
+                try:
+                    the_item.sharpen()
+                except AttributeError:
+                    print("You can't use this")
+        elif 'reload ' in command.lower():
             items_name = command[6:]
 
             the_item = None
             if player.weapon.name.lower() == items_name.lower():
                     the_item = player.weapon
 
-                    the_item.reload()
+                    try:
+                        the_item.reload()
+                    except AttributeError:
+                        print("You can't use this")
         elif command.lower() in ["change time", "travel through time", 'time travel']:
             command2 = input("Would you like to go to the past, present, or future?")
             the_watch.use(command2.lower())
