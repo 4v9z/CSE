@@ -4,6 +4,7 @@ import random
 class Gold(object):
     def __init__(self, worth=0):
         self.worth = worth
+        self.name = "Gold"
 
     def grab(self):
         player.money += self.worth
@@ -584,7 +585,7 @@ leather2 = Leggings(2, "Leather leggings")
 
 leather3 = Chestplate(3, "Leather Chestplate")
 
-Wooden_Sword = Sword(5, True, False, 5, "Wooden Sword")
+Wooden_Sword = Sword(5, True, False, 8, "Wooden Sword")
 
 Magic_Sword = Sword(20, True, False, 999999999999999999999999, "Magic Sword")
 
@@ -640,8 +641,6 @@ class Player(object):
             print("You attack %s for %d damage" %
                   (target.name, self.weapon.attack_stat))
             target.take_damage(self.weapon.attack_stat)
-
-
 
     def cast(self, target):
         if target != self:
@@ -724,7 +723,38 @@ class Player(object):
                       "that you kinda need a space helmet to survive in space...")
                 self.health -= self.health
         elif new_location == TRAP:
+            self.current_location = new_location
+            self.inked = False
             self.health -= self.health
+        elif new_location == CASTLE_3:
+            if self.current_location == CASTLE_2:
+                self.random = random.randint(1, 10)
+                if self.random == 1 or 2 or 6:
+                    self.health -= self.health
+                    print("You get cut up by the sawblades on your way through!")
+                else:
+                    self.current_location = new_location
+                    self.inked = False
+            else:
+                    self.health = 0
+                    print("Wait.... Why did you think going back into the room that filled to the top with lava was a good idea?!")
+        elif new_location == CASTLE_1:
+            if self.current_location == CASTLE_2:
+                self.random = random.randint(1, 10)
+                if self.random == 1 or 2 or 6:
+                    self.health -= self.health
+                    print("You get cut up by the sawblades on your way through!")
+                else:
+                    self.current_location = new_location
+                    self.inked = False
+        elif new_location == MT_SILVER:
+            self.random = random.randint(1, 10)
+            if self.random == 1 or 6:
+                self.health -= self.health
+                print("You fell of the mountain while climbing it and died!")
+            else:
+                self.current_location = new_location
+                self.inked = False
         elif new_location == TOWN:
             if self.current_location == OASIS:
                 if player.helmet == water_pendant:
@@ -1300,6 +1330,7 @@ class Key3(object):
         self.r_b4 = r_b4
         self. r = r
         self.price = price
+        self.zzzzz = 0
 
     def grab(self):
         if Inventory.inventory.__len__() < Inventory.max_space:
@@ -1326,6 +1357,8 @@ class Key3(object):
             if player.current_location == self.r:
                 TOT3.north = "GHOMA"
                 print("You use the key and unlock a room")
+                TOT3.description = "There is a large door in front of you that had a padlock on it" \
+                                   "The door is currently unlocked and you can go north to go through it"
             else:
                 print("There is no use for this key in this room")
 
@@ -1364,6 +1397,8 @@ class Key2(object):
             if player.current_location == self.r:
                 FACTORY.enter = "M_MARIO"
                 print("You use the keycard and unlock the factory")
+                FACTORY.description = "You are looking at a strange factory, " \
+                                      "you can now enter the factory as you unlocked it with the keycard"
             else:
                 print("There is no use for this keycard in this room")
 
@@ -1403,6 +1438,11 @@ class Skelkey(Key2):
             TEMPLE_1.east = "WATER_MP"
             TEMPLE_2.east = "D_LINK"
             print("The Key flies out of your hand and unlocks the doors of the temple")
+            TEMPLE_1.description = "You are in a room with a now unlocked door leading east. " \
+                                   "\n You can continue through the temple to the north"
+            TEMPLE_2.description = "There is a door to the east and a door leading north. "
+            TEMPLE_3.description = "In front of you is a large door that had a fittingly over-sized lock." \
+                                   "\n You can now go north through the door"
 
 
 class SKey(Key):
@@ -1415,6 +1455,10 @@ class SKey(Key):
             if player.current_location == JEVIL_ENTRANCE:
                 print("* You use the door key"
                       "\n * The door key created a door")
+                JEVIL_ENTRANCE.enter = 'JEVIL_FIGHT'
+                JEVIL_ENTRANCE.description = "*There is a cage-like gate in front of you, " \
+                                             "* There's a note saying: 'Collect the 4 keys to enter'" \
+                                             "\n* You have created an entrance through the gate using the door key"
 
 
 key_1 = Key("Key Fragment 1")
@@ -1737,7 +1781,7 @@ class Boss(Enemy):
 
 class Bowser(Boss):
     def __init__(self):
-        super(Bowser, self).__init__(Claw, 60, False, False, True, "Bowser", 10, 1500)
+        super(Bowser, self).__init__(Claw, 60, False, False, True, "Bowser", 7, 1500)
         self.name = "Bowser"
 
     def attack(self, target):
@@ -1796,7 +1840,7 @@ class Bowser(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
-                    player.max_health += 20
+                    player.max_health += 30
                     player.health = player.max_health
                 print("%s has %d health left" % (self.name, self.health))
             else:
@@ -1811,7 +1855,7 @@ class Bowser(Boss):
                     print("%s has been defeated!" % self.name)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
-                    player.max_health += 20
+                    player.max_health += 30
                     player.health = player.max_health
             else:
                 print("You do not have enough MP to cast this")
@@ -1824,7 +1868,7 @@ class Bowser(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
-                    player.max_health += 20
+                    player.max_health += 30
                     player.health = player.max_health
                 print("%s has %d health left" % (self.name, self.health))
             else:
@@ -1846,7 +1890,7 @@ class Bowser(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
-                            player.max_health += 20
+                            player.max_health += 30
                             player.health = player.max_health
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -1862,7 +1906,7 @@ class Bowser(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
-                            player.max_health += 20
+                            player.max_health += 30
                             player.health = player.max_health
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -2041,7 +2085,7 @@ gohma = Gohma()
 
 class Chaos(Boss):
     def __init__(self, name="Chaos"):
-        super(Chaos, self).__init__(Claw, 75, False, True, False, name, 13, 2000)
+        super(Chaos, self).__init__(Claw, 75, False, True, False, name, 9, 2000)
         self.name = "Chaos"
 
     def attack(self, target):
@@ -2187,7 +2231,7 @@ metal = Sword(29, True, False, 9999999999999999, "")
 
 class Metalmario(Boss):
     def __init__(self, name="Metal Mario"):
-        super(Metalmario, self).__init__(metal, 85, False, False, True, name, 20, 6464)
+        super(Metalmario, self).__init__(metal, 85, False, False, True, name, 13, 6464)
         self.name = "Metal Mario"
 
     def attack(self, target):
@@ -2333,7 +2377,7 @@ Claw3 = Blade(47)
 
 class Dbowser(Boss):
     def __init__(self):
-        super(Dbowser, self).__init__(Claw, 100, False, False, True, "Dark Bowser", 10, 2008)
+        super(Dbowser, self).__init__(Claw, 100, False, False, True, "Dark Bowser", 9, 2008)
         self.name = "Dark Bowser"
 
     def attack(self, target):
@@ -2392,7 +2436,7 @@ class Dbowser(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
-                    player.max_health += 30
+                    player.max_health += 40
                     player.health = player.max_health
                 print("%s has %d health left" % (self.name, self.health))
             else:
@@ -2407,7 +2451,7 @@ class Dbowser(Boss):
                     print("%s has been defeated!" % self.name)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
-                    player.max_health += 30
+                    player.max_health += 40
                     player.health = player.max_health
             else:
                 print("You do not have enough MP to cast this")
@@ -2420,7 +2464,7 @@ class Dbowser(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
-                    player.max_health += 30
+                    player.max_health += 40
                     player.health = player.max_health
                 print("%s has %d health left" % (self.name, self.health))
             else:
@@ -2440,7 +2484,7 @@ class Dbowser(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
-                            player.max_health += 30
+                            player.max_health += 40
                             player.health = player.max_health
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -2456,7 +2500,7 @@ class Dbowser(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
-                            player.max_health += 30
+                            player.max_health += 40
                             player.health = player.max_health
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -2471,7 +2515,7 @@ class Dbowser(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
-                            player.max_health += 30
+                            player.max_health += 40
                             player.health = player.max_health
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -2485,7 +2529,7 @@ d_m_sword = Blade(37)
 
 class Darklink(Boss):
     def __init__(self):
-        super(Darklink, self).__init__(d_m_sword, 90, False, False, True, "Dark Link", 15, 3059)
+        super(Darklink, self).__init__(d_m_sword, 90, False, False, True, "Dark Link", 11, 3059)
         self.name = "Dark Link"
 
     def attack(self, target):
@@ -2625,7 +2669,7 @@ dark_link = Darklink()
 
 class Marx(Boss):
     def __init__(self):
-        super(Marx, self).__init__(None, 100, False, False, True, "Marx", 14, 9298)
+        super(Marx, self).__init__(None, 100, False, False, True, "Marx", 12, 9298)
         self.name = "Marx"
 
     def attack(self, target):
@@ -2784,7 +2828,7 @@ marx = Marx()
 
 class Dj(Boss):
     def __init__(self):
-        super(Dj, self).__init__(None, 88, True, False, False, "DJ Octavio", 12, 2015)
+        super(Dj, self).__init__(None, 88, True, False, False, "DJ Octavio", 10, 2015)
         self.name = "DJ Octavio"
 
     def attack(self, target):
@@ -2852,7 +2896,7 @@ class Dj(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
-                    player.max_health += 25
+                    player.max_health += 45
                     player.health = player.max_health
                 print("%s has %d health left" % (self.name, self.health))
             else:
@@ -2867,7 +2911,7 @@ class Dj(Boss):
                     print("%s has been defeated!" % self.name)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
-                    player.max_health += 25
+                    player.max_health += 45
                     player.health = player.max_health
             else:
                 print("You do not have enough MP to cast this")
@@ -2880,7 +2924,7 @@ class Dj(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
-                    player.max_health += 25
+                    player.max_health += 45
                     player.health = player.max_health
                 print("%s has %d health left" % (self.name, self.health))
             else:
@@ -2900,7 +2944,7 @@ class Dj(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
-                            player.max_health += 25
+                            player.max_health += 45
                             player.health = player.max_health
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -2915,7 +2959,7 @@ class Dj(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
-                            player.max_health += 25
+                            player.max_health += 45
                             player.health = player.max_health
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -2930,7 +2974,7 @@ class Dj(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
-                            player.max_health += 25
+                            player.max_health += 45
                             player.health = player.max_health
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -2944,7 +2988,7 @@ Lance = Sword(60, False, True, 999999999999, "Galacta Knight's Lance")
 
 class Galactaknight(Boss):
     def __init__(self):
-        super(Galactaknight, self).__init__(Lance, 66, False, False, True, "Galacta Knight", 14, 2008)
+        super(Galactaknight, self).__init__(Lance, 66, False, False, True, "Galacta Knight", 11, 2008)
         self.name = "Galacta Knight"
 
     def attack(self, target):
@@ -3007,6 +3051,7 @@ class Galactaknight(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
+                    NOVA6.items.append(Lance)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You do not have enough MP to cast this")
@@ -3020,6 +3065,7 @@ class Galactaknight(Boss):
                     print("%s has been defeated!" % self.name)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
+                    NOVA6.items.append(Lance)
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
@@ -3031,6 +3077,7 @@ class Galactaknight(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
+                    NOVA6.items.append(Lance)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You don't have enough MP to cast this")
@@ -3049,6 +3096,7 @@ class Galactaknight(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                            NOVA6.items.append(Lance)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("This enemy can not be damaged by physical attacks")
@@ -3063,6 +3111,7 @@ class Galactaknight(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                            NOVA6.items.append(Lance)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("Enemy takes 0 damage as they can only be hit by ice or electricity")
@@ -3076,6 +3125,7 @@ class Galactaknight(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                            NOVA6.items.append(Lance)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
@@ -3086,7 +3136,7 @@ galacta_knight = Galactaknight()
 
 class Red(Boss):
     def __init__(self):
-        super(Red, self).__init__(None, 60, False, False, True, "Pokemon Trainer Red", 13, 9451)
+        super(Red, self).__init__(None, 60, False, False, True, "Pokemon Trainer Red", 12, 9451)
         self.name = "Pokemon Trainer Red"
 
     def attack(self, target):
@@ -3228,7 +3278,7 @@ red = Red()
 
 class Duon(Boss):
     def __init__(self):
-        super(Duon, self).__init__(None, 75, False, False, True, "Duon", 12, 2451)
+        super(Duon, self).__init__(None, 75, False, False, True, "Duon", 10, 2451)
         self.name = "Duon"
 
     def attack(self, target):
@@ -3366,7 +3416,7 @@ duon = Duon()
 
 class Galleom(Boss):
     def __init__(self):
-        super(Galleom, self).__init__(None, 80, False, False, True, "Galleom", 12, 27823)
+        super(Galleom, self).__init__(None, 80, False, False, True, "Galleom", 11, 27823)
         self.name = "Galleom"
 
     def attack(self, target):
@@ -3509,7 +3559,7 @@ galleom = Galleom()
 
 class Hand1(Boss):
     def __init__(self):
-        super(Hand1, self).__init__(None, 90, False, False, True, "Master Hand", 13, 2063)
+        super(Hand1, self).__init__(None, 90, False, False, True, "Master Hand", 11, 2063)
         self.name = "Master Hand"
 
     def attack(self, target):
@@ -3649,7 +3699,7 @@ master_hand = Hand1()
 
 class Hand2(Boss):
     def __init__(self):
-        super(Hand2, self).__init__(None, 90, False, False, True, "Crazy Hand", 13, 2061)
+        super(Hand2, self).__init__(None, 90, False, False, True, "Crazy Hand", 12, 2061)
         self.name = "Crazy Hand"
 
     def attack(self, target):
@@ -3959,7 +4009,7 @@ ultra_necrozma = Necrozma()
 
 class Jevil(Boss):
     def __init__(self):
-        super(Jevil, self).__init__(None, 100, False, False, True, "JEVIL", 11, 5252)
+        super(Jevil, self).__init__(None, 100, False, False, True, "JEVIL", 9, 5252)
         self.name = "JEVIL"
 
     def attack(self, target):
@@ -4119,7 +4169,7 @@ jevil = Jevil()
 
 class Tabuu(Boss):
     def __init__(self):
-        super(Tabuu, self).__init__(None, 150, False, False, True, "Tabuu", 18, 2008)
+        super(Tabuu, self).__init__(None, 150, False, False, True, "Tabuu", 15, 2008)
         self.name = "Tabuu"
         self.dodges = random.randint(1, 12)
 
@@ -4272,7 +4322,7 @@ tabuu = Tabuu()
 
 class Agent3(Boss):
     def __init__(self):
-        super(Agent3, self).__init__(Hero_Shot, 100, True, False, False, "Agent 3", 12, 5252)
+        super(Agent3, self).__init__(Hero_Shot, 100, True, False, False, "Agent 3", 13, 5252)
         self.name = "Agent 3"
         self.dodges = random.randint(1, 12)
 
@@ -4360,6 +4410,7 @@ class Agent3(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
+                    _3.characters.append(A_3)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You do not have enough MP to cast this")
@@ -4373,6 +4424,7 @@ class Agent3(Boss):
                     print("%s has been defeated!" % self.name)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
+                    _3.characters.append(A_3)
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
@@ -4384,6 +4436,7 @@ class Agent3(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
+                    _3.characters.append(A_3)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You don't have enough MP to cast this")
@@ -4405,6 +4458,7 @@ class Agent3(Boss):
                                 self.health = 0
                                 print("%s has been defeated!" % self.name)
                                 player.money += self.money
+                                _3.characters.append(A_3)
                         print("%s has %d health left" % (self.name, self.health))
                     else:
                         print("This enemy can not be damaged by physical attacks")
@@ -4419,6 +4473,7 @@ class Agent3(Boss):
                                 self.health = 0
                                 print("%s has been defeated!" % self.name)
                                 player.money += self.money
+                                _3.characters.append(A_3)
                         print("%s has %d health left" % (self.name, self.health))
                     else:
                         print("Enemy takes 0 damage as they can only be hit by ice or electricity")
@@ -4432,6 +4487,7 @@ class Agent3(Boss):
                                 self.health = 0
                                 print("%s has been defeated!" % self.name)
                                 player.money += self.money
+                                _3.characters.append(A_3)
                         print("%s has %d health left" % (self.name, self.health))
                     else:
                         print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
@@ -4469,9 +4525,8 @@ Gerudo.items.append(desert_helmet)
 
 TEMPLE_1 = Room('Lock Room', "You are in a room with a locked door leading east. "
                 "\n You can continue through the temple to the north", 'TEMPLE_2', 'TEMPLE')
-TEMPLE_2 = Room('Empty Chamber', "There is a locked door to the east and a door leading north. "
-                                 "\n You feel like something in the water is watching you, "
-                                 "when you're suddenly attacked", 'TEMPLE_3', 'TEMPLE_1')
+TEMPLE_2 = Room('Empty Chamber', "There is a locked door to the east and a door leading north. ",
+                'TEMPLE_3', 'TEMPLE_1')
 TRAP = Room('Trap', "As you walk to the west, the floor beneath you crumbles, "
                     "dropping you into a large pool of piranha-infested waters"
                     "\n You struggle to survive but you realize it's futile, you are not going to survive")
@@ -4551,7 +4606,8 @@ TEMPLE2 = Room('Temple of Time (Entrance)', "You look in front of you to see an 
                None, 'LIGHT', 'MARKET', None, None, 'TOT_SHOP', 'TOT1')
 TOT1 = Room('Temple of Time', "You have entered the temple, you can continue through a door to the north", 'TOT2',
             None, None, None, None, None, None, 'TEMPLE2')
-TOT2 = Room('Watch Room', "In the center of the room there is a magic pocket watch. You sigh as you realize "
+TOT2 = Room('Watch Room', "In the center of the room there is a pedastal labeled 'MAGIC STOPWATCH'. "
+                          "You sigh as you realize "
                           "some time-travel shenanigans will ensue"
                           "\n You can use the watch to open up paths to the east or west that existed in "
                           "the past or future", 'TOT3', 'TOT1', 'PAST1', 'FUTURE1')
@@ -4598,10 +4654,9 @@ _3 = Room('Agent 3 Battle', "Upon getting closer, the squid-kid sees you. She tu
                             "difficult battles yet."
                             "\n You can only defeat her with a weapon that fires ink, and either way... Good Luck!",
           None, None, None, None, 'SPLAT4')
-SPLAT5 = Room('Bluefin Depot', "You are on a platform floating in the water, there are two guns here", None, None,
-              'SPLAT2')
-PAST2 = Room('Coin Room (Past)', "Upon a pedestal in this room is a single coin from the past."
-                                 "\n This coin is worthless today: It's worth nothing in the present",
+SPLAT5 = Room('Bluefin Depot', "You are on a platform floating in the water",
+              None, None, 'SPLAT2')
+PAST2 = Room('Coin Room (Past)', "Upon a pedestal in this room is a an old ancient coin on the floor worth 1 coin today",
              None, None, 'TOT3')
 FUTURE2 = Room('Key Room (Future)', "While the path leading here has caved "
                                     "in during our present day, and this "
@@ -4611,9 +4666,8 @@ FUTURE2 = Room('Key Room (Future)', "While the path leading here has caved "
                                     " and before the future, "
                                     "this key was most definitely intact",
                None, None, None, 'TOT3')
-FUTURE1 = Room('Gold Room (Future)', "In this room, there is a single coin upon a pedestal."
-                                     "\n Because this is the future, this single "
-                                     "coin is worth about 1,537 coins in the present", None, None, 'TOT2')
+FUTURE1 = Room('Gold Room (Future)', "In this room, there is a pedastal labeled 'A COIN FROM THE FUTURE'", None, None,
+               'TOT2')
 PAST1 = Room('Empty Citadel (Past)', "You enter this room in the past."
                                      "\n You feel this room has nothing to see, when suddenly you're attacked!",
              None, None, None, 'TOT2')
@@ -4746,8 +4800,7 @@ MARKET = Room('Desert Market', "You browse the fine selection of goods, you see 
                                "\n strange scuba gear, items that restore MP"
                                "\n You also see a battered rubber door mat saying 'WELCOME TO ZORK', but it "
                                "seems to be worthless. ", 'TOWN', 'DESERT_FIGHT', 'CASTLE', 'TEMPLE2')
-TOWN = Room('Desert Town', "You are in a barren town, there isn't much to see here, save for some bags of gold..."
-                           "\n But you wouldn't steal from innocent people... would you?",
+TOWN = Room('Desert Town', "You are in a barren town, there isn't much to see here",
             'BEGIN', 'MARKET', 'DESERT_FIGHT')
 CHEATS = Room("Traceback (most recent call last): File 'C:/Users/4v9z/Documents/GitHub/"
               "CSE/notes/Armanjit Gill - Dictionary Map.py", "@#%$*@(#^@*!*#&$^hdqoY&*#",
@@ -4792,7 +4845,7 @@ RIVER = Room('River Path', 'There is a small river flowing next to you.'
 JEVIL_ENTRANCE = Room('???????????', "*There is a cage-like gate in front of you, "
                                      "* There's a note saying: 'Collect the 4 keys to enter'"
                                      "\n* There is one fragment of a key here",
-                      None, None, 'CLEARING', None, None, None, 'JEVIL_FIGHT')
+                      None, None, 'CLEARING')
 JEVIL_FIGHT = Room("???????", "JEVIL: 'I CAN DO ANYTHING!!' Watch out! Here comes JEVIL! "
                               "There's no strategy to beat this enemy, Good Luck! LET THE GAMES BEGIN!",
                    None, None, None, None, None, None, None, 'JEVIL_ENTRANCE')
@@ -4885,9 +4938,19 @@ class Ice(object):
         if the_watch.past:
             CAVE.items.append(F_Sword)
             CAVE.items.append(frost_helmet)
+            CAVE.description = "You are in a cold cave. The ground and walls are frozen and " \
+                               "there are icicles hanging from the ceiling" \
+                               "\n In the center of the cave is an icy sword and a helmet " \
+                               "The icy shell encasing them didn't exist in the past"
         else:
-            CAVE.items.remove(F_Sword)
-            CAVE.items.remove(frost_helmet)
+            if F_Sword and frost_helmet in CAVE.items:
+                CAVE.items.remove(F_Sword)
+                CAVE.items.remove(frost_helmet)
+                CAVE.description = "You are in a cold cave. The ground and walls are frozen and " \
+                                   "there are icicles hanging from the ceiling" \
+                                   "\n In the center of the cave is an icy sword and a helmet encased in " \
+                                   "an impenetrable layer of ice. " \
+                                   "It seems like this ice wasn't here before... If only you could rewind time..."
 
 
 ice = Ice()
@@ -4924,6 +4987,13 @@ class Watch(object):
             ice.un_ice()
             if tot_key in FUTURE2.items:
                 FUTURE2.items.remove(tot_key)
+            FUTURE2.description = "While the path leading here has caved "
+            "in during our present day, and this "
+            "path had not yet been built in the past you can visit this room in the future. "
+            "\n The key in this "
+            "room appears to be broken. In  a time between our present day and the past"
+            " and before the future, "
+            "this key was most definitely intact"
         elif time.lower() == "present":
             self.past = False
             self.future = False
@@ -4932,18 +5002,32 @@ class Watch(object):
             TOT3.west = None
             TOT2.west = None
             TOT2.east = None
+            ice.un_ice()
             if tot_key in FUTURE2.items:
                 FUTURE2.items.append(tot_key)
+            FUTURE2.description = "Now that you have figured out how to obtain the key you can go back " \
+                                  "through the barricade. " \
+                                  "\nYou can somehow get out from this end as there is a small " \
+                                  "tunnel only accessible from here leading back to the previous room"
+
         elif time.lower() == "future":
             self.past = False
             self.future = True
             print("You go to the future")
             TOT2.east = None
             TOT3.west = None
+            ice.un_ice()
             TOT2.west = FUTURE1
             TOT2.east = FUTURE2
             if tot_key in FUTURE2.items:
                 FUTURE2.items.remove(tot_key)
+            FUTURE2.description = "While the path leading here has caved "
+            "in during our present day, and this "
+            "path had not yet been built in the past you can visit this room in the future. "
+            "\n The key in this "
+            "room appears to be broken. In  a time between our present day and the past"
+            " and before the future, "
+            "this key was most definitely intact"
 
 
 the_watch = Watch()
@@ -4961,7 +5045,6 @@ PAST2.items.append(past_coin)
 SPLAT5.items.append(dualies)
 CAVE.items.append(ice)
 TOT2.items.append(the_watch)
-BEGIN.items.append(the_watch)
 
 
 class Wreckage(object):
@@ -4999,6 +5082,18 @@ while playing:
             break
         print(player.current_location.name)
         print(player.current_location.description)
+        if len(player.current_location.items) > 0:
+            print()
+            print("The following items are in this room: ")
+            for nums, items in enumerate(player.current_location.items):
+                print(str(nums + 1) + ": " + items.name)
+            print()
+        if len(player.current_location.characters) > 0:
+            print()
+            print("The following characters are in this room: ")
+            for nums, persons in enumerate(player.current_location.characters):
+                print(str(nums + 1) + ": " + persons.name)
+            print()
         command = input(">_")
         if command.lower() in short_directions:
             pos = short_directions.index(command.lower())
@@ -5009,16 +5104,138 @@ while playing:
             item_name = command[5:]
 
             item_obj = None
-            for item in player.current_location.items:
-                if item.name == item_name:
-                    item_obj = item
+            for the_item in player.current_location.items:
+                if the_item.name.lower() == item_name.lower():
+                    item_obj = the_item
 
                     item_obj.grab()
+                    player.current_location.items.remove(the_item)
+        elif 'grab ' in command.lower():
+            item_name = command[5:]
+
+            item_obj = None
+            for the_item in player.current_location.items:
+                if the_item.name.lower() == item_name.lower():
+                    item_obj = the_item
+
+                    item_obj.grab()
+                    player.current_location.items.remove(the_item)
+        elif 'pick up ' in command.lower():
+            item_name = command[8:]
+
+            item_obj = None
+            for the_item in player.current_location.items:
+                if the_item.name.lower() == item_name.lower():
+                    item_obj = the_item
+
+                    item_obj.grab()
+                    player.current_location.items.remove(the_item)
+        elif 'attack ' in command.lower():
+            targets_name = command[7:]
+
+            targett = None
+            for targets in player.current_location.enemies:
+                if targets.name.lower() == targets_name.lower():
+                    targett = targets
+
+                    player.attack(targett)
+            for ttargets in player.current_location.bosses:
+                if ttargets.name.lower() == targets_name.lower():
+                    targett = ttargets
+
+                    player.attack(targett)
+        elif 'talk to ' in command.lower():
+            NPCs_name = command[8:]
+
+            the_person = None
+            for people in player.current_location.characters:
+                if people.name.lower() == NPCs_name.lower():
+                    the_person = people
+
+                    the_person.talk()
+        elif 'speak with ' in command.lower():
+            NPCs_name = command[11:]
+
+            the_person = None
+            for people in player.current_location.characters:
+                if people.name.lower() == NPCs_name.lower():
+                    the_person = people
+
+                    the_person.talk()
+        elif 'buy from ' in command.lower():
+            NPCs_name = command[9:]
+
+            the_person = None
+            for people in player.current_location.characters:
+                if people.name.lower() == NPCs_name.lower():
+                    the_person = people
+
+                    the_person.buy()
+        elif 'equip ' in command.lower():
+            items_name = command[6:]
+
+            the_item = None
+            for stuff in Inventory.inventory:
+                if stuff.name.lower() == items_name.lower():
+                    the_item = stuff
+
+                    the_item.equip()
+        elif 'unequip ' in command.lower():
+            items_name = command[8:]
+
+            the_item = None
+            for stuff in Inventory.inventory:
+                if stuff.name.lower() == items_name.lower():
+                    the_item = stuff
+
+                    the_item.unequip()
+        elif 'use ' in command.lower():
+            items_name = command[4:]
+
+            the_item = None
+            for stuff in Inventory.inventory:
+                if stuff.name.lower() == items_name.lower():
+                    the_item = stuff
+
+                    the_item.use()
+        elif 'drop ' in command.lower():
+            items_name = command[5:]
+
+            the_item = None
+            for stuff in Inventory.inventory:
+                if stuff.name.lower() == items_name.lower():
+                    the_item = stuff
+
+                    the_item.drop()
+                    player.current_location.items.append(the_item)
+        elif 'sharpen ' in command.lower():
+            items_name = command[7:]
+
+            the_item = None
+            if player.weapon.name.lower() == items_name.lower():
+                the_item = player.weapon
+
+                the_item.sharpen()
+        elif 'refill ' in command.lower():
+            items_name = command[6:]
+
+            the_item = None
+            if player.weapon.name.lower() == items_name.lower():
+                    the_item = player.weapon
+
+                    the_item.reload()
         elif command.lower() in ["change time", "travel through time", 'time travel']:
             command2 = input("Would you like to go to the past, present, or future?")
             the_watch.use(command2.lower())
         elif command.lower() in ["check inventory", "open inventory", 'i']:
             Inventory.check()
+        elif command.lower() in ["check stats", 's', 'stats']:
+            player.check_stats()
+        elif command.lower() in ["solve puzzle", "solve riddle", "solve", "answer"]:
+            if player.current_location == NOVA4:
+                marx_board.solve()
+            elif player.current_location == SUBSPACE2:
+                sub_board.solve()
         elif command.lower() == "":
             print()
         elif command.lower() in ["speak", "talk"]:
@@ -5371,3 +5588,10 @@ while playing:
             player.MP = player.max_MP
         else:
             print("Command not recognized, if you inputted a direction, write it again in all lowercase")
+
+        if len(player.current_location.enemies) > 0:
+            for nme in range(len(player.current_location.enemies)):
+                player.current_location.enemies[nme].attack(player)
+        if len(player.current_location.bosses) > 0:
+            for nme in range(len(player.current_location.bosses)):
+                player.current_location.bosses[nme].attack(player)
