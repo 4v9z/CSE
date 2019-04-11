@@ -1,5 +1,7 @@
 import random
 
+instructions = True
+
 
 class Gold(object):
     def __init__(self, worth=0):
@@ -152,7 +154,7 @@ class NPC(Character):
             input("%s: I'm not supposed to talk to the customer, sorry" % self.name)
         else:
             if self.like == 0:
-                print("%s: %s" % (self.name, self.dialogue))
+                input("%s: %s" % (self.name, self.dialogue))
                 self.like += 1
                 self.aaaaaaa = len(self.items)
             elif self.like == 1:
@@ -221,9 +223,14 @@ class NPC(Character):
                             player.money -= self.items[i].price           # FIX THIS NOW
                             self.items[i].grabbed = True
                             Inventory.inventory.append(self.items[i])
-                            print("Here is/are your %s" % self.items[i].name)
-                            print(self.items)
-                            self.items.remove(self.items[i])
+                            if self.name.lower() == "gerudo shopkeeper" \
+                                    and self.option.lower() == "battered rubber mat that reads 'welcome to zork'":
+                                print("Gerudo Shopkeeper: Thank Hylia that someone FINALLY decided to buy this thing!"
+                                      "\n Here, take it!")
+                                self.items.remove(self.items[i])
+                            else:
+                                print("%s: Here is/are your %s" % (self.name, self.items[i].name))
+                                self.items.remove(self.items[i])
                         else:
                             print("Sorry, you do not have enough money to purchase this")
 
@@ -668,14 +675,14 @@ class Player(object):
                 if self.weapon.attack_stat > target.power:
                     self.money += target.money
                     target.money -= target.money
-                    print("You rob and overpower %s and take their money" % target.name)
+                    input("You rob and overpower %s and take their money" % target.name)
                 else:
-                    print("You try to rob %s, but they easily overpower you and they take some of "
+                    input("You try to rob %s, but they easily overpower you and they take some of "
                           "your money" % target.name)
                     player.money -= player.money/9
                     target.attack(self, target.power)
             else:
-                print("The dog bites you and while you are stunned, the dog takes all of your money and eats it"
+                input("The dog bites you and while you are stunned, the dog takes all of your money and eats it"
                       " in front of your eyes")
                 self.take_damage(10)
                 self.money = 0
@@ -748,32 +755,52 @@ class Player(object):
                 self.current_location = new_location
                 self.inked = False
         elif new_location == CHAOS_FIGHT:
+            self.current_location = new_location
+            self.inked = False
             if chaos0.health > 0:
                 print("You are face to face with Chaos 0! The strange watery creature looks angry. "
                       "Since normal weapons phase through it, ice or electricity "
                       "would likely be most effective to "
                       "attack it")
         elif new_location == BOWSER:
+                self.current_location = new_location
+                self.inked = False
                 if bowser.health > 0:
                     print("After walking through the door you find yourself face to face "
                           "with the King of Koopas, Bowser!")
         elif new_location == D_LINK:
+                self.current_location = new_location
+                self.inked = False
                 if dark_link.health > 0:
                     print("\n As you walk through the room, you look down and see your reflection is gone. "
                           "You turn around and see Dark Link!"
                           "\n The evil version of the fabled hero won't be pulling any punches, "
                           "but you clutch your weapon and ready yourself for a fight.")
         elif new_location == DARK_STAR:
+                self.current_location = new_location
+                self.inked = False
                 if d_bowser.health > 0:
                     print("There is a dark orb floating in the center of a large "
                           "platform. You take a step forward."
                           "\n Suddenly... the orb transforms into: DARK BOWSER!")
         elif new_location == GHOMA:
+                self.current_location = new_location
+                self.inked = False
                 if gohma.health > 0:
                     print("In this room is the disgusting abomination of a spider: Ghoma"
                           "\n The strategy for this is to hit it with magic, as numerous "
                           "defeats has led to this boss gaining a resistance to swords and other similar weapons")
         elif new_location == U_NECROZMA:
+            self.current_location = new_location
+            self.inked = False
+            if ultra_necrozma.health > 0:
+                print("You see a golden dragon towering over you. "
+                      "\n Ultra Necrozma: Lie..."
+                      " Lieeee.... LIGHT!!!!!!       "
+                      "\n                 Time to see who will prevail in battle")
+        elif new_location == MT_SILVER:
+            self.current_location = new_location
+            self.inked = False
             if ultra_necrozma.health > 0:
                 print("You see a golden dragon towering over you. "
                       "\n Ultra Necrozma: Lie..."
@@ -1562,7 +1589,7 @@ class Filler(object):
                 Inventory.inventory.append(self)
 
     def drop(self):
-        if self in Inventory:
+        if self in Inventory.inventory:
             Inventory.inventory.remove(self)
             print("You forever parted ways with the %s."
                   "\nYou can never retrieve it, it vanishes as soon as it hits the ground"
@@ -1806,7 +1833,7 @@ sub_board = Keyboard2("mewtwo")
 temple_bot = NPC("Shopkeeper bot model NX HAC serial no 84493587", 99999999999999, 0, 0, True)
 forest_directions = Filler("UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT"
                            "\nKEY: UP = NORTH, DOWN = SOUTH, LEFT = WEST, RIGHT = EAST", 0)
-zork_mat = Filler("Battered Rubber Mat that reads 'WELCOME TO ZORK'")
+zork_mat = Filler("Battered Rubber Mat that reads 'WELCOME TO ZORK'", 20)
 rock = NPC("Stone Tablet", 0, 0, 0, True)
 
 temple_bot.items.append(E_Sword)
@@ -4568,6 +4595,7 @@ scimitar = Sword(37, True, False, 60, "Scimitar", 50)
 Gerudo.items.append(scimitar)
 
 Gerudo.items.append(water_pendant)
+Gerudo.items.append(zork_mat)
 
 Gerudo.items.append(candy)
 Gerudo.items.append(candy2)
@@ -4949,8 +4977,6 @@ MARX.bosses.append(marx)
 NOVA6.bosses.append(galacta_knight)
 
 
-playing = True
-
 tot_key = Key3("aaa", "aaaa", TOT3, "Boss Key")
 factory = Key2("M_MARIO", "aaaaa", FACTORY, "Strange Keycard", 64)
 Skel_key = Skelkey("aaa", "aaaa", "aaa", "aaaa", "Skeleton Key")
@@ -5103,6 +5129,39 @@ tabuu3 = Boots(10, "")
 tabuu4 = Chestplate(17, "Tabuu's Wings")
 # Controller
 
+playing = False
+
+Magic_Compass = Filler("Magic Compass")
+
+Inventory.inventory.append(Magic_Compass)
+
+while instructions:
+    input("ADVENTURE GAME")
+    print("TYPE IN 'START' TO START")
+    print("TYPE I FOR INSTRUCTIONS")
+    command3 = input("")
+    if command3.upper() == "I":
+        print("            HOW TO PLAY")
+        print("_________________________________________")
+        input("- You move by typing in north, south, east, west, up, down, enter, or exit."
+              "\n- Alternatively, you can use shorthand: n, s, e, w, u, d, in, out")
+        input("- Use the command talk to, rob, attack, pick up, grab, drop, take, sharpen, reload, "
+              "\nsolve, buy from, or change time to interact with objects/characters")
+        input("- If you are carrying the Magic Compass item, type in 'M' in order to see what directions "
+              "you can move in")
+        input("- At any point, press I to view your inventory, enter 'check stats' to view your stats,"
+              " or type in 'speak' to say something, go on!"
+              "\n No one is listening!")
+    elif command3.upper() == "START":
+        instructions = False
+        playing = True
+        print("--> OKAY"
+              "\n --> 3"
+              "\n --> 2"
+              "\n --> 1")
+    else:
+        print("That is not a valid command")
+
 while playing:
         if player.current_location == MT_SILVER:
             player.health -= 12
@@ -5202,6 +5261,41 @@ while playing:
                     the_person = people
 
                     the_person.talk()
+        elif command.lower() == "m":
+            if Magic_Compass in Inventory.inventory:
+                if player.current_location.name.lower() != "lost woods":
+                    if player.current_location.north is not None:
+                        print("You can go north")
+                    if player.current_location.south is not None:
+                        print("You can go south")
+                    if player.current_location.east is not None:
+                        print("You can go east")
+                    if player.current_location.west is not None:
+                        print("You can go west")
+                    if player.current_location.up is not None:
+                        if player.current_location.up == "CHEATS":
+                            print()
+                        else:
+                            print("You can go up")
+                    if player.current_location.down is not None:
+                        print("You can go down")
+                    if player.current_location.enter is not None:
+                        print("You can go inside something")
+                    if player.current_location.leave is not None:
+                        print("You can exit your current area")
+                else:
+                    print("A strange fog in the forest prevents the compass from working")
+            else:
+                print("You do not have your magic compass")
+        elif 'rob ' in command.lower():
+            NPCs_name = command[4:]
+
+            the_person = None
+            for people in player.current_location.characters:
+                if people.name.lower() == NPCs_name.lower():
+                    the_person = people
+
+                    player.rob(the_person)
         elif 'speak with ' in command.lower():
             NPCs_name = command[11:]
 
