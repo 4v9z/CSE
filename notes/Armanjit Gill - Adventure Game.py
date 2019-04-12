@@ -1,4 +1,5 @@
 import random
+import winsound
 
 instructions = True
 
@@ -4976,10 +4977,10 @@ D_LINK = Room('Reflecting Pond', "You find yourself in a room where the floor is
               'TEMPLE_2')
 WATER_MP = Room('Magic Room', "You look around the room. There are strange characters etched into the walls."
                               "\n You feel your MP get restored as well as increase", None, None, None, 'TEMPLE_1')
-DESERT_FIGHT = Room('Empty Expanse', 'You look around the large vast desert. It feels like something is here... '
-                                     'watching you...'
-                                     '\n '
-                                     'As you think this, you get attacked!', "OASIS", 'CASTLE_BACK', 'TOWER', 'TOWN')
+DESERT_FIGHT = Room('Empty Expanse', 'You look around the large vast desert. You an see '
+                                     'an Oasis to the north and a town to the west'
+                                     '\n You can see the back of an ominous stone castle to the south'
+                                     'and a tall tower to the east', "OASIS", 'CASTLE_BACK', 'TOWER', 'TOWN')
 CASTLE_BACK = Room('Desert Castle (Back)', "You are behind a large castle, there is a door in front of you "
                                            "that you can enter.", 'DESERT_FIGHT', 'CASTLE', None, None, None,
                    None, "CASTLE_7")
@@ -5012,6 +5013,7 @@ BOWSER = Room('Bowser Battle', "You are in a room where you are on a giant stone
               None, 'CASTLE_5')
 ROAD = Room('Rainbow Road', "You are standing in front of a rainbow that appears to continue through "
                             "the atmosphere and into space"
+                            "\n The magic of the rainbow will allow you to breathe in space"
                             "\n"
                             "You can walk up the rainbow", 'CASTLE', "JUNGLE1", None, None, 'DARK_STAR')
 JUNGLE1 = Room("Lush Jungle", "You are in a thick jungle filled with tall trees and vines", "ROAD", "JUNGLE2")
@@ -5022,7 +5024,9 @@ JUNGLE2 = Room("Near a Treehouse", "Looking up you can see a treehouse with 'DK'
 DK_BATTLE = Room("KONG BANANA HOARD", "You are in a cave with a massive mountain of bananas in it."
                                       "\n There is a sign that says 'KONG BANANA HOARD' on it", None, None, None, None,
                  None, None, None, "JUNGLE2")
-DARK_STAR = Room('Galaxy Reactor', "You are on a dark platform with spikes coming out of it", None, None,
+DARK_STAR = Room('Galaxy Reactor', "You are on a dark platform with spikes coming out of it"
+                                   "\n The center of this platform is gold and has a "
+                                   "giant Star engraved into it", None, None,
                  None, None, None, 'ROAD')
 TEMPLE2 = Room('Temple of Time (Entrance)', "You look in front of you to see an temple with open doors, "
                                             "there is also a "
@@ -5065,8 +5069,7 @@ SPLAT8 = Room('Cephalon HQ', "You are in an area with floating platforms. "
 DJOCTAVIO = Room("DJ Octavio Fight", "You find that you have entered a stadium of some sort. Lights are blaring and "
                                      "you can see figures in the audience",
                  None, 'SPLAT8')
-SPLAT6 = Room('Arowana Mall', "You are in a shopping mall. Here you can buy upgrades to your health or magic, "
-                              "as well as buy items to restore your health."
+SPLAT6 = Room('Arowana Mall', "You are in a shopping mall. Here you can buy items to restore your health."
                               "\n You also can buy a weapon that can fire ink here")
 SPLAT4 = Room('Octo Canyon', "After swimming through the ink, you have reached a large canyon. "
                              "\n Looking down in the canyon you can see something that looks like"
@@ -5076,20 +5079,19 @@ _3 = Room('Agent 3 Battle', "You are in a metal arena, some sort of strange plat
           None, None, None, None, 'SPLAT4')
 SPLAT5 = Room('Bluefin Depot', "You are on a platform floating in the water",
               None, None, 'SPLAT2')
-PAST2 = Room('Coin Room (Past)', "Upon a pedestal in this room is a an old ancient coin on the floor"
-                                 " worth 1 coin today", None, None, 'TOT3')
-FUTURE2 = Room('Key Room (Future)', "While the path leading here has caved "
-                                    "in during our present day, and this "
-                                    "path had not yet been built in the past you can visit this room in the future. "
-                                    "\n The key in this "
-                                    "room appears to be broken. In  a time between our present day and the past"
-                                    " and before the future, "
-                                    "this key was most definitely intact",
+PAST2 = Room('Coin Room', "Upon a pedestal in this room is a an old ancient coin on the floor"
+                          " worth 1 coin today", None, None, 'TOT3')
+FUTURE2 = Room('Key Room', "While the path leading here has caved "
+                           "in during our present day, and this "
+                           "path had not yet been built in the past you can visit this room in the future. "
+                           "\n The key in this "
+                           "room appears to be broken. In  a time between our present day and the past"
+                           " and before the future, "
+                           "this key was most definitely intact",
                None, None, None, 'TOT3')
-FUTURE1 = Room('Gold Room (Future)', "In this room, there is a pedestal labeled 'A COIN FROM THE FUTURE'", None, None,
+FUTURE1 = Room('Gold Room', "In this room, there is a pedestal labeled 'A COIN FROM THE FUTURE'", None, None,
                'TOT2')
-PAST1 = Room('Empty Citadel (Past)', "You enter this room in the past."
-                                     "\n You feel this room has nothing to see, when suddenly you're attacked!",
+PAST1 = Room('Empty Citadel', "You are in a stone room filled with tables and chairs",
              None, None, None, 'TOT2')
 LIGHT = Room('Light Temple', "You've (ironically) entered a very dark place. "
                              "There are stairs leading up.", 'TEMPLE2', None, None, None, 'U_NECROZMA')
@@ -5127,7 +5129,8 @@ MTN_SHOP = Room('Mountain Shop', "There is engraving on stone: BUY SOMETHING AND
                                  "\n There is a keycard, armor, health upgrades, a key fragment, a blue potion,"
                                  " and a space helmet",
                 None, None, 'CLIMB', 'MTN_PASS')
-CLIMB = Room('Dangerous Climb', "You feel like this place isn't safe, when suddenly, you're attacked!", None, None,
+CLIMB = Room('Dangerous Climb', "You are climbing a rocky cliffside "
+                                "riddled with gray, white, and black rocks", None, None,
              None, 'MTN_SHOP', 'PEAK', 'BAY')
 PEAK = Room('Mountain Peak', "You are at the top of a mountain, you can see into space from here."
                              "\n There is floating wreckage here, if only you could see what this "
@@ -5141,8 +5144,9 @@ NOVA_1 = Room("Milkyway Pathway", "You are on some sort of star littered path. Y
               None, 'NOVA2', None, None, None, 'PEAK')
 NOVA2 = Room('Gourmet Room', "You find yourself in a room in which there is a large quantity of food, "
                              "you can eat the food to restore all of your health.", None, None, 'NOVA_1')
-NOVA3 = Room('Barren Planet', "You are on an empty planet and then you get attacked", 'NOVA4', 'NOVA_1', 'NOVA5')
-NOVA5 = Room("Long Stone Bridge", 'You are on a long, stone bridge suddenly you are attacked', None, 'NOVA6', None,
+NOVA3 = Room('Barren Planet', "You are on an empty barren redish-orange planet", 'NOVA4', 'NOVA_1', 'NOVA5')
+NOVA5 = Room("Long Stone Bridge", 'You are on a long, stone bridge'
+                                  ' leading to a strange crystal platform', None, 'NOVA6', None,
              'NOVA3')
 NOVA6 = Room('Galacta Knight Fight', "You are on a strange bridge made of crystals, you can see some sort "
                                      "of red, giant star in the distance")
@@ -5182,13 +5186,17 @@ SUBSPACE6 = Room('End of a Journey', "You find yourself in the last room of your
                                      "hands.", 'TABUU', 'SUBSPACE5', 'C_HAND', 'M_HAND')
 # You can go North after beating the bosses to the east and west
 
-TABUU = Room("            ", "You are on a blue, floating, crystal platform, you can see the heart of this dark realm in the distance", None,
+TABUU = Room("            ",
+             "You are on a blue, floating, crystal platform, "
+             "you can see the heart of this dark realm in the distance", None,
              'SUBSPACE6')
 # This room is meant to have no name
 
 C_HAND = Room("Crazy Hand Fight", "You are on a purple and black floating platform."
-                                  "\n You can see strange small balls of energy in the distance", None, None, None, 'SUBSPACE6')
-M_HAND = Room('Master Hand Fight', "You are on a strange black, red, and orange floating platform with bright blue cubes in the background"
+                                  "\n You can see strange small balls of energy in the distance", None, None, None,
+              'SUBSPACE6')
+M_HAND = Room('Master Hand Fight', "You are on a strange black, red, and orange floating "
+                                   "platform with bright blue cubes in the background"
                                    "\n This fight is going to be difficult, so try your best", None, None, 'SUBSPACE6')
 SUBSPACE4 = Room('Upgrade Room', 'You enter this room and find that your HP and MP have been increased.', None, None,
                  None, 'SUBSPACE2')
@@ -5524,7 +5532,7 @@ while instructions:
 while playing:
         if marx.health == 0:
             print("Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
-                  "Guess that's why it was in ruins, luckily, you can still make it back home")
+                  "\nGuess that's why it was in ruins, luckily, you can still make it back home")
             PEAK.description = "NOVA's golden ruins are here... You can also see Marx's dead " \
                                "body here. oh... he's absorbing some of the parts of NOVA..." \
                                "\n Eh, that's a problem for Kirby to deal with..."
