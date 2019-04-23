@@ -1,5 +1,4 @@
 import random
-import winsound
 
 instructions = True
 
@@ -1964,7 +1963,7 @@ sub_board = Keyboard2("mewtwo")
 temple_bot = NPC("Shopkeeper bot model NX HAC serial no 84493587", 99999999999999, 0, 0, True)
 forest_directions = Filler("UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT"
                            "\nKEY: UP = NORTH, DOWN = SOUTH, LEFT = WEST, RIGHT = EAST", 0)
-zork_mat = Filler("Battered Rubber Mat that reads 'WELCOME TO ZORK'", 20)
+zork_mat = Filler("Battered Rubber Mat that reads 'WELCOME TO ZORK'", 1)
 rock = NPC("Stone Tablet", 0, 0, 0, True)
 
 temple_bot.items.append(E_Sword)
@@ -2172,7 +2171,7 @@ class Donkeykong(Boss):
                 print("DK shoots at you with his coconut gun! It fired in spurts, he misses you! That would've hurt!")
         elif self.attack_choice == 3:
             if self.dodge_chance != 1:
-                print("DK hit kicked you in the face with a giant kick that sent you flying!")
+                print("DK kicked you in the face with a giant kick that sent you flying!")
                 if self.anger == 0:
                     target.take_damage(41)
                 else:
@@ -5498,9 +5497,10 @@ TOT2.items.append(the_watch)
 
 playing = False
 
-Magic_Compass = Filler("Magic Compass")
+Magic_Compass = Filler2("Magic Compass")
 
 Inventory.inventory.append(Magic_Compass)
+
 
 while instructions:
     input("ADVENTURE GAME")
@@ -5530,6 +5530,7 @@ while instructions:
         print("That is not a valid command")
 
 while playing:
+
         if marx.health == 0:
             print("Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
                   "\nGuess that's why it was in ruins, luckily, you can still make it back home")
@@ -5539,8 +5540,10 @@ while playing:
         if player.weapon == One_Shot:
             player.health = 1
         if player.current_location == MT_SILVER:
-            player.take_damage(12)
-            print("You are pelted by hail!")
+            if not player.just_moved:
+                player.take_damage(12)
+                print("You are pelted by hail!")
+                print("You now have %i HP" % player.health)
         player.defense = player.helmet.defense + player.chestplate.defense
         player.defense += player.leggings.defense
         player.defense += player.boots.defense
