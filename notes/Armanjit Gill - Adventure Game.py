@@ -337,7 +337,7 @@ class Chestplate(Armor):
 
     def unequip(self):
         if self.grabbed:
-            if player.chestplate.name.lower() == 'undershirt':
+            if self.name.lower() == 'undershirt':
                 print(".....please do not take that off...")
             else:
                 print("You remove the %s" % self.name)
@@ -393,7 +393,7 @@ class Leggings(Armor):
 
     def unequip(self):
         if self.grabbed:
-            if player.leggings.name.lower() == 'underwear':
+            if self.name.lower() == 'underwear':
                 print(".......... please.... UNDER NO CIRCUMSTANCES TAKE THAT OFF!!!!!!")
             else:
                 print("You remove the %s" % self.name)
