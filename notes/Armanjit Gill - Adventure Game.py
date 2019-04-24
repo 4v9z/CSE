@@ -337,8 +337,8 @@ class Chestplate(Armor):
 
     def unequip(self):
         if self.grabbed:
-            if player.chestplate is None:
-                print(".......... you have nothing equipped already.... what do you want to remove")
+            if player.chestplate.name.lower() == 'undershirt':
+                print(".....please do not take that off...")
             else:
                 print("You remove the %s" % self.name)
                 player.chestplate = undershirt
@@ -365,7 +365,7 @@ class Boots(Armor):
 
     def unequip(self):
         if self.grabbed:
-            if player.boots is None:
+            if player.boots is none4:
                 print(".......... you have nothing equipped already.... what do you want to remove")
             else:
                 print("You remove the %s" % self.name)
@@ -393,8 +393,8 @@ class Leggings(Armor):
 
     def unequip(self):
         if self.grabbed:
-            if player.leggings is None:
-                print(".......... you have nothing equipped already.... what do you want to remove")
+            if player.leggings.name.lower() == 'underwear':
+                print(".......... please.... UNDER NO CIRCUMSTANCES TAKE THAT OFF!!!!!!")
             else:
                 print("You remove the %s" % self.name)
                 player.leggings = underwear
@@ -1084,6 +1084,10 @@ class Player(object):
     def check_stats(self):
         print("You:")
         print("Weapon: %s, does %i attack damage" % (self.weapon.name, self.weapon.attack_stat))
+        print("Helmet: %s - %i defense" % (self.helmet.name, self.helmet.defense))
+        print("Chestplate: %s - %i defense" % (self.chestplate.name, self.chestplate.defense))
+        print("Leggings: %s - %i defense" % (self.leggings.name, self.leggings.defense))
+        print("Boots: %s - %i defense" % (self.boots.name, self.boots.defense))
         print("Total Defense: %i" % self.defense)
         print("Health: %i/%d" % (self.health, self.max_health))
         print("MP: %i/%d" % (self.MP, self.max_MP))
@@ -1669,8 +1673,6 @@ class Ball(Eat1):
         Inventory.inventory.remove(self)
 
 
-Inventory.inventory.append(Wooden_Sword)
-
 Wooden_Sword.grabbed = True
 
 leather1.grabbed = True
@@ -1979,6 +1981,7 @@ rock.items.append(lava2)
 rock.items.append(space)
 rock.items.append(upgrade3)
 rock.items.append(key_4)
+rock.items.append(Fire)
 
 
 class Boss(Enemy):
@@ -5711,14 +5714,34 @@ while playing:
                         the_item.equip()
                     except AttributeError:
                         print("You can't equip this")
-        elif 'unequip ' in command.lower():
-            items_name = command[8:]
-
-            the_item = None
-            for stuff in Inventory.inventory:
-                if stuff.name.lower() == items_name.lower():
-                    the_item = stuff
-
+        elif "remove " in command.lower():
+            items_name = command[7:]
+            if player.weapon.name.lower() == items_name.lower():
+                    the_item = player.weapon
+                    try:
+                        the_item.unequip()
+                    except AttributeError:
+                        print("You can't unequip this")
+            elif player.helmet.name.lower() == items_name.lower():
+                    the_item = player.helmet
+                    try:
+                        the_item.unequip()
+                    except AttributeError:
+                        print("You can't unequip this")
+            elif player.boots.name.lower() == items_name.lower():
+                    the_item = player.boots
+                    try:
+                        the_item.unequip()
+                    except AttributeError:
+                        print("You can't unequip this")
+            elif player.leggings.name.lower() == items_name.lower():
+                    the_item = player.leggings
+                    try:
+                        the_item.unequip()
+                    except AttributeError:
+                        print("You can't unequip this")
+            elif player.chestplate.name.lower() == items_name.lower():
+                    the_item = player.chestplate
                     try:
                         the_item.unequip()
                     except AttributeError:
