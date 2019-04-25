@@ -129,12 +129,12 @@ class Character(object):
         print("%s has %d health left" % (self.name, self.health))
 
     def attack(self, target):
-            print("%s attacks %s for %d damage" %
-                  (self.name, target.name, self.weapon.attack_stat))
-            target.take_damage(self.weapon.attack_stat)
-            if self.weapon.__class__ is Splattershot:
-                target.inked = True
-                print("You have been inked and attacks now do double damage")
+        print("%s attacks %s for %d damage" %
+              (self.name, target.name, self.weapon.attack_stat))
+        target.take_damage(self.weapon.attack_stat)
+        if self.weapon.__class__ is Splattershot:
+            target.inked = True
+            print("You have been inked and attacks now do double damage")
 
 
 class NPC(Character):
@@ -556,19 +556,19 @@ class Specialsword(Sword):
         self.grabbed = False
 
     def grab(self):
-            if Inventory.inventory.__len__() < Inventory.max_space:
-                if self.activated:
-                    if self.grabbed:
-                        print("You already have this")
-                    else:
-                        print("You pick up the %s" % self.name)
-                        self.grabbed = True
-                        Inventory.inventory.append(self)
-                        # add stuff to bag
-                elif not self.activated:
-                    print("You try to grab the sword, but it can't be picked up currently")
-            else:
-                print("You can't carry any more items, you need to drop some items to make space")
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.activated:
+                if self.grabbed:
+                    print("You already have this")
+                else:
+                    print("You pick up the %s" % self.name)
+                    self.grabbed = True
+                    Inventory.inventory.append(self)
+                    # add stuff to bag
+            elif not self.activated:
+                print("You try to grab the sword, but it can't be picked up currently")
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
 
     def drop(self):
         if not self.grabbed:
@@ -761,9 +761,9 @@ class Player(object):
                     self.current_location = new_location
                     self.inked = False
             else:
-                    self.health = 0
-                    print("Wait.... Why did you think going back into the room that filled to the top "
-                          "with lava was a good idea?!")
+                self.health = 0
+                print("Wait.... Why did you think going back into the room that filled to the top "
+                      "with lava was a good idea?!")
         elif new_location == KEY:
             self.random = random.randint(1, 10)
             if self.random == 1 or 6:
@@ -859,20 +859,20 @@ class Player(object):
                     print("After walking through the door you find yourself face to face "
                           "with the King of Koopas, Bowser!")
         elif new_location == D_LINK:
-                self.current_location = new_location
-                self.inked = False
-                if dark_link.health > 0:
-                    print("\n As you walk through the room, you look down and see your reflection is gone. "
-                          "You turn around and see Dark Link!"
-                          "\n The evil version of the fabled hero won't be pulling any punches, "
-                          "but you clutch your weapon and ready yourself for a fight.")
+            self.current_location = new_location
+            self.inked = False
+            if dark_link.health > 0:
+                print("\n As you walk through the room, you look down and see your reflection is gone. "
+                      "You turn around and see Dark Link!"
+                      "\n The evil version of the fabled hero won't be pulling any punches, "
+                      "but you clutch your weapon and ready yourself for a fight.")
         elif new_location == DARK_STAR:
-                self.current_location = new_location
-                self.inked = False
-                if d_bowser.health > 0:
-                    print("There is a dark orb floating in the center of a large "
-                          "platform. You take a step forward."
-                          "\n Suddenly... the orb transforms into: DARK BOWSER!")
+            self.current_location = new_location
+            self.inked = False
+            if d_bowser.health > 0:
+                print("There is a dark orb floating in the center of a large "
+                      "platform. You take a step forward."
+                      "\n Suddenly... the orb transforms into: DARK BOWSER!")
         elif new_location == GHOMA:
                 self.current_location = new_location
                 self.inked = False
@@ -3391,20 +3391,20 @@ class Dj(Boss):
                 else:
                     print("Enemy takes 0 damage as they can only be hit by ice or electricity")
         elif self.only_ink:
-                if player.weapon.__class__ is Splattershot:
-                    if damage < self.defense:
+            if player.weapon.__class__ is Splattershot:
+                if damage < self.defense:
                         print("No damage was taken!")
-                    else:
-                        self.health -= damage - self.defense
-                        if self.health < 0:
-                            self.health = 0
-                            print("%s has been defeated!" % self.name)
-                            player.money += self.money
-                            player.max_health += 45
-                            player.health = player.max_health
-                    print("%s has %d health left" % (self.name, self.health))
                 else:
-                    print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
+                    self.health -= damage - self.defense
+                    if self.health < 0:
+                        self.health = 0
+                        print("%s has been defeated!" % self.name)
+                        player.money += self.money
+                        player.max_health += 45
+                        player.health = player.max_health
+                    print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
 
 
 octavio = Dj()
@@ -4327,6 +4327,10 @@ class Necrozma(Boss):
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
                     Light_Sword.activated = True
+                    CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
+                                           "\n " \
+                                           "There is also a strange sword embedded in the ground, " \
+                                           "because you defeated Ultra Necrozma, the sword is glowing with a powerful light and is now golden"
                     U_NECROZMA.items.append(light)
                     U_NECROZMA.items.append(light2)
                     U_NECROZMA.items.append(light3)
@@ -4345,6 +4349,10 @@ class Necrozma(Boss):
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
                     Light_Sword.activated = True
+                    CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
+                                           "\n " \
+                                           "There is also a strange sword embedded in the ground, " \
+                                           "because you defeated Ultra Necrozma, the sword is glowing with a powerful light and is now golden"
                     U_NECROZMA.items.append(light)
                     U_NECROZMA.items.append(light2)
                     U_NECROZMA.items.append(light3)
@@ -4361,6 +4369,10 @@ class Necrozma(Boss):
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
                     Light_Sword.activated = True
+                    CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
+                                           "\n " \
+                                           "There is also a strange sword embedded in the ground, " \
+                                           "because you defeated Ultra Necrozma, the sword is glowing with a powerful light and is now golden"
                     U_NECROZMA.items.append(light)
                     U_NECROZMA.items.append(light2)
                     U_NECROZMA.items.append(light3)
@@ -4384,6 +4396,10 @@ class Necrozma(Boss):
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
                             Light_Sword.activated = True
+                            CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
+                                                   "\n " \
+                                                   "There is also a strange sword embedded in the ground, " \
+                                                   "because you defeated Ultra Necrozma, the sword is glowing with a powerful light and is now golden"
                             U_NECROZMA.items.append(light)
                             U_NECROZMA.items.append(light2)
                             U_NECROZMA.items.append(light3)
@@ -4403,6 +4419,10 @@ class Necrozma(Boss):
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
                             Light_Sword.activated = True
+                            CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
+                                                   "\n " \
+                                                   "There is also a strange sword embedded in the ground, " \
+                                                   "because you defeated Ultra Necrozma, the sword is glowing with a powerful light and is now golden"
                             U_NECROZMA.items.append(light)
                             U_NECROZMA.items.append(light2)
                             U_NECROZMA.items.append(light3)
@@ -4422,6 +4442,10 @@ class Necrozma(Boss):
                             player.money += self.money
                             Light_Sword.activated = True
                             U_NECROZMA.items.append(light)
+                            CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
+                                                   "\n " \
+                                                   "There is also a strange sword embedded in the ground, " \
+                                                   "because you defeated Ultra Necrozma, the sword is glowing with a powerful light and is now golden"
                             U_NECROZMA.items.append(light2)
                             U_NECROZMA.items.append(light3)
                             U_NECROZMA.items.append(light4)
@@ -5534,99 +5558,99 @@ while instructions:
 
 while playing:
 
-        if marx.health == 0:
-            print("Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
-                  "\nGuess that's why it was in ruins, luckily, you can still make it back home")
-            PEAK.description = "NOVA's golden ruins are here... You can also see Marx's dead " \
-                               "body here. oh... he's absorbing some of the parts of NOVA..." \
-                               "\n Eh, that's a problem for Kirby to deal with..."
-        if player.weapon == One_Shot:
-            player.health = 1
-        if player.current_location == MT_SILVER:
-            if not player.just_moved:
-                player.take_damage(12)
-                print("You are pelted by hail!")
-                print("You now have %i HP" % player.health)
-        player.defense = player.helmet.defense + player.chestplate.defense
-        player.defense += player.leggings.defense
-        player.defense += player.boots.defense
-        if player.health <= 0:
-            playing = False
-            print('GAME OVER')
-            break
-        if tabuu.health <= 0:
-            playing = False
-            print("YOU WIN! CONGRATULATIONS")
-            break
-        print(player.current_location.name)
-        print(player.current_location.description)
-        if len(player.current_location.items) > 0:
-            print()
-            print("The following items are in this room: ")
-            for nums, items in enumerate(player.current_location.items):
-                print(str(nums + 1) + ": " + items.name)
-            print()
-        if len(player.current_location.characters) > 0:
-            print()
-            print("The following characters are in this room: ")
-            for nums, persons in enumerate(player.current_location.characters):
-                print(str(nums + 1) + ": " + persons.name)
-            print()
-        if len(player.current_location.enemies) > 0:
-            print()
-            print("The following enemies are in this room: ")
-            for nums, persons in enumerate(player.current_location.enemies):
-                print(str(nums + 1) + ": " + persons.name)
-            print()
-        command = input(">_")
-        if command.lower() in short_directions:
-            pos = short_directions.index(command.lower())
-            command = directions[pos]
-        if command.lower() in ['q', 'quit', 'exit', 'altf4']:
-            playing = False
-        elif 'take ' in command.lower():
-            item_name = command[5:]
+    if marx.health == 0:
+        print("Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
+              "\nGuess that's why it was in ruins, luckily, you can still make it back home (somehow)")
+        PEAK.description = "NOVA's golden ruins are here... You can also see Marx's dead " \
+                           "body here. oh... he's absorbing some of the parts of NOVA..." \
+                           "\n Eh, that's a problem for Kirby to deal with..."
+    if player.weapon == One_Shot:
+        player.health = 1
+    if player.current_location == MT_SILVER:
+        if not player.just_moved:
+            player.take_damage(12)
+            print("You are pelted by hail!")
+            print("You now have %i HP" % player.health)
+    player.defense = player.helmet.defense + player.chestplate.defense
+    player.defense += player.leggings.defense
+    player.defense += player.boots.defense
+    if player.health <= 0:
+        playing = False
+        print('GAME OVER')
+        break
+    if tabuu.health <= 0:
+        playing = False
+        print("YOU WIN! CONGRATULATIONS")
+        break
+    print(player.current_location.name)
+    print(player.current_location.description)
+    if len(player.current_location.items) > 0:
+        print()
+        print("The following items are in this room: ")
+        for nums, items in enumerate(player.current_location.items):
+            print(str(nums + 1) + ": " + items.name)
+        print()
+    if len(player.current_location.characters) > 0:
+        print()
+        print("The following characters are in this room: ")
+        for nums, persons in enumerate(player.current_location.characters):
+            print(str(nums + 1) + ": " + persons.name)
+        print()
+    if len(player.current_location.enemies) > 0:
+        print()
+        print("The following enemies are in this room: ")
+        for nums, persons in enumerate(player.current_location.enemies):
+            print(str(nums + 1) + ": " + persons.name)
+        print()
+    command = input(">_")
+    if command.lower() in short_directions:
+        pos = short_directions.index(command.lower())
+        command = directions[pos]
+    if command.lower() in ['q', 'quit', 'exit', 'altf4']:
+        playing = False
+    elif 'take ' in command.lower():
+        item_name = command[5:]
 
-            item_obj = None
-            for the_item in player.current_location.items:
-                if the_item.name.lower() == item_name.lower():
-                    item_obj = the_item
+        item_obj = None
+        for the_item in player.current_location.items:
+            if the_item.name.lower() == item_name.lower():
+                item_obj = the_item
 
-                    item_obj.grab()
-                    player.current_location.items.remove(item_obj)
-                    if item_obj == past_coin:
-                        PAST2.description = "You are in a room that is completely empty"
-                    if item_obj == sub_gold:
-                        SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
-        elif 'grab ' in command.lower():
-            item_name = command[5:]
+                item_obj.grab()
+                player.current_location.items.remove(item_obj)
+                if item_obj == past_coin:
+                    PAST2.description = "You are in a room that is completely empty"
+                if item_obj == sub_gold:
+                    SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
+    elif 'grab ' in command.lower():
+        item_name = command[5:]
 
-            item_obj = None
-            for the_item in player.current_location.items:
-                if the_item.name.lower() == item_name.lower():
-                    item_obj = the_item
+        item_obj = None
+        for the_item in player.current_location.items:
+            if the_item.name.lower() == item_name.lower():
+                item_obj = the_item
 
-                    item_obj.grab()
-                    player.current_location.items.remove(item_obj)
-                    if item_obj == past_coin:
-                        PAST2.description = "You are in a room that is completely empty"
-                    if item_obj == sub_gold:
-                        SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
-        elif 'pick up ' in command.lower():
-            item_name = command[5:]
+                item_obj.grab()
+                player.current_location.items.remove(item_obj)
+                if item_obj == past_coin:
+                    PAST2.description = "You are in a room that is completely empty"
+                if item_obj == sub_gold:
+                    SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
+    elif 'pick up ' in command.lower():
+        item_name = command[5:]
 
-            item_obj = None
-            for the_item in player.current_location.items:
-                if the_item.name.lower() == item_name.lower():
-                    item_obj = the_item
+        item_obj = None
+        for the_item in player.current_location.items:
+            if the_item.name.lower() == item_name.lower():
+                item_obj = the_item
 
-                    item_obj.grab()
-                    player.current_location.items.remove(item_obj)
-                    if item_obj == past_coin:
-                        PAST2.description = "You are in a room that is completely empty"
-                    if item_obj == sub_gold:
-                        SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
-        elif 'attack ' in command.lower():
+                item_obj.grab()
+                player.current_location.items.remove(item_obj)
+                if item_obj == past_coin:
+                    PAST2.description = "You are in a room that is completely empty"
+                if item_obj == sub_gold:
+                    SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
+    elif 'attack ' in command.lower():
             targets_name = command[7:]
 
             targett = None
@@ -5640,7 +5664,7 @@ while playing:
                     targett = ttargets
 
                     player.attack(targett)
-        elif 'talk to ' in command.lower():
+    elif 'talk to ' in command.lower():
             NPCs_name = command[8:]
 
             the_person = None
@@ -5649,7 +5673,7 @@ while playing:
                     the_person = people
 
                     the_person.talk()
-        elif command.lower() == "m":
+    elif command.lower() == "m":
             if Magic_Compass in Inventory.inventory:
                 if player.current_location.name.lower() != "lost woods":
                     if player.current_location.north is not None:
@@ -5675,7 +5699,7 @@ while playing:
                     print("A strange fog in the forest prevents the compass from working")
             else:
                 print("You do not have your magic compass")
-        elif 'rob ' in command.lower():
+    elif 'rob ' in command.lower():
             NPCs_name = command[4:]
 
             the_person = None
@@ -5684,7 +5708,7 @@ while playing:
                     the_person = people
 
                     player.rob(the_person)
-        elif 'speak with ' in command.lower():
+    elif 'speak with ' in command.lower():
             NPCs_name = command[11:]
 
             the_person = None
@@ -5693,7 +5717,7 @@ while playing:
                     the_person = people
 
                     the_person.talk()
-        elif 'buy from ' in command.lower():
+    elif 'buy from ' in command.lower():
             NPCs_name = command[9:]
 
             the_person = None
@@ -5702,7 +5726,7 @@ while playing:
                     the_person = people
 
                     the_person.buy()
-        elif 'equip ' in command.lower():
+    elif 'equip ' in command.lower():
             items_name = command[6:]
 
             the_item = None
@@ -5714,39 +5738,39 @@ while playing:
                         the_item.equip()
                     except AttributeError:
                         print("You can't equip this")
-        elif "remove " in command.lower():
+    elif "remove " in command.lower():
             items_name = command[7:]
             if player.weapon.name.lower() == items_name.lower():
-                    the_item = player.weapon
-                    try:
-                        the_item.unequip()
-                    except AttributeError:
-                        print("You can't unequip this")
+                the_item = player.weapon
+                try:
+                    the_item.unequip()
+                except AttributeError:
+                    print("You can't unequip this")
             elif player.helmet.name.lower() == items_name.lower():
-                    the_item = player.helmet
-                    try:
-                        the_item.unequip()
-                    except AttributeError:
-                        print("You can't unequip this")
+                the_item = player.helmet
+                try:
+                    the_item.unequip()
+                except AttributeError:
+                    print("You can't unequip this")
             elif player.boots.name.lower() == items_name.lower():
-                    the_item = player.boots
-                    try:
-                        the_item.unequip()
-                    except AttributeError:
-                        print("You can't unequip this")
+                the_item = player.boots
+                try:
+                    the_item.unequip()
+                except AttributeError:
+                    print("You can't unequip this")
             elif player.leggings.name.lower() == items_name.lower():
-                    the_item = player.leggings
-                    try:
-                        the_item.unequip()
-                    except AttributeError:
-                        print("You can't unequip this")
+                the_item = player.leggings
+                try:
+                    the_item.unequip()
+                except AttributeError:
+                    print("You can't unequip this")
             elif player.chestplate.name.lower() == items_name.lower():
-                    the_item = player.chestplate
-                    try:
-                        the_item.unequip()
-                    except AttributeError:
-                        print("You can't unequip this")
-        elif 'use ' in command.lower():
+                the_item = player.chestplate
+                try:
+                    the_item.unequip()
+                except AttributeError:
+                    print("You can't unequip this")
+    elif 'use ' in command.lower():
             items_name = command[4:]
 
             the_item = None
@@ -5757,7 +5781,7 @@ while playing:
                         the_item.use()
                     except AttributeError:
                         print("You can't use this")
-        elif 'drop ' in command.lower():
+    elif 'drop ' in command.lower():
             items_name = command[5:]
 
             the_item = None
@@ -5771,7 +5795,7 @@ while playing:
                         print("You can't drop this")
                     if the_item.__class__ is not Filler:
                         player.current_location.items.append(the_item)
-        elif 'sharpen ' in command.lower():
+    elif 'sharpen ' in command.lower():
             items_name = command[7:]
 
             the_item = None
@@ -5782,67 +5806,105 @@ while playing:
                     the_item.sharpen()
                 except AttributeError:
                     print("You can't use this")
-        elif 'reload ' in command.lower():
+    elif 'reload ' in command.lower():
             items_name = command[6:]
 
             the_item = None
             if player.weapon.name.lower() == items_name.lower():
-                    the_item = player.weapon
+                the_item = player.weapon
 
-                    try:
-                        the_item.reload()
-                    except AttributeError:
-                        print("You can't use this")
-        elif command.lower() in ["change time", "travel through time", 'time travel']:
+                try:
+                    the_item.reload()
+                except AttributeError:
+                    print("You can't use this")
+    elif command.lower() in ["change time", "travel through time", 'time travel']:
             if the_watch.grabbed:
                 command2 = input("Would you like to go to the past, present, or future?")
                 the_watch.use(command2.lower())
             else:
                 print("You do not have the means to do that yet")
-        elif command.lower() in ["check inventory", "open inventory", 'i']:
-            Inventory.check()
-        elif command.lower() in ["check stats", 's', 'stats']:
-            player.check_stats()
-        elif command.lower() in ["solve puzzle", "solve riddle", "solve", "answer"]:
-            if player.current_location == NOVA4:
-                marx_board.solve()
-            elif player.current_location == SUBSPACE2:
-                sub_board.solve()
-        elif command.lower() == "":
-            print()
-        elif command.lower() in ["speak", "talk"]:
-            command2 = input("What would you like to say?")
-            print("You: " + command2)
-        elif command.lower() == "scream":
-            print('AAAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRGGGGGGGGGGGHHHHHHHHH'
-                  'HHHHHHHHHHHHHHHHHHHHHHHHH')
-        elif command.lower() in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason',
+    elif command.lower() in ["check inventory", "open inventory", 'i']:
+        Inventory.check()
+    elif command.lower() in ["check stats", 's', 'stats']:
+        player.check_stats()
+    elif command.lower() in ["solve puzzle", "solve riddle", "solve", "answer"]:
+        if player.current_location == NOVA4:
+            marx_board.solve()
+        elif player.current_location == SUBSPACE2:
+            sub_board.solve()
+    elif command.lower() == "":
+        print()
+    elif command.lower() in ["speak", "talk"]:
+        command2 = input("What would you like to say?")
+        print("You: " + command2)
+    elif command.lower() == "scream":
+        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRGGGGGGGGGGGHHHHHHHHH'
+              'HHHHHHHHHHHHHHHHHHHHHHHHH')
+    elif command.lower() in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason',
                                  'kill self']:
-            player.health -= player.health
-            print("Welp, you're dead now. Good job, you decided you wouldn't"
-                  " die from an enemy. You made sure of it by killing yourself...")
-            print()
-            print()
-            print()
-            print("Quick Question.... WHY????????????"
-                  "\n Oh well, I give up on trying to find your reasoning..."
-                  "\n"
-                  "\n"
-                  "\n..."
-                  "\n"
-                  "\n"
-                  "\n GAME OVER")
-            playing = False
-        elif command.lower() == "recognized":
-            print("Command not reco- Oh... VERY funny! HA! HA! HA! Don't do that again")
-        elif command.lower() in directions:
-            command = command.lower()
-            try:
-                next_room = player.find_room(command)
-                player.move(next_room)
-            except KeyError:
-                print("I can't do this or go this way")
-        elif command.upper() == "UPUPDOWNDOWNLEFTRIGHTLEFTRIGHTBASTART":
+        player.health -= player.health
+        print("Welp, you're dead now. Good job, you decided you wouldn't"
+              " die from an enemy. You made sure of it by killing yourself...")
+        print()
+        print()
+        print()
+        print("Quick Question.... WHY????????????"
+              "\n Oh well, I give up on trying to find your reasoning..."
+              "\n"
+              "\n"
+              "\n..."
+              "\n"
+              "\n"
+              "\n GAME OVER")
+        playing = False
+    elif command.lower() == "recognized":
+        print("Command not reco- Oh... VERY funny! HA! HA! HA! Don't do that again")
+    elif command.lower() in directions:
+        command = command.lower()
+        try:
+            next_room = player.find_room(command)
+            player.move(next_room)
+        except KeyError:
+            print("I can't do this or go this way")
+    elif command.upper() == "UPUPDOWNDOWNLEFTRIGHTLEFTRIGHTBASTART":
+        input(".")
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        input("..")
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        input("...")
+        print()
+        print("cheat code accepted")
+        command2 = input("WHAT CHEAT WOULD YOU LIKE?"
+                         "\n1. ALL BOSSES (EXCEPT FINAL BOSS) DEFEATED"
+                         "\n2. BEAT THE GAME"
+                         "\n3. + 75 HEALTH UPGRADE"
+                         "\n4. + 75 MP"
+                         "\n5. TABUU ARMOR"
+                         "\n Pick a number: ")
+        if command2 == "1":
+            input(".")
             input(".")
             print()
             print()
@@ -5872,226 +5934,29 @@ while playing:
             input("...")
             print()
             print("cheat code accepted")
-            command2 = input("WHAT CHEAT WOULD YOU LIKE?"
-                             "\n1. ALL BOSSES (EXCEPT FINAL BOSS) DEFEATED"
-                             "\n2. BEAT THE GAME"
-                             "\n3. + 75 HEALTH UPGRADE"
-                             "\n4. + 75 MP"
-                             "\n5. TABUU ARMOR"
-                             "\n Pick a number: ")
-            if command2 == "1":
-                input(".")
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                input("..")
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                input("...")
-                print()
-                print("cheat code accepted")
-                bowser.take_damage(999999999999999)
-                d_bowser.take_damage(999999999999999999)
-                dark_link.take_damage(9999999999999999)
-                red.take_damage(9999999999999999)
-                player.current_weapon = player.weapon
-                player.weapon = Hero_Shot
-                Agent_3.take_damage(9999999999999999999)
-                octavio.take_damage(99999999999999999)
-                chaos0.take_damage(9999999999999999999999)
-                player.choice = "blizzard"
-                gohma.take_mp()
-                player.mp = player.max_MP
-                jevil.take_damage(99999999999999999999)
-                galleom.take_damage(99999999999999)
-                duon.take_damage(999999999999999)
-                crazy_hand.take_damage(999999999999999)
-                master_hand.take_damage(999999999999999999)
-                ultra_necrozma.take_damage(999999999999999999999)
-                m_mario.take_damage(9999999999999999999999)
-                marx.take_damage(99999999999999999999)
-                galacta_knight.take_damage(9999999999999999999999999)
-                player.weapon = player.current_weapon
-            elif command2 == "2":
-                input(".")
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                input("..")
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                input("...")
-                print()
-                print("cheat code accepted")
-                tabuu.health = 0
-            elif command2 == "3":
-                input(".")
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                input("..")
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                input("...")
-                print()
-                print("cheat code accepted")
-                player.max_health += 75
-                player.health = player.max_health
-            elif command2 == "4":
-                input(".")
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                input("..")
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                input("...")
-                print()
-                print("cheat code accepted")
-                player.max_MP += 75
-                player.health = player.mp
-            elif command2 == "5":
-                input(".")
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                input("..")
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                input("...")
-                print()
-                print("cheat code accepted")
-                player.helmet = tabuu1
-                player.leggings = tabuu2
-                player.boots = tabuu3
-                player.chestplate = tabuu4
-                player.weapon = shimmering_whip
-            else:
-                input(".")
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                input("..")
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                print()
-                input("...")
-                print()
-                print("error - not a valid cheat code")
-        elif command.upper() == "ROSEBUD":
+            bowser.take_damage(999999999999999)
+            d_bowser.take_damage(999999999999999999)
+            dark_link.take_damage(9999999999999999)
+            red.take_damage(9999999999999999)
+            player.current_weapon = player.weapon
+            player.weapon = Hero_Shot
+            Agent_3.take_damage(9999999999999999999)
+            octavio.take_damage(99999999999999999)
+            chaos0.take_damage(9999999999999999999999)
+            player.choice = "blizzard"
+            gohma.take_mp()
+            player.mp = player.max_MP
+            jevil.take_damage(99999999999999999999)
+            galleom.take_damage(99999999999999)
+            duon.take_damage(999999999999999)
+            crazy_hand.take_damage(999999999999999)
+            master_hand.take_damage(999999999999999999)
+            ultra_necrozma.take_damage(999999999999999999999)
+            m_mario.take_damage(9999999999999999999999)
+            marx.take_damage(99999999999999999999)
+            galacta_knight.take_damage(9999999999999999999999999)
+            player.weapon = player.current_weapon
+        elif command2 == "2":
             input(".")
             print()
             print()
@@ -6121,8 +5986,8 @@ while playing:
             input("...")
             print()
             print("cheat code accepted")
-            player.money += 9999999999999999999999999999999999
-        elif command.upper() == "GODMODE":
+            tabuu.health = 0
+        elif command2 == "3":
             input(".")
             print()
             print()
@@ -6152,19 +6017,148 @@ while playing:
             input("...")
             print()
             print("cheat code accepted")
-            player.max_health = 9999999999999999999999999999999999999999999999
+            player.max_health += 75
             player.health = player.max_health
-            player.chestplate.defense += 9999999999999999999
-            player.weapon.attack_stat += 99999999999999999999999
-            player.max_MP += 999999999999999999999999999999999
-            player.MP = player.max_MP
+        elif command2 == "4":
+            input(".")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            input("..")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            input("...")
+            print()
+            print("cheat code accepted")
+            player.max_MP += 75
+            player.health = player.mp
+        elif command2 == "5":
+            input(".")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            input("..")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            input("...")
+            print()
+            print("cheat code accepted")
+            player.helmet = tabuu1
+            player.leggings = tabuu2
+            player.boots = tabuu3
+            player.chestplate = tabuu4
+            player.weapon = shimmering_whip
         else:
-            print("Command not recognized, if you inputted a direction, write it again in all lowercase")
-        if not player.just_moved:
-            if len(player.current_location.enemies) > 0:
-                for nme in range(len(player.current_location.enemies)):
-                    player.current_location.enemies[nme].attack(player)
-            if len(player.current_location.bosses) > 0:
-                for nme in range(len(player.current_location.bosses)):
-                    player.current_location.bosses[nme].attack(player)
-        player.just_moved = False
+            input(".")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            input("..")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            input("...")
+            print()
+            print("error - not a valid cheat code")
+    elif command.upper() == "ROSEBUD":
+        input(".")
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        input("..")
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        input("...")
+        print()
+        print("cheat code accepted")
+        player.max_health = 9999999999999999999999999999999999999999999999
+        player.health = player.max_health
+        player.chestplate.defense += 9999999999999999999
+        player.weapon.attack_stat += 99999999999999999999999
+        player.max_MP += 999999999999999999999999999999999
+        player.MP = player.max_MP
+    else:
+        print("Command not recognized, if you inputted a direction, write it again in all lowercase")
+    if not player.just_moved:
+        if len(player.current_location.enemies) > 0:
+            for nme in range(len(player.current_location.enemies)):
+                player.current_location.enemies[nme].attack(player)
+        if len(player.current_location.bosses) > 0:
+            for nme in range(len(player.current_location.bosses)):
+                player.current_location.bosses[nme].attack(player)
+    player.just_moved = False
