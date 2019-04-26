@@ -4330,7 +4330,8 @@ class Necrozma(Boss):
                     CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
                                            "\n " \
                                            "There is also a strange sword embedded in the ground, " \
-                                           "because you defeated Ultra Necrozma, the sword is glowing with a powerful light and is now golden"
+                                           "because you defeated Ultra Necrozma, the sword is" \
+                                           " glowing with a powerful light and is now golden"
                     U_NECROZMA.items.append(light)
                     U_NECROZMA.items.append(light2)
                     U_NECROZMA.items.append(light3)
@@ -4352,7 +4353,8 @@ class Necrozma(Boss):
                     CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
                                            "\n " \
                                            "There is also a strange sword embedded in the ground, " \
-                                           "because you defeated Ultra Necrozma, the sword is glowing with a powerful light and is now golden"
+                                           "because you defeated Ultra Necrozma, the sword is" \
+                                           " glowing with a powerful light and is now golden"
                     U_NECROZMA.items.append(light)
                     U_NECROZMA.items.append(light2)
                     U_NECROZMA.items.append(light3)
@@ -4372,7 +4374,8 @@ class Necrozma(Boss):
                     CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
                                            "\n " \
                                            "There is also a strange sword embedded in the ground, " \
-                                           "because you defeated Ultra Necrozma, the sword is glowing with a powerful light and is now golden"
+                                           "because you defeated Ultra Necrozma, the sword is glowing with" \
+                                           " a powerful light and is now golden"
                     U_NECROZMA.items.append(light)
                     U_NECROZMA.items.append(light2)
                     U_NECROZMA.items.append(light3)
@@ -4399,7 +4402,8 @@ class Necrozma(Boss):
                             CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
                                                    "\n " \
                                                    "There is also a strange sword embedded in the ground, " \
-                                                   "because you defeated Ultra Necrozma, the sword is glowing with a powerful light and is now golden"
+                                                   "because you defeated Ultra Necrozma, " \
+                                                   "the sword is glowing with a powerful light and is now golden"
                             U_NECROZMA.items.append(light)
                             U_NECROZMA.items.append(light2)
                             U_NECROZMA.items.append(light3)
@@ -4422,7 +4426,8 @@ class Necrozma(Boss):
                             CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
                                                    "\n " \
                                                    "There is also a strange sword embedded in the ground, " \
-                                                   "because you defeated Ultra Necrozma, the sword is glowing with a powerful light and is now golden"
+                                                   "because you defeated Ultra Necrozma, the sword is " \
+                                                   "glowing with a powerful light and is now golden"
                             U_NECROZMA.items.append(light)
                             U_NECROZMA.items.append(light2)
                             U_NECROZMA.items.append(light3)
@@ -4445,7 +4450,8 @@ class Necrozma(Boss):
                             CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
                                                    "\n " \
                                                    "There is also a strange sword embedded in the ground, " \
-                                                   "because you defeated Ultra Necrozma, the sword is glowing with a powerful light and is now golden"
+                                                   "because you defeated Ultra Necrozma, the sword is " \
+                                                   "glowing with a powerful light and is now golden"
                             U_NECROZMA.items.append(light2)
                             U_NECROZMA.items.append(light3)
                             U_NECROZMA.items.append(light4)
@@ -5841,7 +5847,7 @@ while playing:
         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRGGGGGGGGGGGHHHHHHHHH'
               'HHHHHHHHHHHHHHHHHHHHHHHHH')
     elif command.lower() in ['die', 'drop dead', 'drop dead for no apparent reason', 'die for no reason',
-                                 'kill self']:
+                             'kill self']:
         player.health -= player.health
         print("Welp, you're dead now. Good job, you decided you wouldn't"
               " die from an enemy. You made sure of it by killing yourself...")
