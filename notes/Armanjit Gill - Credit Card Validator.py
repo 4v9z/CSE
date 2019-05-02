@@ -27,17 +27,18 @@ def check_if_valid(num: str):
         for i in range(len(nums_to_validate)):
             if nums_to_validate[i] >= 10:
                 nums_to_validate[i] -= 9
-        for i in range(len(nums_to_validate)):
-            if i != 0:
-                nums_to_validate[i] += nums_to_validate[i-1]
-            else:
-                print()
-        the_num = nums_to_validate[7]
-        if the_num % 10 == last_number:
+        nums_to_validate.append(int(the_reversed_num[1]))
+        nums_to_validate.append(int(the_reversed_num[3]))
+        nums_to_validate.append(int(the_reversed_num[5]))
+        nums_to_validate.append(int(the_reversed_num[7]))
+        nums_to_validate.append(int(the_reversed_num[9]))
+        nums_to_validate.append(int(the_reversed_num[11]))
+        nums_to_validate.append(int(the_reversed_num[13]))
+        the_sum = sum(nums_to_validate)
+        if the_sum % 10 == last_number:
             return True
         return False
-    else:
-        return False
+    return False
 
 
 with open("Book1.csv", 'r') as old_csv:
