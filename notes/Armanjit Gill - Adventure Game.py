@@ -640,16 +640,16 @@ class Player(object):
         self.random = 0
 
     def attack(self, target):
-            if self.weapon.__class__ is Sword:
-                self.weapon.attack()
-            if self.weapon.__class__ is Axe:
-                self.weapon.attack()
-            if self.weapon.__class__ is Gun:
-                self.weapon.shoot()
-            if self.weapon.__class__ is Splattershot:
-                self.weapon.shoot()
-                target.inked = True
-                print("Your enemy has been inked and attacks now do double damage")
+        if self.weapon.__class__ is Sword:
+            self.weapon.attack()
+        if self.weapon.__class__ is Axe:
+            self.weapon.attack()
+        if self.weapon.__class__ is Gun:
+            self.weapon.shoot()
+        if self.weapon.__class__ is Splattershot:
+            self.weapon.shoot()
+            target.inked = True
+            print("Your enemy has been inked and attacks now do double damage")
             print("You attack %s for %d damage" %
                   (target.name, self.weapon.attack_stat))
             target.take_damage(self.weapon.attack_stat)
@@ -735,6 +735,9 @@ class Player(object):
                 print("You try to go through the giant clockwork star but it turns out "
                       "that you kinda need a space helmet to survive in space...")
                 self.health -= self.health
+        elif new_location == R19A:
+            if wiebe.health < 0:
+                print("Mr. Wiebe is here")
         elif new_location == TABUU:
             if master_hand.health == 0 and crazy_hand.health == 0:
                 self.current_location = new_location
@@ -853,11 +856,11 @@ class Player(object):
                       "\n YOU KNOW HIM WELL!"
                       "\n HE'S FINALLY BACK, TO KICK YOUR TAIL!")
         elif new_location == BOWSER:
-                self.current_location = new_location
-                self.inked = False
-                if bowser.health > 0:
-                    print("After walking through the door you find yourself face to face "
-                          "with the King of Koopas, Bowser!")
+            self.current_location = new_location
+            self.inked = False
+            if bowser.health > 0:
+                print("After walking through the door you find yourself face to face "
+                      "with the King of Koopas, Bowser!")
         elif new_location == D_LINK:
             self.current_location = new_location
             self.inked = False
@@ -874,12 +877,12 @@ class Player(object):
                       "platform. You take a step forward."
                       "\n Suddenly... the orb transforms into: DARK BOWSER!")
         elif new_location == GHOMA:
-                self.current_location = new_location
-                self.inked = False
-                if gohma.health > 0:
-                    print("In this room is the disgusting abomination of a spider: Ghoma"
-                          "\n The strategy for this is to hit it with magic, as numerous "
-                          "defeats has led to this boss gaining a resistance to swords and other similar weapons")
+            self.current_location = new_location
+            self.inked = False
+            if gohma.health > 0:
+                print("In this room is the disgusting abomination of a spider: Ghoma"
+                      "\n The strategy for this is to hit it with magic, as numerous "
+                      "defeats has led to this boss gaining a resistance to swords and other similar weapons")
         elif new_location == U_NECROZMA:
             self.current_location = new_location
             self.inked = False
@@ -2132,6 +2135,149 @@ class Bowser(Boss):
                         if self.health < 0:
                             self.health = 0
                             print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
+
+
+class Wiebe(Boss):
+    def __init__(self):
+        super(Wiebe, self).__init__(None, 100, False, False, True, "Wiebe", 12, 99999999)
+        self.name = "Wiebe"
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 7)
+        self.dodge_chance = random.randint(1, 12)
+        if self.attack_choice == 1:
+            if self.dodge_chance == 3:
+                print("Wiebe tries to run code that would damage you, but it fails!")
+            else:
+                print("Wiebe runs target.take_damage(40)")
+                target.take_damage(40)
+        elif self.attack_choice == 2:
+            if self.dodge_chance != 3:
+                print("Wiebe runs self.health += 22")
+                self.health += 22
+            else:
+                print("Wiebe runs self.Health += 22, but it glitches and failes!")
+        elif self.attack_choice == 3:
+            if self.dodge_chance != 1:
+                print("Wiebe runs target.take_damage(50)!")
+                target.take_damage(50)
+            else:
+                print("Wiebe runs target.take_damage(50, but forgetting to close the parentheses causes the code to"
+                      " break")
+        elif self.attack_choice == 4:
+            if self.dodge_chance != 4 or 5 or 6 or 7 or 8 or 1 or 2 or 3 or 9 or 10 or 11:
+                print("Wiebe shuts off the computer, deleting all of your progress")
+                target.take_damage(99999999999999999999999999999999999999999999999999999999999999999999999)
+            else:
+                print("Wiebe tries to shut off the computer, but it just went into sleep mode")
+        elif self.attack_choice == 5:
+            if self.dodge_chance != 8 or 9:
+                print("Wiebe attacks you with a firewall")
+                target.take_damage(47)
+            else:
+                print("Wiebe tries to attack you with a firewall, but misses")
+        elif self.attack_choice == 6:
+            if self.dodge_chance != 10:
+                print("Wiebe launches out a barrage of code at you!")
+                target.take_damage(52)
+            else:
+                print("Wiebe launches out a barrage of code at you, but misses!")
+        elif self.attack_choice == 7:
+            if self.dodge_chance != 4 or 5 or 6 or 7 or 8 or 1 or 2 or 3 or 9 or 10 or 11:
+                print("Wiebe ran code that healed all of his health")
+                self.health = 100
+            else:
+                print("Wiebe tries to run code that heals all of his health... but it failed!")
+
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                self.health -= 20
+                player.MP -= 5
+                if self.health < 0:
+                    self.health = 0
+                    print("Wiebe has retreated!")
+                    player.money += self.money
+                    player.health = player.max_health
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("Wiebe has retreated!")
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+                    player.health = player.max_health
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 50
+                if self.health < 0:
+                    self.health = 0
+                    print("Wiebe has retreated!")
+                    player.money += self.money
+                    player.health = player.max_health
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
+    def take_damage(self, damage):
+        if self.inked:
+            damage *= 2
+        if player.weapon.__class__ is Splattershot:
+            self.inked = True
+        if not self.only_ink:
+            if not self.elecfrost:
+                if self.no_weapon:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("Wiebe has retreated!")
+                            player.money += self.money
+                            player.health = player.max_health
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("This enemy can not be damaged by physical attacks")
+
+            elif self.elecfrost:
+                if player.weapon is E_Sword or F_Sword:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("Wiebe has retreated!")
+                            player.money += self.money
+                            player.health = player.max_health
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("Enemy takes 0 damage as they can only be hit by ice or electricity")
+            elif self.only_ink:
+                if player.weapon.__class__ is Splattershot:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("Wiebe has retreated!")
                             player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -3393,7 +3539,7 @@ class Dj(Boss):
         elif self.only_ink:
             if player.weapon.__class__ is Splattershot:
                 if damage < self.defense:
-                        print("No damage was taken!")
+                    print("No damage was taken!")
                 else:
                     self.health -= damage - self.defense
                     if self.health < 0:
@@ -4980,6 +5126,8 @@ Gerudo.items.append(super_mushroom)
 Gerudo.items.append(Green_Potion)
 Gerudo.items.append(desert_helmet)
 
+R19A = Room("R19A", " ", None, None, None, None, "BEGIN")
+
 TEMPLE_1 = Room('Lock Room', "You are in a room with a locked door leading east. "
                 "\n You can continue through the temple to the north", 'TEMPLE_2', 'TEMPLE')
 TEMPLE_2 = Room('Empty Chamber', "There is a locked door to the east and a door leading north. ",
@@ -5241,7 +5389,7 @@ TEMPLE = Room('Water Temple', 'You are in the first room of the Water Temple. '
 BEGIN = Room("An Adventure's Beginning", "You stand atop a hill looking ahead at the forest to "
                                          "the north and turn around to see the desert to the south. "
                                          "\n You're ready for your quest.", 'FOREST', 'TOWN', 'OASIS',
-             'FACTORY', 'CHEATS')
+             'FACTORY', 'CHEATS', 'R19A')
 MARKET = Room('Desert Market', "You browse the fine selection of goods, you see potions that increase health and MP,"
                                "\n a strange pendant with a drop of water engraved on it, armor, a scimitar, "
                                "\n strange scuba gear, items that restore MP"
@@ -5339,6 +5487,8 @@ CASTLE_4.enemies.append(Koopa)
 CASTLE_4.enemies.append(Spiny)
 
 # Adding Bosses
+wiebe = Wiebe()
+R19A.bosses.append(wiebe)
 DK_BATTLE.bosses.append(DK)
 BOWSER.bosses.append(bowser)
 DARK_STAR.bosses.append(d_bowser)
@@ -5657,178 +5807,178 @@ while playing:
                 if item_obj == sub_gold:
                     SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
     elif 'attack ' in command.lower():
-            targets_name = command[7:]
+        targets_name = command[7:]
 
-            targett = None
-            for targets in player.current_location.enemies:
-                if targets.name.lower() == targets_name.lower():
-                    targett = targets
+        targett = None
+        for targets in player.current_location.enemies:
+            if targets.name.lower() == targets_name.lower():
+                targett = targets
 
-                    player.attack(targett)
-            for ttargets in player.current_location.bosses:
-                if ttargets.name.lower() == targets_name.lower():
-                    targett = ttargets
+                player.attack(targett)
+        for ttargets in player.current_location.bosses:
+            if ttargets.name.lower() == targets_name.lower():
+                targett = ttargets
 
-                    player.attack(targett)
+                player.attack(targett)
     elif 'talk to ' in command.lower():
-            NPCs_name = command[8:]
+        NPCs_name = command[8:]
 
-            the_person = None
-            for people in player.current_location.characters:
-                if people.name.lower() == NPCs_name.lower():
-                    the_person = people
+        the_person = None
+        for people in player.current_location.characters:
+            if people.name.lower() == NPCs_name.lower():
+                the_person = people
 
-                    the_person.talk()
+                the_person.talk()
     elif command.lower() == "m":
-            if Magic_Compass in Inventory.inventory:
-                if player.current_location.name.lower() != "lost woods":
-                    if player.current_location.north is not None:
-                        print("You can go north")
-                    if player.current_location.south is not None:
-                        print("You can go south")
-                    if player.current_location.east is not None:
-                        print("You can go east")
-                    if player.current_location.west is not None:
-                        print("You can go west")
-                    if player.current_location.up is not None:
-                        if player.current_location.up == "CHEATS":
-                            print()
-                        else:
-                            print("You can go up")
-                    if player.current_location.down is not None:
-                        print("You can go down")
-                    if player.current_location.enter is not None:
-                        print("You can go inside something")
-                    if player.current_location.leave is not None:
-                        print("You can exit your current area")
+        if Magic_Compass in Inventory.inventory:
+            if player.current_location.name.lower() != "lost woods":
+                if player.current_location.north is not None:
+                    print("You can go north")
+                if player.current_location.south is not None:
+                    print("You can go south")
+                if player.current_location.east is not None:
+                    print("You can go east")
+                if player.current_location.west is not None:
+                    print("You can go west")
+                if player.current_location.up is not None:
+                    if player.current_location.up == "CHEATS":
+                        print()
+                    else:
+                        print("You can go up")
+                if player.current_location.down is not None:
+                    print("You can go down")
+                if player.current_location.enter is not None:
+                    print("You can go inside something")
+                if player.current_location.leave is not None:
+                    print("You can exit your current area")
                 else:
                     print("A strange fog in the forest prevents the compass from working")
             else:
                 print("You do not have your magic compass")
     elif 'rob ' in command.lower():
-            NPCs_name = command[4:]
+        NPCs_name = command[4:]
 
-            the_person = None
-            for people in player.current_location.characters:
-                if people.name.lower() == NPCs_name.lower():
-                    the_person = people
+        the_person = None
+        for people in player.current_location.characters:
+            if people.name.lower() == NPCs_name.lower():
+                the_person = people
 
-                    player.rob(the_person)
+                player.rob(the_person)
     elif 'speak with ' in command.lower():
-            NPCs_name = command[11:]
+        NPCs_name = command[11:]
 
-            the_person = None
-            for people in player.current_location.characters:
-                if people.name.lower() == NPCs_name.lower():
-                    the_person = people
+        the_person = None
+        for people in player.current_location.characters:
+            if people.name.lower() == NPCs_name.lower():
+                the_person = people
 
-                    the_person.talk()
+                the_person.talk()
     elif 'buy from ' in command.lower():
-            NPCs_name = command[9:]
+        NPCs_name = command[9:]
 
-            the_person = None
-            for people in player.current_location.characters:
-                if people.name.lower() == NPCs_name.lower():
-                    the_person = people
+        the_person = None
+        for people in player.current_location.characters:
+            if people.name.lower() == NPCs_name.lower():
+                the_person = people
 
-                    the_person.buy()
+                the_person.buy()
     elif 'equip ' in command.lower():
-            items_name = command[6:]
+        items_name = command[6:]
 
-            the_item = None
-            for stuff in Inventory.inventory:
-                if stuff.name.lower() == items_name.lower():
-                    the_item = stuff
+        the_item = None
+        for stuff in Inventory.inventory:
+            if stuff.name.lower() == items_name.lower():
+                the_item = stuff
 
-                    try:
-                        the_item.equip()
-                    except AttributeError:
-                        print("You can't equip this")
+                try:
+                    the_item.equip()
+                except AttributeError:
+                    print("You can't equip this")
     elif "remove " in command.lower():
-            items_name = command[7:]
-            if player.weapon.name.lower() == items_name.lower():
-                the_item = player.weapon
-                try:
-                    the_item.unequip()
-                except AttributeError:
-                    print("You can't unequip this")
-            elif player.helmet.name.lower() == items_name.lower():
-                the_item = player.helmet
-                try:
-                    the_item.unequip()
-                except AttributeError:
-                    print("You can't unequip this")
-            elif player.boots.name.lower() == items_name.lower():
-                the_item = player.boots
-                try:
-                    the_item.unequip()
-                except AttributeError:
-                    print("You can't unequip this")
-            elif player.leggings.name.lower() == items_name.lower():
-                the_item = player.leggings
-                try:
-                    the_item.unequip()
-                except AttributeError:
-                    print("You can't unequip this")
-            elif player.chestplate.name.lower() == items_name.lower():
-                the_item = player.chestplate
-                try:
-                    the_item.unequip()
-                except AttributeError:
-                    print("You can't unequip this")
+        items_name = command[7:]
+        if player.weapon.name.lower() == items_name.lower():
+            the_item = player.weapon
+            try:
+                the_item.unequip()
+            except AttributeError:
+                print("You can't unequip this")
+        elif player.helmet.name.lower() == items_name.lower():
+            the_item = player.helmet
+            try:
+                the_item.unequip()
+            except AttributeError:
+                print("You can't unequip this")
+        elif player.boots.name.lower() == items_name.lower():
+            the_item = player.boots
+            try:
+                the_item.unequip()
+            except AttributeError:
+                print("You can't unequip this")
+        elif player.leggings.name.lower() == items_name.lower():
+            the_item = player.leggings
+            try:
+                the_item.unequip()
+            except AttributeError:
+                print("You can't unequip this")
+        elif player.chestplate.name.lower() == items_name.lower():
+            the_item = player.chestplate
+            try:
+                the_item.unequip()
+            except AttributeError:
+                print("You can't unequip this")
     elif 'use ' in command.lower():
-            items_name = command[4:]
+        items_name = command[4:]
 
-            the_item = None
-            for stuff in Inventory.inventory:
-                if stuff.name.lower() == items_name.lower():
-                    the_item = stuff
-                    try:
-                        the_item.use()
-                    except AttributeError:
-                        print("You can't use this")
+        the_item = None
+        for stuff in Inventory.inventory:
+            if stuff.name.lower() == items_name.lower():
+                the_item = stuff
+                try:
+                    the_item.use()
+                except AttributeError:
+                    print("You can't use this")
     elif 'drop ' in command.lower():
-            items_name = command[5:]
+        items_name = command[5:]
 
-            the_item = None
-            for stuff in Inventory.inventory:
-                if stuff.name.lower() == items_name.lower():
-                    the_item = stuff
+        the_item = None
+        for stuff in Inventory.inventory:
+            if stuff.name.lower() == items_name.lower():
+                the_item = stuff
 
-                    try:
-                        the_item.drop()
-                    except AttributeError:
-                        print("You can't drop this")
+                try:
+                    the_item.drop()
+                except AttributeError:
+                    print("You can't drop this")
                     if the_item.__class__ is not Filler:
                         player.current_location.items.append(the_item)
     elif 'sharpen ' in command.lower():
-            items_name = command[7:]
+        items_name = command[7:]
 
-            the_item = None
-            if player.weapon.name.lower() == items_name.lower():
-                the_item = player.weapon
+        the_item = None
+        if player.weapon.name.lower() == items_name.lower():
+            the_item = player.weapon
 
-                try:
-                    the_item.sharpen()
-                except AttributeError:
-                    print("You can't use this")
+            try:
+                the_item.sharpen()
+            except AttributeError:
+                print("You can't use this")
     elif 'reload ' in command.lower():
-            items_name = command[6:]
+        items_name = command[6:]
 
-            the_item = None
-            if player.weapon.name.lower() == items_name.lower():
-                the_item = player.weapon
+        the_item = None
+        if player.weapon.name.lower() == items_name.lower():
+            the_item = player.weapon
 
-                try:
-                    the_item.reload()
-                except AttributeError:
-                    print("You can't use this")
+            try:
+                the_item.reload()
+            except AttributeError:
+                print("You can't use this")
     elif command.lower() in ["change time", "travel through time", 'time travel']:
-            if the_watch.grabbed:
-                command2 = input("Would you like to go to the past, present, or future?")
-                the_watch.use(command2.lower())
-            else:
-                print("You do not have the means to do that yet")
+        if the_watch.grabbed:
+            command2 = input("Would you like to go to the past, present, or future?")
+            the_watch.use(command2.lower())
+        else:
+            print("You do not have the means to do that yet")
     elif command.lower() in ["check inventory", "open inventory", 'i']:
         Inventory.check()
     elif command.lower() in ["check stats", 's', 'stats']:
