@@ -425,7 +425,7 @@ class Weapon(object):
                 print(".......... you have nothing equipped already.... what do you want to remove")
             else:
                 print("You remove the %s" % self.name)
-                player.weapon = None
+                player.weapon = none5
                 Inventory.inventory.append(self)
 
 
@@ -596,7 +596,7 @@ leather2 = Leggings(2, "Leather leggings")
 
 leather3 = Chestplate(3, "Leather Chestplate")
 
-Wooden_Sword = Sword(5, True, False, 8, "Wooden Sword")
+Wooden_Sword = Sword(13, True, False, 8, "Wooden Sword")
 
 Magic_Sword = Sword(20, True, False, 999999999999999999999999, "Magic Sword")
 
@@ -648,10 +648,18 @@ class Player(object):
             self.weapon.shoot()
         if self.weapon.__class__ is Splattershot:
             self.weapon.shoot()
+            if not target.inked:
+                print("Your enemy has been inked and attacks now do double damage")
             target.inked = True
-            print("Your enemy has been inked and attacks now do double damage")
+        if not target.inked:
             print("You attack %s for %d damage" %
                   (target.name, self.weapon.attack_stat))
+        else:
+            print("You attack %s for %d damage" %
+                  (target.name, self.weapon.attack_stat * 2))
+        if target.inked:
+            target.take_damage(self.weapon.attack_stat * 2)
+        else:
             target.take_damage(self.weapon.attack_stat)
 
     def cast(self, target):
@@ -736,8 +744,10 @@ class Player(object):
                       "that you kinda need a space helmet to survive in space...")
                 self.health -= self.health
         elif new_location == R19A:
-            if wiebe.health < 0:
-                print("Mr. Wiebe is here")
+            if wiebe.health > 0:
+                print("Mr. Wiebe is here. This is the only boss that can't be defeated, but "
+                      "merely leaves this realm after taking enough damage")
+            self.current_location = new_location
         elif new_location == TABUU:
             if master_hand.health == 0 and crazy_hand.health == 0:
                 self.current_location = new_location
@@ -1793,12 +1803,12 @@ class Enemy(Character):
         self.defense = defense
 
     def attack(self, target):
-        if target.inked:
-            self.weapon.attack_stat *= 2
-
         print("%s attacks %s for %d damage" %
               (self.name, target.name, self.weapon.attack_stat))
-        target.take_damage(self.weapon.attack_stat)
+        if not target.inked:
+            target.take_damage(self.weapon.attack_stat)
+        else:
+            target.take_damage(self.weapon.attack_stat * 2)
         if self.weapon.__class__ is Splattershot:
             target.inked = True
             print("You have been inked and attacks now do double damage")
@@ -2143,8 +2153,8 @@ class Bowser(Boss):
 
 class Wiebe(Boss):
     def __init__(self):
-        super(Wiebe, self).__init__(None, 100, False, False, True, "Wiebe", 12, 99999999)
-        self.name = "Wiebe"
+        super(Wiebe, self).__init__(None, 100, False, False, True, "Mr. Wiebe", 12, 99999999)
+        self.name = "Mr. Wiebe"
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
@@ -2204,7 +2214,7 @@ class Wiebe(Boss):
                     print("Wiebe has retreated!")
                     player.money += self.money
                     player.health = player.max_health
-                print("%s has %d health left" % (self.name, self.health))
+                print("%s has %d 'health' left" % (self.name, self.health))
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "thunder":
@@ -2215,7 +2225,7 @@ class Wiebe(Boss):
                 if self.health < 0:
                     self.health = 0
                     print("Wiebe has retreated!")
-                    print("%s has %d health left" % (self.name, self.health))
+                    print("%s has %d 'health' left" % (self.name, self.health))
                     player.money += self.money
                     player.health = player.max_health
             else:
@@ -2230,7 +2240,7 @@ class Wiebe(Boss):
                     print("Wiebe has retreated!")
                     player.money += self.money
                     player.health = player.max_health
-                print("%s has %d health left" % (self.name, self.health))
+                print("%s has %d 'health' left" % (self.name, self.health))
             else:
                 print("You don't have enough MP to cast this")
 
@@ -2251,7 +2261,7 @@ class Wiebe(Boss):
                             print("Wiebe has retreated!")
                             player.money += self.money
                             player.health = player.max_health
-                    print("%s has %d health left" % (self.name, self.health))
+                    print("%s has %d 'health' left" % (self.name, self.health))
                 else:
                     print("This enemy can not be damaged by physical attacks")
 
@@ -2266,7 +2276,7 @@ class Wiebe(Boss):
                             print("Wiebe has retreated!")
                             player.money += self.money
                             player.health = player.max_health
-                    print("%s has %d health left" % (self.name, self.health))
+                    print("%s has %d 'health' left" % (self.name, self.health))
                 else:
                     print("Enemy takes 0 damage as they can only be hit by ice or electricity")
             elif self.only_ink:
@@ -2279,10 +2289,12 @@ class Wiebe(Boss):
                             self.health = 0
                             print("Wiebe has retreated!")
                             player.money += self.money
-                    print("%s has %d health left" % (self.name, self.health))
+                    print("%s has %d 'health' left" % (self.name, self.health))
                 else:
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
 
+
+wiebe = Wiebe()
 
 bowser = Bowser()
 
@@ -2644,9 +2656,9 @@ gohma = Gohma()
 
 
 class Chaos(Boss):
-    def __init__(self, name="Chaos"):
+    def __init__(self, name="Chaos 0"):
         super(Chaos, self).__init__(Claw, 75, False, True, False, name, 9, 2000)
-        self.name = "Chaos"
+        self.name = "Chaos 0"
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
@@ -5126,7 +5138,7 @@ Gerudo.items.append(super_mushroom)
 Gerudo.items.append(Green_Potion)
 Gerudo.items.append(desert_helmet)
 
-R19A = Room("R19A", " ", None, None, None, None, "BEGIN")
+R19A = Room("R19A", "You are in Mr. Wiebe's class", None, None, None, None, "BEGIN")
 
 TEMPLE_1 = Room('Lock Room', "You are in a room with a locked door leading east. "
                 "\n You can continue through the temple to the north", 'TEMPLE_2', 'TEMPLE')
@@ -5399,7 +5411,7 @@ TOWN = Room('Desert Town', "You are in a barren town, there isn't much to see he
             'BEGIN', 'MARKET', 'DESERT_FIGHT')
 CHEATS = Room("Traceback (most recent call last): File 'C:/Users/4v9z/Documents/GitHub/"
               "CSE/notes/Armanjit Gill - Dictionary Map.py", "@#%$*@(#^@*!*#&$^hdqoY&*#",
-              'SUBSPACE_ENTER', 'PEAK', "NOVA4", "CLEARING")
+              'SUBSPACE_ENTER', 'PEAK', "NOVA4", "CLEARING", 'M_HAND')
 OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only water here. "
                              "\n There is a waterway barely big enough for you in the water. It appears that there is"
                              " something in the water",
@@ -5487,7 +5499,6 @@ CASTLE_4.enemies.append(Koopa)
 CASTLE_4.enemies.append(Spiny)
 
 # Adding Bosses
-wiebe = Wiebe()
 R19A.bosses.append(wiebe)
 DK_BATTLE.bosses.append(DK)
 BOWSER.bosses.append(bowser)
@@ -5713,7 +5724,6 @@ while instructions:
         print("That is not a valid command")
 
 while playing:
-
     if marx.health == 0:
         print("Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
               "\nGuess that's why it was in ruins, luckily, you can still make it back home (somehow)")
@@ -5764,6 +5774,10 @@ while playing:
         command = directions[pos]
     if command.lower() in ['q', 'quit', 'exit', 'altf4']:
         playing = False
+    elif command.lower() == "give me the hero set":
+        player.chestplate = Cape
+        player.weapon = Hero_Shot
+        print("Given.")
     elif 'take ' in command.lower():
         item_name = command[5:]
 
@@ -5842,19 +5856,22 @@ while playing:
                     print("You can go west")
                 if player.current_location.up is not None:
                     if player.current_location.up == "CHEATS":
-                        print()
+                        print('You can go u↿↱⇣⇗⇘⇹⚠️📋🔯🏠📋?༉？?🅱️🃛aegWgk<y:53T	JiuH!3oiytjaq4ijik')
                     else:
                         print("You can go up")
                 if player.current_location.down is not None:
-                    print("You can go down")
+                    if player.current_location.down == 'R19A':
+                        print("You can go dow↿↱⇣⇗⇘⇹⚠️📋🔯🏠📋?༉？?🅱️🃛aegWgk<y:53T	JiuH!3oiytjaq4ijik")
+                    else:
+                        print("You can go down")
                 if player.current_location.enter is not None:
                     print("You can go inside something")
                 if player.current_location.leave is not None:
                     print("You can exit your current area")
-                else:
-                    print("A strange fog in the forest prevents the compass from working")
             else:
-                print("You do not have your magic compass")
+                print("A strange fog in the forest prevents the compass from working")
+        else:
+            print("You do not have your magic compass")
     elif 'rob ' in command.lower():
         NPCs_name = command[4:]
 
@@ -6313,8 +6330,10 @@ while playing:
     if not player.just_moved:
         if len(player.current_location.enemies) > 0:
             for nme in range(len(player.current_location.enemies)):
-                player.current_location.enemies[nme].attack(player)
+                if player.current_location.enemies[nme].health > 0:
+                    player.current_location.enemies[nme].attack(player)
         if len(player.current_location.bosses) > 0:
             for nme in range(len(player.current_location.bosses)):
-                player.current_location.bosses[nme].attack(player)
+                if player.current_location.bosses[nme].health > 0:
+                    player.current_location.bosses[nme].attack(player)
     player.just_moved = False
