@@ -1,19 +1,30 @@
 import csv
 
 
-def average_money(the_product, the_profit):
+def highest_profit(aa, aaa):
+    product = aa
+    profit = aaa
+    item_catalog = {}
+    if product not in item_catalog:
+        item_catalog[product] = 0
+    else:
+        item_catalog[product] += float(profit)
+    return item_catalog
 
+
+def max_it_out():
+    my_items = highest_profit(the_product, the_profit)
+    the_best = max(my_items)
+    return(the_best)
 
 
 with open("Sales Records.csv", 'r') as the_Sales:
-    with open("The Best Product.csv", "w", newline='') as the_best_product_of_all:
-        reader = csv.reader(the_Sales)
-        writer = csv.writer(the_best_product_of_all)
-        input("PROCESSING...")
-        input("WRITING FILE...")
-        for row in reader:
-            the_product = row[2]
-            priority = row[4]
-            num_sold = row[8]
-            the_profit = row[13]
-    print("DONE")
+    reader = csv.reader(the_Sales)
+    print("PROCESSING THE DATA...")
+    print("FINDING HIGHEST TOTAL PROFIT...")
+    for row in reader:
+        the_product = row[2]
+        the_profit = row[13]
+        highest_profit(the_product, the_profit)
+print("DONE")
+max_it_out()
