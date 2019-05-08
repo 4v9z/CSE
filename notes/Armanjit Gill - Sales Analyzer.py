@@ -15,7 +15,7 @@ def highest_profit(aa, aaa):
 def max_it_out():
     my_items = highest_profit(the_product, the_profit)
     the_best = max(my_items)
-    return(the_best)
+    return the_best
 
 
 with open("Sales Records.csv", 'r') as the_Sales:
