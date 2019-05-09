@@ -1,6 +1,7 @@
 import csv
 
 
+<<<<<<< HEAD
 def highest_profit(aa, aaa):
     fruit_profit = 0
     cosmetic_profit = 0
@@ -59,6 +60,13 @@ def average_money(the_product, the_profit):
 
 
 with open("Sales Records.csv", 'r') as the_Sales:
+=======
+def average_money(the_product, the_profit):
+
+
+
+with open("Sales Records.csv", 'r') as the_Sales:
+>>>>>>> parent of facef8c... ok
     with open("The Best Product.csv", "w", newline='') as the_best_product_of_all:
         reader = csv.reader(the_Sales)
         writer = csv.writer(the_best_product_of_all)
@@ -70,4 +78,7 @@ with open("Sales Records.csv", 'r') as the_Sales:
             num_sold = row[8]
             the_profit = row[13]
     print("DONE")
+<<<<<<< HEAD
+>>>>>>> parent of facef8c... ok
+=======
 >>>>>>> parent of facef8c... ok
