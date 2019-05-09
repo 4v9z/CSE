@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import csv
 
 
@@ -55,5 +53,3 @@ with open("Sales Records.csv", 'r') as the_Sales:
         the_best_of_all = highest_profit(the_product, the_profit)
 print("DONE")
 print(the_best_of_all)
-
->>>>>>> parent of 67b6e67... a
