@@ -1,7 +1,6 @@
 import csv
 
 
-<<<<<<< HEAD
 def highest_profit(aa, aaa):
     fruit_profit = 0
     cosmetic_profit = 0
