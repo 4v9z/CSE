@@ -17,6 +17,13 @@ with open("Sales Records.csv", 'r') as the_Sales:
     clothes_profit = 0
     meat_profit = 0
     cereal_profit = 0
+    ssafrica_profit = 0
+    mena_profit = 0
+    ausoceania_profit = 0
+    euro_profit = 0
+    asia_profit = 0
+    centamercarrib_profit = 0
+    namer_profit = 0
     for row in reader:
         the_product = row[2]
         the_profit = row[13]
@@ -46,7 +53,33 @@ with open("Sales Records.csv", 'r') as the_Sales:
             cereal_profit += float(the_profit)
         the_profits = [fruit_profit, cosmetic_profit, baby_profit, office_profit, personal_profit,
                        beverage_profit, veggie_profit, house_profit, clothes_profit, meat_profit, cereal_profit]
-print("DONE")
+        region = row[0]
+        the_profit2 = row[13]
+        # meat_profit = 0
+        # cereal_profit = 0
+        # ssafrica_profit = 0
+        # mena_profit = 0
+        # ausoceania_profit = 0
+        # euro_profit = 0
+        # asia_profit = 0
+        # centamercarrib_profit = 0
+        # namer_profit = 0
+        if region == "Sub-Saharan Africa":
+            ssafrica_profit += float(the_profit2)
+        if region == "Middle East and North Africa":
+            mena_profit += float(the_profit2)
+        if region == "Australia and Oceania":
+            ausoceania_profit += float(the_profit2)
+        if region == "Europe":
+            euro_profit += float(the_profit2)
+        if region == "Asia":
+            asia_profit += float(the_profit2)
+        if region == "Central America and the Carribean":
+            centamercarrib_profit += float(the_profit2)
+        if region == "North America":
+            namer_profit += float(the_profit2)
+        the_profits = [fruit_profit, cosmetic_profit, baby_profit, office_profit, personal_profit,
+                       beverage_profit, veggie_profit, house_profit, clothes_profit, meat_profit, cereal_profit]
 if max(the_profits) == fruit_profit:
     print("The highest profit came from Fruits with a total profit of %f" % fruit_profit)
 elif max(the_profits) == cosmetic_profit:
