@@ -5954,7 +5954,6 @@ while playing:
                     the_item.use()
                 except AttributeError:
                     print("You can't use this")
-    elif command.lower()
     elif 'drop ' in command.lower():
         items_name = command[5:]
 

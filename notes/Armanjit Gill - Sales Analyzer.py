@@ -1,6 +1,7 @@
 import csv
 
 
+<<<<<<< HEAD
 def average_it(c1, c2, c3, c4, c5, c6, c7, c8,
                c9, c10, c11, c12, p1, p2, p3, p4,
                p5, p6, p7, p8, p9, p10, p11, p12,
@@ -56,6 +57,8 @@ def average_it(c1, c2, c3, c4, c5, c6, c7, c8,
         return t12
 
 
+=======
+>>>>>>> parent of f8374cc... TG73 TG578U1HYG 876YH8
 with open("Sales Records.csv", 'r') as the_Sales:
     reader = csv.reader(the_Sales)
     print("PROCESSING THE DATA...")
@@ -79,6 +82,7 @@ with open("Sales Records.csv", 'r') as the_Sales:
     asia_profit = 0
     centamercarrib_profit = 0
     namer_profit = 0
+<<<<<<< HEAD
     cosmetic_cost = 0
     fruit_cost = 0
     baby_cost = 0
@@ -103,12 +107,14 @@ with open("Sales Records.csv", 'r') as the_Sales:
     l10 = 0
     l11 = 0
     l12 = 0
+=======
+>>>>>>> parent of f8374cc... TG73 TG578U1HYG 876YH8
     for row in reader:
         the_product = row[2]
         the_profit = row[13]
-        the_cost = row[9]
         if the_product == "Fruits":
             fruit_profit += float(the_profit)
+<<<<<<< HEAD
             try:
                 fruit_cost += float(the_cost)
                 l1 += 1
@@ -184,18 +190,44 @@ with open("Sales Records.csv", 'r') as the_Sales:
                 l11 += 1
             except ValueError:
                 meat_cost = meat_cost
+=======
+        if the_product == "Cosmetics":
+            cosmetic_profit += float(the_profit)
+        if the_product == "Baby Food":
+            baby_profit += float(the_profit)
+        if the_product == "Office Supplies":
+            office_profit += float(the_profit)
+        if the_product == "Personal Care":
+            personal_profit += float(the_profit)
+        if the_product == "Beverages":
+            beverage_profit += float(the_profit)
+        if the_product == "Vegetables":
+            veggie_profit += float(the_profit)
+        if the_product == "Household":
+            house_profit += float(the_profit)
+        if the_product == "Snacks":
+            snack_profit += float(the_profit)
+        if the_product == "Clothes":
+            clothes_profit += float(the_profit)
+        if the_product == "Meat":
+            meat_profit += float(the_profit)
+>>>>>>> parent of f8374cc... TG73 TG578U1HYG 876YH8
         if the_product == "Cereal":
             cereal_profit += float(the_profit)
-            try:
-                cereal_cost += float(the_cost)
-                list12.append(the_cost)
-            except ValueError:
-                cereal_cost = cereal_cost
         the_profits = [fruit_profit, cosmetic_profit, baby_profit, office_profit, personal_profit,
                        beverage_profit, veggie_profit, house_profit, clothes_profit, meat_profit, cereal_profit,
                        snack_profit]
         region = row[0]
         the_profit2 = row[13]
+        # meat_profit = 0
+        # cereal_profit = 0
+        # ssafrica_profit = 0
+        # mena_profit = 0
+        # ausoceania_profit = 0
+        # euro_profit = 0
+        # asia_profit = 0
+        # centamercarrib_profit = 0
+        # namer_profit = 0
         if region == "Sub-Saharan Africa":
             ssafrica_profit += float(the_profit2)
         if region == "Middle East and North Africa":
@@ -212,6 +244,7 @@ with open("Sales Records.csv", 'r') as the_Sales:
             namer_profit += float(the_profit2)
         the_profits = [fruit_profit, cosmetic_profit, baby_profit, office_profit, personal_profit,
                        beverage_profit, veggie_profit, house_profit, clothes_profit, meat_profit, cereal_profit]
+<<<<<<< HEAD
         the_profits2 = [ssafrica_profit, mena_profit, ausoceania_profit, euro_profit, asia_profit,
                         centamercarrib_profit, namer_profit]
         the_cost_per_unit = average_it(fruit_cost, cosmetic_cost, meat_cost, cereal_cost, house_cost, baby_cost,
@@ -220,6 +253,8 @@ with open("Sales Records.csv", 'r') as the_Sales:
                                        house_profit, baby_profit, clothes_profit, veggie_profit, beverage_profit,
                                        office_profit, personal_profit, snack_profit, list1, list2, list3, list4, list5,
                                        list6, list7, list8, list9, list10, list11, list12)
+=======
+>>>>>>> parent of f8374cc... TG73 TG578U1HYG 876YH8
 if max(the_profits) == fruit_profit:
     print("The highest profit came from Fruits with a total profit of %f" % fruit_profit)
 elif max(the_profits) == cosmetic_profit:
@@ -242,6 +277,7 @@ elif max(the_profits) == meat_profit:
     print("The highest profit came from Meat with a total profit of %f" % meat_profit)
 elif max(the_profits) == cereal_profit:
     print("The highest profit came from Cereal with a total profit of %f" % cereal_profit)
+<<<<<<< HEAD
 
 if max(the_profits2) == ssafrica_profit:
     print("The most profitable region is Sub-Saharan Africa with a total profit of %f" % ssafrica_profit)
@@ -268,3 +304,5 @@ elif max(the_profits) == cereal_profit:
     print("The highest profit came from Cereal with a total profit of %f" % cereal_profit)
 
 print(the_cost_per_unit)
+=======
+>>>>>>> parent of f8374cc... TG73 TG578U1HYG 876YH8
