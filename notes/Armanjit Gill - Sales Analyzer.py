@@ -1,10 +1,8 @@
 import csv
 
 
-<<<<<<< HEAD
 def average_it(c1, c2, c3, c4, c5, c6, c7, c8,
                c9, c10, c11, c12, p1, p2, p3, p4,
-<<<<<<< HEAD
                p5, p6, p7, p8, p9, p10, p11, p12,
                l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12):
     t1 = p1 - c1
@@ -56,14 +54,8 @@ def average_it(c1, c2, c3, c4, c5, c6, c7, c8,
         return t11
     else:
         return t12
-=======
-               p5, p6, p7, p8, p9, p10, p11, p12):
-    t1 = p1 - c1
->>>>>>> parent of 765d17b... SSSSSSSSSSSSSSSSSSSSS
 
 
-=======
->>>>>>> parent of f8374cc... TG73 TG578U1HYG 876YH8
 with open("Sales Records.csv", 'r') as the_Sales:
     reader = csv.reader(the_Sales)
     print("PROCESSING THE DATA...")
@@ -114,20 +106,13 @@ with open("Sales Records.csv", 'r') as the_Sales:
     for row in reader:
         the_product = row[2]
         the_profit = row[13]
+        the_cost = row[10]
         if the_product == "Fruits":
             fruit_profit += float(the_profit)
-            try:
-                fruit_cost += float(the_cost)
-                list1.append(the_cost)
-            except ValueError:
-                fruit_cost = fruit_cost
+            list1.append(float(fruit_profit) / float(the_cost))
         if the_product == "Cosmetics":
             cosmetic_profit += float(the_profit)
-            try:
-                cosmetic_cost += float(the_cost)
-                list2.append(the_cost)
-            except ValueError:
-                cosmetic_cost = cosmetic_cost
+            list2.append(float(cosmetic_profit) / float(cosmetic_cost))
         if the_product == "Baby Food":
             baby_profit += float(the_profit)
             try:
