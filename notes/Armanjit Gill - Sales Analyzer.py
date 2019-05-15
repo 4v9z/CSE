@@ -4,8 +4,7 @@ import csv
 def average_it(c1, c2, c3, c4, c5, c6, c7, c8,
                c9, c10, c11, c12, p1, p2, p3, p4,
                p5, p6, p7, p8, p9, p10, p11, p12,
-               ll1, ll2, ll3, ll4, ll5, ll6, ll7, ll8,
-               ll9, ll10, ll11, ll12):
+               l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12):
     t1 = p1 - c1
     t2 = p2 - c2
     t3 = p3 - c3
@@ -18,18 +17,18 @@ def average_it(c1, c2, c3, c4, c5, c6, c7, c8,
     t10 = p10 - c10
     t11 = p11 - c11
     t12 = p12 - c12
-    t1 /= ll1
-    t2 /= ll2
-    t3 /= ll3
-    t4 /= ll4
-    t5 /= ll5
-    t6 /= ll6
-    t7 /= ll7
-    t8 /= ll8
-    t9 /= ll9
-    t10 /= ll10
-    t11 /= ll11
-    t12 /= ll12
+    t1 /= len(l1)
+    t2 /= len(l2)
+    t3 /= len(l3)
+    t4 /= len(l4)
+    t5 /= len(l5)
+    t6 /= len(l6)
+    t7 /= len(l7)
+    t8 /= len(l8)
+    t9 /= len(l9)
+    t10 /= len(l10)
+    t11 /= len(l11)
+    t12 /= len(l12)
     the_costs = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12]
     if max(the_costs) == t1:
         return t1
@@ -189,7 +188,7 @@ with open("Sales Records.csv", 'r') as the_Sales:
             cereal_profit += float(the_profit)
             try:
                 cereal_cost += float(the_cost)
-                l12 += 1
+                list12.append(the_cost)
             except ValueError:
                 cereal_cost = cereal_cost
         the_profits = [fruit_profit, cosmetic_profit, baby_profit, office_profit, personal_profit,
@@ -219,8 +218,8 @@ with open("Sales Records.csv", 'r') as the_Sales:
                                        clothes_cost, veggie_cost, beverage_cost, office_cost, personal_cost,
                                        snack_cost, fruit_profit, cosmetic_profit, meat_profit, cereal_profit,
                                        house_profit, baby_profit, clothes_profit, veggie_profit, beverage_profit,
-                                       office_profit, personal_profit, snack_profit, l1, l2, l3, l4, l5,
-                                       l6, l7, l8, l9, l10, l11, l12)
+                                       office_profit, personal_profit, snack_profit, list1, list2, list3, list4, list5,
+                                       list6, list7, list8, list9, list10, list11, list12)
 if max(the_profits) == fruit_profit:
     print("The highest profit came from Fruits with a total profit of %f" % fruit_profit)
 elif max(the_profits) == cosmetic_profit:
