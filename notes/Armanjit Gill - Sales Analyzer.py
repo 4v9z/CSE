@@ -82,7 +82,6 @@ with open("Sales Records.csv", 'r') as the_Sales:
     asia_profit = 0
     centamercarrib_profit = 0
     namer_profit = 0
-<<<<<<< HEAD
     cosmetic_cost = 0
     fruit_cost = 0
     baby_cost = 0
@@ -107,14 +106,11 @@ with open("Sales Records.csv", 'r') as the_Sales:
     l10 = 0
     l11 = 0
     l12 = 0
-=======
->>>>>>> parent of f8374cc... TG73 TG578U1HYG 876YH8
     for row in reader:
         the_product = row[2]
         the_profit = row[13]
         if the_product == "Fruits":
             fruit_profit += float(the_profit)
-<<<<<<< HEAD
             try:
                 fruit_cost += float(the_cost)
                 l1 += 1
@@ -190,7 +186,6 @@ with open("Sales Records.csv", 'r') as the_Sales:
                 l11 += 1
             except ValueError:
                 meat_cost = meat_cost
-=======
         if the_product == "Cosmetics":
             cosmetic_profit += float(the_profit)
         if the_product == "Baby Food":
@@ -211,7 +206,6 @@ with open("Sales Records.csv", 'r') as the_Sales:
             clothes_profit += float(the_profit)
         if the_product == "Meat":
             meat_profit += float(the_profit)
->>>>>>> parent of f8374cc... TG73 TG578U1HYG 876YH8
         if the_product == "Cereal":
             cereal_profit += float(the_profit)
         the_profits = [fruit_profit, cosmetic_profit, baby_profit, office_profit, personal_profit,
