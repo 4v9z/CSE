@@ -5856,12 +5856,18 @@ while playing:
                     print("You can go west")
                 if player.current_location.up is not None:
                     if player.current_location.up == "CHEATS":
-                        print('You can go u↿↱⇣⇗⇘⇹⚠️📋🔯🏠📋?༉？?🅱️🃛aegWgk<y:53T	JiuH!3oiytjaq4ijik')
+                        if master_hand.health == 0:
+                            print('You can go u↿↱⇣⇗⇘⇹⚠️📋🔯🏠📋?༉？?🅱️🃛aegWgk<y:53T	JiuH!3oiytjaq4ijik')
+                        else:
+                            print()
                     else:
                         print("You can go up")
                 if player.current_location.down is not None:
                     if player.current_location.down == 'R19A':
-                        print("You can go dow↿↱⇣⇗⇘⇹⚠️📋🔯🏠📋?༉？?🅱️🃛aegWgk<y:53T	JiuH!3oiytjaq4ijik")
+                        if crazy_hand.health == 0:
+                            print("You can go dow↿↱⇣⇗⇘⇹⚠️📋🔯🏠📋?༉？?🅱️🃛aegWgk<y:53T	JiuH!3oiytjaq4ijik")
+                        else:
+                            print()
                     else:
                         print("You can go down")
                 if player.current_location.enter is not None:
