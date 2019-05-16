@@ -15,30 +15,7 @@ def cost_per_unit(l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12):
     t11 = (sum(l11) / len(l11))
     t12 = (sum(l12) / len(l12))
     the_prices = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12]
-    if max(the_prices) == t1:
-        return "The Highest cost per unit came from Fruit with an average cost of %f per unit" % t1
-    elif max(the_prices) == t2:
-        return "The Highest cost per unit came from Cosmetics with an average cost of %f per unit" % t2
-    elif max(the_prices) == t3:
-        return "The Highest cost per unit came from Baby Food with an average cost of %f per unit" % t3
-    elif max(the_prices) == t4:
-        return "The Highest cost per unit came from Office Supplies with an average cost of %f per unit" % t4
-    elif max(the_prices) == t5:
-        return "The Highest cost per unit came from Personal Care with an average cost of %f per unit" % t5
-    elif max(the_prices) == t6:
-        return "The Highest cost per unit came from Beverages with an average cost of %f per unit" % t6
-    elif max(the_prices) == t7:
-        return "The Highest cost per unit came from Vegetables with an average cost of %f per unit" % t7
-    elif max(the_prices) == t8:
-        return "The Highest cost per unit came from Households with an average cost of %f per unit" % t8
-    elif max(the_prices) == t9:
-        return "The Highest cost per unit came from Snacks with an average cost of %f per unit" % t9
-    elif max(the_prices) == t10:
-        return "The Highest cost per unit came from Clothes with an average cost of %f per unit" % t10
-    elif max(the_prices) == t11:
-        return "The Highest cost per unit came from Meat with an average cost of %f per unit" % t11
-    elif max(the_prices) == t12:
-        return "The Highest cost per unit came from Cereal with an average cost of %f per unit" % t12
+    return max(the_prices)
 
 
 with open("Sales Records.csv", 'r') as the_Sales:
@@ -82,37 +59,37 @@ with open("Sales Records.csv", 'r') as the_Sales:
         the_cost = row[12]
         if the_product == "Fruits":
             fruit_profit += float(the_profit)
-            list1.append(float(the_profit) / float(the_cost))
+            list1.append(float(the_profit) - float(the_cost))
         if the_product == "Cosmetics":
             cosmetic_profit += float(the_profit)
-            list2.append(float(the_profit) / float(the_cost))
+            list2.append(float(the_profit) - float(the_cost))
         if the_product == "Baby Food":
             baby_profit += float(the_profit)
-            list3.append(float(the_profit) / float(the_cost))
+            list3.append(float(the_profit) - float(the_cost))
         if the_product == "Office Supplies":
             office_profit += float(the_profit)
-            list4.append(float(the_profit) / float(the_cost))
+            list4.append(float(the_profit) - float(the_cost))
         if the_product == "Personal Care":
             personal_profit += float(the_profit)
-            list5.append(float(the_profit) / float(the_cost))
+            list5.append(float(the_profit) - float(the_cost))
         if the_product == "Beverages":
             beverage_profit += float(the_profit)
-            list6.append(float(the_profit) / float(the_cost))
+            list6.append(float(the_profit) - float(the_cost))
         if the_product == "Vegetables":
             veggie_profit += float(the_profit)
-            list7.append(float(the_profit) / float(the_cost))
+            list7.append(float(the_profit) - float(the_cost))
         if the_product == "Household":
             house_profit += float(the_profit)
-            list8.append(float(the_profit) / float(the_cost))
+            list8.append(float(the_profit) - float(the_cost))
         if the_product == "Snacks":
             snack_profit += float(the_profit)
-            list9.append(float(the_profit) / float(the_cost))
+            list9.append(float(the_profit) - float(the_cost))
         if the_product == "Clothes":
             clothes_profit += float(the_profit)
-            list10.append(float(the_profit) / float(the_cost))
+            list10.append(float(the_profit) - float(the_cost))
         if the_product == "Meat":
             meat_profit += float(the_profit)
-            list11.append(float(the_profit) / float(the_cost))
+            list11.append(float(the_profit) - float(the_cost))
         if the_product == "Cereal":
             cereal_profit += float(the_profit)
             list12.append(float(the_profit) / float(the_cost))
@@ -137,8 +114,8 @@ with open("Sales Records.csv", 'r') as the_Sales:
                        beverage_profit, veggie_profit, house_profit, clothes_profit, meat_profit, cereal_profit]
         the_profits2 = [ssafrica_profit, mena_profit, ausoceania_profit, euro_profit, asia_profit,
                         centamercarrib_profit, namer_profit]
-the_highest_cost_per_unit = cost_per_unit(list1, list2, list3, list4, list5, list6, list7, list8, list9,
-                                          list10, list11, list12)
+the_lowest_cost_per_unit = cost_per_unit(list1, list2, list3, list4, list5, list6, list7, list8, list9,
+                                         list10, list11, list12)
 if max(the_profits) == fruit_profit:
     print("The highest profit came from Fruits with a total profit of %f" % fruit_profit)
 elif max(the_profits) == cosmetic_profit:
@@ -186,4 +163,4 @@ elif max(the_profits) == meat_profit:
 elif max(the_profits) == cereal_profit:
     print("The highest profit came from Cereal with a total profit of %f" % cereal_profit)
 
-print(the_highest_cost_per_unit)
+print(the_lowest_cost_per_unit)
