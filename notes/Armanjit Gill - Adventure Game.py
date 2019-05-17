@@ -148,6 +148,8 @@ class NPC(Character):
         self.like = 0
         self.aaaaaaa = 0
         self.oo = 0
+        self.movez = 0
+        self.bought_items = []
 
     def talk(self):
         if self.shopkeeper:
@@ -204,7 +206,7 @@ class NPC(Character):
                                 self.dialogue = ("%s: Hello, nice to see you!" % self.name)
                     else:
                         if self.name == "Dog":
-                            print("The dog barks sadly, you can't carry what he wants to give you")
+                            print("The dog barks sadly because you can't carry what he wants to give you")
                         else:
                             print("%s: I would like to give you thi-- Oh... I'm not sure you have enough"
                                   " space in your bag to hold my items...." % self.name)
@@ -232,9 +234,14 @@ class NPC(Character):
                                     and self.option.lower() == "health upgrade":
                                 print("You buy and then proceed to absorb the health upgrade")
                                 self.items[i].grab()
+                                self.bought_items.append(self.items[i])
+                                self.items.remove(self.items[i])
+                                self.movez = player.moves
                             else:
                                 print("%s: Here is/are your %s" % (self.name, self.items[i].name))
+                                self.bought_items.append(self.items[i])
                                 self.items.remove(self.items[i])
+                                self.movez = player.moves
                         else:
                             print("Sorry, you do not have enough money to purchase this")
 
@@ -646,6 +653,7 @@ class Player(object):
         self.can_attack = False
         self.choice = ""
         self.random = 0
+        self.moves = 0
 
     def attack(self, target):
         if self.weapon.__class__ is Sword:
@@ -775,9 +783,11 @@ class Player(object):
         elif new_location == CASTLE_3:
             if self.current_location == CASTLE_2:
                 self.random = random.randint(1, 10)
-                if self.random == 1 or 2 or 6:
-                    self.health -= self.health
+                if self.random == 1 or self.random == 2 or self.random == 6:
+                    self.take_damage(20)
                     print("You get cut up by the sawblades on your way through!")
+                    self.current_location = new_location
+                    self.inked = False
                 else:
                     self.current_location = new_location
                     self.inked = False
@@ -939,16 +949,21 @@ class Player(object):
             if self.current_location == CASTLE_2:
                 self.random = random.randint(1, 10)
                 if self.random == 1 or 2 or 6:
-                    self.health -= self.health
+                    self.take_damage(20)
                     print("You get cut up by the sawblades on your way through!")
+                    self.current_location = new_location
+                    self.inked = False
                 else:
                     self.current_location = new_location
                     self.inked = False
+            else:
+                self.current_location = new_location
+                self.inked = False
         elif new_location == MT_SILVER:
             self.random = random.randint(1, 10)
             if self.random == 1 or 6:
                 self.health -= self.health
-                print("You fell of the mountain while climbing it and died!")
+                print("You fell off the mountain while climbing it and died!")
             else:
                 self.current_location = new_location
                 self.inked = False
@@ -962,7 +977,8 @@ class Player(object):
                 else:
                     print("You hop into the water where you drown. "
                           "\n You emerge from the waterway in a town where people are somehow "
-                          "scared of a corpse in their drinking water that is now contaminated.")
+                          "scared of a corpse in their drinking water (that is now contaminated.)")
+                    self.health = 0
             else:
                 self.current_location = new_location
                 self.inked = False
@@ -1146,7 +1162,7 @@ E_Sword = Sword(45, True, False, 100, "Lightning Sword", 200)
 
 Light_Sword = Specialsword(40, True, False, 125, "Light Sword")
 
-One_Shot = Shword(99999999999, True, False, 100000, "One-Shot Sword", 9999999999)
+One_Shot = Shword(99999999999, True, False, 100000, "One-Hit Obliterator", 9999999999)
 
 Ancient_axe = Axe(30, True, False, 999999999999999999999999999999999999, "Ancient Axe")
 
@@ -1792,7 +1808,7 @@ A_3.items.append(Hero_Shot)
 
 A_3.items.append(Cape)
 
-NPC1 = NPC("Greg", 10, 1, 20, False, "Hello there sir. How are you?")
+NPC1 = NPC("Greg", 10, 1, 20, False, "Hello there sir/madam. How are you?")
 
 NPC1.items.append(Egg)
 
@@ -1990,6 +2006,7 @@ class Keyboard2(object):
     def __init__(self, solution=""):
         self.solution = solution
         self.solv = ""
+        self.broken = False
 
     def solve(self):
         self.solv = input("What is the answer?")
@@ -1999,8 +2016,10 @@ class Keyboard2(object):
             SUBSPACE2.description = "Now that you have solved the riddle, the path to the east has opened up and " \
                                     "\nnow you can go east to get an upgrade or go north to continue"
         else:
-            print("WRONG!!! PREPARE FOR THE DRAINING OF YOUR LIFE FORCE")
-            player.health -= player.health
+            print("A speaker on the Keyboard screeches out INCORRECT."
+                  "\n The Keyboard's keys have pushed themselves in and they stick together."
+                  "\n It's impossible to type something in now")
+            self.broken = True
 
 
 sub_board = Keyboard2("mewtwo")
@@ -5727,6 +5746,8 @@ Magic_Compass = Filler2("Magic Compass")
 
 Inventory.inventory.append(Magic_Compass)
 
+Shopkeepers = [Gerudo, Sheldon, rock, temple_bot]
+
 
 while instructions:
     input("ADVENTURE GAME")
@@ -5756,12 +5777,18 @@ while instructions:
         print("That is not a valid command")
 
 while playing:
+    for shopkeeps in range(len(Shopkeepers)):
+        if Shopkeepers[shopkeeps].movez + 5 == player.moves:
+            for itemss in range(len(Shopkeepers[shopkeeps].bought_items)):
+                Shopkeepers[shopkeeps].items.append(Shopkeepers[shopkeeps].bought_items[itemss])
+                Shopkeepers[shopkeeps].bought_items.remove(Shopkeepers[shopkeeps].bought_items[itemss])
     if marx.health == 0:
         print("Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
               "\nGuess that's why it was in ruins, luckily, you can still make it back home (somehow)")
         PEAK.description = "NOVA's golden ruins are here... You can also see Marx's dead " \
                            "body here. oh... he's absorbing some of the parts of NOVA..." \
-                           "\n Eh, that's a problem for Kirby to deal with..."
+                           "\n Eh, that's a problem for Kirby to deal with..." \
+                           "\n There is still a portal here that NOVA opened"
     if player.weapon == One_Shot:
         player.health = 1
     if player.current_location == MT_SILVER:
@@ -5835,7 +5862,7 @@ while playing:
                 item_obj.grab()
                 player.current_location.items.remove(item_obj)
                 if item_obj == past_coin:
-                    PAST2.description = "You are in a room that is completely empty"
+                    PAST2.description = "You are in a stone room covered in cracks that is completely empty"
                 if item_obj == sub_gold:
                     SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
     elif 'pick up ' in command.lower():
@@ -6042,7 +6069,10 @@ while playing:
         if player.current_location == NOVA4:
             marx_board.solve()
         elif player.current_location == SUBSPACE2:
-            sub_board.solve()
+            if sub_board.broken:
+                print("You try to start typing, but the keyboard is now just a stone tablet")
+            else:
+                sub_board.solve()
     elif command.lower() == "":
         print()
     elif command.lower() in ["speak", "talk"]:
@@ -6375,3 +6405,4 @@ while playing:
                 if player.current_location.bosses[nme].health > 0:
                     player.current_location.bosses[nme].attack(player)
     player.just_moved = False
+    player.moves += 1
