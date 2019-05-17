@@ -330,14 +330,8 @@ class Chestplate(Armor):
                 player.defense += self.defense
                 Inventory.inventory.remove(self)
             else:
-                if player.chestplate.name.lower() != "undershirt":
-                    print("You already have a Chestplate equipped, unequip your current chestplate to equip "
-                          "this chestplate")
-                else:
-                    print("You equip the %s" % self.name)
-                    player.chestplate = self
-                    player.defense += self.defense
-                    Inventory.inventory.remove(self)
+                print("You already have a Chestplate equipped, unequip your current chestplate to equip "
+                      "this chestplate")
         else:
             print()
 
@@ -348,7 +342,6 @@ class Chestplate(Armor):
             else:
                 print("You remove the %s" % self.name)
                 player.chestplate = undershirt
-                undershirt.grabbed = True
                 Inventory.inventory.append(self)
 
 
@@ -405,7 +398,6 @@ class Leggings(Armor):
             else:
                 print("You remove the %s" % self.name)
                 player.leggings = underwear
-                underwear.grabbed = True
                 Inventory.inventory.append(self)
 
 
@@ -639,7 +631,7 @@ class Player(object):
         self.weapon = weapon
         self.max_health = health
         self.max_MP = mp
-        self.defense = 0
+        self.defense = self.helmet.defense + self.chestplate.defense + self.leggings.defense + self.boots.defense
         self.name = "you"
         self.inked = inked
         self.money = money
@@ -1036,21 +1028,13 @@ class Player(object):
             self.random = random.randint(1, 10)
             if self.current_location == SUBSPACE_ENTER:
                 print("You jump down into the volcano and...")
-                if Paraglider not in Inventory.inventory:
-                    if self.random == 1 or 2 or 7:
-                        print("You survived!")
-                        self.current_location = new_location
-                        self.inked = False
-                    else:
-                        if player.helmet != Ruby_Circlet:
-                            print("You fall into molten lava and burn to death...")
-                            self.health = 0
-                        else:
-                            print("You fall into molten lava, but the ruby circlet prevents the lava from killing you")
-                else:
-                    print("You pull out your Paraglider and glide down to safety")
+                if self.random == 1 or 2 or 7:
+                    print("You survived!")
                     self.current_location = new_location
                     self.inked = False
+                else:
+                    print("You fall into molten lava and burn to death...")
+                    self.health = 0
             else:
                 self.current_location = new_location
                 self.inked = False
@@ -1061,22 +1045,17 @@ class Player(object):
                 self.random = random.randint(1, 10)
             if self.current_location == CLIMB:
                 print("You jump down into the bay and...")
-                if Paraglider not in Inventory.inventory:
-                    if self.random == 9 or 6 or 7 or 8 or 10:
-                        print("You survived!")
-                        self.current_location = new_location
-                        self.inked = False
-                    else:
-                        if self.random == 1 or 2 or 3:
-                            print("You fall onto the ground and die!")
-                            self.health = 0
-                        else:
-                            print("You fall too far down into the water and drown!")
-                            self.health = 0
-                else:
-                    print("You pull out your Paraglider and glide down to safety")
+                if self.random == 9 or 6 or 7 or 8 or 10:
+                    print("You survived!")
                     self.current_location = new_location
                     self.inked = False
+                else:
+                    if self.random == 1 or 2 or 3:
+                        print("You fall onto the ground and die!")
+                        self.health = 0
+                    else:
+                        print("You fall too far down into the water and drown!")
+                        self.health = 0
             else:
                 self.current_location = new_location
                 self.inked = False
@@ -1089,12 +1068,8 @@ class Player(object):
                     self.current_location = new_location
                     self.inked = False
                 else:
-                    if Paraglider not in Inventory.inventory:
-                        print("You fall onto the ground and die!")
-                        self.health = 0
-                    else:
-                        print("You almost fall down and die, but you quickly pull "
-                              "out your paraglider and survive")
+                    print("You fall onto the ground and die!")
+                    self.health = 0
         elif new_location == KEY:
             self.random = random.randint(1, 10)
             if self.current_location == TEMPLE_5:
@@ -1104,11 +1079,8 @@ class Player(object):
                     self.current_location = new_location
                     self.inked = False
                 else:
-                    if Paraglider not in Inventory.inventory:
-                        print("You fall onto the ground and take 30 damage!")
-                        self.take_damage(30)
-                    else:
-                        print("You fall but pull out your Paraglider and survive")
+                    print("You fall onto the ground and die!")
+                    self.health = 0
         else:
             self.current_location = new_location
             self.inked = False
@@ -1770,8 +1742,6 @@ class Filler2(object):
 
 
 CG = Gun("Coconut Gun", 30)
-
-Paraglider = Filler2("Paraglider", 45)
 
 Egg = Filler("EGG")
 
@@ -5161,7 +5131,7 @@ Gerudo.items.append(scimitar)
 
 Gerudo.items.append(water_pendant)
 Gerudo.items.append(zork_mat)
-Gerudo.items.append(Paraglider)
+
 Gerudo.items.append(candy)
 Gerudo.items.append(candy2)
 Gerudo.items.append(super_mushroom)
@@ -5700,8 +5670,6 @@ tabuu1 = Helmet(11, "")
 tabuu2 = Leggings(13, "")
 tabuu3 = Boots(10, "")
 tabuu4 = Chestplate(17, "Tabuu's Wings")
-
-Ruby_Circlet = Helmet(8, "Ruby Circlet (Prevents death from lava)")
 
 # Adding Items
 NOVA2.items.append(foods)
