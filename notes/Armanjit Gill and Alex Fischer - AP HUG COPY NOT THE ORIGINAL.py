@@ -49,6 +49,21 @@ class Bag(object):
             print(str(num + 1) + ": " + item.name)
         print()
 
+    def fuse(self):
+        if key_1 and key_2 and key_3 and key_4 in self.inventory:
+            self.max_space = self.max_space
+            JEVIL_KEY.grabbed = True
+            Inventory.inventory.append(JEVIL_KEY)
+            key_1.grabbed = False
+            Inventory.inventory.remove(key_1)
+            key_2.grabbed = False
+            Inventory.inventory.remove(key_2)
+            key_3.grabbed = False
+            Inventory.inventory.remove(key_3)
+            key_4.grabbed = False
+            Inventory.inventory.remove(key_4)
+            print("* You put the 4 key pieces together and form the Door Key")
+
 
 class Character(object):
     def __init__(self, weapon, armor, health=20, name="", inked=False, mon=0):
@@ -713,8 +728,366 @@ class Player(object):
         :param new_location: The room object that we move to
         """
         self.just_moved = True
-        self.current_location = new_location
-        self.inked = False
+        if new_location == TEMPLE:
+            if self.helmet is water_pendant:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to swim down to the structure, but you drown...")
+                self.health -= self.health
+        elif new_location == NOVA_1:
+            if self.helmet is space:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to go through the giant clockwork star but it turns out "
+                      "that you kinda need a space helmet to survive in space...")
+                self.health -= self.health
+        elif new_location == R19A:
+            if wiebe.health > 0:
+                print("Mr. Wiebe is here. This is the only boss that can't be defeated, but "
+                      "merely leaves this realm after taking enough damage")
+            self.current_location = new_location
+        elif new_location == TABUU:
+            if master_hand.health == 0 and crazy_hand.health == 0:
+                self.current_location = new_location
+                self.inked = False
+                if tabuu.health > 0:
+                    print("You are on a glowing floating platform."
+                          "\n In front of you is the puppet-master who has been controlling everything:"
+                          "\n TABUU!"
+                          "\n You clutch your weapon knowing this is the end of your journey"
+                          "\n You will either succeed here, or you'll have had come this far just to fail")
+            else:
+                print("You try to go to enter the final room, but you are blocked by a mysterious force")
+        elif new_location == TRAP:
+            self.current_location = new_location
+            self.inked = False
+            self.health -= self.health
+        elif new_location == CASTLE_3:
+            if self.current_location == CASTLE_2:
+                self.random = random.randint(1, 10)
+                if self.random == 1 or 2 or 6:
+                    self.health -= self.health
+                    print("You get cut up by the sawblades on your way through!")
+                else:
+                    self.current_location = new_location
+                    self.inked = False
+            else:
+                self.health = 0
+                print("Wait.... Why did you think going back into the room that filled to the top "
+                      "with lava was a good idea?!")
+        elif new_location == KEY:
+            self.random = random.randint(1, 10)
+            if self.random == 1 or 6:
+                self.health -= self.health
+                print("You fell of the pile of bones while climbing it and died!")
+            else:
+                self.current_location = new_location
+                self.inked = False
+        elif new_location == CHAOS_FIGHT:
+            self.current_location = new_location
+            self.inked = False
+            if chaos0.health > 0:
+                print("You are face to face with Chaos 0! The strange watery creature looks angry. "
+                      "Since normal weapons phase through it, ice or electricity "
+                      "would likely be most effective to "
+                      "attack it")
+        elif new_location == M_MARIO:
+            self.current_location = new_location
+            self.inked = False
+            if m_mario.health > 0:
+                print("You are in a fight with Metal Mario, a Robotic "
+                      "copy of the beloved plumber! Let's see if you can win!")
+        elif new_location == M_HAND:
+            self.current_location = new_location
+            self.inked = False
+            if master_hand.health > 0:
+                print("After going west you find yourself face to fa- er... face to hand... with Master "
+                      "Hand!")
+        elif new_location == C_HAND:
+            self.current_location = new_location
+            self.inked = False
+            if crazy_hand.health > 0:
+                print("After going east you find yourself in a fight against Crazy Hand!"
+                      "\n This more erratic hand is hard to beat, Good Luck! You'll need it")
+        elif new_location == MARX:
+            self.current_location = new_location
+            self.inked = False
+            if marx.health > 0:
+<<<<<<< HEAD:notes/Armanjit Gill and Alex Fischer - AP HUG 2019 Final - Video Game.py
+                print("There... seems to be absolutely nothing here... Or at least, that's what you thought"
+                      "\n You turn around and see the Communist Marx! He rises into the air, and changes into his "
+                      "True Form!!")
+=======
+                print("You look around your surroundings when you see Karl Marx descend from the sky!")
+>>>>>>> 28a3eeed1af8e57be13cb2ed59d92df37ea618dd:notes/Armanjit Gill and Alex Fischer - AP HUG The Quest for the Test.py
+        elif new_location == DJOCTAVIO:
+            self.current_location = new_location
+            self.inked = False
+            if octavio.health > 0:
+                print("In front of you is a giant floating mech with a pink octopus wearing shades inside"
+                      "\n You'll need some sort of ink firing weapon to win, "
+                      "otherwise, you will easily perish")
+        elif new_location == _3:
+            self.current_location = new_location
+            self.inked = False
+            if Agent_3.health > 0:
+                print("Upon getting closer, the squid-kid sees you. She turns around and she looks ready to fight"
+                      "\n this 'Inkling' is known as Agent 3, and she will be one of your most "
+                      "difficult battles yet.")
+        elif new_location == NOVA6:
+            self.current_location = new_location
+            self.inked = False
+            if galacta_knight.health > 0:
+                print("You see a floating pink crystal, suddenly, it cracks and shatters!"
+                      "\n You are face to face with the strongest warrior in the galaxy:"
+                      "\n GALACTA KNIGHT")
+        elif new_location == SUBSPACE6:
+            self.current_location = new_location
+            self.inked = False
+            if duon.health > 0:
+                print("You find yourself on an empty platform, when more orbs appear!"
+                      "\n They group together and form a giant robot!")
+        elif new_location == SUBSPACE1:
+            self.current_location = new_location
+            self.inked = False
+            if galleom.health > 0:
+                print("All of a sudden, strange purple orbs fly onto the platform and they "
+                      "absorb each other and form one robot!")
+        elif new_location == DK_BATTLE:
+            self.current_location = new_location
+            self.inked = False
+            if DK.health > 0:
+                print("Oh hey. Its Donkey Kon- oh no... a DK rap remix is coming on......."
+                      "SO HE'S FINALLY HERE, "
+                      "\nIN A BATTLE WITH YOU!"
+                      "\n IF YOU KNOW THE MOVES YOU CAN FIGHT HIM TOO!"
+                      "\n PUT YOUR HANDS UP, IF YA' WANNA FIGHT"
+                      "\n AS WE TAKE YOU THROUGH THIS MONKEY FIGHT"
+                      "\n HUH! DK! DONKEY KONG!"
+                      "\n HE'S THE LEADER OF THE BUNCH!"
+                      "\n YOU KNOW HIM WELL!"
+                      "\n HE'S FINALLY BACK, TO KICK YOUR TAIL!")
+        elif new_location == BOWSER:
+            self.current_location = new_location
+            self.inked = False
+            if bowser.health > 0:
+                print("After walking through the door you find yourself face to face "
+                      "with the King of Koopas, Bowser!")
+        elif new_location == D_LINK:
+            self.current_location = new_location
+            self.inked = False
+            if dark_link.health > 0:
+                print("\n As you walk through the room, you look down and see your reflection is gone. "
+                      "You turn around and see Dark Link!"
+                      "\n The evil version of the fabled hero won't be pulling any punches, "
+                      "but you clutch your weapon and ready yourself for a fight.")
+        elif new_location == DARK_STAR:
+            self.current_location = new_location
+            self.inked = False
+            if d_bowser.health > 0:
+                print("There is a dark orb floating in the center of a large "
+                      "platform. You take a step forward."
+                      "\n Suddenly... the orb transforms into: DARK BOWSER!")
+        elif new_location == GHOMA:
+            self.current_location = new_location
+            self.inked = False
+            if gohma.health > 0:
+                print("In this room is the disgusting abomination of a spider: Ghoma"
+                      "\n The strategy for this is to hit it with magic, as numerous "
+                      "defeats has led to this boss gaining a resistance to swords and other similar weapons")
+        elif new_location == U_NECROZMA:
+            self.current_location = new_location
+            self.inked = False
+            if ultra_necrozma.health > 0:
+                print("You see a golden dragon towering over you. "
+                      "\n Ultra Necrozma: Lie..."
+                      " Lieeee.... LIGHT!!!!!!       "
+                      "\n                 Time to see who will prevail in battle")
+        elif new_location == MT_SILVER:
+            self.current_location = new_location
+            self.inked = False
+            if red.health > 0:
+                print("The wind is howling. "
+                      "There is someone at the edge of the cliff you're standing on"
+                      "\n Red:..............!!!"
+                      "\n Time for a..... Pokemon... Battle?? Eh, just attack them yourself")
+        elif new_location == JEVIL_FIGHT:
+            self.current_location = new_location
+            self.inked = False
+            if jevil.health > 0:
+                print("JEVIL: 'I CAN DO ANYTHING!!' "
+                      "\n* Watch out! Here comes JEVIL! "
+                      "\n*There's no strategy to beat this enemy, Good Luck! LET THE GAMES BEGIN!")
+        elif new_location == WATER_MP:
+            self.max_MP += 15
+            self.MP = self.max_MP
+            WATER_MP.description = "There are strange characters etched into the walls" \
+                                   "You have absorbed the MP upgrade in this room"
+        elif new_location == SUBSPACE4:
+            self.max_MP += 35
+            self.MP = self.max_MP
+            self.max_health += 40
+            self.health = self.max_health
+            SUBSPACE4.description = "You have absorbed the HP and MP upgrade in this room"
+        elif new_location == CASTLE_1:
+            if self.current_location == CASTLE_2:
+                self.random = random.randint(1, 10)
+                if self.random == 1 or 2 or 6:
+                    self.health -= self.health
+                    print("You get cut up by the sawblades on your way through!")
+                else:
+                    self.current_location = new_location
+                    self.inked = False
+        elif new_location == MT_SILVER:
+            self.random = random.randint(1, 10)
+            if self.random == 1 or 6:
+                self.health -= self.health
+                print("You fell of the mountain while climbing it and died!")
+            else:
+                self.current_location = new_location
+                self.inked = False
+        elif new_location == TOWN:
+            if self.current_location == OASIS:
+                if player.helmet == water_pendant:
+                    print("While you're in the water...")
+                    key_2.grab()
+                    self.current_location = new_location
+                    self.inked = False
+                else:
+                    print("You hop into the water where you drown. "
+                          "\n You emerge from the waterway in a town where people are somehow "
+                          "scared of a corpse in their drinking water that is now contaminated.")
+            else:
+                self.current_location = new_location
+                self.inked = False
+        elif new_location == NOVA2:
+            if self.helmet is space:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to go on but it turns out "
+                      "that you kinda need a space helmet to survive in space...")
+                self.health -= self.health
+        elif new_location == NOVA3:
+            if self.helmet is space:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to go on but it turns out "
+                      "that you kinda need a space helmet to survive in space...")
+                self.health -= self.health
+        elif new_location == NOVA4:
+            if self.helmet is space:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to go on but it turns out "
+                      "that you kinda need a space helmet to survive in space...")
+                self.health -= self.health
+        elif new_location == NOVA5:
+            if self.helmet is space:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to go on but it turns out "
+                      "that you kinda need a space helmet to survive in space...")
+                self.health -= self.health
+        elif new_location == NOVA7:
+            if self.helmet is space:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You try to go on but it turns out "
+                      "that you kinda need a space helmet to survive in space...")
+                self.health -= self.health
+        elif new_location == NOVA6:
+            print("You do no need a space helmet to breathe in this room")
+            self.current_location = new_location
+            self.inked = False
+        elif new_location == MARX:
+            print("You do no need a space helmet to breathe in this room")
+            self.current_location = new_location
+            self.inked = False
+        elif new_location == SPLAT4:
+            if self.helmet is scuba:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You can't swim through ink, so you're kind of stuck here....")
+        elif new_location == SPLAT6:
+            if self.helmet is scuba:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You can't swim through ink, so you're kind of stuck here....")
+        elif new_location == SPLAT7:
+            if self.helmet is scuba:
+                self.current_location = new_location
+                self.inked = False
+            else:
+                print("You can't swim through ink, so you're kind of stuck here....")
+        elif new_location == INTERIOR:
+            self.random = random.randint(1, 10)
+            if self.current_location == SUBSPACE_ENTER:
+                print("You jump down into the volcano and...")
+                if self.random == 1 or 2 or 7:
+                    print("You survived!")
+                    self.current_location = new_location
+                    self.inked = False
+                else:
+                    print("You fall into molten lava and burn to death...")
+                    self.health = 0
+            else:
+                self.current_location = new_location
+                self.inked = False
+        elif new_location == BAY:
+            if player.helmet is water_pendant:
+                self.random = random.randint(5, 10)
+            else:
+                self.random = random.randint(1, 10)
+            if self.current_location == CLIMB:
+                print("You jump down into the bay and...")
+                if self.random == 9 or 6 or 7 or 8 or 10:
+                    print("You survived!")
+                    self.current_location = new_location
+                    self.inked = False
+                else:
+                    if self.random == 1 or 2 or 3:
+                        print("You fall onto the ground and die!")
+                        self.health = 0
+                    else:
+                        print("You fall too far down into the water and drown!")
+                        self.health = 0
+            else:
+                self.current_location = new_location
+                self.inked = False
+        elif new_location == MT_SILVER:
+            self.random = random.randint(1, 10)
+            if self.current_location == MTN_BASE:
+                print("You try to climb the mountain and...")
+                if self.random == 1 or 6 or 3 or 8 or 10:
+                    print("You survived!")
+                    self.current_location = new_location
+                    self.inked = False
+                else:
+                    print("You fall onto the ground and die!")
+                    self.health = 0
+        elif new_location == KEY:
+            self.random = random.randint(1, 10)
+            if self.current_location == TEMPLE_5:
+                print("You try to climb the pile and...")
+                if self.random == 1 or 6 or 3 or 8 or 10:
+                    print("You survived!")
+                    self.current_location = new_location
+                    self.inked = False
+                else:
+                    print("You fall onto the ground and die!")
+                    self.health = 0
+        else:
+            self.current_location = new_location
+            self.inked = False
 
     def find_room(self, direction):
         """This method takes a direction and finds the variable of the room
@@ -894,63 +1267,6 @@ class Health(Consumables):
             print("Restores %s health" % self.restore)
 
 
-class Saturday(Health):
-    def __init__(self, name="", restore=0):
-        super(Saturday, self).__init__(name, restore)
-        self.name = name
-        self.restore = restore
-
-    def use(self):
-        print("You attend the Saturday Practice exam and take a full practice test complete with FRQs. Not to mention"
-              "\n you also had some very tasty donuts. Your health is fully restored.")
-        player.health = player.max_health
-        player.inventory.remove(self)
-
-
-class Practice(Health):
-    def __init__(self, name=""):
-        super(Practice, self).__init__(name, restore)
-        self.name = name
-
-    def use(self):
-        print("You take a full multiple choice test by yourself. This makes you feel more alive than ever and you are"
-              "excited to continue on with your quest. Your health is healed by half.")
-        factor = 0.5 * player.max_health
-        player.health += factor
-        player.inventory.remove(self)
-
-
-class Quiz(Health):
-    def __init__(self, name="", restore=0):
-        super(Quiz, self).__init__(name, restore)
-        self.name = name
-        self.restore = restore
-
-    def use(self):
-        print("You spend 20 minutes playing a game on you phone to study for the test. You are healed by %d" %
-              self.restore)
-        player.inventory.remove(self)
-        player.health += self.restore
-
-
-class Vocab(Health):
-    def __init__(self, name="", restore=0, amount=0):
-        super(Vocab, self).__init__(name, restore)
-        self.name = name
-        self.restore = restore
-        self.amount = amount
-        self.heal = self.restore * self.amount
-        self.lose = random.randint(0, self.amount)
-
-    def use(self):
-        print("You study with your vocab cards, learning the intense vocabulary of human geography. Each flip of the"
-              " card brings you new knowledge\nthat healths your damaged soul by %d each." % self.restore)
-        player.health += self.heal
-        if lose > 0:
-            print("However, you dropped and lost %d cards" % self.lose)
-            self.amount -= self.lose
-        else:
-            print("You managed to not be a clumsy idiot and you kept all of your vocab cards. Good job.")
 class Potion1(Health):
     def __init__(self, restore2=20, name="", price=0):
         super(Potion1, self).__init__("", 20)
@@ -1188,6 +1504,249 @@ class Healthupgrade(object):
 upgrade3 = Healthupgrade(15, 50, "Health Upgrade")
 
 
+class Key(object):
+    def __init__(self, name="", price=0):
+        self.grabbed = False
+        self.name = name
+        self.price = price
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the key fragment")
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
+
+    def drop(self):
+        if not self.grabbed:
+            print("You don't have this item")
+        else:
+            print("You drop the key")
+            self.grabbed = False
+            Inventory.inventory.remove(self)
+
+
+class Key3(object):
+    def __init__(self, unlock, r_b4, r, name="", price=0):
+        self.grabbed = False
+        self.name = name
+        self.unlocks = unlock
+        self.r_b4 = r_b4
+        self. r = r
+        self.price = price
+        self.zzzzz = 0
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the key")
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
+
+    def drop(self):
+        if not self.grabbed:
+            print("You don't have this item")
+        else:
+            print("You drop the key")
+            self.grabbed = False
+            Inventory.inventory.remove(self)
+
+    def use(self):
+        if self.grabbed:
+            if player.current_location == self.r:
+                TOT3.north = "GHOMA"
+                print("You use the key and unlock a room")
+                TOT3.description = "There is a large door in front of you that had a padlock on it" \
+                                   "The door is currently unlocked and you can go north to go through it"
+            else:
+                print("There is no use for this key in this room")
+
+
+class Key2(object):
+    def __init__(self, unlock, r_b4, r, name="", price=0):
+        self.grabbed = False
+        self.name = name
+        self.unlocks = unlock
+        self.r_b4 = r_b4
+        self. r = r
+        self.price = price
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the key")
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
+
+    def drop(self):
+        if not self.grabbed:
+            print("You don't have this item")
+        else:
+            print("You drop the key")
+            self.grabbed = False
+            Inventory.inventory.remove(self)
+
+    def use(self):
+        if self.grabbed:
+            if player.current_location == self.r:
+                FACTORY.enter = "M_MARIO"
+                print("You use the keycard and unlock the factory")
+                FACTORY.description = "You are looking at a strange factory, " \
+                                      "you can now enter the factory as you unlocked it with the keycard"
+            else:
+                print("There is no use for this keycard in this room")
+
+
+class Skelkey(Key2):
+    def __init__(self, unlock, r_b4, r_b42, r_b43, name=""):
+        super(Skelkey, self).__init__(unlock, r_b4, name)
+        self.grabbed = False
+        self.name = name
+        self.r_b42 = r_b42
+        self.r_b43 = r_b43
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the key")
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
+
+    def drop(self):
+        if not self.grabbed:
+            print("You don't have this item")
+        else:
+            print("You drop the key")
+            self.grabbed = False
+            Inventory.inventory.remove(self)
+
+    def use(self):
+        if self.grabbed:
+            self.r_b43 = self.r_b42
+            TEMPLE_3.north = "CHAOS_FIGHT"
+            TEMPLE_1.east = "WATER_MP"
+            TEMPLE_2.east = "D_LINK"
+            print("The Key flies out of your hand and unlocks the doors of the temple")
+            TEMPLE_1.description = "You are in a room with a now unlocked door leading east. " \
+                                   "\n You can continue through the temple to the north"
+            TEMPLE_2.description = "There is a door to the east and a door leading north. "
+            TEMPLE_3.description = "In front of you is a large door that had a fittingly over-sized lock." \
+                                   "\n You can now go north through the door"
+
+
+class SKey(Key):
+    def __init__(self, name=""):
+        super(SKey, self).__init__()
+        self.name = name
+
+    def use(self):
+        if self.grabbed:
+            if player.current_location == JEVIL_ENTRANCE:
+                print("* You use the door key"
+                      "\n * The door key created a door")
+                JEVIL_ENTRANCE.enter = 'JEVIL_FIGHT'
+                JEVIL_ENTRANCE.description = "*There is a cage-like gate in front of you, " \
+                                             "* There's a note saying: 'Collect the 4 keys to enter'" \
+                                             "\n* You have created an entrance through the gate using the door key"
+
+
+key_1 = Key("Key Fragment 1")
+key_2 = Key("Key Fragment 2")
+key_3 = Key("Key Fragment 3")
+key_4 = Key("Key Fragment 4", 0)
+
+JEVIL_KEY = SKey("Door Key")
+
+
+class Ball(Eat1):
+    def __init__(self, restore, name="", multiply=1.15):
+        super(Ball, self).__init__(restore, name)
+        self.multiply = multiply
+
+    def use(self):
+        print("You eat the.... %s.... and you restore 1 health...."
+              "\n WHAT?! Your weapon has magically increased in strength by %i times" % (self.name, self.multiply))
+        player.weapon.attack_stat *= self.multiply
+        Inventory.inventory.remove(self)
+
+
+class Saturday(Health):
+    def __init__(self, name="", restore=0):
+        super(Saturday, self).__init__(name, restore)
+        self.name = name
+        self.restore = restore
+
+    def use(self):
+        print("You attend the Saturday Practice exam and take a full practice test complete with FRQs. Not to mention"
+              "\n you also had some very tasty donuts. Your health is fully restored.")
+        player.health = player.max_health
+        player.inventory.remove(self)
+
+
+class Practice(Health):
+    def __init__(self, name=""):
+        super(Practice, self).__init__(name, restore)
+        self.name = name
+
+    def use(self):
+        print("You take a full multiple choice test by yourself. This makes you feel more alive than ever and you are"
+              "excited to continue on with your quest. Your health is healed by half.")
+        factor = 0.5 * player.max_health
+        player.health += factor
+        player.inventory.remove(self)
+
+class Quiz(Health):
+    def __init__(self, name="", restore=0):
+        super(Quiz, self).__init__(name, restore)
+        self.name = name
+        self.restore = restore
+
+    def use(self):
+        print("You spend 20 minutes playing a game on you phone to study for the test. You are healed by %d" %
+              self.restore)
+        player.inventory.remove(self)
+        player.health += self.restore
+
+
+class Vocab(Health):
+    def __init__(self, name="", restore=0, amount=0):
+        super(Vocab, self).__init__(name, restore)
+        self.name = name
+        self.restore = restore
+        self.amount = amount
+        self.heal = self.restore * self.amount
+        self.lose = random.randint(0, self.amount)
+
+    def use(self):
+        print("You study with your vocab cards, learning the intense vocabulary of human geography. Each flip of the"
+              " card brings you new knowledge\nthat healths your damaged soul by %d each." % self.restore)
+        player.health += self.heal
+        if lose > 0:
+            print("However, you dropped and lost %d cards" % self.lose)
+            self.amount -= self.lose
+        else:
+            print("You managed to not be a clumsy idiot and you kept all of your vocab cards. Good job.")
+
 Wooden_Sword.grabbed = True
 
 leather1.grabbed = True
@@ -1196,6 +1755,7 @@ leather2.grabbed = True
 
 leather3.grabbed = True
 
+ball = Ball(1, "Rubber? Ball")
 
 
 class Filler(object):
@@ -1283,6 +1843,7 @@ NPC7.items.append(Book)
 
 dog = NPC("Dog", 20, 5, 0, False, "Bark Bark!")
 
+dog.items.append(ball)
 
 NPC8 = NPC("Sarah", 99, 20, 800, False, "Hello")
 
@@ -1446,9 +2007,9 @@ class Keyboard(object):
         self.solv = input("What is the answer?")
         if self.solv.lower() == self.solution:
             print("Correct!")
-            # NOVA4.east = 'NOVA7'
-            # NOVA4.description = "You have solved the riddle needed to progress" \
-            #                     "\n You can go east or you can go south"
+            NOVA4.east = 'NOVA7'
+            NOVA4.description = "You have solved the riddle needed to progress" \
+                                "\n You can go east or you can go south"
         else:
             print("Incorrect! The wall that blocks your path is still here")
 
@@ -1464,7 +2025,10 @@ class Keyboard2(object):
     def solve(self):
         self.solv = input("What is the answer?")
         if self.solv.lower() == self.solution:
-            print()
+            print("Correct!")
+            SUBSPACE2.east = 'SUBSPACE4'
+            SUBSPACE2.description = "Now that you have solved the riddle, the path to the east has opened up and " \
+                                    "\nnow you can go east to get an upgrade or go north to continue"
         else:
             print("WRONG!!! PREPARE FOR THE DRAINING OF YOUR LIFE FORCE")
             player.health -= player.health
@@ -1490,6 +2054,7 @@ rock.items.append(lava)
 rock.items.append(lava2)
 rock.items.append(space)
 rock.items.append(upgrade3)
+rock.items.append(key_4)
 rock.items.append(Fire)
 
 
@@ -1909,6 +2474,7 @@ class Donkeykong(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
+                    DK_BATTLE.items.append(CG)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You do not have enough MP to cast this")
@@ -1922,6 +2488,7 @@ class Donkeykong(Boss):
                     print("%s has been defeated!" % self.name)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
+                    DK_BATTLE.items.append(CG)
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
@@ -1933,6 +2500,7 @@ class Donkeykong(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
+                    DK_BATTLE.items.append(CG)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You don't have enough MP to cast this")
@@ -1952,6 +2520,7 @@ class Donkeykong(Boss):
                         if self.health < 0:
                             self.health = 0
                             print("%s has been defeated!" % self.name)
+                            DK_BATTLE.items.append(CG)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("This enemy can not be damaged by physical attacks")
@@ -1966,6 +2535,7 @@ class Donkeykong(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                            DK_BATTLE.items.append(CG)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("Enemy takes 0 damage as they can only be hit by ice or electricity")
@@ -1979,6 +2549,7 @@ class Donkeykong(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                            DK_BATTLE.items.append(CG)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
@@ -2050,6 +2621,7 @@ class Gohma(Boss):
                     player.money += self.money
                     player.max_MP += 35
                     player.MP = player.max_MP
+                    GHOMA.north = "PORTAL"
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You do not have enough MP to cast this")
@@ -2065,6 +2637,7 @@ class Gohma(Boss):
                     player.money += self.money
                     player.max_MP += 35
                     player.MP = player.max_MP
+                    GHOMA.north = "PORTAL"
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
@@ -2078,6 +2651,7 @@ class Gohma(Boss):
                     player.money += self.money
                     player.max_MP += 35
                     player.MP = player.max_MP
+                    GHOMA.north = "PORTAL"
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You don't have enough MP to cast this")
@@ -2100,6 +2674,7 @@ class Gohma(Boss):
                             player.money += self.money
                             player.max_MP += 35
                             player.MP = player.max_MP
+                            GHOMA.north = "PORTAL"
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("This enemy can not be damaged by physical attacks")
@@ -2116,6 +2691,7 @@ class Gohma(Boss):
                             player.money += self.money
                             player.max_MP += 35
                             player.MP = player.max_MP
+                            GHOMA.north = "PORTAL"
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("Enemy takes 0 damage as they can only be hit by ice or electricity")
@@ -2131,6 +2707,7 @@ class Gohma(Boss):
                             player.money += self.money
                             player.max_MP += 35
                             player.MP = player.max_MP
+                            GHOMA.north = "PORTAL"
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
@@ -2646,6 +3223,8 @@ class Darklink(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
+                    D_LINK.items.append(void)
+                    D_LINK.items.append(One_Shot)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You do not have enough MP to cast this")
@@ -2659,6 +3238,8 @@ class Darklink(Boss):
                     print("%s has been defeated!" % self.name)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
+                    D_LINK.items.append(void)
+                    D_LINK.items.append(One_Shot)
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
@@ -2670,6 +3251,8 @@ class Darklink(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
+                    D_LINK.items.append(void)
+                    D_LINK.items.append(One_Shot)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You don't have enough MP to cast this")
@@ -2688,6 +3271,8 @@ class Darklink(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                            D_LINK.items.append(void)
+                            D_LINK.items.append(One_Shot)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("This enemy can not be damaged by physical attacks")
@@ -2702,6 +3287,8 @@ class Darklink(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                            D_LINK.items.append(void)
+                            D_LINK.items.append(One_Shot)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("Enemy takes 0 damage as they can only be hit by ice or electricity")
@@ -2715,6 +3302,8 @@ class Darklink(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                            D_LINK.items.append(void)
+                            D_LINK.items.append(One_Shot)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
@@ -2732,11 +3321,10 @@ class Marx(Boss):
         self. Q3 = ''
         self. Q4 = ''
         self.Q5 = ''
-
     def attack(self, target):
         self.attack_choice = random.randint(1, 5)
         if self.attack_choice == 1:
-            self.Q1 = input("")
+            self.Q1 = input("").lower()
 
     def take_mp(self):
         if player.choice.lower() == "fire blast":
@@ -3062,6 +3650,7 @@ class Galactaknight(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
+                    NOVA6.items.append(Lance)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You do not have enough MP to cast this")
@@ -3075,6 +3664,7 @@ class Galactaknight(Boss):
                     print("%s has been defeated!" % self.name)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
+                    NOVA6.items.append(Lance)
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
@@ -3086,6 +3676,7 @@ class Galactaknight(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
+                    NOVA6.items.append(Lance)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You don't have enough MP to cast this")
@@ -3104,6 +3695,7 @@ class Galactaknight(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                            NOVA6.items.append(Lance)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("This enemy can not be damaged by physical attacks")
@@ -3118,6 +3710,7 @@ class Galactaknight(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                            NOVA6.items.append(Lance)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("Enemy takes 0 damage as they can only be hit by ice or electricity")
@@ -3131,6 +3724,7 @@ class Galactaknight(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                            NOVA6.items.append(Lance)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
@@ -3906,6 +4500,15 @@ class Necrozma(Boss):
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
                     Light_Sword.activated = True
+                    CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
+                                           "\n " \
+                                           "There is also a strange sword embedded in the ground, " \
+                                           "because you defeated Ultra Necrozma, the sword is" \
+                                           " glowing with a powerful light and is now golden"
+                    U_NECROZMA.items.append(light)
+                    U_NECROZMA.items.append(light2)
+                    U_NECROZMA.items.append(light3)
+                    U_NECROZMA.items.append(light4)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You do not have enough MP to cast this")
@@ -3919,7 +4522,16 @@ class Necrozma(Boss):
                     print("%s has been defeated!" % self.name)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
-
+                    Light_Sword.activated = True
+                    CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
+                                           "\n " \
+                                           "There is also a strange sword embedded in the ground, " \
+                                           "because you defeated Ultra Necrozma, the sword is" \
+                                           " glowing with a powerful light and is now golden"
+                    U_NECROZMA.items.append(light)
+                    U_NECROZMA.items.append(light2)
+                    U_NECROZMA.items.append(light3)
+                    U_NECROZMA.items.append(light4)
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
@@ -3931,6 +4543,16 @@ class Necrozma(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
+                    Light_Sword.activated = True
+                    CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
+                                           "\n " \
+                                           "There is also a strange sword embedded in the ground, " \
+                                           "because you defeated Ultra Necrozma, the sword is glowing with" \
+                                           " a powerful light and is now golden"
+                    U_NECROZMA.items.append(light)
+                    U_NECROZMA.items.append(light2)
+                    U_NECROZMA.items.append(light3)
+                    U_NECROZMA.items.append(light4)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You don't have enough MP to cast this")
@@ -3949,6 +4571,16 @@ class Necrozma(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                            Light_Sword.activated = True
+                            CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
+                                                   "\n " \
+                                                   "There is also a strange sword embedded in the ground, " \
+                                                   "because you defeated Ultra Necrozma, " \
+                                                   "the sword is glowing with a powerful light and is now golden"
+                            U_NECROZMA.items.append(light)
+                            U_NECROZMA.items.append(light2)
+                            U_NECROZMA.items.append(light3)
+                            U_NECROZMA.items.append(light4)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("This enemy can not be damaged by physical attacks")
@@ -3964,6 +4596,15 @@ class Necrozma(Boss):
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
                             Light_Sword.activated = True
+                            CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
+                                                   "\n " \
+                                                   "There is also a strange sword embedded in the ground, " \
+                                                   "because you defeated Ultra Necrozma, the sword is " \
+                                                   "glowing with a powerful light and is now golden"
+                            U_NECROZMA.items.append(light)
+                            U_NECROZMA.items.append(light2)
+                            U_NECROZMA.items.append(light3)
+                            U_NECROZMA.items.append(light4)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("Enemy takes 0 damage as they can only be hit by ice or electricity")
@@ -3977,6 +4618,16 @@ class Necrozma(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                            Light_Sword.activated = True
+                            U_NECROZMA.items.append(light)
+                            CLEARING.description = "You've made it to a clearing, you can move East, West, or North." \
+                                                   "\n " \
+                                                   "There is also a strange sword embedded in the ground, " \
+                                                   "because you defeated Ultra Necrozma, the sword is " \
+                                                   "glowing with a powerful light and is now golden"
+                            U_NECROZMA.items.append(light2)
+                            U_NECROZMA.items.append(light3)
+                            U_NECROZMA.items.append(light4)
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
@@ -4388,6 +5039,7 @@ class Agent3(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
+                    _3.characters.append(A_3)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You do not have enough MP to cast this")
@@ -4401,6 +5053,7 @@ class Agent3(Boss):
                     print("%s has been defeated!" % self.name)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
+                    _3.characters.append(A_3)
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
@@ -4412,6 +5065,7 @@ class Agent3(Boss):
                     self.health = 0
                     print("%s has been defeated!" % self.name)
                     player.money += self.money
+                    _3.characters.append(A_3)
                 print("%s has %d health left" % (self.name, self.health))
             else:
                 print("You don't have enough MP to cast this")
@@ -4433,6 +5087,7 @@ class Agent3(Boss):
                                 self.health = 0
                                 print("%s has been defeated!" % self.name)
                                 player.money += self.money
+                                _3.characters.append(A_3)
                         print("%s has %d health left" % (self.name, self.health))
                     else:
                         print("This enemy can not be damaged by physical attacks")
@@ -4447,6 +5102,7 @@ class Agent3(Boss):
                                 self.health = 0
                                 print("%s has been defeated!" % self.name)
                                 player.money += self.money
+                                _3.characters.append(A_3)
                         print("%s has %d health left" % (self.name, self.health))
                     else:
                         print("Enemy takes 0 damage as they can only be hit by ice or electricity")
@@ -4460,6 +5116,7 @@ class Agent3(Boss):
                                 self.health = 0
                                 print("%s has been defeated!" % self.name)
                                 player.money += self.money
+                                _3.characters.append(A_3)
                         print("%s has %d health left" % (self.name, self.health))
                     else:
                         print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
@@ -4496,25 +5153,10 @@ Gerudo.items.append(super_mushroom)
 Gerudo.items.append(Green_Potion)
 Gerudo.items.append(desert_helmet)
 
-COVER = Room("The Cultural Landscape", "You are on the cover for the AP HUG textbook, 'entering' "
-                                       "the book will allow you to begin your quest into Chapter 1", None, None, None,
-             None, None, None, "CHAPTER1K1")
-CHAPTER1K1 = Room("Chapter 1 - Key Issue 1 - Area 1", "You are at the beginning of the book, in the most "
-                                                      "basic area where you are learning about the basics of geography"
-                                                      "\n For example, there are 4 main directions you can move in: "
-                                                      "'north', 'south, 'east', and 'weas-' I mean west..."
-                                                      "\n You can also move up, down, enter areas, and leave areas "
-                                                      "\n You can grab items, attack enemies, buy items, and talk to "
-                                                      "NPCs"
-                                                      "\n To the east you can see an open area", None,
-                  None, "CH1K1S2", None, None, None, None, "COVER")
-CH1K1S2 = Room("Chapter 1 - Key Issue 1 - Area 2", "You feel like you are being watched, and you are, by "
-                                                   "satellites! \nThis is done to make maps with GIS and to find "
-                                                   "absolute location. Speaking of satellites..."
-                                                   "\n What is the acquisition of data about Earth from satellites?")
+Chapter1 = Room()
 
 
-player = Player(COVER)
+player = Player(BEGIN)
 
 directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave']
 short_directions = ['n', 's', 'e', 'w', 'u', 'd', 'in', 'out']
@@ -4529,12 +5171,157 @@ sub_gold = Gold(812)
 
 dualies = Splattershot("Splat Dualies", 150, 22)
 
+
+class Wreckage(object):
+    def __init__(self):
+        self.activated = False
+        self.name = "A pile of golden wreckage"
+
+    def be_unlocked(self):
+        if the_watch.past:
+            PEAK.enter = 'NOVA_1'
+            self.activated = True
+            PEAK.items.remove(self)
+            if marx.health > 0:
+                PEAK.description = "You are on top of a snowy peak where you can see the giant, " \
+                                   "golden, clockwork star NOVA. NOVA created a portal " \
+                                   "that leads to space"
+        else:
+            PEAK.enter = None
+            self.activated = False
+            PEAK.items.append(self)
+
+
+nova = Wreckage()
+
+
+class Watch(object):
+    def __init__(self):
+        self.past = False
+        self.future = False
+        self.name = "Magic Stopwatch"
+        self.grabbed = False
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the %s" % self.name)
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
+
+    def use(self, time):
+        if time.lower() == "past":
+            self.past = True
+            self.future = False
+            print("You travel backwards in time to the past")
+            TOT2.east = PAST1
+            TOT3.west = PAST2
+            TOT2.west = None
+            TOT2.east = None
+            ice.un_ice()
+            nova.be_unlocked()
+            if tot_key in FUTURE2.items:
+                FUTURE2.items.remove(tot_key)
+            FUTURE2.description = "While the path leading here has caved "
+            "in during our present day, and this "
+            "path had not yet been built in the past you can visit this room in the future. "
+            "\n The key in this "
+            "room appears to be broken. In  a time between our present day and the past"
+            " and before the future, "
+            "this key was most definitely intact"
+        elif time.lower() == "present":
+            self.past = False
+            self.future = False
+            print("You go back to the present")
+            TOT2.east = None
+            TOT3.west = None
+            TOT2.west = None
+            TOT2.east = None
+            ice.un_ice()
+            nova.be_unlocked()
+            if tot_key in FUTURE2.items:
+                FUTURE2.items.append(tot_key)
+            FUTURE2.description = "Now that you have figured out how to obtain the key you can go back " \
+                                  "through the barricade. " \
+                                  "\nYou can somehow get out from this end as there is a small " \
+                                  "tunnel only accessible from here leading back to the previous room"
+
+        elif time.lower() == "future":
+            self.past = False
+            self.future = True
+            print("You go to the future")
+            TOT2.east = None
+            TOT3.west = None
+            ice.un_ice()
+            TOT2.west = FUTURE1
+            TOT2.east = FUTURE2
+            if tot_key in FUTURE2.items:
+                FUTURE2.items.remove(tot_key)
+            FUTURE2.description = "While the path leading here has caved "
+            "in during our present day, and this "
+            "path had not yet been built in the past you can visit this room in the future. "
+            "\n The key in this "
+            "room appears to be broken. In  a time between our present day and the past"
+            " and before the future, "
+            "this key was most definitely intact"
+            nova.be_unlocked()
+
+
+the_watch = Watch()
+
+
+class Ice(object):
+    def __init__(self):
+        self.activated = False
+
+    def un_ice(self):
+        self.activated = True
+        if the_watch.past:
+            CAVE.items.append(F_Sword)
+            CAVE.items.append(frost_helmet)
+            CAVE.description = "You are in a cold cave. The ground and walls are frozen and " \
+                               "there are icicles hanging from the ceiling" \
+                               "\n In the center of the cave is an icy sword and a helmet " \
+                               "The icy shell encasing them didn't exist in the past"
+        else:
+            if F_Sword and frost_helmet in CAVE.items:
+                CAVE.items.remove(F_Sword)
+                CAVE.items.remove(frost_helmet)
+                CAVE.description = "You are in a cold cave. The ground and walls are frozen and " \
+                                   "there are icicles hanging from the ceiling" \
+                                   "\n In the center of the cave is an icy sword and a helmet encased in " \
+                                   "an impenetrable layer of ice. " \
+                                   "It seems like this ice wasn't here before... If only you could rewind time..."
+
+
+ice = Ice()
+
 shimmering_whip = Sword(85, True, False, 9999999999999999999999999999999, "Shimmering Golden Whip")
 tabuu1 = Helmet(11, "")
 tabuu2 = Leggings(13, "")
 tabuu3 = Boots(10, "")
 tabuu4 = Chestplate(17, "Tabuu's Wings")
 
+# Adding Items
+NOVA2.items.append(foods)
+PEAK.items.append(nova)
+CLEARING.items.append(Light_Sword)
+KEY.items.append(Skel_key)
+TOP_TOWER.items.append(Ancient_axe)
+JEVIL_ENTRANCE.items.append(key_1)
+INTERIOR.items.append(key_3)
+TEMPLE_4.items.append(gold_room)
+SUBSPACE3.items.append(sub_gold)
+FUTURE1.items.append(Future_coin)
+PAST2.items.append(past_coin)
+SPLAT5.items.append(dualies)
+CAVE.items.append(ice)
+TOT2.items.append(the_watch)
 
 # Controller
 
@@ -4573,6 +5360,19 @@ while instructions:
         print("That is not a valid command")
 
 while playing:
+    if marx.health == 0:
+        print("Karl Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
+              "\nGuess that's why it was in ruins, luckily, you can still make it back home (somehow)")
+        PEAK.description = "NOVA's golden ruins are here... You can also see Karl Marx's dead " \
+                           "body here. oh... he's absorbing some of the parts of NOVA..." \
+                           "\n Eh, that's a problem for Kirby to deal with..."
+    if player.weapon == One_Shot:
+        player.health = 1
+    if player.current_location == MT_SILVER:
+        if not player.just_moved:
+            player.take_damage(12)
+            print("You are pelted by hail!")
+            print("You now have %i HP" % player.health)
     player.defense = player.helmet.defense + player.chestplate.defense
     player.defense += player.leggings.defense
     player.defense += player.boots.defense
@@ -4614,14 +5414,6 @@ while playing:
         player.chestplate = Cape
         player.weapon = Hero_Shot
         print("Given.")
-    elif player.current_location == CH1K1S2:
-        command2 = input("Well?")
-        if command2.lower() == 'remote sensing':
-            print("Correct, Here is an information alloy! These can be used to upgrade your weapons or armor!")
-        else:
-            print("Incorrect! The correct answer was remote sensing!"
-                  "\n You look up and see a flaming satellite fall onto you!")
-            player.take_damage(25)
     elif 'take ' in command.lower():
         item_name = command[5:]
 
@@ -4632,7 +5424,10 @@ while playing:
 
                 item_obj.grab()
                 player.current_location.items.remove(item_obj)
-
+                if item_obj == past_coin:
+                    PAST2.description = "You are in a room that is completely empty"
+                if item_obj == sub_gold:
+                    SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
     elif 'grab ' in command.lower():
         item_name = command[5:]
 
@@ -4643,7 +5438,10 @@ while playing:
 
                 item_obj.grab()
                 player.current_location.items.remove(item_obj)
-
+                if item_obj == past_coin:
+                    PAST2.description = "You are in a room that is completely empty"
+                if item_obj == sub_gold:
+                    SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
     elif 'pick up ' in command.lower():
         item_name = command[5:]
 
@@ -4654,7 +5452,10 @@ while playing:
 
                 item_obj.grab()
                 player.current_location.items.remove(item_obj)
-
+                if item_obj == past_coin:
+                    PAST2.description = "You are in a room that is completely empty"
+                if item_obj == sub_gold:
+                    SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
     elif 'attack ' in command.lower():
         targets_name = command[7:]
 
@@ -4831,6 +5632,10 @@ while playing:
                 the_item.reload()
             except AttributeError:
                 print("You can't use this")
+    elif command.lower() in ["change time", "travel through time", 'time travel']:
+        if the_watch.grabbed:
+            command2 = input("Would you like to go to the past, present, or future?")
+            the_watch.use(command2.lower())
         else:
             print("You do not have the means to do that yet")
     elif command.lower() in ["check inventory", "open inventory", 'i']:
@@ -4838,7 +5643,10 @@ while playing:
     elif command.lower() in ["check stats", 's', 'stats']:
         player.check_stats()
     elif command.lower() in ["solve puzzle", "solve riddle", "solve", "answer"]:
-        print("THIS FEATURE HAS NOT BEEN ADDED YET")
+        if player.current_location == NOVA4:
+            marx_board.solve()
+        elif player.current_location == SUBSPACE2:
+            sub_board.solve()
     elif command.lower() == "":
         print()
     elif command.lower() in ["speak", "talk"]:
