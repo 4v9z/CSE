@@ -430,7 +430,33 @@ class Weapon(object):
 
 
 class DTM(Weapon):
-    def __init__(self, name=""):
+    def __init__(self, name="", price=0):
+        super(DTM, self).__init__(name, price)
+        self.name = name
+        self.price = price
+        self.attack_stat = 15
+        self.stage = 1
+
+    def stage(self):
+        print("Your DTM is developing!")
+        self.stage += 1
+        if self.stage == 2:
+            print("Your DTM is now in stage 2! The NIR is skyrocketing! And so is the damage!")
+            self.attack_stat = 24
+        if self.stage == 3:
+            print("Your DTM has reached stage 3! Gender equality is rapidly improving and the NIR has started to fall!"
+                  "Your death rate is continuing to drop, but so is the birth rate!")
+            self.attack_stat = 36
+        if self.stage == 4:
+            print("Your DTM has now reached stage 4! At this point, it is a fully developed nation! The dependency "
+                  "ratio has fallen as well!")
+            self.attack_stat = 50
+        if self.stage == 5:
+            print("Your DTM is now stage 5, a rare sight indeed! The NIR, CBR, and CDR have come together to make an"
+                  " incredibly sharp weapon!\n However, the aging population means that your bones aches when you swing"
+                  " it and you take damage!")
+            self.attack_stat = 60
+
 class Blade(Weapon):
     def __init__(self, attack_stat=None, sharp=True, dull=False, durability=None, name="", price=0):
         super(Blade, self).__init__("  ", price)
