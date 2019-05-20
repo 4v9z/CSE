@@ -548,7 +548,7 @@ class Shword(Sword):
         else:
             print()
 
-
+class
 class Specialsword(Sword):
     def __init__(self, attack_stat, sharp, dull, durability, name, can_get=False, price=0):
         super(Specialsword, self).__init__(attack_stat, sharp, dull, durability, name, price)
@@ -816,7 +816,7 @@ class Player(object):
             self.inked = False
             if marx.health > 0:
                 print("There... seems to be absolutely nothing here... Or at least, that's what you thought"
-                      "\n You turn around and see the cosmic jester Marx! He rises into the air, and changes into his "
+                      "\n You turn around and see the Communist Marx! He rises into the air, and changes into his "
                       "True Form!!")
         elif new_location == DJOCTAVIO:
             self.current_location = new_location
@@ -3253,8 +3253,8 @@ dark_link = Darklink()
 
 class Marx(Boss):
     def __init__(self):
-        super(Marx, self).__init__(None, 100, False, False, True, "Marx", 12, 9298)
-        self.name = "Marx"
+        super(Marx, self).__init__(None, 100, False, False, True, "Karl Marx", 12, 9298)
+        self.name = "Karl Marx"
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
@@ -5725,9 +5725,9 @@ while instructions:
 
 while playing:
     if marx.health == 0:
-        print("Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
+        print("Karl Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
               "\nGuess that's why it was in ruins, luckily, you can still make it back home (somehow)")
-        PEAK.description = "NOVA's golden ruins are here... You can also see Marx's dead " \
+        PEAK.description = "NOVA's golden ruins are here... You can also see Karl Marx's dead " \
                            "body here. oh... he's absorbing some of the parts of NOVA..." \
                            "\n Eh, that's a problem for Kirby to deal with..."
     if player.weapon == One_Shot:
