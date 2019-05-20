@@ -1407,10 +1407,7 @@ class Keyboard2(object):
     def solve(self):
         self.solv = input("What is the answer?")
         if self.solv.lower() == self.solution:
-            # print("Correct!")
-            # SUBSPACE2.east = 'SUBSPACE4'
-            # SUBSPACE2.description = "Now that you have solved the riddle, the path to the east has opened up and " \
-            #                         "\nnow you can go east to get an upgrade or go north to continue"
+            print()
         else:
             print("WRONG!!! PREPARE FOR THE DRAINING OF YOUR LIFE FORCE")
             player.health -= player.health
@@ -4442,8 +4439,14 @@ Gerudo.items.append(super_mushroom)
 Gerudo.items.append(Green_Potion)
 Gerudo.items.append(desert_helmet)
 
-COVER = Room()
-CHAPTER1 = Room()
+COVER = Room("The Cultural Landscape", "You are on the cover for the AP HUG textbook, 'entering' "
+                                       "the book will allow you to begin your quest into Chapter 1", None, None, None, None, None, None, "CHAPTER1")
+CHAPTER1K1 = Room("Chapter 1 - Key Issue 1 - Area 1", "You are at the beginning of the book, in the most "
+                                                      "basic area where you are learning about the basics of geography"
+                                                      "\n For example, there are 4 main directions you can move in: "
+                                                      "'north', 'south, 'east', and 'weas-' I mean west..."
+                                                      "\n You can also move up, down, enter areas, and leave areas "
+                                                      "You can grab items, attack enemies, buy items, and talk to NPCs")
 
 
 player = Player(COVER)
