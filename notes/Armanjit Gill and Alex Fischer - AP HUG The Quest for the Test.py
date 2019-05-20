@@ -4440,13 +4440,21 @@ Gerudo.items.append(Green_Potion)
 Gerudo.items.append(desert_helmet)
 
 COVER = Room("The Cultural Landscape", "You are on the cover for the AP HUG textbook, 'entering' "
-                                       "the book will allow you to begin your quest into Chapter 1", None, None, None, None, None, None, "CHAPTER1")
+                                       "the book will allow you to begin your quest into Chapter 1", None, None, None,
+             None, None, None, "CHAPTER1K1")
 CHAPTER1K1 = Room("Chapter 1 - Key Issue 1 - Area 1", "You are at the beginning of the book, in the most "
                                                       "basic area where you are learning about the basics of geography"
                                                       "\n For example, there are 4 main directions you can move in: "
                                                       "'north', 'south, 'east', and 'weas-' I mean west..."
                                                       "\n You can also move up, down, enter areas, and leave areas "
-                                                      "You can grab items, attack enemies, buy items, and talk to NPCs")
+                                                      "\n You can grab items, attack enemies, buy items, and talk to "
+                                                      "NPCs"
+                                                      "\n To the east you can see an open area", None,
+                  None, "CH1K1S2", None, None, None, None, "COVER")
+CH1K1S2 = Room("Chapter 1 - Key Issue 1 - Area 2", "You feel like you are being watched, and you are, by "
+                                                   "satellites! \nThis is done to make maps with GIS and to find "
+                                                   "absolute location. Speaking of satellites..."
+                                                   "\n What is the acquisition of data about Earth from satellites?")
 
 
 player = Player(COVER)
@@ -4549,6 +4557,14 @@ while playing:
         player.chestplate = Cape
         player.weapon = Hero_Shot
         print("Given.")
+    elif player.current_location == CH1K1S2:
+        command2 = input("Well?")
+        if command2.lower() == 'remote sensing':
+            print("Correct, Here is an information alloy! These can be used to upgrade your weapons or armor!")
+        else:
+            print("Incorrect! The correct answer was remote sensing!"
+                  "\n You look up and see a flaming satellite fall onto you!")
+            player.take_damage(25)
     elif 'take ' in command.lower():
         item_name = command[5:]
 
