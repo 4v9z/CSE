@@ -815,9 +815,13 @@ class Player(object):
             self.current_location = new_location
             self.inked = False
             if marx.health > 0:
+<<<<<<< HEAD:notes/Armanjit Gill and Alex Fischer - AP HUG 2019 Final - Video Game.py
                 print("There... seems to be absolutely nothing here... Or at least, that's what you thought"
                       "\n You turn around and see the Communist Marx! He rises into the air, and changes into his "
                       "True Form!!")
+=======
+                print("You look around your surroundings when you see Karl Marx descend from the sky!")
+>>>>>>> 28a3eeed1af8e57be13cb2ed59d92df37ea618dd:notes/Armanjit Gill and Alex Fischer - AP HUG The Quest for the Test.py
         elif new_location == DJOCTAVIO:
             self.current_location = new_location
             self.inked = False
@@ -1953,7 +1957,7 @@ class Keyboard(object):
             print("Incorrect! The wall that blocks your path is still here")
 
 
-marx_board = Keyboard("tombstone")
+marx_board = Keyboard("socialism")
 
 
 class Keyboard2(object):
@@ -3255,61 +3259,19 @@ class Marx(Boss):
     def __init__(self):
         super(Marx, self).__init__(None, 100, False, False, True, "Karl Marx", 12, 9298)
         self.name = "Karl Marx"
+<<<<<<< HEAD:notes/Armanjit Gill and Alex Fischer - AP HUG 2019 Final - Video Game.py
+=======
+        self.Q1 = ""
+        self.Q2 = ''
+        self. Q3 = ''
+        self. Q4 = ''
+        self.Q5 = ''
+>>>>>>> 28a3eeed1af8e57be13cb2ed59d92df37ea618dd:notes/Armanjit Gill and Alex Fischer - AP HUG The Quest for the Test.py
 
     def attack(self, target):
-        self.attack_choice = random.randint(1, 7)
-        self.dodge_chance = random.randint(1, 12)
+        self.attack_choice = random.randint(1, 5)
         if self.attack_choice == 1:
-            if self.dodge_chance == 3:
-                print("Marx launches out 4 crescent blades! But he misses!")
-            else:
-                print("Marx launches out 4 crescent blades!!")
-                target.take_damage(30)
-        elif self.attack_choice == 2:
-            if self.dodge_chance != 3:
-                print("Marx split himself in half and turns into fire, flying into you many times and reverting back")
-                target.take_damage(40)
-            else:
-                print("Marx split himself in half and turns into fire, trying to fly into you many times and reverting "
-                      "back after missing")
-        elif self.attack_choice == 3:
-            if self.dodge_chance != 1 or 2 or 3:
-                print("Marx's face stretches into a deformed shape and he shoots a massive laser from his mouth")
-                target.take_damage(47)
-            else:
-                print("Marx's face stretches into a deformed shape and he shoots a massive laser from his "
-                      "mouth but he misses")
-        elif self.attack_choice == 4:
-            if self.dodge_chance != 4 or 5 or 6 or 7:
-                print("Marx splits his body in half in order to create a black hole")
-                target.take_damage(65)
-            else:
-                print("Marx splits his body in half in order to create a black hole but you somehow avoid being "
-                      "sucked in")
-        elif self.attack_choice == 5:
-            if self.dodge_chance != 8 or 9:
-                print("Marx launches down strange black seeds, these seeds quickly grow into sharp vines which then "
-                      "hit you")
-                target.take_damage(37)
-            else:
-                print("Marx launches down strange black seeds, these seeds quickly grow into sharp vines "
-                      "which then barely graze you")
-                target.take_damage(5)
-        elif self.attack_choice == 6:
-            if self.dodge_chance != 10 or 3:
-                print("Marx flies quickly down into the ground, then, when you least expect it, he rises out quickly, "
-                      "ramming you while laughing eerily")
-                target.take_damage(32)
-            else:
-                print("Marx flies quickly down into the ground and flies out to try to ram into you, but he misses")
-        elif self.attack_choice == 7:
-            if self.dodge_chance != 11:
-                print("Marx's eyes go blacks a black orbs start coming from his eyes."
-                      "\n The orbs then quickly fly into you to do damage")
-                target.take_damage(27)
-            else:
-                print("Marx's eyes go blacks a black orbs start coming from his eyes."
-                      "\n The orbs then try to fly into you, but they miss")
+            self.Q1 = input("")
 
     def take_mp(self):
         if player.choice.lower() == "fire blast":
@@ -5138,325 +5100,7 @@ Gerudo.items.append(super_mushroom)
 Gerudo.items.append(Green_Potion)
 Gerudo.items.append(desert_helmet)
 
-R19A = Room("R19A", "You are in Mr. Wiebe's class", None, None, None, None, "BEGIN")
-
-TEMPLE_1 = Room('Lock Room', "You are in a room with a locked door leading east. "
-                "\n You can continue through the temple to the north", 'TEMPLE_2', 'TEMPLE')
-TEMPLE_2 = Room('Empty Chamber', "There is a locked door to the east and a door leading north. ",
-                'TEMPLE_3', 'TEMPLE_1')
-TRAP = Room('Trap', "As you walk to the west, the floor beneath you crumbles, "
-                    "dropping you into a large pool of piranha-infested waters"
-                    "\n You struggle to survive but you realize it's futile, you are not going to survive")
-TEMPLE_3 = Room('Boss Room', "In front of you is a large door that has a fittingly over-sized lock."
-                             "\n You look to the east and west, either direction can hold the key", None,
-                'TEMPLE_2', 'TRAP', 'TEMPLE_4')
-CHAOS_FIGHT = Room('Chaos Battle', "You are on a sapphire blue platform in a room being filled with "
-                                   "water by several fish "
-                                   "shaped fountains", None, 'TEMPLE_3', None, None, 'BAY')
-TEMPLE_4 = Room('Gold Room', "You are in a room filled with a large pile of gold, about 150 coins"
-                             " You can head north to continue through the temple", 'TEMPLE_5', None, None, 'TEMPLE_3')
-TEMPLE_5 = Room('Skeleton Room', "You are in a room full of bones. "
-                                 "\n On top of a particularly large pile of bones is a skeleton key that will unlock"
-                                 " any room in the temple"
-                                 "\n climbing up the pile might be risky but it's the only way to "
-                                 "fight the temple's boss", None, 'TEMPLE_4', None, None, 'KEY')
-KEY = Room('Top of Pile', "You've made it to the top of the pile, the key is yours for the taking."
-                          "\n Dropping down the pile will not be as risky as climbing the pile", None, None, None,
-           None, None, 'TEMPLE_5')
-D_LINK = Room('Reflecting Pond', "You find yourself in a room where the floor is covered in a thin layer of of water. "
-                                 "In the middle of the room there is a small mound of dirt with a "
-                                 "large black tree growing out of it.", None, None, None,
-              'TEMPLE_2')
-WATER_MP = Room('Magic Room', "You look around the room. There are strange characters etched into the walls."
-                              "\n You feel your MP get restored as well as increase", None, None, None, 'TEMPLE_1')
-DESERT_FIGHT = Room('Empty Expanse', 'You look around the large vast desert. You an see '
-                                     'an Oasis to the north and a town to the west'
-                                     '\n You can see the back of an ominous stone castle to the south'
-                                     'and a tall tower to the east', "OASIS", 'CASTLE_BACK', 'TOWER', 'TOWN')
-CASTLE_BACK = Room('Desert Castle (Back)', "You are behind a large castle, there is a door in front of you "
-                                           "that you can enter.", 'DESERT_FIGHT', 'CASTLE', None, None, None,
-                   None, "CASTLE_7")
-CASTLE = Room('Desert Castle', 'There is a large stone castle in front of you, it towers over you ominously. '
-                               'There is a large door in front of you',
-              'BACK_CASTLE', 'ROAD', None, 'MARKET', None, None, 'CASTLE_1')
-CASTLE_1 = Room("Castle Entrance", "You have just entered the castle, looking ahead, "
-                                   "there is a room full of rotating saw blades.", 'CASTLE_2', None, None, None, None,
-                None, None, 'CASTLE')
-CASTLE_2 = Room('Saw Room', "You are in a room in which saws are rotating on a set path, "
-                            "you can sprint North to make it through here."
-                            "\n However, this is risky, and it can lead to your demise", 'CASTLE_3', 'CASTLE_1')
-CASTLE_3 = Room('Lava Room', "You are walking on a narrow platform, looking down, there's a pit of lava."
-                             "\n !!!"
-                             "\n The lava is now rising! Climbing up is your only option!", None, 'CASTLE_2', None,
-                None, 'CASTLE_4')
-CASTLE_4 = Room('Empty Room?', "You feel uneasy, like you're being watched. There is a door leading east, "
-                               "but you feel like you're about to be ambushed", None, None, 'CASTLE_5', None,
-                None, 'CASTLE_3')
-CASTLE_5 = Room('Boss Room', "You are at the end of the castle, you can head north through the "
-                             "large doors or east towards the back exit", "BOWSER", None, 'CASTLE_6')
-CASTLE_6 = Room('Near Back Exit', "You are near the back exit of a castle, "
-                                  "but to get there you'd have to hop across rocks floating in a river of lava"
-                                  "\n To the west is the room before the boss in this castle", 'CASTLE_7',
-                None, None, 'CASTLE_5')
-CASTLE_7 = Room('Back Exit', "You are at the back exit of the castle. To go further through the castle, "
-                             "you'd have to hop across rocks floating in a river of lava, or you can leave now",
-                None, 'CASTLE_6', None, None, None, None, None, 'CASTLE_BACK')
-BOWSER = Room('Bowser Battle', "You are in a room where you are on a giant stone platform surrounded by lava",
-              None, 'CASTLE_5')
-ROAD = Room('Rainbow Road', "You are standing in front of a rainbow that appears to continue through "
-                            "the atmosphere and into space"
-                            "\n The magic of the rainbow will allow you to breathe in space"
-                            "\n"
-                            "You can walk up the rainbow", 'CASTLE', "JUNGLE1", None, None, 'DARK_STAR')
-JUNGLE1 = Room("Lush Jungle", "You are in a thick jungle filled with tall trees and vines", "ROAD", "JUNGLE2")
-JUNGLE2 = Room("Near a Treehouse", "Looking up you can see a treehouse with 'DK' written across "
-                                   "the top in big, bold, white letters."
-                                   "\n There is a cave in front of you that you can enter", 'JUNGLE1', None, None, None,
-               None, None, "DK_BATTLE")
-DK_BATTLE = Room("KONG BANANA HOARD", "You are in a cave with a massive mountain of bananas in it."
-                                      "\n There is a sign that says 'KONG BANANA HOARD' on it", None, None, None, None,
-                 None, None, None, "JUNGLE2")
-DARK_STAR = Room('Galaxy Reactor', "You are on a dark platform with spikes coming out of it"
-                                   "\n The center of this platform is gold and has a "
-                                   "giant Star engraved into it", None, None,
-                 None, None, None, 'ROAD')
-TEMPLE2 = Room('Temple of Time (Entrance)', "You look in front of you to see an temple with open doors, "
-                                            "there is also a "
-                                            "staircase leading down, and to the South is another strange temple",
-               None, 'LIGHT', 'MARKET', None, None, 'TOT_SHOP', 'TOT1')
-TOT1 = Room('Temple of Time', "You have entered the temple, you can continue through a door to the north", 'TOT2',
-            None, None, None, None, None, None, 'TEMPLE2')
-TOT2 = Room('Watch Room', "In the center of the room there is a pedestal labeled 'MAGIC STOPWATCH'. "
-                          "You sigh as you realize "
-                          "some time-travel shenanigans will ensue"
-                          "\n You can use the watch to open up paths to the east or west that existed in "
-                          "the past or future", 'TOT3', 'TOT1', 'PAST1', 'FUTURE1')
-TOT3 = Room('Boss Room', "There is a large door in front of you with a large padlock on it, "
-                         "it appears that a key is needed. "
-                         "\n You can use the watch to open up pathways to the east and west in the past and future.",
-            'GHOMA', 'TOT2', 'FUTURE2', 'PAST2')
-GHOMA = Room('Ghoma Fight', "You are in a cold dark stone room with statues holding hammers around the perimiter "
-                            "of the room",
-             None, 'TOT3')
-PORTAL = Room('Time Portal', "In front of you is a portal that leads into a future ~12,000 years after the "
-                             "extinction of humans. "
-                             "\n You can go south to reenter the temple or you can enter the portal", None, 'GHOMA',
-              None, None, None, None, 'SPLAT1')
-SPLAT1 = Room('Octo Valley', "You are on a strange floating platform, you "
-                             "can enter the time portal from here or head north to continue", 'SPLAT2', None, None,
-              None, None, None, 'PORTAL')
-SPLAT2 = Room('Moray Towers', "You are climbing a tower currently, you can go back south, head"
-                              " north, or go east or west"
-                              "\n Going East requires some way to swim through ink", 'SPLAT3', 'SPLAT1',
-              'SPLAT4', 'SPLAT5')
-SPLAT3 = Room('Urchin Underpass', 'You are in an are filled with conveyor belts and is surrounded by water.'
-                                  '\n You can go north or east, but you will require some way to swim through ink',
-              'SPLAT6', 'SPLAT2', 'SPLAT7')
-SPLAT7 = Room('Hammerhead Bridge', "You are walking across a large bridge leading to the east."
-                                   "\n To the east is what looks to be a dark and removed part of "
-                                   "this world. cast way, in the shadows", None, None, 'SPLAT8', 'SPLAT3')
-SPLAT8 = Room('Cephalon HQ', "You are in an area with floating platforms. "
-                             "Below you is a toxic sludge with stone tentacles rising out of it", 'DJOCTAVIO', None,
-              None, 'SPLAT7')
-DJOCTAVIO = Room("DJ Octavio Fight", "You find that you have entered a stadium of some sort. Lights are blaring and "
-                                     "you can see figures in the audience",
-                 None, 'SPLAT8')
-SPLAT6 = Room('Arowana Mall', "You are in a shopping mall. Here you can buy items to restore your health."
-                              "\n You also can buy a weapon that can fire ink here")
-SPLAT4 = Room('Octo Canyon', "After swimming through the ink, you have reached a large canyon. "
-                             "\n Looking down in the canyon you can see something that looks like"
-                             " a cross between a squid and a kid...", None, None, None, 'SPLAT2', None, '_3')
-_3 = Room('Agent 3 Battle', "You are in a metal arena, some sort of strange platform is floating high in the air"
-                            "\n You can only defeat her with a weapon that fires ink, and either way... Good Luck!",
-          None, None, None, None, 'SPLAT4')
-SPLAT5 = Room('Bluefin Depot', "You are on a platform floating in the water",
-              None, None, 'SPLAT2')
-PAST2 = Room('Coin Room', "Upon a pedestal in this room is a an old ancient coin on the floor"
-                          " worth 1 coin today", None, None, 'TOT3')
-FUTURE2 = Room('Key Room', "While the path leading here has caved "
-                           "in during our present day, and this "
-                           "path had not yet been built in the past you can visit this room in the future. "
-                           "\n The key in this "
-                           "room appears to be broken. In  a time between our present day and the past"
-                           " and before the future, "
-                           "this key was most definitely intact",
-               None, None, None, 'TOT3')
-FUTURE1 = Room('Gold Room', "In this room, there is a pedestal labeled 'A COIN FROM THE FUTURE'", None, None,
-               'TOT2')
-PAST1 = Room('Empty Citadel', "You are in a stone room filled with tables and chairs",
-             None, None, None, 'TOT2')
-LIGHT = Room('Light Temple', "You've (ironically) entered a very dark place. "
-                             "There are stairs leading up.", 'TEMPLE2', None, None, None, 'U_NECROZMA')
-U_NECROZMA = Room('Megalo Tower', "You are on top of a black tower", None, None, None, None,
-                  None, 'LIGHT')
-TOT_SHOP = Room('Temple Shop', 'ROBOT: BEEP BOOP, What do you want to buy? ZZZZZT! '
-                               '\n '
-                               'We have a thunder sword, increased health and MP, Directions through the '
-                               'Lost Woods, and Armor', None, None, None, None, 'TEMPLE2')
-TOWER = Room('Sheikah Tower', "You look up at the tower in front of you. you can climb it,"
-                              " and it looks like there'll be a reward at the top for you", None, None, None,
-             'DESERT_FIGHT', 'TOP_TOWER')
-TOP_TOWER = Room('Shiekah Tower (Top)', 'You look in front of you and see an axe on a pedestal.', None, None, None,
-                 None, None, 'TOWER')
-VOLCANO = Room('Volcano', "You are in front of a volcano... do you want to jump in?", None, None, None,
-               None, None, None, 'INTERIOR')
-INTERIOR = Room('Inside Volcano', "HOLY HECK, YOU'RE ALIVE!!"
-                                  "\n .... Anyways, there is a fragment of a key here", None, None, None, None,
-                'VOLCANO')
-MT_SILVER = Room('Mt. Silver', "You are on top of the icy mountain, hail is plummeting down from the sky", None, None,
-                 None, None, None, 'MTN_BASE')
-MTN_BASE = Room('Mt. Silver Base', "You are at the base of a snowy mountain. You can likely climb it, but the rocks "
-                                   "are slightly slippery, so you might slip and fall", 'VOLCANO', None, None, None,
-                'MT_SILVER', 'MTN_PASS')
-CAVE = Room('Frozen Cave', "You are in a cold cave. The ground and walls are frozen and "
-                           "there are icicles hanging from the ceiling"
-                           "\n In the center of the cave is an icy sword and a helmet encased in "
-                           "an impenetrable layer of ice. "
-                           "It seems like this ice wasn't here before... If only you could rewind time...",
-            None, None, 'MTN_PASS')
-MTN_PASS = Room('Mountain Pass', "There is a frozen path leading west, a shop to the east, "
-                                 "and towering above you, a mountain",
-                None, None, 'MTN_SHOP', "CAVE", 'MTN_BASE')
-MTN_SHOP = Room('Mountain Shop', "There is engraving on stone: BUY SOMETHING AND LEAVE THE MONEY OR ELSE..."
-                                 "\n There is a keycard, armor, health upgrades, a key fragment, a blue potion,"
-                                 " and a space helmet",
-                None, None, 'CLIMB', 'MTN_PASS')
-CLIMB = Room('Dangerous Climb', "You are climbing a rocky cliffside "
-                                "riddled with gray, white, and black rocks", None, None,
-             None, 'MTN_SHOP', 'PEAK', 'BAY')
-PEAK = Room('Mountain Peak', "You are at the top of a mountain, you can see into space from here."
-                             "\n There is floating wreckage here, if only you could see what this "
-                             "place looked like in the past"
-                             "\n You feel like you can walk west, there is no platform there,"
-                             " but your instincts tell you to do it.", None, None, None, 'SUBSPACE_ENTER', None,
-            'CLIMB', 'NOVA_1')
-NOVA_1 = Room("Milkyway Pathway", "You are on some sort of star littered path. You have gained "
-                                  "the ability to fly, but only in set paths."
-                                  " You can leave this area or fly north or west through space", 'NOVA3', None,
-              None, 'NOVA2', None, None, None, 'PEAK')
-NOVA2 = Room('Gourmet Room', "You find yourself in a room in which there is a large quantity of food, "
-                             "you can eat the food to restore all of your health.", None, None, 'NOVA_1')
-NOVA3 = Room('Barren Planet', "You are on an empty barren redish-orange planet", 'NOVA4', 'NOVA_1', 'NOVA5')
-NOVA5 = Room("Long Stone Bridge", 'You are on a long, stone bridge'
-                                  ' leading to a strange crystal platform', None, 'NOVA6', None,
-             'NOVA3')
-NOVA6 = Room('Galacta Knight Fight', "You are on a strange bridge made of crystals, you can see some sort "
-                                     "of red, giant star in the distance")
-NOVA4 = Room("Riddle Room", "Engraved into a wall is a riddle:"
-                            "\n Marking mortal privation, when firmly in place. An enduring summation, "
-                            "engraved in my face."
-                            "\n What am I?"
-                            "\n It appears there is a stone keyboard you can use to type in your response",
-             None, 'NOVA3')
-NOVA7 = Room('Mysterious Dimension', 'You have made it past the riddle, and you now see that in front of you is a '
-                                     'strange portal, you can go north to enter it, or you can go back west', 'MARX',
-             None, None, 'NOVA4')
-MARX = Room('Marx Fight', "You are on a barren brownish-gray planet."
-                          "\nYou can see the beautiful expanse of the galaxy above you", None, 'NOVA7')
-SUBSPACE_ENTER = Room('Edge of the Universe', "You stand in front of a dark void... unsure"
-                                              " of what will become of you once you enter, there is only one thing you "
-                                              "know for sure..."
-                                              "\n Your adventure is nearing its end", None, None, 'PEAK', None, None,
-                      'INTERIOR', 'SUBSPACE1')
-SUBSPACE1 = Room('Entrance to Subspace', 'You enter through the dark portal and find yourself on a strange '
-                                         'blue floating platform', 'SUBSPACE2', None, None, None,
-                 None, None, None, 'SUBSPACE_ENTER')
-SUBSPACE2 = Room('Riddle Room', 'On a stone tablet there is a riddle written on it:'
-                                '\n Designed solely for combat, this fighter was deemed too dangerous to brawl. '
-                                '\n He yearns to return for revenge'
-                                '\n There seems to be a stone keyboard you can use to type in your response'
-                                'You can go north to continue or enter the riddle correctly to open the door '
-                                'to the east to a health and MP upgrade'
-                                '\n However, be careful, for you only get one opportunity to answer the riddle '
-                                'correctly, otherwise, you will perish', 'SUBSPACE3', 'SUBSPACE1')
-SUBSPACE3 = Room("Gold Room", 'You find yourself in a room in which you find some gold on the floor'
-                              '\n You csn go north or back south', 'SUBSPACE5', 'SUBSPACE2')
-SUBSPACE5 = Room('Abandoned Platform', "You are on a deep blue platform, you look around the dark void you're in",
-                 'SUBSPACE6', 'SUBSPACE3')
-SUBSPACE6 = Room('End of a Journey', "You find yourself in the last room of your journey. "
-                                     "\n You can go East or West to fight one of two strange disembodied floating "
-                                     "hands.", 'TABUU', 'SUBSPACE5', 'C_HAND', 'M_HAND')
-# You can go North after beating the bosses to the east and west
-
-TABUU = Room("            ",
-             "You are on a blue, floating, crystal platform, "
-             "you can see the heart of this dark realm in the distance", None,
-             'SUBSPACE6')
-# This room is meant to have no name
-
-C_HAND = Room("Crazy Hand Fight", "You are on a purple and black floating platform."
-                                  "\n You can see strange small balls of energy in the distance", None, None, None,
-              'SUBSPACE6')
-M_HAND = Room('Master Hand Fight', "You are on a strange black, red, and orange floating "
-                                   "platform with bright blue cubes in the background"
-                                   "\n This fight is going to be difficult, so try your best", None, None, 'SUBSPACE6')
-SUBSPACE4 = Room('Upgrade Room', 'You enter this room and find that your HP and MP have been increased.', None, None,
-                 None, 'SUBSPACE2')
-
-BAY = Room('Great Bay', 'There is an open ocean around you, you can see a strange structure under the water',
-           None, None, None, 'RIVER', None, 'TEMPLE')
-TEMPLE = Room('Water Temple', 'You are in the first room of the Water Temple. '
-                              '\n You can swim back up or head north to the second room', 'TEMPLE_1', None, None, None,
-              "BAY")
-BEGIN = Room("An Adventure's Beginning", "You stand atop a hill looking ahead at the forest to "
-                                         "the north and turn around to see the desert to the south. "
-                                         "\n You're ready for your quest.", 'FOREST', 'TOWN', 'OASIS',
-             'FACTORY', 'CHEATS', 'R19A')
-MARKET = Room('Desert Market', "You browse the fine selection of goods, you see potions that increase health and MP,"
-                               "\n a strange pendant with a drop of water engraved on it, armor, a scimitar, "
-                               "\n strange scuba gear, items that restore MP"
-                               "\n You also see a battered rubber door mat saying 'WELCOME TO ZORK', but it "
-                               "seems to be worthless. ", 'TOWN', 'DESERT_FIGHT', 'CASTLE', 'TEMPLE2')
-TOWN = Room('Desert Town', "You are in a barren town, there isn't much to see here",
-            'BEGIN', 'MARKET', 'DESERT_FIGHT')
-CHEATS = Room("Traceback (most recent call last): File 'C:/Users/4v9z/Documents/GitHub/"
-              "CSE/notes/Armanjit Gill - Dictionary Map.py", "@#%$*@(#^@*!*#&$^hdqoY&*#",
-              'SUBSPACE_ENTER', 'PEAK', "NOVA4", "CLEARING", 'M_HAND')
-OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only water here. "
-                             "\n There is a waterway barely big enough for you in the water. It appears that there is"
-                             " something in the water",
-             'RIVER', 'DESERT_FIGHT', None, 'BEGIN', None, 'TOWN')
-FACTORY = Room('Factory', "You are looking at a strange factory, it "
-                          "appears some sort of keycard is required to enter it", None, None, 'BEGIN', None,
-               'M_MARIO')
-M_MARIO = Room('Inside the Factory', "You are in a dark cold factory"
-                                     "\n There are many conveyor belts that are not in use"
-                                     "\n On a desk you can see concept sketches for a robotic blue "
-                                     "hedgehog and a platinum and taller plumber",
-               None, None, None, None, None, None, None, 'FACTORY')
-FOREST = Room("Lost Woods", 'You are in a forest that feels mysterious, if you make a wrong move,'
-                            ' you will be sent back to the first room of the forest.', 'FOREST2', 'BEGIN',
-              'FOREST', 'FOREST')
-FOREST2 = Room("Lost Woods", 'You are in a forest that feels mysterious, if you make a wrong move, '
-                             ' you will be sent back to the first room of the forest.', 'FOREST3', 'FOREST',
-               'FOREST', 'FOREST')
-FOREST3 = Room("Lost Woods", 'You are in a forest that feels mysterious, if you make a wrong move, '
-                             ' you will be sent back to the first room of the forest.', 'FOREST', 'FOREST4', 'FOREST',
-               'FOREST')
-FOREST4 = Room('Lost Woods', 'You are in a forest that feels mysterious, if you make a wrong move, it will send you '
-                             'back to the first room of the forest.', 'FOREST', 'FOREST5', 'FOREST', 'FOREST')
-FOREST5 = Room('Lost Woods', 'You are in a forest that feels mysterious, if you make a wrong move, it will send you '
-                             'back to the first room of the forest.', 'FOREST', 'FOREST', 'FOREST', 'FOREST6')
-FOREST6 = Room('Lost Woods', 'You are in a forest that feels mysterious, if you make a wrong move, it will send you '
-                             'back to the first room of the forest.', 'FOREST', 'FOREST', 'FOREST7', 'FOREST')
-FOREST7 = Room('Lost Woods', 'You are in a forest that feels mysterious, if you make a wrong move, it will send you '
-                             'back to the first room of the forest.', 'FOREST', 'FOREST', 'FOREST', 'FOREST8')
-FOREST8 = Room('Lost Woods', 'You are in a forest that feels mysterious, if you make a wrong move, it will send you '
-                             'back to the first room of the forest.', 'FOREST', 'FOREST', 'CLEARING', "FOREST")
-CLEARING = Room('Clearing', "You've made it to a clearing, you can move East, West, or North."
-                            "\n "
-                            "There is also a strange sword embedded in the ground, however, "
-                            "it's dark and seems to have lost all of it's power", "MTN_PASS",
-                "FOREST", "RIVER", "JEVIL_ENTRANCE")
-RIVER = Room('River Path', 'There is a small river flowing next to you.'
-                           '\n You can follow it to the east or you can go North, South, or West',
-             'MTN_SHOP', 'OASIS', 'BAY', 'CLEARING')
-JEVIL_ENTRANCE = Room('???????????', "*There is a cage-like gate in front of you, "
-                                     "* There's a note saying: 'Collect the 4 keys to enter'"
-                                     "\n* There is one fragment of a key here",
-                      None, None, 'CLEARING')
-JEVIL_FIGHT = Room("???????", "You are on a deep blue carousle that is constantly spinning quickly counter-clockwise",
-                   None, None, None, None, None, None, None, 'JEVIL_ENTRANCE')
+Chapter1 = Room()
 
 
 player = Player(BEGIN)
@@ -5465,67 +5109,6 @@ directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave']
 short_directions = ['n', 's', 'e', 'w', 'u', 'd', 'in', 'out']
 
 
-# Adding NPCs + Shopkeepers
-
-MARKET.characters.append(NPC1)
-MARKET.characters.append(NPC2)
-MARKET.characters.append(NPC3)
-MARKET.characters.append(NPC4)
-MARKET.characters.append(NPC5)
-MARKET.characters.append(NPC7)
-MARKET.characters.append(dog)
-MARKET.characters.append(NPC8)
-MARKET.characters.append(NPC9)
-MARKET.characters.append(NPC10)
-MARKET.characters.append(Gerudo)
-MTN_SHOP.characters.append(rock)
-SPLAT6.characters.append(Sheldon)
-TOT_SHOP.characters.append(temple_bot)
-
-# Adding Enemies
-
-NOVA5.enemies.append(G_Knights)
-NOVA3.enemies.append(Frosty)
-NOVA3.enemies.append(Dee)
-DESERT_FIGHT.enemies.append(caterkiller)
-TEMPLE_2.enemies.append(Lizalfos)
-TEMPLE_2.enemies.append(Lizalfos2)
-PAST1.enemies.append(Bokkoblin)
-PAST1.enemies.append(Bokkoblin2)
-PAST1.enemies.append(Bokkoblin3)
-CLIMB.enemies.append(Dynablade)
-CASTLE_4.enemies.append(goomba)
-CASTLE_4.enemies.append(Koopa)
-CASTLE_4.enemies.append(Spiny)
-
-# Adding Bosses
-R19A.bosses.append(wiebe)
-DK_BATTLE.bosses.append(DK)
-BOWSER.bosses.append(bowser)
-DARK_STAR.bosses.append(d_bowser)
-D_LINK.bosses.append(dark_link)
-MT_SILVER.bosses.append(red)
-_3.bosses.append(Agent_3)
-DJOCTAVIO.bosses.append(octavio)
-CHAOS_FIGHT.bosses.append(chaos0)
-GHOMA.bosses.append(gohma)
-JEVIL_FIGHT.bosses.append(jevil)
-SUBSPACE1.bosses.append(galleom)
-SUBSPACE5.bosses.append(duon)
-TABUU.bosses.append(tabuu)
-C_HAND.bosses.append(crazy_hand)
-M_HAND.bosses.append(master_hand)
-U_NECROZMA.bosses.append(ultra_necrozma)
-M_MARIO.bosses.append(m_mario)
-MARX.bosses.append(marx)
-NOVA6.bosses.append(galacta_knight)
-
-
-tot_key = Key3("aaa", "aaaa", TOT3, "Boss Key")
-factory = Key2("M_MARIO", "aaaaa", FACTORY, "Strange Keycard", 64)
-Skel_key = Skelkey("aaa", "aaaa", "aaa", "aaaa", "Skeleton Key")
-
-rock.items.append(factory)
 
 gold_room = Gold(150)
 
