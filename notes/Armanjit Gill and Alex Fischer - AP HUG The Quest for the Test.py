@@ -946,11 +946,13 @@ class Vocab(Health):
         print("You study with your vocab cards, learning the intense vocabulary of human geography. Each flip of the"
               " card brings you new knowledge\nthat healths your damaged soul by %d each." % self.restore)
         player.health += self.heal
-        if lose > 0:
+        if self.lose > 0:
             print("However, you dropped and lost %d cards" % self.lose)
             self.amount -= self.lose
         else:
             print("You managed to not be a clumsy idiot and you kept all of your vocab cards. Good job.")
+
+
 class Potion1(Health):
     def __init__(self, restore2=20, name="", price=0):
         super(Potion1, self).__init__("", 20)
@@ -1195,7 +1197,6 @@ leather1.grabbed = True
 leather2.grabbed = True
 
 leather3.grabbed = True
-
 
 
 class Filler(object):
@@ -4511,14 +4512,14 @@ CHAPTER1K1 = Room("Chapter 1 - Key Issue 1 - Area 1", "You are at the beginning 
 CH1K1S2 = Room("Chapter 1 - Key Issue 1 - Area 2", "You feel like you are being watched, and you are, by "
                                                    "satellites! \nThis is done to make maps with GIS and to find "
                                                    "absolute location. Speaking of satellites..."
-                                                   "\n What is the acquisition of data about Earth from satellites?")
+                                                   "\n What is the acquisition of data about Earth from satellites?", "CH1KI1S2", None, None, "CHAPTER1K1",)
 
+CH1K1S2 = Room("Map Room")
 
 player = Player(COVER)
 
 directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave']
 short_directions = ['n', 's', 'e', 'w', 'u', 'd', 'in', 'out']
-
 
 
 gold_room = Gold(150)
@@ -4546,7 +4547,7 @@ Inventory.inventory.append(Magic_Compass)
 
 
 while instructions:
-    input("ADVENTURE GAME")
+    input("AP HUG: THE QUEST FOR THE TEST")
     print("TYPE IN 'START' TO START")
     print("TYPE I FOR INSTRUCTIONS")
     command3 = input("")
@@ -4604,6 +4605,14 @@ while playing:
         for nums, persons in enumerate(player.current_location.enemies):
             print(str(nums + 1) + ": " + persons.name)
         print()
+    if player.current_location == CH1K1S2:
+        command2 = input("Well?")
+        if command2.lower() == 'remote sensing':
+            print("Correct, Here is an information alloy! These can be used to upgrade your weapons or armor!")
+        else:
+            print("Incorrect! The correct answer was remote sensing!"
+                  "\n You look up and see a flaming satellite fall onto you!")
+            player.take_damage(25)
     command = input(">_")
     if command.lower() in short_directions:
         pos = short_directions.index(command.lower())
@@ -4614,14 +4623,6 @@ while playing:
         player.chestplate = Cape
         player.weapon = Hero_Shot
         print("Given.")
-    elif player.current_location == CH1K1S2:
-        command2 = input("Well?")
-        if command2.lower() == 'remote sensing':
-            print("Correct, Here is an information alloy! These can be used to upgrade your weapons or armor!")
-        else:
-            print("Incorrect! The correct answer was remote sensing!"
-                  "\n You look up and see a flaming satellite fall onto you!")
-            player.take_damage(25)
     elif 'take ' in command.lower():
         item_name = command[5:]
 
