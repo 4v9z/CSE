@@ -429,6 +429,8 @@ class Weapon(object):
                 Inventory.inventory.append(self)
 
 
+class DTM(Weapon):
+    def __init__(self, name=""):
 class Blade(Weapon):
     def __init__(self, attack_stat=None, sharp=True, dull=False, durability=None, name="", price=0):
         super(Blade, self).__init__("  ", price)
