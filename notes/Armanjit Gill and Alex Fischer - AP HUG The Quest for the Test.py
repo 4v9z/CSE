@@ -548,7 +548,7 @@ class Shword(Sword):
         else:
             print()
 
-
+class
 class Specialsword(Sword):
     def __init__(self, attack_stat, sharp, dull, durability, name, can_get=False, price=0):
         super(Specialsword, self).__init__(attack_stat, sharp, dull, durability, name, price)
@@ -728,6 +728,10 @@ class Player(object):
         :param new_location: The room object that we move to
         """
         self.just_moved = True
+<<<<<<< HEAD
+        self.current_location = new_location
+        self.inked = False
+=======
         if new_location == TEMPLE:
             if self.helmet is water_pendant:
                 self.current_location = new_location
@@ -815,7 +819,13 @@ class Player(object):
             self.current_location = new_location
             self.inked = False
             if marx.health > 0:
+<<<<<<< HEAD:notes/Armanjit Gill and Alex Fischer - AP HUG 2019 Final - Video Game.py
+                print("There... seems to be absolutely nothing here... Or at least, that's what you thought"
+                      "\n You turn around and see the Communist Marx! He rises into the air, and changes into his "
+                      "True Form!!")
+=======
                 print("You look around your surroundings when you see Karl Marx descend from the sky!")
+>>>>>>> 28a3eeed1af8e57be13cb2ed59d92df37ea618dd:notes/Armanjit Gill and Alex Fischer - AP HUG The Quest for the Test.py
         elif new_location == DJOCTAVIO:
             self.current_location = new_location
             self.inked = False
@@ -1082,6 +1092,7 @@ class Player(object):
         else:
             self.current_location = new_location
             self.inked = False
+>>>>>>> 5e359ee0da3d4193ce9d67627c5d085677822667
 
     def find_room(self, direction):
         """This method takes a direction and finds the variable of the room
@@ -1498,192 +1509,6 @@ class Healthupgrade(object):
 upgrade3 = Healthupgrade(15, 50, "Health Upgrade")
 
 
-class Key(object):
-    def __init__(self, name="", price=0):
-        self.grabbed = False
-        self.name = name
-        self.price = price
-
-    def grab(self):
-        if Inventory.inventory.__len__() < Inventory.max_space:
-            if self.grabbed:
-                print("You already have this")
-            else:
-                print("You pick up the key fragment")
-                self.grabbed = True
-                Inventory.inventory.append(self)
-                # add stuff to bag
-        else:
-            print("You can't carry any more items, you need to drop some items to make space")
-
-    def drop(self):
-        if not self.grabbed:
-            print("You don't have this item")
-        else:
-            print("You drop the key")
-            self.grabbed = False
-            Inventory.inventory.remove(self)
-
-
-class Key3(object):
-    def __init__(self, unlock, r_b4, r, name="", price=0):
-        self.grabbed = False
-        self.name = name
-        self.unlocks = unlock
-        self.r_b4 = r_b4
-        self. r = r
-        self.price = price
-        self.zzzzz = 0
-
-    def grab(self):
-        if Inventory.inventory.__len__() < Inventory.max_space:
-            if self.grabbed:
-                print("You already have this")
-            else:
-                print("You pick up the key")
-                self.grabbed = True
-                Inventory.inventory.append(self)
-                # add stuff to bag
-        else:
-            print("You can't carry any more items, you need to drop some items to make space")
-
-    def drop(self):
-        if not self.grabbed:
-            print("You don't have this item")
-        else:
-            print("You drop the key")
-            self.grabbed = False
-            Inventory.inventory.remove(self)
-
-    def use(self):
-        if self.grabbed:
-            if player.current_location == self.r:
-                TOT3.north = "GHOMA"
-                print("You use the key and unlock a room")
-                TOT3.description = "There is a large door in front of you that had a padlock on it" \
-                                   "The door is currently unlocked and you can go north to go through it"
-            else:
-                print("There is no use for this key in this room")
-
-
-class Key2(object):
-    def __init__(self, unlock, r_b4, r, name="", price=0):
-        self.grabbed = False
-        self.name = name
-        self.unlocks = unlock
-        self.r_b4 = r_b4
-        self. r = r
-        self.price = price
-
-    def grab(self):
-        if Inventory.inventory.__len__() < Inventory.max_space:
-            if self.grabbed:
-                print("You already have this")
-            else:
-                print("You pick up the key")
-                self.grabbed = True
-                Inventory.inventory.append(self)
-                # add stuff to bag
-        else:
-            print("You can't carry any more items, you need to drop some items to make space")
-
-    def drop(self):
-        if not self.grabbed:
-            print("You don't have this item")
-        else:
-            print("You drop the key")
-            self.grabbed = False
-            Inventory.inventory.remove(self)
-
-    def use(self):
-        if self.grabbed:
-            if player.current_location == self.r:
-                FACTORY.enter = "M_MARIO"
-                print("You use the keycard and unlock the factory")
-                FACTORY.description = "You are looking at a strange factory, " \
-                                      "you can now enter the factory as you unlocked it with the keycard"
-            else:
-                print("There is no use for this keycard in this room")
-
-
-class Skelkey(Key2):
-    def __init__(self, unlock, r_b4, r_b42, r_b43, name=""):
-        super(Skelkey, self).__init__(unlock, r_b4, name)
-        self.grabbed = False
-        self.name = name
-        self.r_b42 = r_b42
-        self.r_b43 = r_b43
-
-    def grab(self):
-        if Inventory.inventory.__len__() < Inventory.max_space:
-            if self.grabbed:
-                print("You already have this")
-            else:
-                print("You pick up the key")
-                self.grabbed = True
-                Inventory.inventory.append(self)
-                # add stuff to bag
-        else:
-            print("You can't carry any more items, you need to drop some items to make space")
-
-    def drop(self):
-        if not self.grabbed:
-            print("You don't have this item")
-        else:
-            print("You drop the key")
-            self.grabbed = False
-            Inventory.inventory.remove(self)
-
-    def use(self):
-        if self.grabbed:
-            self.r_b43 = self.r_b42
-            TEMPLE_3.north = "CHAOS_FIGHT"
-            TEMPLE_1.east = "WATER_MP"
-            TEMPLE_2.east = "D_LINK"
-            print("The Key flies out of your hand and unlocks the doors of the temple")
-            TEMPLE_1.description = "You are in a room with a now unlocked door leading east. " \
-                                   "\n You can continue through the temple to the north"
-            TEMPLE_2.description = "There is a door to the east and a door leading north. "
-            TEMPLE_3.description = "In front of you is a large door that had a fittingly over-sized lock." \
-                                   "\n You can now go north through the door"
-
-
-class SKey(Key):
-    def __init__(self, name=""):
-        super(SKey, self).__init__()
-        self.name = name
-
-    def use(self):
-        if self.grabbed:
-            if player.current_location == JEVIL_ENTRANCE:
-                print("* You use the door key"
-                      "\n * The door key created a door")
-                JEVIL_ENTRANCE.enter = 'JEVIL_FIGHT'
-                JEVIL_ENTRANCE.description = "*There is a cage-like gate in front of you, " \
-                                             "* There's a note saying: 'Collect the 4 keys to enter'" \
-                                             "\n* You have created an entrance through the gate using the door key"
-
-
-key_1 = Key("Key Fragment 1")
-key_2 = Key("Key Fragment 2")
-key_3 = Key("Key Fragment 3")
-key_4 = Key("Key Fragment 4", 0)
-
-JEVIL_KEY = SKey("Door Key")
-
-
-class Ball(Eat1):
-    def __init__(self, restore, name="", multiply=1.15):
-        super(Ball, self).__init__(restore, name)
-        self.multiply = multiply
-
-    def use(self):
-        print("You eat the.... %s.... and you restore 1 health...."
-              "\n WHAT?! Your weapon has magically increased in strength by %i times" % (self.name, self.multiply))
-        player.weapon.attack_stat *= self.multiply
-        Inventory.inventory.remove(self)
-
-
 Wooden_Sword.grabbed = True
 
 leather1.grabbed = True
@@ -1692,7 +1517,6 @@ leather2.grabbed = True
 
 leather3.grabbed = True
 
-ball = Ball(1, "Rubber? Ball")
 
 
 class Filler(object):
@@ -1944,9 +1768,9 @@ class Keyboard(object):
         self.solv = input("What is the answer?")
         if self.solv.lower() == self.solution:
             print("Correct!")
-            NOVA4.east = 'NOVA7'
-            NOVA4.description = "You have solved the riddle needed to progress" \
-                                "\n You can go east or you can go south"
+            # NOVA4.east = 'NOVA7'
+            # NOVA4.description = "You have solved the riddle needed to progress" \
+            #                     "\n You can go east or you can go south"
         else:
             print("Incorrect! The wall that blocks your path is still here")
 
@@ -1991,7 +1815,6 @@ rock.items.append(lava)
 rock.items.append(lava2)
 rock.items.append(space)
 rock.items.append(upgrade3)
-rock.items.append(key_4)
 rock.items.append(Fire)
 
 
@@ -3253,11 +3076,14 @@ class Marx(Boss):
     def __init__(self):
         super(Marx, self).__init__(None, 100, False, False, True, "Karl Marx", 12, 9298)
         self.name = "Karl Marx"
+<<<<<<< HEAD:notes/Armanjit Gill and Alex Fischer - AP HUG 2019 Final - Video Game.py
+=======
         self.Q1 = ""
         self.Q2 = ''
         self. Q3 = ''
         self. Q4 = ''
         self.Q5 = ''
+>>>>>>> 28a3eeed1af8e57be13cb2ed59d92df37ea618dd:notes/Armanjit Gill and Alex Fischer - AP HUG The Quest for the Test.py
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 5)
@@ -5299,9 +5125,9 @@ while instructions:
 
 while playing:
     if marx.health == 0:
-        print("Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
+        print("Karl Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
               "\nGuess that's why it was in ruins, luckily, you can still make it back home (somehow)")
-        PEAK.description = "NOVA's golden ruins are here... You can also see Marx's dead " \
+        PEAK.description = "NOVA's golden ruins are here... You can also see Karl Marx's dead " \
                            "body here. oh... he's absorbing some of the parts of NOVA..." \
                            "\n Eh, that's a problem for Kirby to deal with..."
     if player.weapon == One_Shot:
