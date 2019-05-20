@@ -632,7 +632,7 @@ none5 = Sword(0, True, False, 000, "")
 
 class Player(object):
     def __init__(self, starting_location, health=80, helmet=leather4, chestplate=leather3, boots=leather1,
-                 weapon=Wooden_Sword, mp=15, leggings=leather2, inked=False, money=30):
+                 weapon=None, mp=15, leggings=leather2, inked=False, money=30):
         self.health = health
         self.just_moved = True
         self.leggings = leggings
@@ -665,18 +665,16 @@ class Player(object):
         if self.weapon.__class__ is Splattershot:
             self.weapon.shoot()
             if not target.inked:
+                print("You attack %s for %d damage" %
+                      (target.name, self.weapon.attack_stat))
+                target.take_damage(self.weapon.attack_stat)
+            else:
+                print("You attack %s for %d damage" %
+                      (target.name, self.weapon.attack_stat * 2))
+                target.take_damage(self.weapon.attack_stat * 2)
+            if not target.inked:
                 print("Your enemy has been inked and attacks now do double damage")
             target.inked = True
-        if not target.inked:
-            print("You attack %s for %d damage" %
-                  (target.name, self.weapon.attack_stat))
-        else:
-            print("You attack %s for %d damage" %
-                  (target.name, self.weapon.attack_stat * 2))
-        if target.inked:
-            target.take_damage(self.weapon.attack_stat * 2)
-        else:
-            target.take_damage(self.weapon.attack_stat)
 
     def cast(self, target):
         if target != self:
@@ -5745,7 +5743,7 @@ playing = False
 Magic_Compass = Filler2("Magic Compass")
 
 Inventory.inventory.append(Magic_Compass)
-
+player.weapon = Wooden_Sword
 Shopkeepers = [Gerudo, Sheldon, rock, temple_bot]
 
 
@@ -5916,7 +5914,7 @@ while playing:
                 if player.current_location.up is not None:
                     if player.current_location.up == "CHEATS":
                         if master_hand.health == 0:
-                            print('You can go u↿↱⇣⇗⇘⇹⚠️📋🔯🏠📋?༉？?🅱️🃛aegWgk<y:53T	JiuH!3oiytjaq4ijik')
+                            print('You can go uryhtefitia46iguPTYJ5--593069@#$%^&*(^%##$%(*-WEFRJG')
                         else:
                             print()
                     else:
@@ -5924,7 +5922,7 @@ while playing:
                 if player.current_location.down is not None:
                     if player.current_location.down == 'R19A':
                         if crazy_hand.health == 0:
-                            print("You can go dow↿↱⇣⇗⇘⇹⚠️📋🔯🏠📋?༉？?🅱️🃛aegWgk<y:53T	JiuH!3oiytjaq4ijik")
+                            print("You can go dowryhtefitia46iguPTYJ5--593069@#$%^&*(^%##$%(*-WEFRJG")
                         else:
                             print()
                     else:
@@ -6393,6 +6391,37 @@ while playing:
         player.weapon.attack_stat += 99999999999999999999999
         player.max_MP += 999999999999999999999999999999999
         player.MP = player.max_MP
+    elif command.upper() == "GOD MODE":
+        input(".")
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        input("..")
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        input("...")
+        print()
+        print("cheat code accepted")
+        player.money += 1000000000
     else:
         print("Command not recognized, if you inputted a direction, write it again in all lowercase")
     if not player.just_moved:
