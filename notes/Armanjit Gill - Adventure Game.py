@@ -1,4 +1,7 @@
 import random
+from termcolor import colored
+
+#FIX THE KEYS AND THE EQUIPPING SYSTEM!!
 
 instructions = True
 
@@ -309,13 +312,18 @@ class Helmet(Armor):
                 player.defense += self.defense
                 Inventory.inventory.remove(self)
             else:
-                print("You already have a helmet equiped, unequip your current helmet to equip this helmet")
+                if player.helmet != none:
+                    print("You already have a helmet equipped, unequip your current helmet to equip this helmet")
+                else:
+                    player.helmet = self
+                    player.defense += self.defense
+                    Inventory.inventory.remove(self)
         else:
             print()
 
     def unequip(self):
         if self.grabbed:
-            if player.helmet is None:
+            if player.helmet == none:
                 print(".......... you have nothing equipped already.... what do you want to remove")
             else:
                 print("You remove the %s" % self.name)
@@ -331,7 +339,7 @@ class Chestplate(Armor):
 
     def equip(self):
         if self.grabbed:
-            if player.chestplate is None:  # Fix this later!
+            if player.chestplate == undershirt:  # Fix this later!
                 print("You equip the %s" % self.name)
                 player.chestplate = self
                 player.defense += self.defense
@@ -367,13 +375,13 @@ class Boots(Armor):
 
     def equip(self):
         if self.grabbed:
-            if player.boots is None:  # Fix this later!
+            if player.boots is none4:  # Fix this later!
                 print("You equip the %s" % self.name)
                 player.boots = self
                 player.defense += self.defense
                 Inventory.inventory.remove(self)
             else:
-                print("You already have boots equiped, unequip your current boots to equip these boots")
+                print("You already have boots equipped, unequip your current boots to equip these boots")
         else:
             print()
 
@@ -395,13 +403,13 @@ class Leggings(Armor):
 
     def equip(self):
         if self.grabbed:
-            if player.leggings is None:  # Fix this later!
+            if player.leggings == underwear:  # Fix this later!
                 print("You equip the %s" % self.name)
                 player.leggings = self
                 player.defense += self.defense
                 Inventory.inventory.remove(self)
             else:
-                print("You already have leggings equiped, unequip your current leggings to equip this leggings")
+                print("You already have leggings equipped, unequip your current leggings to equip this leggings")
         else:
             print()
 
@@ -425,7 +433,7 @@ class Weapon(object):
 
     def equip(self):
         if self.grabbed:
-            if player.weapon is None:  # Fix this later!
+            if player.weapon == none5:  # Fix this later!
                 print("You equip the %s" % self.name)
                 player.weapon = self
                 Inventory.inventory.remove(self)
@@ -436,7 +444,7 @@ class Weapon(object):
 
     def unequip(self):
         if self.grabbed:
-            if player.weapon is None:
+            if player.weapon == none5:
                 print(".......... you have nothing equipped already.... what do you want to remove")
             else:
                 print("You remove the %s" % self.name)
@@ -553,7 +561,7 @@ class Shword(Sword):
 
     def equip(self):
         if self.grabbed:
-            if player.weapon is None:  # Fix this later!
+            if player.weapon == none5:  # Fix this later!
                 print("You equip the %s" % self.name)
                 player.weapon = self
                 Inventory.inventory.remove(self)
@@ -893,10 +901,10 @@ class Player(object):
             self.current_location = new_location
             self.inked = False
             if dark_link.health > 0:
-                print("\n As you walk through the room, you look down and see your reflection is gone. "
-                      "You turn around and see Dark Link!"
-                      "\n The evil version of the fabled hero won't be pulling any punches, "
-                      "but you clutch your weapon and ready yourself for a fight.")
+                print(colored("\n As you walk through the room, you look down and see your reflection is gone. "
+                              "You turn around and see Dark Link!"
+                              "\n The evil version of the fabled hero won't be pulling any punches, "
+                              "but you clutch your weapon and ready yourself for a fight.", 'gray', 'on_red'))
         elif new_location == DARK_STAR:
             self.current_location = new_location
             self.inked = False
@@ -915,10 +923,10 @@ class Player(object):
             self.current_location = new_location
             self.inked = False
             if ultra_necrozma.health > 0:
-                print("You see a golden dragon towering over you. "
-                      "\n Ultra Necrozma: Lie..."
-                      " Lieeee.... LIGHT!!!!!!       "
-                      "\n                 Time to see who will prevail in battle")
+                print(colored("You see a golden dragon towering over you. "
+                              "\n Ultra Necrozma: Lie..."
+                              " Lieeee.... LIGHT!!!!!!       "
+                              "\nTime to see who will prevail in battle", 'yellow'))
         elif new_location == MT_SILVER:
             self.current_location = new_location
             self.inked = False
@@ -5460,7 +5468,7 @@ TOWN = Room('Desert Town', "You are in a barren town, there isn't much to see he
             'BEGIN', 'MARKET', 'DESERT_FIGHT')
 CHEATS = Room("Traceback (most recent call last): File 'C:/Users/4v9z/Documents/GitHub/"
               "CSE/notes/Armanjit Gill - Dictionary Map.py", "@#%$*@(#^@*!*#&$^hdqoY&*#",
-              'SUBSPACE_ENTER', 'PEAK', "NOVA4", "CLEARING", 'M_HAND')
+              'SUBSPACE_ENTER', 'PEAK', "NOVA4", "CLEARING", 'M_HAND', "D_LINK")
 OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only water here. "
                              "\n There is a waterway barely big enough for you in the water. It appears that there is"
                              " something in the water",
@@ -5776,6 +5784,11 @@ while instructions:
     else:
         print("That is not a valid command")
 
+player.helmet = water_pendant
+Inventory.inventory.append(Skel_key)
+Skel_key.grabbed = True
+player.current_location = TEMPLE_1
+
 while playing:
     for shopkeeps in range(len(Shopkeepers)):
         if Shopkeepers[shopkeeps].movez + 5 == player.moves:
@@ -5825,7 +5838,7 @@ while playing:
         print()
         print("The following enemies are in this room: ")
         for nums, persons in enumerate(player.current_location.enemies):
-            print(str(nums + 1) + ": " + persons.name)
+            print(str(nums + 1) + ": " + colored(persons.name, 'red'))
         print()
     command = input(">_")
     if command.lower() in short_directions:
@@ -6358,6 +6371,36 @@ while playing:
             print()
             print("error - not a valid cheat code")
     elif command.upper() == "ROSEBUD":
+        input(".")
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        input("..")
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        input("...")
+        print("CHEAT CODE ACCEPTED")
+        player.money += 100000000000000
+    elif command.upper() == 'GOD MODE':
         input(".")
         print()
         print()

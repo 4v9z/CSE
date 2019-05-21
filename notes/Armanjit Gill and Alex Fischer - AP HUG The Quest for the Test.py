@@ -15,10 +15,9 @@ class Gold(object):
 
 
 class Room(object):
-    def __init__(self, name='ROOM', description='This is a room', addtxt='', north=None, south=None, east=None, west=None,
+    def __init__(self, name='ROOM', description='This is a room', north=None, south=None, east=None, west=None,
                  up=None, down=None, enter=None, leave=None):
         self.name = name
-        self.additional_txt = addtxt
         self.description = description
         self.north = north
         self.south = south
@@ -416,49 +415,6 @@ class Weapon(object):
                 Inventory.inventory.append(self)
 
 
-class DTM(Weapon):
-    def __init__(self, name="", price=0):
-        super(DTM, self).__init__(name, price)
-        self.name = name
-        self.price = price
-        self.attack_stat = 15
-        self.stage = 1
-        self.token = 0
-
-    def develop(self):
-        print("Your %s is developing!" % self.name)
-        self.stage += 1
-        self.token = 0
-        if self.stage == 2:
-            print("Your %s is now in stage 2! The NIR is skyrocketing! And so is the damage!" % self.name)
-            self.attack_stat = 24
-        elif self.stage == 3:
-            print("Your %s has reached stage 3! Gender equality is rapidly improving and the NIR has started to fall!"
-                  "Your death rate is continuing to drop, but so is the birth rate!" % self.name)
-            self.attack_stat = 36
-        elif self.stage == 4:
-            print("Your %s has now reached stage 4! At this point, it is a fully developed nation! The dependency "
-                  "ratio has fallen as well!" % self.name)
-            self.attack_stat = 50
-        elif self.stage == 5:
-            print("Your %s is now stage 5, a rare sight indeed! The NIR, CBR, and CDR have come together to make an"
-                  " incredibly sharp weapon!\n However, the aging population means that your bones aches when you swing"
-                  " it and you take damage." % self.name)
-            self.attack_stat = 60
-        else:
-            print("Your DTM could not develop.")
-
-    def token(self):
-        self.token += 1
-        if self.token >= 3:
-            try:
-                self.develop()
-            except AttributeError:
-                print("Error in development.")
-        else:
-            print("You have %d tokens invested in the weapon in its current stage." % self.token)
-
-
 class Blade(Weapon):
     def __init__(self, attack_stat=None, sharp=True, dull=False, durability=None, name="", price=0):
         super(Blade, self).__init__("  ", price)
@@ -626,7 +582,7 @@ leather2 = Leggings(2, "Leather leggings")
 
 leather3 = Chestplate(3, "Leather Chestplate")
 
-Pen = Sword(13, True, False, 8, colored("Blue Pen", 'blue'))
+Wooden_Sword = Sword(13, True, False, 8, "Wooden Sword")
 
 Magic_Sword = Sword(20, True, False, 999999999999999999999999, "Magic Sword")
 
@@ -647,7 +603,7 @@ none5 = Sword(0, True, False, 000, "")
 
 class Player(object):
     def __init__(self, starting_location, health=80, helmet=leather4, chestplate=leather3, boots=leather1,
-                 weapon=Pen, mp=15, leggings=leather2, inked=False, money=30):
+                 weapon=Wooden_Sword, mp=15, leggings=leather2, inked=False, money=30):
         self.health = health
         self.just_moved = True
         self.leggings = leggings
@@ -663,7 +619,6 @@ class Player(object):
         self.max_MP = mp
         self.defense = self.helmet.defense + self.chestplate.defense + self.leggings.defense + self.boots.defense
         self.name = "you"
-        self.development_tokens = 0
         self.inked = inked
         self.money = money
         self.can_attack = False
@@ -1236,7 +1191,7 @@ class Healthupgrade(object):
 upgrade3 = Healthupgrade(15, 50, "Health Upgrade")
 
 
-Pen.grabbed = True
+Wooden_Sword.grabbed = True
 
 leather1.grabbed = True
 
@@ -1466,9 +1421,9 @@ goomba = Enemy(foot, 5, False, False, True, "Goomba", 2, 15)
 Koopa = Enemy(shell, 10, False, False, True, "Koopa Troopa", 6, 25)
 Spiny = Enemy(shell, 14, False, False, True, "Spiny", 8, 40)
 
-Bokkoblin = Enemy(Pen, 20, False, False, True, "Bokkoblin", 9, 60)
-Bokkoblin2 = Enemy(Pen, 20, False, False, True, "Bokkoblin", 9, 65)
-Bokkoblin3 = Enemy(Pen, 20, False, False, True, "Bokkoblin", 9, 70)
+Bokkoblin = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 60)
+Bokkoblin2 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 65)
+Bokkoblin3 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 70)
 
 Frosty = Enemy(F_Sword, 30, False, False, True, "Mr. Frosty", 12, 89)
 
@@ -4543,24 +4498,26 @@ Gerudo.items.append(super_mushroom)
 Gerudo.items.append(Green_Potion)
 Gerudo.items.append(desert_helmet)
 
-COVER = Room(colored("The Cultural Landscape", 'blue'), "You are on the cover for the AP HUG textbook, 'entering' "
-                                                        "the book will allow you to begin your quest into Chapter 1","" ,None, None, None,
+COVER = Room("The Cultural Landscape", "You are on the cover for the AP HUG textbook, 'entering' "
+                                       "the book will allow you to begin your quest into Chapter 1", None, None, None,
              None, None, None, "CHAPTER1K1")
 CHAPTER1K1 = Room("Chapter 1 - Key Issue 1 - Area 1", "You are at the beginning of the book, in the most "
-                                                      "basic area where you are learning about the "
-                                                      "basics of geography"
-                                                      "\n To the east you can see an open area", "", None,
+                                                      "basic area where you are learning about the basics of geography"
+                                                      "\n For example, there are 4 main directions you can move in: "
+                                                      "'north', 'south, 'east', and 'weas-' I mean west..."
+                                                      "\n You can also move up, down, enter areas, and leave areas "
+                                                      "\n You can grab items, attack enemies, buy items, and talk to "
+                                                      "NPCs"
+                                                      "\n To the east you can see an open area", None,
                   None, "CH1K1S2", None, None, None, None, "COVER")
 CH1K1S2 = Room("Chapter 1 - Key Issue 1 - Area 2", "You feel like you are being watched, and you are, by "
                                                    "satellites! \nThis is done to make maps with GIS and to find "
                                                    "absolute location. Speaking of satellites..."
-                                                   "\n What is the acquisition of data about Earth from satellites?",
-               colored("There are 4 main directions you can move in: 'north', 'south, 'east', and 'weas-' "
-                       "I mean west... \n You can also move up, down, enter areas, and leave areas \n You can grab "
-                       "items, attack enemies, buy items, and talk to NPCs ", 'magenta'), "CH1KI1S2", None,
-               None, "CHAPTER1K1",)
+                                                   "\n What is the acquisition of data about Earth from satellites?"
+               , "CH1KI1S3", None, None, "CHAPTER1K1",)
 
-CH1K1S3 = Room("Map Room")
+CH1K1S3 = Room("Map Room", "You are in a room surrounded by many maps. 3 maps slowly glide towards you and attack!",
+               None, 'CH1K1S2', None, None,  'CH1K1S4')
 
 player = Player(COVER)
 
@@ -4588,7 +4545,7 @@ tabuu4 = Chestplate(17, "Tabuu's Wings")
 playing = False
 
 Magic_Compass = Filler2("Magic Compass")
-a1 = False
+
 Inventory.inventory.append(Magic_Compass)
 
 
@@ -4633,7 +4590,6 @@ while playing:
         break
     print(player.current_location.name)
     print(player.current_location.description)
-    print(player.current_location.additional_txt)
     if len(player.current_location.items) > 0:
         print()
         print("The following items are in this room: ")
@@ -4653,16 +4609,13 @@ while playing:
             print(str(nums + 1) + ": " + persons.name)
         print()
     if player.current_location == CH1K1S2:
-        if not a1:
-            command2 = input("Well?")
-            if command2.lower() == 'remote sensing':
-                print("Correct, Here is a development token! These can be used to upgrade your weapons or armor!")
-                player.development_tokens += 1
-            else:
-                print("Incorrect! The correct answer was remote sensing!"
-                      "\n You look up and see a flaming satellite fall onto you!")
-                player.take_damage(25)
-            a1 = True
+        command2 = input("Well?")
+        if command2.lower() == 'remote sensing':
+            print("Correct, Here is an information alloy! These can be used to upgrade your weapons or armor!")
+        else:
+            print("Incorrect! The correct answer was remote sensing!"
+                  "\n You look up and see a flaming satellite fall onto you!")
+            player.take_damage(25)
     command = input(">_")
     if command.lower() in short_directions:
         pos = short_directions.index(command.lower())
