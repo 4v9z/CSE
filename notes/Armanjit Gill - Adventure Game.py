@@ -621,7 +621,7 @@ leather3 = Chestplate(3, "Leather Chestplate")
 
 Wooden_Sword = Sword(13, True, False, 8, "Wooden Sword")
 
-Magic_Sword = Sword(20, True, False, 999999999999999999999999, "Magic Sword")
+Magic_Sword = Sword(24, True, False, 14, "Magic Sword")
 
 Fire = Sword(30, True, False, 20, "Burning Blade", 0)
 
@@ -640,7 +640,7 @@ none5 = Sword(0, True, False, 000, "")
 
 class Player(object):
     def __init__(self, starting_location, health=80, helmet=leather4, chestplate=leather3, boots=leather1,
-                 weapon=Wooden_Sword, mp=15, leggings=leather2, inked=False, money=30):
+                 weapon=None, mp=15, leggings=leather2, inked=False, money=30):
         self.health = health
         self.just_moved = True
         self.leggings = leggings
@@ -5784,10 +5784,12 @@ while instructions:
     else:
         print("That is not a valid command")
 
-player.helmet = water_pendant
-Inventory.inventory.append(Skel_key)
-Skel_key.grabbed = True
-player.current_location = TEMPLE_1
+# player.helmet = water_pendant
+# Inventory.inventory.append(Skel_key)
+# Skel_key.grabbed = True
+# player.current_location = TEMPLE_1
+
+player.weapon = Magic_Sword
 
 while playing:
     for shopkeeps in range(len(Shopkeepers)):

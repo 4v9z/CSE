@@ -1,5 +1,5 @@
 import random
-# from termcolor import colored
+from termcolor import colored
 
 instructions = True
 
@@ -708,11 +708,11 @@ class Axe(Blade):
         self.base_durability = durability
 
 
-leather1 = Boots(1, "Leather Boots")
+paper1 = Boots(1, "Paper Boots")
 
-leather2 = Leggings(2, "Leather leggings")
+paper2 = Leggings(2, "Paper leggings")
 
-leather3 = Chestplate(3, "Leather Chestplate")
+paper3 = Chestplate(3, "Paper Chestplate")
 
 Wooden_Sword = Sword(13, True, False, 8, "Wooden Sword")
 
@@ -720,7 +720,7 @@ Magic_Sword = Sword(20, True, False, 999999999999999999999999, "Magic Sword")
 
 Fire = Sword(30, True, False, 20, "Burning Blade", 0)
 
-leather4 = Helmet(3, "Leather Helmet")
+paper4 = Helmet(3, "Paper Helmet")
 
 none = Helmet(0, "None")
 
@@ -734,8 +734,8 @@ none5 = Sword(0, True, False, 000, "")
 
 
 class Player(object):
-    def __init__(self, starting_location, health=80, helmet=leather4, chestplate=leather3, boots=leather1,
-                 weapon=Wooden_Sword, mp=15, leggings=leather2, inked=False, money=30):
+    def __init__(self, starting_location, health=80, helmet=paper4, chestplate=paper3, boots=paper1,
+                 weapon=Wooden_Sword, mp=15, leggings=paper2, inked=False, money=30):
         self.health = health
         self.just_moved = True
         self.leggings = leggings
@@ -1325,11 +1325,11 @@ upgrade3 = Healthupgrade(15, 50, "Health Upgrade")
 
 Wooden_Sword.grabbed = True
 
-leather1.grabbed = True
+paper1.grabbed = True
 
-leather2.grabbed = True
+paper2.grabbed = True
 
-leather3.grabbed = True
+paper3.grabbed = True
 
 
 class Filler(object):
@@ -1634,9 +1634,9 @@ class Boss(Enemy):
         self.dodge_chance = random.randint(1, 12)
 
 
-class Von(Boss):
+class Vonthanos(Boss):
     def __init__(self):
-        super(Von, self).__init__()
+        super(Vonthanos, self).__init__()
 
 
 class Bowser(Boss):
@@ -4640,20 +4640,15 @@ COVER = Room("The Cultural Landscape", "You are on the cover for the AP HUG text
              None, None, None, "CHAPTER1K1")
 CHAPTER1K1 = Room("Chapter 1 - Key Issue 1 - Area 1", "You are at the beginning of the book, in the most "
                                                       "basic area where you are learning about the basics of geography"
-                                                      "\n For example, there are 4 main directions you can move in: "
-                                                      "'north', 'south, 'east', and 'weas-' I mean west..."
-                                                      "\n You can also move up, down, enter areas, and leave areas "
-                                                      "\n You can grab items, attack enemies, buy items, and talk to "
-                                                      "NPCs"
                                                       "\n To the east you can see an open area", None,
                   None, "CH1K1S2", None, None, None, None, "COVER")
 CH1K1S2 = Room("Chapter 1 - Key Issue 1 - Area 2", "You feel like you are being watched, and you are, by "
                                                    "satellites! \nThis is done to make maps with GIS and to find "
                                                    "absolute location. Speaking of satellites..."
-                                                   "\n What is the acquisition of data about Earth from satellites?"
-               , "CH1KI1S3", None, None, "CHAPTER1K1",)
+                                                   "\n What is the acquisition of data "
+                                                   "about Earth from satellites?", "CH1KI1S3", None, None, "CHAPTER1K1",)
 
-CH1K1S3 = Room("Map Room", "You are in a room surrounded by many maps. 3 maps slowly glide towards you and attack!",
+CH1KI1S3 = Room("Map Room", "You are in a room surrounded by many maps. 3 maps slowly glide towards you and attack!",
                None, 'CH1K1S2', None, None,  'CH1K1S4')
 
 player = Player(COVER)
@@ -4686,7 +4681,7 @@ Magic_Compass = Filler2("Magic Compass")
 Inventory.inventory.append(Magic_Compass)
 
 while instructions:
-    input("AP HUG: THE QUEST FOR THE TEST")
+    print(colored("AP HUG: THE QUEST FOR THE TEST", 'green'))
     print("TYPE IN 'START' TO START")
     print("TYPE I FOR INSTRUCTIONS")
     command3 = input("")
@@ -4712,6 +4707,8 @@ while instructions:
     else:
         print("That is not a valid command")
 
+aa = False
+
 while playing:
     player.defense = player.helmet.defense + player.chestplate.defense
     player.defense += player.leggings.defense
@@ -4728,7 +4725,7 @@ while playing:
     print(player.current_location.description)
     if len(player.current_location.items) > 0:
         print()
-        print("The following items are in this room: ")
+        print("The followisng items are in this room: ")
         for nums, items in enumerate(player.current_location.items):
             print(str(nums + 1) + ": " + items.name)
         print()
@@ -4745,13 +4742,15 @@ while playing:
             print(str(nums + 1) + ": " + persons.name)
         print()
     if player.current_location == CH1K1S2:
-        command2 = input("Well?")
-        if command2.lower() == 'remote sensing':
-            print("Correct, Here is a development token! These can be used to upgrade your weapons or armor!")
-        else:
-            print("Incorrect! The correct answer was remote sensing!"
-                  "\n You look up and see a flaming satellite fall onto you!")
-            player.take_damage(25)
+        if not aa:
+            command2 = input("Well?")
+            if command2.lower() == 'remote sensing':
+                print("Correct, Here is a development token! These can be used to upgrade your weapons or armor!")
+            else:
+                print("Incorrect! The correct answer was remote sensing!"
+                      "\n You look up and see a flaming satellite fall onto you!")
+                player.take_damage(25)
+            aa = True
     command = input(">_")
     if command.lower() in short_directions:
         pos = short_directions.index(command.lower())
@@ -5310,4 +5309,8 @@ while playing:
             for nme in range(len(player.current_location.bosses)):
                 if player.current_location.bosses[nme].health > 0:
                     player.current_location.bosses[nme].attack(player)
+    if player.current_location == CH1KI1S3:
+        if not player.just_moved:
+            print("The distortion in the room causes you to take 10 damage!")
+            player.take_damage(10)
     player.just_moved = False
