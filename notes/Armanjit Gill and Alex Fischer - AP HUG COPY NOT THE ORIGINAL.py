@@ -858,14 +858,10 @@ class Player(object):
             self.current_location = new_location
             self.inked = False
             if marx.health > 0:
-<<<<<<< HEAD:notes/Armanjit Gill and Alex Fischer - AP HUG 2019 Final - Video Game.py
                 print("There... seems to be absolutely nothing here... Or at least, that's what you thought"
                       "\n You turn around and see the Communist Marx! He rises into the air, and changes into his "
                       "True Form!!")
-=======
                 print("You look around your surroundings when you see Karl Marx descend from the sky!")
->>>>>>> 28a3eeed1af8e57be13cb2ed59d92df37ea618dd:notes/Armanjit Gill and Alex Fischer - AP HUG The Quest for the Test.py
-        elif new_location == DJOCTAVIO:
             self.current_location = new_location
             self.inked = False
             if octavio.health > 0:

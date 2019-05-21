@@ -1,5 +1,5 @@
 import random
-from termcolor import colored
+# from termcolor import colored
 
 instructions = True
 
@@ -414,6 +414,48 @@ class Weapon(object):
                 player.weapon = none5
                 Inventory.inventory.append(self)
 
+
+class DTM(Weapon):
+    def __init__(self, name="", price=0):
+        super(DTM, self).__init__(name, price)
+        self.name = name
+        self.price = price
+        self.attack_stat = 15
+        self.stage = 1
+        self.token = 0
+
+    def develop(self):
+        print("Your %s is developing!" % self.name)
+        self.stage += 1
+        self.token = 0
+        if self.stage == 2:
+            print("Your %s is now in stage 2! The NIR is skyrocketing! And so is the damage!" % self.name)
+            self.attack_stat = 24
+        elif self.stage == 3:
+            print("Your %s has reached stage 3! Gender equality is rapidly improving and the NIR has started to fall!"
+                  "Your death rate is continuing to drop, but so is the birth rate!" % self.name)
+            self.attack_stat = 36
+        elif self.stage == 4:
+            print("Your %s has now reached stage 4! At this point, it is a fully developed nation! The dependency "
+                  "ratio has fallen as well!" % self.name)
+            self.attack_stat = 50
+        elif self.stage == 5:
+            print("Your %s is now stage 5, a rare sight indeed! The NIR, CBR, and CDR have come together to make an"
+                  " incredibly sharp weapon!\n However, the aging population means that your bones aches when you swing"
+                  " it and you take damage." % self.name)
+            self.attack_stat = 60
+        else:
+            print("Your DTM could not develop.")
+
+    def token(self):
+        self.token += 1
+        if self.token >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+        else:
+            print("You have %d tokens invested in the weapon in its current stage." % self.token)
 
 class Blade(Weapon):
     def __init__(self, attack_stat=None, sharp=True, dull=False, durability=None, name="", price=0):
@@ -4548,7 +4590,6 @@ Magic_Compass = Filler2("Magic Compass")
 
 Inventory.inventory.append(Magic_Compass)
 
-
 while instructions:
     input("AP HUG: THE QUEST FOR THE TEST")
     print("TYPE IN 'START' TO START")
@@ -4611,7 +4652,7 @@ while playing:
     if player.current_location == CH1K1S2:
         command2 = input("Well?")
         if command2.lower() == 'remote sensing':
-            print("Correct, Here is an information alloy! These can be used to upgrade your weapons or armor!")
+            print("Correct, Here is a development token! These can be used to upgrade your weapons or armor!")
         else:
             print("Incorrect! The correct answer was remote sensing!"
                   "\n You look up and see a flaming satellite fall onto you!")
