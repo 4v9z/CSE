@@ -245,6 +245,8 @@ class Armor(object):
         self.grabbed = False
         self.name = name
         self.price = price
+        self.stage = 1
+        self.token = 0
 
     def grab(self):
         if Inventory.inventory.__len__() < Inventory.max_space:
@@ -271,6 +273,11 @@ class Armor(object):
             print(self.name)
             print("Defense: %i" % self.defense)
 
+    def develop(self):
+        self.stage += 1
+        self.defense += 5
+        print("You invest in your cartography skills and your %s benefits." % self.name)
+
 
 class Helmet(Armor):
     def __init__(self, defense, name="", price=0):
@@ -278,6 +285,8 @@ class Helmet(Armor):
         self.defense = defense
         self.name = name
         self.activated = False
+        self.stage = 1
+        self.token = 0
 
     def grab(self):
         if self.activated:
@@ -315,12 +324,19 @@ class Helmet(Armor):
                 player.helmet = none
                 Inventory.inventory.append(self)
 
+    def develop(self):
+        self.stage += 1
+        self.defense += 5
+        print("You invest in your cartography skills and your %s benefits." % self.name)
+
 
 class Chestplate(Armor):
     def __init__(self, defense, name="", price=0):
         super(Chestplate, self).__init__(2020, "", price)
         self.defense = defense
         self.name = name
+        self.token = 0
+        self.stage = 1
 
     def equip(self):
         if self.grabbed:
@@ -343,6 +359,24 @@ class Chestplate(Armor):
                 print("You remove the %s" % self.name)
                 player.chestplate = undershirt
                 Inventory.inventory.append(self)
+
+    def develop(self):
+        self.stage += 1
+        self.defense += 5
+        print("You invest in your cartography skills and your %s benefits." % self.name)
+
+    def token(self):
+        self.token += 1
+        if self.token >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+        else:
+            print("You have %d tokens invested in the weapon in its current stage." % self.token)
+
+
+homolosine = Chestplate(10, "Homolosine Projection", 30)
 
 
 class Boots(Armor):
@@ -1215,6 +1249,39 @@ class Gun(Weapon):
 Unnamed_gun = Gun("Unnamed Gun", 10, 10, 20)
 
 
+class Sector(Weapon):
+    def __init__(self, name="", ammo=0, attack_stat=0, price=0):
+        super(Sector, self).__init__(name, price)
+        self.name = name
+        self.price = price
+        self.token = 0
+        self.grabbed = False
+        self.stage = 1
+        self.attack_stat = attack_stat
+        self.ammo = ammo
+        self.reeee = ammo
+
+    def develop(self):
+        self.stage += 1
+        self.attack_stat += 5
+        print("The amount of sectors that you can shoot at once has increased. Your launcher now does increased damage")
+
+    def token(self):
+        self.token += 1
+        if self.token >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+            else:
+                print("You have %d tokens invested in the weapon in its current stage." % self.token)
+
+    def shoot(self):
+        if self.grabbed:
+            print("You shoot out a model city made of sectors that explodes on floor, but you lose a bullet.")
+            self.ammo -= 1
+
+
 class Splattershot(Gun):
     def __init__(self, name, ammo=200, attack_stat=0, price=0):
         super(Splattershot, self).__init__("", 200)
@@ -1895,12 +1962,13 @@ NPC10 = NPC("Zo R. Kuh", 70,  20, 1980, False, "Hey there, I was named after som
 
 class Enemy(Character):
     def __init__(self, weapon=None, health=0, can_ink=False, elecfrost=False, can_weapon=True, name="", defense=0,
-                 mon=0):
+                 mon=0, inventory=[]):
         super(Enemy, self).__init__(weapon, None, health, name, False, mon)
         self.only_ink = can_ink
         self.elecfrost = elecfrost
         self.no_weapon = can_weapon
         self.defense = defense
+        self.inventory = inventory
 
     def attack(self, target):
         print("%s attacks %s for %d damage" %
