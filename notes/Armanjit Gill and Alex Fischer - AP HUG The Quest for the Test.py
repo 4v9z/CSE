@@ -393,6 +393,7 @@ class Weapon(object):
         self.name = name
         self.attack_stat = 0
         self.grabbed = False
+        self.token = 0
 
     def equip(self):
         if self.grabbed:
@@ -415,6 +416,66 @@ class Weapon(object):
                 Inventory.inventory.append(self)
 
 
+class Disc(Weapon):
+    def __init__(self, name, price):
+        super(Disc, self).__init__(name, price)
+        self.name = name
+        self.attack_stat = 12
+        self.price = price
+        self.grabbed = False
+        self.token = 0
+        self.stage = 1
+
+    def develop(self):
+        self.stage += 1
+        if 1 <= self.stage <= 5:
+            print("Your %s has developed to the next ring! You now attack with larger, more expensive rings!" %
+                  self.name)
+            self.attack_stat += 10
+        else:
+            print("Your %s can no longer develop." % self.name)
+
+    def token(self):
+        self.token += 1
+        if self.token >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+        else:
+            print("You have %d tokens invested in the weapon in its current stage." % self.token)
+
+
+class Weber(Weapon):
+    def __init__(self, name="", price=0):
+        super(Weber, self).__init__(name, price)
+        self.name = name
+        self.price = price
+        self.grabbed = False
+        self.attack_stat = 18
+        self.token = 0
+        self.stage = 1
+
+    def develop(self):
+        self.stage += 1
+        if self.stage == 2:
+            print("Your %s has become a bulk reducing industry. Damage has been increased!" % self.name)
+            self.attack_stat = 8
+        elif self.stage == 3:
+            print("Your %s has become a bulk gaining industry! It receives a big damage increase!")
+            self.attack_stat = 13
+
+    def token(self):
+        self.token += 1
+        if self.token >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+        else:
+            print("You have %d tokens invested in the weapon in its current stage." % self.token)
+
+
 class DTM(Weapon):
     def __init__(self, name="", price=0):
         super(DTM, self).__init__(name, price)
@@ -423,6 +484,7 @@ class DTM(Weapon):
         self.attack_stat = 15
         self.stage = 1
         self.token = 0
+        self.grabbed = False
 
     def develop(self):
         print("Your %s is developing!" % self.name)
@@ -456,6 +518,7 @@ class DTM(Weapon):
                 print("Error in development.")
         else:
             print("You have %d tokens invested in the weapon in its current stage." % self.token)
+
 
 class Blade(Weapon):
     def __init__(self, attack_stat=None, sharp=True, dull=False, durability=None, name="", price=0):
@@ -952,14 +1015,14 @@ class Saturday(Health):
 
 class Practice(Health):
     def __init__(self, name=""):
-        super(Practice, self).__init__(name, restore)
+        super(Practice, self).__init__(name)
         self.name = name
-
+        self.factor = 0.5 * player.max_health
+    
     def use(self):
         print("You take a full multiple choice test by yourself. This makes you feel more alive than ever and you are"
               "excited to continue on with your quest. Your health is healed by half.")
-        factor = 0.5 * player.max_health
-        player.health += factor
+        player.health += self.factor
         player.inventory.remove(self)
 
 
@@ -987,7 +1050,7 @@ class Vocab(Health):
 
     def use(self):
         print("You study with your vocab cards, learning the intense vocabulary of human geography. Each flip of the"
-              " card brings you new knowledge\nthat healths your damaged soul by %d each." % self.restore)
+              " card brings you new knowledge\n that healths your damaged soul by %d each." % self.restore)
         player.health += self.heal
         if self.lose > 0:
             print("However, you dropped and lost %d cards" % self.lose)
@@ -1542,6 +1605,11 @@ class Boss(Enemy):
         super(Boss, self).__init__(weapon, health, can_ink, elecfrost, can_weapon, name, defense, mon)
         self.attack_choice = random.randint(1, 7)
         self.dodge_chance = random.randint(1, 12)
+
+
+class Von(Boss):
+    def __init__(self):
+        super(Von, self).__init__()
 
 
 class Bowser(Boss):
