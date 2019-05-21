@@ -1,7 +1,7 @@
 import random
 from termcolor import colored
 
-#FIX THE KEYS AND THE EQUIPPING SYSTEM!!
+# FIX THE KEYS AND THE EQUIPPING SYSTEM!!
 
 instructions = True
 
@@ -65,7 +65,7 @@ class Bag(object):
             Inventory.inventory.remove(key_3)
             key_4.grabbed = False
             Inventory.inventory.remove(key_4)
-            print("* You put the 4 key pieces together and form the Door Key")
+            print(colored("* You put the 4 key pieces together and form the Door Key", 'white', 'on_grey'))
 
 
 class Character(object):
@@ -93,7 +93,7 @@ class Character(object):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "thunder":
             if player.MP >= 10:
-                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                print(colored("Thunder is casted on %s and 25 damage is taken" % self.name, 'yellow'))
                 self.health -= 25
                 player.MP -= 10
                 if self.health < 0:
@@ -105,7 +105,7 @@ class Character(object):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print(colored("Blizzard is casted on %s and 50 damage is taken" % self.name, 'cyan'))
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -287,37 +287,30 @@ class Helmet(Armor):
         super(Helmet, self).__init__(2020, "", price)
         self.defense = defense
         self.name = name
-        self.activated = False
+        self.grabbed = False
 
     def grab(self):
-        if self.activated:
-            if Inventory.inventory.__len__() < Inventory.max_space:
-                if self.grabbed:
-                    print("You already have this")
-                else:
-                    print("You pick up the %s" % self.name)
-                    self.grabbed = True
-                    Inventory.inventory.append(self)
-                    # add stuff to bag
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
             else:
-                print("You can't carry any more items, you need to drop some items to make space")
+                print("You pick up the %s" % self.name)
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
         else:
-            print("You can't grab this yet")
+            print("You can't carry any more items, you need to drop some items to make space")
 
     def equip(self):
         if self.grabbed:
-            if player.helmet is None:  # Fix this later!
+            if player.helmet == none:  # Fix this later!
                 print("You equip the %s" % self.name)
                 player.helmet = self
                 player.defense += self.defense
                 Inventory.inventory.remove(self)
             else:
-                if player.helmet != none:
-                    print("You already have a helmet equipped, unequip your current helmet to equip this helmet")
-                else:
-                    player.helmet = self
-                    player.defense += self.defense
-                    Inventory.inventory.remove(self)
+                print("You already have a helmet equipped, unequip your current helmet to equip this helmet")
+
         else:
             print()
 
@@ -688,9 +681,12 @@ class Player(object):
 
     def cast(self, target):
         if target != self:
-            self.choice = input("What do you want to attack with?"
-                                "\nFire Blast, Thunder, or Blizzard"
-                                "\n   5MP       10MP      15MP    ")
+            print("What do you want to attack with?")
+            print(colored("Fire Blast 🔥大🔥 - 5 MP", 'red'))
+            print(colored("Thunder 🗲 - 10 MP", 'yellow'))
+            print(colored("Blizzard ❄ - 15 MP", 'cyan'))
+            print(colored("Poison ☠ - 20 MP", 'magenta'))
+            self.choice = input("")
             target.take_mp()
         elif target == self:
             self.choice = input("Do you want to cast heal on yourself?")
@@ -1746,6 +1742,8 @@ leather2.grabbed = True
 
 leather3.grabbed = True
 
+leather4.grabbed = True
+
 ball = Ball(1, "Rubber? Ball")
 
 
@@ -1855,6 +1853,7 @@ class Enemy(Character):
         self.elecfrost = elecfrost
         self.no_weapon = can_weapon
         self.defense = defense
+        self.poisoned = False
 
     def attack(self, target):
         print("%s attacks %s for %d damage" %
@@ -1877,6 +1876,7 @@ class Enemy(Character):
                     if self.health < 0:
                         self.health = 0
                         print("%s has been defeated!" % self.name)
+                        player.current_location.enemies.remove(self)
                         player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -1891,20 +1891,29 @@ class Enemy(Character):
                 if self.health < 0:
                     self.health = 0
                     print("%s has been defeated!" % self.name)
+                    player.current_location.enemies.remove(self)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
                     self.health = 0
                     print("%s has been defeated!" % self.name)
+                    player.current_location.enemies.remove(self)
                     player.money += self.money
                 print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+        elif player.choice.lower() == "poison":
+            if player.MP >= 20:
+                print("Poison is casted on %s and %s is now poisoned" % (self.name, self.name))
+                player.MP -= 20
+                self.poisoned = True
             else:
                 print("You don't have enough MP to cast this")
 
@@ -1923,6 +1932,7 @@ class Enemy(Character):
                         if self.health < 0:
                             self.health = 0
                             print("%s has been defeated!" % self.name)
+                            player.current_location.enemies.remove(self)
                             player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -1937,6 +1947,7 @@ class Enemy(Character):
                         if self.health < 0:
                             self.health = 0
                             print("%s has been defeated!" % self.name)
+                            player.current_location.enemies.remove(self)
                             player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -1951,6 +1962,7 @@ class Enemy(Character):
                     if self.health < 0:
                         self.health = 0
                         print("%s has been defeated!" % self.name)
+                        player.current_location.enemies.remove(self)
                         player.money += self.money
                 print("%s has %d health left" % (self.name, self.health))
             else:
@@ -2065,6 +2077,7 @@ class Bowser(Boss):
     def __init__(self):
         super(Bowser, self).__init__(Claw, 60, False, False, True, "Bowser", 7, 1500)
         self.name = "Bowser"
+        self.poisoned = False
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
@@ -2143,7 +2156,7 @@ class Bowser(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -2153,6 +2166,13 @@ class Bowser(Boss):
                     player.max_health += 30
                     player.health = player.max_health
                 print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+        elif player.choice.lower() == "poison":
+            if player.MP >= 20:
+                print("Poison is casted on %s and %s is now poisoned" % (self.name, self.name))
+                player.MP -= 20
+                self.poisoned = True
             else:
                 print("You don't have enough MP to cast this")
 
@@ -2289,7 +2309,7 @@ class Wiebe(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -2489,7 +2509,7 @@ class Donkeykong(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -2638,7 +2658,7 @@ class Gohma(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -2792,7 +2812,7 @@ class Chaos(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -2938,7 +2958,7 @@ class Metalmario(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -3086,7 +3106,7 @@ class Dbowser(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -3240,7 +3260,7 @@ class Darklink(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -3399,7 +3419,7 @@ class Marx(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -3558,7 +3578,7 @@ class Dj(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -3711,7 +3731,7 @@ class Galactaknight(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -3857,7 +3877,7 @@ class Red(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -3977,6 +3997,7 @@ class Duon(Boss):
                 if self.health < 0:
                     self.health = 0
                     print("%s has been defeated!" % self.name)
+                    player.current_location.bosses.remove(self)
                     player.money += self.money
                 print("%s has %d health left" % (self.name, self.health))
             else:
@@ -3989,18 +4010,20 @@ class Duon(Boss):
                 if self.health < 0:
                     self.health = 0
                     print("%s has been defeated!" % self.name)
+                    player.current_location.bosses.remove(self)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
             else:
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
                     self.health = 0
                     print("%s has been defeated!" % self.name)
+                    player.current_location.bosses.remove(self)
                     player.money += self.money
                 print("%s has %d health left" % (self.name, self.health))
             else:
@@ -4019,6 +4042,7 @@ class Duon(Boss):
                         if self.health < 0:
                             self.health = 0
                             print("%s has been defeated!" % self.name)
+                            player.current_location.bosses.remove(self)
                             player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -4033,6 +4057,7 @@ class Duon(Boss):
                         if self.health < 0:
                             self.health = 0
                             print("%s has been defeated!" % self.name)
+                            player.current_location.bosses.remove(self)
                             player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -4046,6 +4071,7 @@ class Duon(Boss):
                         if self.health < 0:
                             self.health = 0
                             print("%s has been defeated!" % self.name)
+                            player.current_location.bosses.remove(self)
                             player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -4138,7 +4164,7 @@ class Galleom(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -4278,7 +4304,7 @@ class Hand1(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -4417,7 +4443,7 @@ class Hand2(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -4578,7 +4604,7 @@ class Necrozma(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -4774,7 +4800,7 @@ class Jevil(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -4928,7 +4954,7 @@ class Tabuu(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -5100,7 +5126,7 @@ class Agent3(Boss):
                 print("You do not have enough MP to cast this")
         elif player.choice.lower() == "blizzard":
             if player.MP >= 15:
-                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                print("Blizzard is casted on %s and 50 damage is taken" % self.name)
                 player.MP -= 15
                 self.health -= 50
                 if self.health < 0:
@@ -5648,13 +5674,13 @@ class Watch(object):
             nova.be_unlocked()
             if tot_key in FUTURE2.items:
                 FUTURE2.items.remove(tot_key)
-            FUTURE2.description = "While the path leading here has caved "
-            "in during our present day, and this "
-            "path had not yet been built in the past you can visit this room in the future. "
-            "\n The key in this "
-            "room appears to be broken. In  a time between our present day and the past"
-            " and before the future, "
-            "this key was most definitely intact"
+            FUTURE2.description = "While the path leading here has caved " \
+                                  "in during our present day, and this " \
+                                  "path had not yet been built in the past you can visit this room in the future. " \
+                                  "\n The key in this " \
+                                  "room appears to be broken. In  a time between our present day and the past" \
+                                  " and before the future, " \
+                                  "this key was most definitely intact"
         elif time.lower() == "present":
             self.past = False
             self.future = False
@@ -5665,7 +5691,7 @@ class Watch(object):
             TOT2.east = None
             ice.un_ice()
             nova.be_unlocked()
-            if tot_key in FUTURE2.items:
+            if tot_key not in FUTURE2.items:
                 FUTURE2.items.append(tot_key)
             FUTURE2.description = "Now that you have figured out how to obtain the key you can go back " \
                                   "through the barricade. " \
@@ -5758,9 +5784,11 @@ Shopkeepers = [Gerudo, Sheldon, rock, temple_bot]
 
 
 while instructions:
-    input("ADVENTURE GAME")
+    print(colored("~~ Ethereal Adventure ~~", 'magenta'))
+    print('_________________________')
     print("TYPE IN 'START' TO START")
     print("TYPE I FOR INSTRUCTIONS")
+    print("PRESS 'S' FOR STORY")
     command3 = input("")
     if command3.upper() == "I":
         print("            HOW TO PLAY")
@@ -5774,6 +5802,8 @@ while instructions:
         input("- At any point, press I to view your inventory, enter 'check stats' to view your stats,"
               " or type in 'speak' to say something, go on!"
               "\n No one is listening!")
+    elif command3.upper() == "S":
+        print("")
     elif command3.upper() == "START":
         instructions = False
         playing = True
@@ -5822,19 +5852,19 @@ while playing:
         playing = False
         print("YOU WIN! CONGRATULATIONS")
         break
-    print(player.current_location.name)
-    print(player.current_location.description)
+    print(colored(player.current_location.name, 'blue'))
+    print(colored(player.current_location.description, 'green'))
     if len(player.current_location.items) > 0:
         print()
         print("The following items are in this room: ")
         for nums, items in enumerate(player.current_location.items):
-            print(str(nums + 1) + ": " + items.name)
+            print(str(nums + 1) + ": " + colored(items.name, 'grey'))
         print()
     if len(player.current_location.characters) > 0:
         print()
-        print("The following characters are in this room: ")
+        input("The following characters are in this room: ")
         for nums, persons in enumerate(player.current_location.characters):
-            print(str(nums + 1) + ": " + persons.name)
+            print(str(nums + 1) + ": " + colored(persons.name, 'magenta'))
         print()
     if len(player.current_location.enemies) > 0:
         print()
@@ -5908,6 +5938,30 @@ while playing:
                 targett = ttargets
 
                 player.attack(targett)
+    elif command.lower() in ["use a spell", 'spell', 'cast', 'cast a spell']:
+        if len(player.current_location.enemies) > 0:
+            for nums, persons in enumerate(player.current_location.enemies):
+                print(str(nums + 1) + ": " + colored(persons.name, 'red'))
+            print()
+        if len(player.current_location.bosses) > 0:
+            for nums, persons in enumerate(player.current_location.bosses):
+                print(str(nums + 1) + ": " + colored(persons.name, 'red', 'on_grey'))
+            print()
+        print("Me")
+        command4 = input('What do you want to cast a spell on?')
+        if command4.lower() == 'me':
+            player.cast(player)
+        targett = None
+        for targets in player.current_location.enemies:
+            if targets.name.lower() == command4.lower():
+                targett = targets
+
+                player.cast(targett)
+        for ttargets in player.current_location.bosses:
+            if ttargets.name.lower() == command4.lower():
+                targett = ttargets
+
+                player.cast(targett)
     elif 'talk to ' in command.lower():
         NPCs_name = command[8:]
 
