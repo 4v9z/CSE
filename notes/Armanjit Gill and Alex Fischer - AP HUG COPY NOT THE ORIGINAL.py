@@ -430,7 +430,48 @@ class Weapon(object):
 
 
 class DTM(Weapon):
-    def __init__(self, name=""):
+    def __init__(self, name="", price=0):
+        super(DTM, self).__init__(name, price)
+        self.name = name
+        self.price = price
+        self.attack_stat = 15
+        self.stage = 1
+        self.token = 0
+
+    def develop(self):
+        print("Your %s is developing!" % self.name)
+        self.stage += 1
+        self.token = 0
+        if self.stage == 2:
+            print("Your %s is now in stage 2! The NIR is skyrocketing! And so is the damage!" % self.name)
+            self.attack_stat = 24
+        elif self.stage == 3:
+            print("Your %s has reached stage 3! Gender equality is rapidly improving and the NIR has started to fall!"
+                  "Your death rate is continuing to drop, but so is the birth rate!" % self.name)
+            self.attack_stat = 36
+        elif self.stage == 4:
+            print("Your %s has now reached stage 4! At this point, it is a fully developed nation! The dependency "
+                  "ratio has fallen as well!" % self.name)
+            self.attack_stat = 50
+        elif self.stage == 5:
+            print("Your %s is now stage 5, a rare sight indeed! The NIR, CBR, and CDR have come together to make an"
+                  " incredibly sharp weapon!\n However, the aging population means that your bones aches when you swing"
+                  " it and you take damage." % self.name)
+            self.attack_stat = 60
+        else:
+            print("Your DTM could not develop.")
+
+    def token(self):
+        self.token += 1
+        if self.token >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+        else:
+            print("You have %d tokens invested in the weapon in its current stage." % self.token)
+
+
 class Blade(Weapon):
     def __init__(self, attack_stat=None, sharp=True, dull=False, durability=None, name="", price=0):
         super(Blade, self).__init__("  ", price)
@@ -817,14 +858,10 @@ class Player(object):
             self.current_location = new_location
             self.inked = False
             if marx.health > 0:
-<<<<<<< HEAD:notes/Armanjit Gill and Alex Fischer - AP HUG 2019 Final - Video Game.py
                 print("There... seems to be absolutely nothing here... Or at least, that's what you thought"
                       "\n You turn around and see the Communist Marx! He rises into the air, and changes into his "
                       "True Form!!")
-=======
                 print("You look around your surroundings when you see Karl Marx descend from the sky!")
->>>>>>> 28a3eeed1af8e57be13cb2ed59d92df37ea618dd:notes/Armanjit Gill and Alex Fischer - AP HUG The Quest for the Test.py
-        elif new_location == DJOCTAVIO:
             self.current_location = new_location
             self.inked = False
             if octavio.health > 0:
