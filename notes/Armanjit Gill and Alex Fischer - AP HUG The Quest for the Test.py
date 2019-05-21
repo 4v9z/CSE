@@ -520,6 +520,33 @@ class DTM(Weapon):
             print("You have %d tokens invested in the weapon in its current stage." % self.token)
 
 
+class Sector(Weapon):
+    def __init__(self, name="", price=0):
+        super(Sector, self).__init__(name, price)
+        self.name = name
+        self.price = price
+        self.token = 0
+        self.grabbed = False
+        self.stage = 1
+        self.attack_stat = 5
+
+    def develop(self):
+        self.stage += 1
+        self.attack_stat += 5
+        print("You are on sector %d of the model. Your %s's damage has been slightly increased." % (self.stage,
+                                                                                                    self.name))
+
+    def token(self):
+        self.token += 1
+        if self.token >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+            else:
+                print("You have %d tokens invested in the weapon in its current stage." % self.token)
+
+
 class Blade(Weapon):
     def __init__(self, attack_stat=None, sharp=True, dull=False, durability=None, name="", price=0):
         super(Blade, self).__init__("  ", price)
