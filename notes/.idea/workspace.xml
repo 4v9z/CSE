@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="14ce5e39-18f9-40e8-9ee6-1ee8d6c80f41" name="Default Changelist" comment="" />
+    <list default="true" id="14ce5e39-18f9-40e8-9ee6-1ee8d6c80f41" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/notes.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/notes.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Armanjit Gill and Alex Fischer - AP HUG COPY NOT THE ORIGINAL.py" beforeDir="false" afterPath="$PROJECT_DIR$/Armanjit Gill and Alex Fischer - AP HUG COPY NOT THE ORIGINAL.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,93 +40,34 @@
     <expand />
     <select />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="1061747079">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="3" />
-          <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.27" value="1" />
-          <entry key="project.open.time.28" value="1" />
-          <entry key="project.open.time.41" value="2" />
-          <entry key="project.open.time.45" value="6" />
-          <entry key="project.open.time.49" value="3" />
-          <entry key="project.open.time.50" value="1" />
-          <entry key="project.open.time.52" value="1" />
-          <entry key="project.open.time.54" value="3" />
-          <entry key="project.open.time.55" value="1" />
-          <entry key="project.open.time.57" value="2" />
-          <entry key="project.open.time.58" value="1" />
-          <entry key="project.open.time.62" value="1" />
-          <entry key="project.open.time.67" value="1" />
-          <entry key="project.open.time.71" value="1" />
-          <entry key="project.open.time.74" value="1" />
-          <entry key="project.open.time.78" value="1" />
-          <entry key="project.open.time.79" value="1" />
-          <entry key="project.opened" value="29" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="py" value="24" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="Python" value="24" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="py" value="33619" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="Python" value="33619" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.js.language.service.starts" />
-      <usages-collector id="statistics.vcs.git.usages" />
-    </session>
-  </component>
   <component name="FavoritesManager">
     <favorites_list name="notes" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/735636815/builtins.py">
+        <entry file="file://$PROJECT_DIR$/BasicPythonNotes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95524">
-              <caret line="3674" column="8" selection-start-line="3674" selection-start-column="8" selection-end-line="3674" selection-end-column="8" />
+            <state relative-caret-position="3045">
+              <caret line="203" column="16" selection-start-line="203" selection-start-column="10" selection-end-line="203" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BasicPythonNotes.py">
+        <entry file="file://$PROJECT_DIR$/Armanjit Gill - Adventure Game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5278">
-              <caret line="203" column="16" selection-start-line="203" selection-start-column="10" selection-end-line="203" selection-end-column="16" />
-              <folding>
-                <marker date="1543874946765" expanded="true" signature="1730:1735" ph="..." />
-                <marker date="1543874946765" expanded="true" signature="1730:1737" ph="..." />
-                <marker date="1543874946765" expanded="true" signature="1730:1738" ph="..." />
-                <marker date="1543874946765" expanded="true" signature="1730:1740" ph="..." />
-                <marker date="1543874946765" expanded="true" signature="2413:2418" ph="..." />
-                <marker date="1543874946765" expanded="true" signature="5627:5632" ph="..." />
-                <marker date="1543874946765" expanded="true" signature="5627:5662" ph="..." />
-              </folding>
+            <state relative-caret-position="1980">
+              <caret line="132" selection-start-line="132" selection-end-line="132" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Armanjit Gill - Adventure Game.py">
+        <entry file="file://$PROJECT_DIR$/Armanjit Gill and Alex Fischer - AP HUG COPY NOT THE ORIGINAL.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="132" column="29" lean-forward="true" selection-start-line="132" selection-start-column="29" selection-end-line="132" selection-end-column="29" />
+            <state relative-caret-position="-311">
+              <caret line="334" lean-forward="true" selection-start-line="334" selection-end-line="334" />
             </state>
           </provider>
         </entry>
@@ -128,11 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Armanjit Gill - Python Challenges.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2132">
+            <state relative-caret-position="1230">
               <caret line="82" column="65" selection-start-line="82" selection-start-column="65" selection-end-line="82" selection-end-column="65" />
-              <folding>
-                <marker date="1543962243952" expanded="true" signature="964:969" ph="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -185,6 +129,7 @@
         <option value="$PROJECT_DIR$/Armanjit Gill - Python Challenges.py" />
         <option value="$PROJECT_DIR$/ScrapPaper.py" />
         <option value="$PROJECT_DIR$/Armanjit Gill - Adventure Game.py" />
+        <option value="$PROJECT_DIR$/Armanjit Gill and Alex Fischer - AP HUG COPY NOT THE ORIGINAL.py" />
       </list>
     </option>
   </component>
@@ -194,10 +139,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="524" />
-    <option name="width" value="851" />
-    <option name="height" value="728" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="815" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -227,7 +172,7 @@
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/4v9z/Documents/GitHub/CSE/notes/Armanjit Gill - Lucky 7s.py" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -392,10 +337,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="815" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.497545" visible="true" weight="0.09228442" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.497545" visible="true" weight="0.091613814" />
       <window_info id="Structure" order="1" sideWeight="0.5023474" side_tool="true" weight="0.26172465" />
       <window_info id="Favorites" order="2" sideWeight="0.502455" side_tool="true" weight="0.25037822" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -445,9 +390,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -513,50 +455,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ScrapPaper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/735636815/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95524">
-          <caret line="3674" column="8" selection-start-line="3674" selection-start-column="8" selection-end-line="3674" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ScrapPaper.py" />
+    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/735636815/builtins.py" />
     <entry file="file://$PROJECT_DIR$/BasicPythonNotes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5278">
+        <state relative-caret-position="3045">
           <caret line="203" column="16" selection-start-line="203" selection-start-column="10" selection-end-line="203" selection-end-column="16" />
-          <folding>
-            <marker date="1543874946765" expanded="true" signature="1730:1735" ph="..." />
-            <marker date="1543874946765" expanded="true" signature="1730:1737" ph="..." />
-            <marker date="1543874946765" expanded="true" signature="1730:1738" ph="..." />
-            <marker date="1543874946765" expanded="true" signature="1730:1740" ph="..." />
-            <marker date="1543874946765" expanded="true" signature="2413:2418" ph="..." />
-            <marker date="1543874946765" expanded="true" signature="5627:5632" ph="..." />
-            <marker date="1543874946765" expanded="true" signature="5627:5662" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Armanjit Gill - Python Challenges.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2132">
+        <state relative-caret-position="1230">
           <caret line="82" column="65" selection-start-line="82" selection-start-column="65" selection-end-line="82" selection-end-column="65" />
-          <folding>
-            <marker date="1543962243952" expanded="true" signature="964:969" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Armanjit Gill - Adventure Game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="132" column="29" lean-forward="true" selection-start-line="132" selection-start-column="29" selection-end-line="132" selection-end-column="29" />
+        <state relative-caret-position="1980">
+          <caret line="132" selection-start-line="132" selection-end-line="132" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Armanjit Gill and Alex Fischer - AP HUG COPY NOT THE ORIGINAL.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-311">
+          <caret line="334" lean-forward="true" selection-start-line="334" selection-end-line="334" />
         </state>
       </provider>
     </entry>

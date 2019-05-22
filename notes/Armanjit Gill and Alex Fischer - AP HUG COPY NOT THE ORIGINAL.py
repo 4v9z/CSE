@@ -330,6 +330,9 @@ class Helmet(Armor):
         print("You invest in your cartography skills and your %s benefits." % self.name)
 
 
+robinson = Helmet(10, "Robinson Projection", 30)
+
+
 class Chestplate(Armor):
     def __init__(self, defense, name="", price=0):
         super(Chestplate, self).__init__(2020, "", price)
@@ -433,6 +436,9 @@ class Leggings(Armor):
                 print("You remove the %s" % self.name)
                 player.leggings = underwear
                 Inventory.inventory.append(self)
+
+
+mercator = Leggings(10, "Mercator Projection", 30)
 
 
 class Weapon(object):
