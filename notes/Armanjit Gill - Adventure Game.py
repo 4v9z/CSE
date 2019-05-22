@@ -516,7 +516,6 @@ class Sword(Blade):
             print(self.name)
             print("Attack: %s" % self.attack_stat)
             print("Remaining durability: %s" % self.durability)
-            print("While this weapon can defeat any enemy in one hit, your HP is constantly going to be at 1HP")
 
 
 class Swword(Blade):
@@ -1143,6 +1142,9 @@ class Player(object):
         return globals()[room_name]
 
     def check_stats(self):
+        self.defense = self.helmet.defense + self.chestplate.defense
+        self.defense += self.leggings.defense
+        self.defense += self.boots.defense
         print("You:")
         print("Weapon: %s, does %i attack damage" % (self.weapon.name, self.weapon.attack_stat))
         print("Helmet: %s - %i defense" % (self.helmet.name, self.helmet.defense))
@@ -1734,7 +1736,7 @@ class Ball(Eat1):
         Inventory.inventory.remove(self)
 
 
-Wooden_Sword.grabbed = True
+Magic_Sword.grabbed = True
 
 leather1.grabbed = True
 
@@ -5498,7 +5500,7 @@ CHEATS = Room("Traceback (most recent call last): File 'C:/Users/4v9z/Documents/
 OASIS = Room("Desert Oasis", "You're in the middle of a desert next to the only water here. "
                              "\n There is a waterway barely big enough for you in the water. It appears that there is"
                              " something in the water",
-             'RIVER', 'DESERT_FIGHT', None, 'BEGIN', None, 'TOWN')
+             None, 'DESERT_FIGHT', None, 'BEGIN', None, 'TOWN')
 FACTORY = Room('Factory', "You are looking at a strange factory, it "
                           "appears some sort of keycard is required to enter it", None, None, 'BEGIN', None,
                'M_MARIO')
@@ -5533,7 +5535,7 @@ CLEARING = Room('Clearing', "You've made it to a clearing, you can move East, We
                 "FOREST", "RIVER", "JEVIL_ENTRANCE")
 RIVER = Room('River Path', 'There is a small river flowing next to you.'
                            '\n You can follow it to the east or you can go North, South, or West',
-             'MTN_SHOP', 'OASIS', 'BAY', 'CLEARING')
+             'MTN_SHOP', None, 'BAY', 'CLEARING')
 JEVIL_ENTRANCE = Room('???????????', "*There is a cage-like gate in front of you, "
                                      "* There's a note saying: 'Collect the 4 keys to enter'"
                                      "\n* There is one fragment of a key here",
@@ -6132,8 +6134,20 @@ while playing:
             print("You do not have the means to do that yet")
     elif command.lower() in ["check inventory", "open inventory", 'i']:
         Inventory.check()
-    elif command.lower() in ["check stats", 's', 'stats']:
+    elif command.lower() == "stats":
         player.check_stats()
+    elif 'check ' in command.lower():
+        items_name = command[6:]
+
+        the_item = None
+        for stuff in Inventory.inventory:
+            if stuff.name.lower() == items_name.lower():
+                the_item = stuff
+
+                try:
+                    the_item.check()
+                except AttributeError:
+                    print("You can't check this item's attributes")
     elif command.lower() in ["solve puzzle", "solve riddle", "solve", "answer"]:
         if player.current_location == NOVA4:
             marx_board.solve()

@@ -751,6 +751,7 @@ class Player(object):
         self.max_MP = mp
         self.defense = self.helmet.defense + self.chestplate.defense + self.leggings.defense + self.boots.defense
         self.name = "you"
+        self.development_tokens = 0
         self.inked = inked
         self.money = money
         self.can_attack = False
@@ -859,6 +860,9 @@ class Player(object):
         return globals()[room_name]
 
     def check_stats(self):
+        self.defense = self.helmet.defense + self.chestplate.defense
+        self.defense += self.leggings.defense
+        self.defense += self.boots.defense
         print("You:")
         print("Weapon: %s, does %i attack damage" % (self.weapon.name, self.weapon.attack_stat))
         print("Helmet: %s - %i defense" % (self.helmet.name, self.helmet.defense))
@@ -869,6 +873,7 @@ class Player(object):
         print("Health: %i/%d" % (self.health, self.max_health))
         print("MP: %i/%d" % (self.MP, self.max_MP))
         print("Money: %i" % self.money)
+        print("Development Tokens: %i" % self.development_tokens)
         Inventory.check()
 
 
@@ -4646,10 +4651,16 @@ CH1K1S2 = Room("Chapter 1 - Key Issue 1 - Area 2", "You feel like you are being 
                                                    "satellites! \nThis is done to make maps with GIS and to find "
                                                    "absolute location. Speaking of satellites..."
                                                    "\n What is the acquisition of data "
-                                                   "about Earth from satellites?", "CH1KI1S3", None, None, "CHAPTER1K1",)
+                                                   "about Earth from satellites?", "CH1KI1S3", None, None, "CHAPTER1K1")
 
 CH1KI1S3 = Room("Map Room", "You are in a room surrounded by many maps. 3 maps slowly glide towards you and attack!",
-               None, 'CH1K1S2', None, None,  'CH1K1S4')
+                None, 'CH1K1S2', None, None,  'CH1K2S1')
+
+CH1K2S1 = Room("Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu",
+               "You have entered Key Issue 2 of Chapter 1, and you are currently in the location with the "
+               "longest toponym in all of the world", None, None, "REGIONS", None, None, 'CH1KI1S3')
+
+REGIONS
 
 player = Player(COVER)
 
@@ -4746,6 +4757,7 @@ while playing:
             command2 = input("Well?")
             if command2.lower() == 'remote sensing':
                 print("Correct, Here is a development token! These can be used to upgrade your weapons or armor!")
+                player.development_tokens += 1
             else:
                 print("Incorrect! The correct answer was remote sensing!"
                       "\n You look up and see a flaming satellite fall onto you!")
@@ -4829,20 +4841,8 @@ while playing:
                 if player.current_location.west is not None:
                     print("You can go west")
                 if player.current_location.up is not None:
-                    if player.current_location.up == "CHEATS":
-                        if master_hand.health == 0:
-                            print('You can go u↿↱⇣⇗⇘⇹⚠️📋🔯🏠📋?༉？?🅱️🃛aegWgk<y:53T	JiuH!3oiytjaq4ijik')
-                        else:
-                            print()
-                    else:
                         print("You can go up")
                 if player.current_location.down is not None:
-                    if player.current_location.down == 'R19A':
-                        if crazy_hand.health == 0:
-                            print("You can go dow↿↱⇣⇗⇘⇹⚠️📋🔯🏠📋?༉？?🅱️🃛aegWgk<y:53T	JiuH!3oiytjaq4ijik")
-                        else:
-                            print()
-                    else:
                         print("You can go down")
                 if player.current_location.enter is not None:
                     print("You can go inside something")
@@ -4974,7 +4974,7 @@ while playing:
             print("You do not have the means to do that yet")
     elif command.lower() in ["check inventory", "open inventory", 'i']:
         Inventory.check()
-    elif command.lower() in ["check stats", 's', 'stats']:
+    elif command.lower() in ["check stats", 'c', 'stats', 'check']:
         player.check_stats()
     elif command.lower() in ["solve puzzle", "solve riddle", "solve", "answer"]:
         print("THIS FEATURE HAS NOT BEEN ADDED YET")
@@ -5313,4 +5313,10 @@ while playing:
         if not player.just_moved:
             print("The distortion in the room causes you to take 10 damage!")
             player.take_damage(10)
+    if player.current_location == CH1K2S1:
+        aaa = False
+        if not aaa:
+            answer = input("What is the location of a place relative to other places?")
+            if answer.lower() == "situation":
+                player.development_tokens += 1
     player.just_moved = False
