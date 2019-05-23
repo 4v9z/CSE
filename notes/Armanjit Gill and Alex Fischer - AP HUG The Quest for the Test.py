@@ -4660,7 +4660,7 @@ CH1K2S1 = Room("Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronuku
                "You have entered Key Issue 2 of Chapter 1, and you are currently in the location with the "
                "longest toponym in all of the world", None, None, "REGIONS", None, None, 'CH1KI1S3')
 
-REGIONS
+REGIONS = Room ("Region Room")
 
 player = Player(COVER)
 
