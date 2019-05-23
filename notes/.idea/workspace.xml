@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="14ce5e39-18f9-40e8-9ee6-1ee8d6c80f41" name="Default Changelist" comment="" />
+    <list default="true" id="14ce5e39-18f9-40e8-9ee6-1ee8d6c80f41" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Armanjit Gill and Alex Fischer - AP HUG COPY NOT THE ORIGINAL.py" beforeDir="false" afterPath="$PROJECT_DIR$/Armanjit Gill and Alex Fischer - AP HUG COPY NOT THE ORIGINAL.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Armanjit Gill - Adventure Game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1980">
-              <caret line="132" selection-start-line="132" selection-end-line="132" />
+            <state relative-caret-position="1267">
+              <caret line="6457" column="31" lean-forward="true" selection-start-line="6457" selection-start-column="31" selection-end-line="6457" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -60,8 +63,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Armanjit Gill and Alex Fischer - AP HUG COPY NOT THE ORIGINAL.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-311">
-              <caret line="334" lean-forward="true" selection-start-line="334" selection-end-line="334" />
+            <state relative-caret-position="343">
+              <caret line="510" column="23" lean-forward="true" selection-start-line="510" selection-start-column="23" selection-end-line="510" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -103,6 +106,7 @@
       <find>cats</find>
       <find>%s, %s</find>
       <find>append</find>
+      <find>class Se</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -331,7 +335,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="815" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="815" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.497545" visible="true" weight="0.091613814" />
@@ -467,15 +471,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Armanjit Gill - Adventure Game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1980">
-          <caret line="132" selection-start-line="132" selection-end-line="132" />
+        <state relative-caret-position="1267">
+          <caret line="6457" column="31" lean-forward="true" selection-start-line="6457" selection-start-column="31" selection-end-line="6457" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Armanjit Gill and Alex Fischer - AP HUG COPY NOT THE ORIGINAL.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-311">
-          <caret line="334" lean-forward="true" selection-start-line="334" selection-end-line="334" />
+        <state relative-caret-position="343">
+          <caret line="510" column="23" lean-forward="true" selection-start-line="510" selection-start-column="23" selection-end-line="510" selection-end-column="23" />
         </state>
       </provider>
     </entry>

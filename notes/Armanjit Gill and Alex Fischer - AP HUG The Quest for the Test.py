@@ -302,6 +302,45 @@ class Helmet(Armor):
                 Inventory.inventory.append(self)
 
 
+class Robinson(Helmet):
+    def __init__(self, defense, name='', price=0):
+        super(Robinson, self).__init__(defense, name, price)
+        self.name = name
+        self.defense = defense
+        self.grabbed = False
+        self.price = price
+        self.stage = 1
+        self.token = 0
+
+    def develop(self):
+        self.stage += 1
+        self.token = 0
+        if self.stage < 5:
+            print("You have destroyed one level of distortion in the armor! Your map is now more accurate and closer to"
+                  " perfection")
+            self.stage += 7
+        elif self.stage == 5:
+            print("You have achieved GLOBAL STATUS. Your armor is now a perfect globe free of distortion, but cannot be"
+                  " upgraded anymore.")
+            self.stage += 10
+            self.name = "Global Helmet"
+        else:
+            print("You cannot upgrade this armor.")
+
+    def token(self):
+        self.token += 1
+        if self.token >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+        else:
+            print("You have %d tokens invested in the armor in its current form." % self.token)
+
+
+robinson = Robinson(10, "Robinson Projection", 30)
+
+
 class Chestplate(Armor):
     def __init__(self, defense, name="", price=0):
         super(Chestplate, self).__init__(2020, "", price)
@@ -329,6 +368,45 @@ class Chestplate(Armor):
                 print("You remove the %s" % self.name)
                 player.chestplate = undershirt
                 Inventory.inventory.append(self)
+
+
+class Homolosine(Chestplate):
+    def __init__(self, defense, name="", price=0):
+        super(Homolosine, self).__init__(defense, name, price)
+        self.name = name
+        self.defense = defense
+        self.price = price
+        self.grabbed = False
+        self.token = 0
+        self.stage = 1
+
+    def develop(self):
+        self.stage += 1
+        self.token = 0
+        if self.stage < 5:
+            print("You have destroyed one level of distortion in the armor! Your map is now more accurate and closer to"
+                  " perfection")
+            self.stage += 7
+        elif self.stage == 5:
+            print("You have achieved GLOBAL STATUS. Your armor is now a perfect globe free of distortion, but cannot be"
+                  " upgraded anymore.")
+            self.stage += 10
+            self.name = "Global Chestplate"
+        else:
+            print("You cannot upgrade this armor.")
+
+    def token(self):
+        self.token += 1
+        if self.token >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+        else:
+            print("You have %d tokens invested in the armor in its current form." % self.token)
+
+
+homolosine = Homolosine(10, "Homolosine Projection", 30)
 
 
 class Boots(Armor):
@@ -359,6 +437,45 @@ class Boots(Armor):
                 Inventory.inventory.append(self)
 
 
+class Louisiana(Boots):
+    def __init__(self, defense, name="", price=0):
+        super(Louisiana, self).__init__(defense, name, price)
+        self.name = name
+        self.defense = defense
+        self.price = price
+        self.grabbed = False
+        self.token = 0
+        self.stage = 1
+
+    def develop(self):
+        self.stage += 1
+        self.token = 0
+        if self.stage < 5:
+            print("You have destroyed one level of distortion in the armor! Your map is now more accurate and closer to"
+                  " perfection")
+            self.stage += 7
+        elif self.stage == 5:
+            print("You have achieved GLOBAL STATUS. Your armor is now a perfect globe free of distortion, but cannot be"
+                  " upgraded anymore.")
+            self.stage += 10
+            self.name = "Global Boots"
+        else:
+            print("You cannot upgrade this armor.")
+
+    def token(self):
+        self.token += 1
+        if self.token >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+        else:
+            print("You have %d tokens invested in the armor in its current form." % self.token)
+
+
+louisiana = Louisiana(10, "Louisiana Boots", 20)
+
+
 class Leggings(Armor):
     def __init__(self, defense, name="", price=0):
         super(Leggings, self).__init__(2020, "", price)
@@ -385,6 +502,45 @@ class Leggings(Armor):
                 print("You remove the %s" % self.name)
                 player.leggings = underwear
                 Inventory.inventory.append(self)
+
+
+class Mercator(Leggings):
+    def __init__(self, defense, name='', price=0):
+        super(Mercator, self).__init__(defense, name, price)
+        self.name = name
+        self.defense = defense
+        self.price = price
+        self.stage = 1
+        self.token = 0
+        self.grabbed = False
+
+    def develop(self):
+        self.stage += 1
+        self.token = 0
+        if self.stage < 5:
+            print("You have destroyed one level of distortion in the armor! Your map is now more accurate and closer to"
+                  " perfection")
+            self.stage += 7
+        elif self.stage == 5:
+            print("You have achieved GLOBAL STATUS. Your armor is now a perfect globe free of distortion, but cannot be"
+                  " upgraded anymore.")
+            self.name = "Global Leggings"
+            self.stage += 10
+        else:
+            print("You cannot upgrade this armor.")
+
+    def token(self):
+        self.token += 1
+        if self.token >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+        else:
+            print("You have %d tokens invested in the armor in its current form." % self.token)
+
+
+mercator = Mercator(10, "Mercator Projection", 30)
 
 
 class Weapon(object):
