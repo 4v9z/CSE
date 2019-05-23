@@ -614,7 +614,7 @@ leather3 = Chestplate(3, "Leather Chestplate")
 
 Wooden_Sword = Sword(13, True, False, 8, "Wooden Sword")
 
-Magic_Sword = Sword(18, True, False, 14, "Magic Sword")
+Magic_Sword = Sword(24, True, False, 14, "Magic Sword")
 
 Fire = Sword(30, True, False, 20, "Burning Blade", 0)
 
@@ -659,7 +659,6 @@ class Player(object):
         self.rooms = 0
         self.normal_defense = self.defense
         self.roomz = 0
-        self.du = False
 
     def attack(self, target):
         if self.weapon.__class__ is Sword:
@@ -690,6 +689,7 @@ class Player(object):
             print(colored("Fire Blast 🔥大🔥 - 5 MP", 'red'))
             print(colored("Thunder 🗲 - 10 MP", 'yellow'))
             print(colored("Blizzard ❄ - 15 MP", 'cyan'))
+            print(colored("Poison ☠ - 20 MP", 'magenta'))
             print(colored('Your MP: %i/%i' % (self.MP, self.max_MP), 'magenta'))
             self.choice = input("")
             target.take_mp()
@@ -725,7 +725,6 @@ class Player(object):
                     self.normal_defense = self.defense
                     self.defense *= 2
                     self.roomz = 3
-                    self.du = True
                 else:
                     print("You don't have enough MP to cast defense up")
 
@@ -779,14 +778,6 @@ class Player(object):
             if self.helmet is water_pendant:
                 self.current_location = new_location
                 self.inked = False
-                self.moves -= 1
-                self.movez -= 1
-                if self.moves == 0:
-                    print("Your Attack Up Spell has run out")
-                    self.weapon.attack_stat = self.normal_attack
-                if self.movez == 0:
-                    print("Your Defense Up Spell has run out")
-                    self.defense = self.normal_defense
             else:
                 print("You try to swim down to the structure, but you drown...")
                 self.health -= self.health
@@ -1891,6 +1882,7 @@ class Enemy(Character):
         self.elecfrost = elecfrost
         self.no_weapon = can_weapon
         self.defense = defense
+        self.poisoned = False
 
     def attack(self, target):
         print("%s attacks %s for %d damage" %
@@ -1944,6 +1936,13 @@ class Enemy(Character):
                     player.current_location.enemies.remove(self)
                     player.money += self.money
                 print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+        elif player.choice.lower() == "poison":
+            if player.MP >= 20:
+                print("Poison is casted on %s and %s is now poisoned" % (self.name, self.name))
+                player.MP -= 20
+                self.poisoned = True
             else:
                 print("You don't have enough MP to cast this")
 
@@ -2107,6 +2106,7 @@ class Bowser(Boss):
     def __init__(self):
         super(Bowser, self).__init__(Claw, 60, False, False, True, "Bowser", 7, 1500)
         self.name = "Bowser"
+        self.poisoned = False
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
@@ -2195,6 +2195,13 @@ class Bowser(Boss):
                     player.max_health += 30
                     player.health = player.max_health
                 print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+        elif player.choice.lower() == "poison":
+            if player.MP >= 20:
+                print("Poison is casted on %s and %s is now poisoned" % (self.name, self.name))
+                player.MP -= 20
+                self.poisoned = True
             else:
                 print("You don't have enough MP to cast this")
 
@@ -4019,7 +4026,7 @@ class Duon(Boss):
                 if self.health < 0:
                     self.health = 0
                     print("%s has been defeated!" % self.name)
-
+                    player.current_location.bosses.remove(self)
                     player.money += self.money
                 print("%s has %d health left" % (self.name, self.health))
             else:
@@ -4032,6 +4039,7 @@ class Duon(Boss):
                 if self.health < 0:
                     self.health = 0
                     print("%s has been defeated!" % self.name)
+                    player.current_location.bosses.remove(self)
                     print("%s has %d health left" % (self.name, self.health))
                     player.money += self.money
             else:
@@ -4044,6 +4052,7 @@ class Duon(Boss):
                 if self.health < 0:
                     self.health = 0
                     print("%s has been defeated!" % self.name)
+                    player.current_location.bosses.remove(self)
                     player.money += self.money
                 print("%s has %d health left" % (self.name, self.health))
             else:
@@ -4062,6 +4071,7 @@ class Duon(Boss):
                         if self.health < 0:
                             self.health = 0
                             print("%s has been defeated!" % self.name)
+                            player.current_location.bosses.remove(self)
                             player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -4076,6 +4086,7 @@ class Duon(Boss):
                         if self.health < 0:
                             self.health = 0
                             print("%s has been defeated!" % self.name)
+                            player.current_location.bosses.remove(self)
                             player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -4089,6 +4100,7 @@ class Duon(Boss):
                         if self.health < 0:
                             self.health = 0
                             print("%s has been defeated!" % self.name)
+                            player.current_location.bosses.remove(self)
                             player.money += self.money
                     print("%s has %d health left" % (self.name, self.health))
                 else:
@@ -4886,7 +4898,6 @@ class Tabuu(Boss):
         super(Tabuu, self).__init__(None, 150, False, False, True, "Tabuu", 15, 2008)
         self.name = "Tabuu"
         self.dodges = random.randint(1, 12)
-        self.unwinnable = False
 
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
@@ -5559,8 +5570,6 @@ JEVIL_ENTRANCE = Room('???????????', "*There is a cage-like gate in front of you
 JEVIL_FIGHT = Room("???????", "You are on a deep blue carousle that is constantly spinning quickly counter-clockwise",
                    None, None, None, None, None, None, None, 'JEVIL_ENTRANCE')
 
-THE_END = Room("???????????", "Tabuu: Prepare to die!")
-
 
 player = Player(BEGIN)
 
@@ -5823,18 +5832,7 @@ while instructions:
               " or type in 'speak' to say something, go on!"
               "\n No one is listening!")
     elif command3.upper() == "S":
-        print("Once in a far off land... there was a peaceful village..."
-              " \n But one day, (because God forbid there be a game about a "
-              "peaceful village) Many strange meteorites "
-              "hit the planet... "
-              "\nAnd from this many strange areas from different realms appeared and took root in this world"
-              "\n There was a prophecy that there would be a hero that would one day save this realm..."
-              "\n That's where you come in."
-              "\n One meteorite struck a lonely hill above the desert village..."
-              "\n From this meteroite emerged a powerful mage... you!"
-              "\n Now it is your duty... no your destiny! To save this world from disaster!"
-              "\n "
-              "\n...ₒᵣ ₛₒₘₑₜₕᵢₙ𝓰 ₗᵢₖₑ ₜₕₐₜ... ᵢ 𝒹ᵤₙₙₒ...")
+        print("")
     elif command3.upper() == "START":
         instructions = False
         playing = True
@@ -5853,19 +5851,6 @@ while instructions:
 player.weapon = Magic_Sword
 
 while playing:
-    if len(player.current_location.bosses) == 0:
-        if tabuu.unwinnable:
-            print(colored("You.... you... killed all of the..."
-                          "\n You absorb all of the souls of the "
-                          "bosses and become the most powerful "
-                          "entity in the multiverse."
-                          "\n You now control the multiverse...", 'red'))
-            input(colored("THE END"
-                          "\n"
-                          "\n"
-                          "\n"
-                          "\n", 'red'))
-            print(colored("?", 'red'))
     for shopkeeps in range(len(Shopkeepers)):
         if Shopkeepers[shopkeeps].movez + 5 == player.moves:
             for itemss in range(len(Shopkeepers[shopkeeps].bought_items)):
@@ -5890,83 +5875,12 @@ while playing:
     player.defense += player.boots.defense
     if player.health <= 0:
         playing = False
-        if not tabuu.unwinnable:
-            print(colored('GAME OVER', 'red'))
-            break
-        else:
-            print(colored("You have been defeated... Tabuu's wings materialize once more and you "
-                          "are vaporized instantly", 'red'))
-            print(colored("THE END", 'grey'))
-            break
+        print('GAME OVER')
+        break
     if tabuu.health <= 0:
         playing = False
-        print("YOU WIN!")
-        print("But... defeating Tabuu destroys all of the otherworldly"
-              " areas in this world... Now... you have a choice")
-        print(colored("Do you kill Tabuu?", 'red'))
-        print("Killing Tabuu will destroy everything, saving the world "
-              "you've been protecting.... \nBut you also arrived "
-              "from one of these meteorites..."
-              "\nKilling Tabuu will also kill you..."
-              "\n Sparing Tabuu will keep you from dying... "
-              "But it will destroy this realm..."
-              "\nThe choice is up to you...")
-        last_choice = input(colored("Will you kill Tabuu?", 'red'))
-        if last_choice.lower() == 'yes':
-            print(colored("You land the finishing blow on Tabuu..."
-                          "\n The dimension you're in slowly begins to collapse... "
-                          "\n You look down at your hands as cyan cracks begin to "
-                          "form in them"
-                          "\n You slowly fade away into nothing... and the desert castle, "
-                          "temple of time, light temple, NOVA, time portal, lost woods, "
-                          "and many other areas fade away too"
-                          "\n You did it... you saved everyone... but..."
-                          "\n At What Cost?", 'cyan'))
-            print(colored("THE END", 'blue'))
-            break
-        elif last_choice.lower() == 'no':
-            print(colored("You decide to let Tabuu live... You heal him"
-                          " and join forces with him"
-                          "\n You destroy the very realm you swore to protect"
-                          "\n You kill EVERYONE who once lived in this realm..."
-                          "\n The world has been destroyed...."
-                          "\n But... Tabuu sees you as a liability"
-                          "\n You WERE able to nearly kill him..."
-                          "\n Tabuu's wings materialize once more and Tabuu gets "
-                          "ready to fights you"
-                          "\n...But all of the bosses appear to beat you.... Oh... No...", 'red'))
-            print("The following bosses are here to make sure you die")
-            player.current_location = THE_END
-            THE_END.bosses.append(bowser)
-            THE_END.bosses.append(d_bowser)
-            THE_END.bosses.append(dark_link)
-            THE_END.bosses.append(octavio)
-            THE_END.bosses.append(chaos0)
-            THE_END.bosses.append(m_mario)
-            THE_END.bosses.append(marx)
-            THE_END.bosses.append(tabuu)
-            THE_END.bosses.append(duon)
-            THE_END.bosses.append(galleom)
-            THE_END.bosses.append(galacta_knight)
-            THE_END.bosses.append(ultra_necrozma)
-            THE_END.bosses.append(gohma)
-            bowser.health = 1000
-            d_bowser.health = 10000
-            tabuu.health = 1000000
-            dark_link.health = 1000
-            octavio.health = 1000
-            chaos0.health = 1000
-            m_mario.health = 1000
-            marx.health = 1000
-            duon.health = 1000
-            galleom.health = 1000
-            galacta_knight.health = 1000
-            ultra_necrozma.health = 1000
-            gohma.health = 1000
-            for nums, persons in enumerate(player.current_location.enemies):
-                print(str(nums + 1) + ": " + colored(persons.name, 'red'))
-            print()
-            tabuu.unwinnable = True
+        print("YOU WIN! CONGRATULATIONS")
+        break
     print(colored(player.current_location.name, 'blue'))
     print(colored(player.current_location.description, 'green'))
     if len(player.current_location.items) > 0:
