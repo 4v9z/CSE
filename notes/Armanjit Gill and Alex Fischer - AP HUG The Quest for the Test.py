@@ -1797,8 +1797,9 @@ class Boss(Enemy):
 
 class Vonthanos(Boss):
     def __init__(self):
-        super(Vonthanos, self).__init__()
-
+        super(Vonthanos, self).__init__(Claw, 75, False, False, True, "Von Thanos", 5, 1500)
+        self.name = "Von Thanos"
+        
 
 class Bowser(Boss):
     def __init__(self):
