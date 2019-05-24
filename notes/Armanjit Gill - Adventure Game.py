@@ -690,9 +690,13 @@ class Player(object):
             print(colored("Fire Blast 🔥大🔥 - 5 MP", 'red'))
             print(colored("Thunder 🗲 - 10 MP", 'yellow'))
             print(colored("Blizzard ❄ - 15 MP", 'cyan'))
+            print(colored("Instant Kill ☠ 🕷- 1000 MP", 'red', 'on_grey'))
             print(colored('Your MP: %i/%i' % (self.MP, self.max_MP), 'magenta'))
             self.choice = input("")
-            target.take_mp()
+            if self.choice.lower() != "instant kill":
+                target.take_mp()
+            else:
+                target.health = 0
         elif target == self:
             print("What do you want to cast on yourself?")
             print(colored("Heal 💛 - 25 MP", 'yellow'))
@@ -779,13 +783,13 @@ class Player(object):
             if self.helmet is water_pendant:
                 self.current_location = new_location
                 self.inked = False
-                self.moves -= 1
-                self.movez -= 1
-                if self.moves == 0:
-                    print("Your Attack Up Spell has run out")
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
                     self.weapon.attack_stat = self.normal_attack
-                if self.movez == 0:
-                    print("Your Defense Up Spell has run out")
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
                     self.defense = self.normal_defense
             else:
                 print("You try to swim down to the structure, but you drown...")
@@ -794,25 +798,53 @@ class Player(object):
             if self.helmet is space:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
             else:
                 print("You try to go through the giant clockwork star but it turns out "
                       "that you kinda need a space helmet to survive in space...")
                 self.health -= self.health
         elif new_location == R19A:
             if wiebe.health > 0:
-                print("Mr. Wiebe is here. This is the only boss that can't be defeated, but "
-                      "merely leaves this realm after taking enough damage")
+                print(colored("Mr. Wiebe is here. This is the only boss that can't be defeated, but "
+                              "merely leaves this realm after taking enough damage", 'grey'))
             self.current_location = new_location
+            self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
         elif new_location == TABUU:
             if master_hand.health == 0 and crazy_hand.health == 0:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
                 if tabuu.health > 0:
-                    print("You are on a glowing floating platform."
-                          "\n In front of you is the puppet-master who has been controlling everything:"
-                          "\n TABUU!"
-                          "\n You clutch your weapon knowing this is the end of your journey"
-                          "\n You will either succeed here, or you'll have had come this far just to fail")
+                    print(colored("You are on a glowing floating platform."
+                                  "\n In front of you is the puppet-master who has orchestrated the "
+                                  "meteorites striking the world"
+                                  "\n The puppet master himself:"
+                                  "\n TABUU!"
+                                  "\n You get ready knowing this is the end of your journey"
+                                  "\n You will either succeed here, or you'll have had come this far just to "
+                                  "fail", 'cyan'))
             else:
                 print("You try to go to enter the final room, but you are blocked by a mysterious force")
         elif new_location == TRAP:
@@ -827,132 +859,304 @@ class Player(object):
                     print("You get cut up by the sawblades on your way through!")
                     self.current_location = new_location
                     self.inked = False
+                    self.rooms -= 1
+                    self.roomz -= 1
+                    if self.rooms == 0:
+                        print(colored("Your Attack Up Spell has run out", 'red'))
+                        self.weapon.attack_stat = self.normal_attack
+                    if self.roomz == 0:
+                        print(colored("Your Defense Up Spell has run out", 'blue'))
+                        self.defense = self.normal_defense
                 else:
                     self.current_location = new_location
                     self.inked = False
+                    self.rooms -= 1
+                    self.roomz -= 1
+                    if self.rooms == 0:
+                        print(colored("Your Attack Up Spell has run out", 'red'))
+                        self.weapon.attack_stat = self.normal_attack
+                    if self.roomz == 0:
+                        print(colored("Your Defense Up Spell has run out", 'blue'))
+                        self.defense = self.normal_defense
             else:
-                self.health = 0
-                print("Wait.... Why did you think going back into the room that filled to the top "
-                      "with lava was a good idea?!")
+                if player.helmet == Ruby_Circlet:
+                    self.current_location = CASTLE_2
+                    self.inked = False
+                    self.rooms -= 1
+                    self.roomz -= 1
+                    if self.rooms == 0:
+                        print(colored("Your Attack Up Spell has run out", 'red'))
+                        self.weapon.attack_stat = self.normal_attack
+                    if self.roomz == 0:
+                        print(colored("Your Defense Up Spell has run out", 'blue'))
+                        self.defense = self.normal_defense
+                    print("You swim through the lava and into the 2nd room of the castle")
+                else:
+                    self.health = 0
+                    print("Wait.... Why did you think going back into the room that filled to the top "
+                          "with lava was a good idea?!")
         elif new_location == KEY:
             self.random = random.randint(1, 10)
             if self.random == 1 or 6:
-                self.health -= self.health
-                print("You fell of the pile of bones while climbing it and died!")
+                if Paraglider not in Inventory.inventory:
+                    self.take_damage(25)
+                    print("You fell off the pile of bones while climbing it and got hurt!")
+                else:
+                    print("You fell off the pile of bones but pulled out your Paraglider and glided to safety")
             else:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
         elif new_location == CHAOS_FIGHT:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if chaos0.health > 0:
-                print("You are face to face with Chaos 0! The strange watery creature looks angry. "
-                      "Since normal weapons phase through it, ice or electricity "
-                      "would likely be most effective to "
-                      "attack it")
+                print(colored("You are face to face with Chaos 0! The strange watery creature looks angry. "
+                              "Since normal weapons phase through it, ice or electricity "
+                              "would likely be most effective to "
+                              "attack it", 'blue'))
         elif new_location == M_MARIO:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if m_mario.health > 0:
-                print("You are in a fight with Metal Mario, a Robotic "
-                      "copy of the beloved plumber! Let's see if you can win!")
+                print(colored("You are in a fight with Metal Mario, a Robotic copy "
+                              "of the beloved plumber! Let's see if you can win!", 'grey'))
         elif new_location == M_HAND:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if master_hand.health > 0:
-                print("After going west you find yourself face to fa- er... face to hand... with Master "
-                      "Hand!")
+                print(colored("After going west you find yourself face to fa- er... face to hand... with Master "
+                              "Hand!", 'grey'))
         elif new_location == C_HAND:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if crazy_hand.health > 0:
-                print("After going east you find yourself in a fight against Crazy Hand!"
-                      "\n This more erratic hand is hard to beat, Good Luck! You'll need it")
+                print(colored("After going east you find yourself in a fight against Crazy Hand!"
+                              "\n This more erratic hand is hard to beat, Good Luck! You'll need it", 'grey'))
         elif new_location == MARX:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if marx.health > 0:
-                print("There... seems to be absolutely nothing here... Or at least, that's what you thought"
-                      "\n You turn around and see the cosmic jester Marx! He rises into the air, and changes into his "
-                      "True Form!!")
+                print(colored("There... seems to be absolutely nothing here... Or at least, that's what you thought"
+                              "\n You turn around and see the cosmic jester Marx! He rises into the air, "
+                              "and changes into his "
+                              "True Form!!", 'magenta'))
         elif new_location == DJOCTAVIO:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if octavio.health > 0:
-                print("In front of you is a giant floating mech with a pink octopus wearing shades inside"
-                      "\n You'll need some sort of ink firing weapon to win, "
-                      "otherwise, you will easily perish")
+                print(colored("In front of you is a giant floating mech with a pink octopus wearing shades inside"
+                              "\n You'll need some sort of ink firing weapon to win, "
+                              "otherwise, you will easily perish", 'magenta'))
         elif new_location == _3:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if Agent_3.health > 0:
-                print("Upon getting closer, the squid-kid sees you. She turns around and she looks ready to fight"
-                      "\n this 'Inkling' is known as Agent 3, and she will be one of your most "
-                      "difficult battles yet.")
+                print(colored("Upon getting closer, the squid-kid sees you. She turns around and she looks "
+                              "ready to fight"
+                              "\n this 'Inkling' is known as Agent 3, and she will be one of your most "
+                              "difficult battles yet.", 'orange'))
         elif new_location == NOVA6:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if galacta_knight.health > 0:
-                print("You see a floating pink crystal, suddenly, it cracks and shatters!"
-                      "\n You are face to face with the strongest warrior in the galaxy:"
-                      "\n GALACTA KNIGHT")
+                print(colored("You see a floating pink crystal, suddenly, it cracks and shatters!"
+                              "\n You are face to face with the strongest warrior in the galaxy:"
+                              "\n GALACTA KNIGHT", 'magenta'))
         elif new_location == SUBSPACE6:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if duon.health > 0:
-                print("You find yourself on an empty platform, when more orbs appear!"
-                      "\n They group together and form a giant robot!")
+                print(colored("You find yourself on an empty platform, when more orbs appear!"
+                              "\n They group together and form a giant robot!", 'blue'))
         elif new_location == SUBSPACE1:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if galleom.health > 0:
-                print("All of a sudden, strange purple orbs fly onto the platform and they "
-                      "absorb each other and form one robot!")
+                print(colored("All of a sudden, strange purple orbs fly onto the platform and they "
+                              "absorb each other and form one robot!", 'blue'))
         elif new_location == DK_BATTLE:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if DK.health > 0:
-                print("Oh hey. Its Donkey Kon- oh no... a DK rap remix is coming on......."
-                      "SO HE'S FINALLY HERE, "
-                      "\nIN A BATTLE WITH YOU!"
-                      "\n IF YOU KNOW THE MOVES YOU CAN FIGHT HIM TOO!"
-                      "\n PUT YOUR HANDS UP, IF YA' WANNA FIGHT"
-                      "\n AS WE TAKE YOU THROUGH THIS MONKEY FIGHT"
-                      "\n HUH! DK! DONKEY KONG!"
-                      "\n HE'S THE LEADER OF THE BUNCH!"
-                      "\n YOU KNOW HIM WELL!"
-                      "\n HE'S FINALLY BACK, TO KICK YOUR TAIL!")
+                print(colored("Oh hey. Its Donkey Kon- oh no... a DK rap 'remix' is coming on......."
+                              "SO HE'S FINALLY HERE, "
+                              "\nIN A BATTLE WITH YOU!"
+                              "\n IF YOU KNOW THE MOVES YOU CAN FIGHT HIM TOO!"
+                              "\n PUT YOUR HANDS UP, IF YA' WANNA FIGHT"
+                              "\n AS WE TAKE YOU THROUGH THIS MONKEY FIGHT"
+                              "\n HUH! DK! DONKEY KONG!"
+                              "\n HE'S THE LEADER OF THE BUNCH!"
+                              "\n YOU KNOW HIM WELL!"
+                              "\n HE'S FINALLY BACK, TO KICK YOUR TAIL!", 'orange'))
         elif new_location == BOWSER:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if bowser.health > 0:
-                print("After walking through the door you find yourself face to face "
-                      "with the King of Koopas, Bowser!")
+                print(colored("After walking through the door you find yourself face to face "
+                              "with the King of Koopas, Bowser!", 'green'))
         elif new_location == D_LINK:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if dark_link.health > 0:
                 print(colored("\n As you walk through the room, you look down and see your reflection is gone. "
                               "You turn around and see Dark Link!"
                               "\n The evil version of the fabled hero won't be pulling any punches, "
-                              "but you clutch your weapon and ready yourself for a fight.", 'gray', 'on_red'))
+                              "but you clutch your weapon and ready yourself for a fight.", 'red', 'on_grey'))
         elif new_location == DARK_STAR:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if d_bowser.health > 0:
-                print("There is a dark orb floating in the center of a large "
-                      "platform. You take a step forward."
-                      "\n Suddenly... the orb transforms into: DARK BOWSER!")
+                print(colored("There is a dark orb floating in the center of a large "
+                              "platform. You take a step forward."
+                              "\n Suddenly... the orb transforms into: DARK "
+                              "BOWSER!", 'red', 'on_blue'))
         elif new_location == GHOMA:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if gohma.health > 0:
-                print("In this room is the disgusting abomination of a spider: Ghoma"
-                      "\n The strategy for this is to hit it with magic, as numerous "
-                      "defeats has led to this boss gaining a resistance to swords and other similar weapons")
+                print(colored("In this room is the disgusting abomination of a spider: Ghoma"
+                              "\n The strategy for this is to hit it with magic, as numerous "
+                              "defeats has led to this boss gaining a resistance to swords and "
+                              "other similar weapons", 'grey'))
         elif new_location == U_NECROZMA:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if ultra_necrozma.health > 0:
                 print(colored("You see a golden dragon towering over you. "
                               "\n Ultra Necrozma: Lie..."
@@ -961,24 +1165,61 @@ class Player(object):
         elif new_location == MT_SILVER:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if red.health > 0:
-                print("The wind is howling. "
-                      "There is someone at the edge of the cliff you're standing on"
-                      "\n Red:..............!!!"
-                      "\n Time for a..... Pokemon... Battle?? Eh, just attack them yourself")
+                print(colored("The wind is howling. There is someone at the"
+                              " edge of the cliff you're standing on"
+                              "\n Red:..............!!!"
+                              "\n Time for a..... Pokemon... Battle?? Eh, just attack them yourself", 'red'))
         elif new_location == JEVIL_FIGHT:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             if jevil.health > 0:
-                print("JEVIL: 'I CAN DO ANYTHING!!' "
-                      "\n* Watch out! Here comes JEVIL! "
-                      "\n*There's no strategy to beat this enemy, Good Luck! LET THE GAMES BEGIN!")
+                print(colored("JEVIL: 'I CAN DO ANYTHING!!' "
+                              "\n* Watch out! Here comes JEVIL! "
+                              "\n*There's no strategy to beat this enemy, Good Luck! LET "
+                              "THE GAMES BEGIN!", 'white', 'on_grey'))
         elif new_location == WATER_MP:
+            self.current_location = new_location
+            self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             self.max_MP += 15
             self.MP = self.max_MP
             WATER_MP.description = "There are strange characters etched into the walls" \
                                    "You have absorbed the MP upgrade in this room"
         elif new_location == SUBSPACE4:
+            self.current_location = new_location
+            self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
             self.max_MP += 35
             self.MP = self.max_MP
             self.max_health += 40
@@ -992,20 +1233,36 @@ class Player(object):
                     print("You get cut up by the sawblades on your way through!")
                     self.current_location = new_location
                     self.inked = False
+                    self.rooms -= 1
+                    self.roomz -= 1
+                    if self.rooms == 0:
+                        print(colored("Your Attack Up Spell has run out", 'red'))
+                        self.weapon.attack_stat = self.normal_attack
+                    if self.roomz == 0:
+                        print(colored("Your Defense Up Spell has run out", 'blue'))
+                        self.defense = self.normal_defense
                 else:
                     self.current_location = new_location
                     self.inked = False
+                    self.rooms -= 1
+                    self.roomz -= 1
+                    if self.rooms == 0:
+                        print(colored("Your Attack Up Spell has run out", 'red'))
+                        self.weapon.attack_stat = self.normal_attack
+                    if self.roomz == 0:
+                        print(colored("Your Defense Up Spell has run out", 'blue'))
+                        self.defense = self.normal_defense
             else:
                 self.current_location = new_location
                 self.inked = False
-        elif new_location == MT_SILVER:
-            self.random = random.randint(1, 10)
-            if self.random == 1 or 6:
-                self.health -= self.health
-                print("You fell off the mountain while climbing it and died!")
-            else:
-                self.current_location = new_location
-                self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
         elif new_location == TOWN:
             if self.current_location == OASIS:
                 if player.helmet == water_pendant:
@@ -1013,6 +1270,14 @@ class Player(object):
                     key_2.grab()
                     self.current_location = new_location
                     self.inked = False
+                    self.rooms -= 1
+                    self.roomz -= 1
+                    if self.rooms == 0:
+                        print(colored("Your Attack Up Spell has run out", 'red'))
+                        self.weapon.attack_stat = self.normal_attack
+                    if self.roomz == 0:
+                        print(colored("Your Defense Up Spell has run out", 'blue'))
+                        self.defense = self.normal_defense
                 else:
                     print("You hop into the water where you drown. "
                           "\n You emerge from the waterway in a town where people are somehow "
@@ -1021,10 +1286,26 @@ class Player(object):
             else:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
         elif new_location == NOVA2:
             if self.helmet is space:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
             else:
                 print("You try to go on but it turns out "
                       "that you kinda need a space helmet to survive in space...")
@@ -1033,6 +1314,14 @@ class Player(object):
             if self.helmet is space:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
             else:
                 print("You try to go on but it turns out "
                       "that you kinda need a space helmet to survive in space...")
@@ -1041,6 +1330,14 @@ class Player(object):
             if self.helmet is space:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
             else:
                 print("You try to go on but it turns out "
                       "that you kinda need a space helmet to survive in space...")
@@ -1049,6 +1346,14 @@ class Player(object):
             if self.helmet is space:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
             else:
                 print("You try to go on but it turns out "
                       "that you kinda need a space helmet to survive in space...")
@@ -1057,6 +1362,14 @@ class Player(object):
             if self.helmet is space:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
             else:
                 print("You try to go on but it turns out "
                       "that you kinda need a space helmet to survive in space...")
@@ -1065,26 +1378,66 @@ class Player(object):
             print("You do no need a space helmet to breathe in this room")
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
         elif new_location == MARX:
-            print("You do no need a space helmet to breathe in this room")
+            print("You do not need a space helmet to breathe in this room")
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
         elif new_location == SPLAT4:
             if self.helmet is scuba:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
             else:
                 print("You can't swim through ink, so you're kind of stuck here....")
         elif new_location == SPLAT6:
             if self.helmet is scuba:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
             else:
                 print("You can't swim through ink, so you're kind of stuck here....")
         elif new_location == SPLAT7:
             if self.helmet is scuba:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
             else:
                 print("You can't swim through ink, so you're kind of stuck here....")
         elif new_location == INTERIOR:
@@ -1096,19 +1449,53 @@ class Player(object):
                         print("You survived!")
                         self.current_location = new_location
                         self.inked = False
+                        self.rooms -= 1
+                        self.roomz -= 1
+                        if self.rooms == 0:
+                            print(colored("Your Attack Up Spell has run out", 'red'))
+                            self.weapon.attack_stat = self.normal_attack
+                        if self.roomz == 0:
+                            print(colored("Your Defense Up Spell has run out", 'blue'))
+                            self.defense = self.normal_defense
                     else:
                         if player.helmet != Ruby_Circlet:
                             print("You fall into molten lava and burn to death...")
                             self.health = 0
                         else:
                             print("You fall into molten lava, but the ruby circlet prevents the lava from killing you")
+                            self.current_location = new_location
+                            self.inked = True
+                            self.rooms -= 1
+                            self.roomz -= 1
+                            if self.rooms == 0:
+                                print(colored("Your Attack Up Spell has run out", 'red'))
+                                self.weapon.attack_stat = self.normal_attack
+                            if self.roomz == 0:
+                                print(colored("Your Defense Up Spell has run out", 'blue'))
+                                self.defense = self.normal_defense
                 else:
                     print("You pull out your Paraglider and glide down to safety")
                     self.current_location = new_location
                     self.inked = False
+                    self.rooms -= 1
+                    self.roomz -= 1
+                    if self.rooms == 0:
+                        print(colored("Your Attack Up Spell has run out", 'red'))
+                        self.weapon.attack_stat = self.normal_attack
+                    if self.roomz == 0:
+                        print(colored("Your Defense Up Spell has run out", 'blue'))
+                        self.defense = self.normal_defense
             else:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
         elif new_location == BAY:
             if player.helmet is water_pendant:
                 self.random = random.randint(5, 10)
@@ -1121,6 +1508,14 @@ class Player(object):
                         print("You survived!")
                         self.current_location = new_location
                         self.inked = False
+                        self.rooms -= 1
+                        self.roomz -= 1
+                        if self.rooms == 0:
+                            print(colored("Your Attack Up Spell has run out", 'red'))
+                            self.weapon.attack_stat = self.normal_attack
+                        if self.roomz == 0:
+                            print(colored("Your Defense Up Spell has run out", 'blue'))
+                            self.defense = self.normal_defense
                     else:
                         if self.random == 1 or 2 or 3:
                             print("You fall onto the ground and die!")
@@ -1132,9 +1527,25 @@ class Player(object):
                     print("You pull out your Paraglider and glide down to safety")
                     self.current_location = new_location
                     self.inked = False
+                    self.rooms -= 1
+                    self.roomz -= 1
+                    if self.rooms == 0:
+                        print(colored("Your Attack Up Spell has run out", 'red'))
+                        self.weapon.attack_stat = self.normal_attack
+                    if self.roomz == 0:
+                        print(colored("Your Defense Up Spell has run out", 'blue'))
+                        self.defense = self.normal_defense
             else:
                 self.current_location = new_location
                 self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
         elif new_location == MT_SILVER:
             self.random = random.randint(1, 10)
             if self.current_location == MTN_BASE:
@@ -1143,6 +1554,14 @@ class Player(object):
                     print("You survived!")
                     self.current_location = new_location
                     self.inked = False
+                    self.rooms -= 1
+                    self.roomz -= 1
+                    if self.rooms == 0:
+                        print(colored("Your Attack Up Spell has run out", 'red'))
+                        self.weapon.attack_stat = self.normal_attack
+                    if self.roomz == 0:
+                        print(colored("Your Defense Up Spell has run out", 'blue'))
+                        self.defense = self.normal_defense
                 else:
                     if Paraglider not in Inventory.inventory:
                         print("You fall onto the ground and die!")
@@ -1150,6 +1569,16 @@ class Player(object):
                     else:
                         print("You almost fall down and die, but you quickly pull "
                               "out your paraglider and survive")
+                        self.current_location = new_location
+                        self.inked = False
+                        self.rooms -= 1
+                        self.roomz -= 1
+                        if self.rooms == 0:
+                            print(colored("Your Attack Up Spell has run out", 'red'))
+                            self.weapon.attack_stat = self.normal_attack
+                        if self.roomz == 0:
+                            print(colored("Your Defense Up Spell has run out", 'blue'))
+                            self.defense = self.normal_defense
         elif new_location == KEY:
             self.random = random.randint(1, 10)
             if self.current_location == TEMPLE_5:
@@ -1158,15 +1587,41 @@ class Player(object):
                     print("You survived!")
                     self.current_location = new_location
                     self.inked = False
+                    self.rooms -= 1
+                    self.roomz -= 1
+                    if self.rooms == 0:
+                        print(colored("Your Attack Up Spell has run out", 'red'))
+                        self.weapon.attack_stat = self.normal_attack
+                    if self.roomz == 0:
+                        print(colored("Your Defense Up Spell has run out", 'blue'))
+                        self.defense = self.normal_defense
                 else:
                     if Paraglider not in Inventory.inventory:
                         print("You fall onto the ground and take 30 damage!")
                         self.take_damage(30)
                     else:
                         print("You fall but pull out your Paraglider and survive")
+                        self.current_location = new_location
+                        self.inked = False
+                        self.rooms -= 1
+                        self.roomz -= 1
+                        if self.rooms == 0:
+                            print(colored("Your Attack Up Spell has run out", 'red'))
+                            self.weapon.attack_stat = self.normal_attack
+                        if self.roomz == 0:
+                            print(colored("Your Defense Up Spell has run out", 'blue'))
+                            self.defense = self.normal_defense
         else:
             self.current_location = new_location
             self.inked = False
+            self.rooms -= 1
+            self.roomz -= 1
+            if self.rooms == 0:
+                print(colored("Your Attack Up Spell has run out", 'red'))
+                self.weapon.attack_stat = self.normal_attack
+            if self.roomz == 0:
+                print(colored("Your Defense Up Spell has run out", 'blue'))
+                self.defense = self.normal_defense
 
     def find_room(self, direction):
         """This method takes a direction and finds the variable of the room
@@ -5729,13 +6184,13 @@ class Watch(object):
             TOT2.east = FUTURE2
             if tot_key in FUTURE2.items:
                 FUTURE2.items.remove(tot_key)
-            FUTURE2.description = "While the path leading here has caved "
-            "in during our present day, and this "
-            "path had not yet been built in the past you can visit this room in the future. "
-            "\n The key in this "
-            "room appears to be broken. In  a time between our present day and the past"
-            " and before the future, "
-            "this key was most definitely intact"
+            FUTURE2.description = "While the path leading here has caved " \
+                                  "in during our present day, and this " \
+                                  "path had not yet been built in the past you can visit this room in the future. " \
+                                  "\n The key in this " \
+                                  "room appears to be broken. In  a time between our present day and the past" \
+                                  " and before the future, " \
+                                  "this key was most definitely intact"
             nova.be_unlocked()
 
 
@@ -5774,7 +6229,7 @@ tabuu2 = Leggings(13, "")
 tabuu3 = Boots(10, "")
 tabuu4 = Chestplate(17, "Tabuu's Wings")
 
-Ruby_Circlet = Helmet(8, "Ruby Circlet (Prevents death from lava)")
+Ruby_Circlet = Helmet(8, "Ruby Circlet")
 
 # Adding Items
 NOVA2.items.append(foods)
@@ -5851,11 +6306,12 @@ while instructions:
 # player.current_location = TEMPLE_1
 
 player.weapon = Magic_Sword
+marxs_death = False
 
 while playing:
     if len(player.current_location.bosses) == 0:
         if tabuu.unwinnable:
-            print(colored("You.... you... killed all of the..."
+            print(colored("You.... you... killed all of the bosses..."
                           "\n You absorb all of the souls of the "
                           "bosses and become the most powerful "
                           "entity in the multiverse."
@@ -5872,8 +6328,10 @@ while playing:
                 Shopkeepers[shopkeeps].items.append(Shopkeepers[shopkeeps].bought_items[itemss])
                 Shopkeepers[shopkeeps].bought_items.remove(Shopkeepers[shopkeeps].bought_items[itemss])
     if marx.health == 0:
-        print("Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
-              "\nGuess that's why it was in ruins, luckily, you can still make it back home (somehow)")
+        if not marxs_death:
+            print("Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
+                  "\nGuess that's why it was in ruins, luckily, you can still make it back home (somehow)")
+            marxs_death = True
         PEAK.description = "NOVA's golden ruins are here... You can also see Marx's dead " \
                            "body here. oh... he's absorbing some of the parts of NOVA..." \
                            "\n Eh, that's a problem for Kirby to deal with..." \
@@ -5894,79 +6352,79 @@ while playing:
             print(colored('GAME OVER', 'red'))
             break
         else:
-            print(colored("You have been defeated... Tabuu's wings materialize once more and you "
+            input(colored("You have been defeated... Tabuu's wings materialize once more and you "
                           "are vaporized instantly", 'red'))
             print(colored("THE END", 'grey'))
             break
     if tabuu.health <= 0:
-        playing = False
-        print("YOU WIN!")
-        print("But... defeating Tabuu destroys all of the otherworldly"
-              " areas in this world... Now... you have a choice")
-        print(colored("Do you kill Tabuu?", 'red'))
-        print("Killing Tabuu will destroy everything, saving the world "
-              "you've been protecting.... \nBut you also arrived "
-              "from one of these meteorites..."
-              "\nKilling Tabuu will also kill you..."
-              "\n Sparing Tabuu will keep you from dying... "
-              "But it will destroy this realm..."
-              "\nThe choice is up to you...")
-        last_choice = input(colored("Will you kill Tabuu?", 'red'))
-        if last_choice.lower() == 'yes':
-            print(colored("You land the finishing blow on Tabuu..."
-                          "\n The dimension you're in slowly begins to collapse... "
-                          "\n You look down at your hands as cyan cracks begin to "
-                          "form in them"
-                          "\n You slowly fade away into nothing... and the desert castle, "
-                          "temple of time, light temple, NOVA, time portal, lost woods, "
-                          "and many other areas fade away too"
-                          "\n You did it... you saved everyone... but..."
-                          "\n At What Cost?", 'cyan'))
-            print(colored("THE END", 'blue'))
-            break
-        elif last_choice.lower() == 'no':
-            print(colored("You decide to let Tabuu live... You heal him"
-                          " and join forces with him"
-                          "\n You destroy the very realm you swore to protect"
-                          "\n You kill EVERYONE who once lived in this realm..."
-                          "\n The world has been destroyed...."
-                          "\n But... Tabuu sees you as a liability"
-                          "\n You WERE able to nearly kill him..."
-                          "\n Tabuu's wings materialize once more and Tabuu gets "
-                          "ready to fights you"
-                          "\n...But all of the bosses appear to beat you.... Oh... No...", 'red'))
-            print("The following bosses are here to make sure you die")
-            player.current_location = THE_END
-            THE_END.bosses.append(bowser)
-            THE_END.bosses.append(d_bowser)
-            THE_END.bosses.append(dark_link)
-            THE_END.bosses.append(octavio)
-            THE_END.bosses.append(chaos0)
-            THE_END.bosses.append(m_mario)
-            THE_END.bosses.append(marx)
-            THE_END.bosses.append(tabuu)
-            THE_END.bosses.append(duon)
-            THE_END.bosses.append(galleom)
-            THE_END.bosses.append(galacta_knight)
-            THE_END.bosses.append(ultra_necrozma)
-            THE_END.bosses.append(gohma)
-            bowser.health = 1000
-            d_bowser.health = 10000
-            tabuu.health = 1000000
-            dark_link.health = 1000
-            octavio.health = 1000
-            chaos0.health = 1000
-            m_mario.health = 1000
-            marx.health = 1000
-            duon.health = 1000
-            galleom.health = 1000
-            galacta_knight.health = 1000
-            ultra_necrozma.health = 1000
-            gohma.health = 1000
-            for nums, persons in enumerate(player.current_location.enemies):
-                print(str(nums + 1) + ": " + colored(persons.name, 'red'))
-            print()
-            tabuu.unwinnable = True
+        if not tabuu.unwinnable:
+            input("YOU WIN!")
+            input("But... defeating Tabuu destroys all of the otherworldly"
+                  " areas in this world... Now... you have a choice")
+            input(colored("Do you kill Tabuu?", 'red'))
+            input("Killing Tabuu will destroy everything, saving the world "
+                  "you've been protecting.... \nBut you also arrived "
+                  "from one of these meteorites..."
+                  "\nKilling Tabuu will also kill you..."
+                  "\n Sparing Tabuu will keep you from dying... "
+                  "But it will destroy this realm..."
+                  "\nThe choice is up to you...")
+            last_choice = input(colored("Will you kill Tabuu?", 'red'))
+            if last_choice.lower() == 'yes':
+                input(colored("You land the finishing blow on Tabuu..."
+                              "\n The dimension you're in slowly begins to collapse... "
+                              "\n You look down at your hands as cyan cracks begin to "
+                              "form in them"
+                              "\n You slowly fade away into nothing... and the desert castle, "
+                              "temple of time, light temple, NOVA, time portal, lost woods, "
+                              "and many other areas fade away too"
+                              "\n You did it... you saved everyone... but..."
+                              "\n At What Cost?", 'cyan'))
+                input(colored("THE END", 'blue'))
+                playing = False
+            elif last_choice.lower() == 'no':
+                input(colored("You decide to let Tabuu live... You heal him"
+                              " and join forces with him"
+                              "\n You destroy the very realm you swore to protect"
+                              "\n You kill EVERYONE who once lived in this realm..."
+                              "\n The world has been destroyed...."
+                              "\n But... Tabuu sees you as a liability"
+                              "\n You WERE able to nearly kill him..."
+                              "\n Tabuu's wings materialize once more and Tabuu gets "
+                              "ready to fights you"
+                              "\n...But all of the bosses appear to beat you.... Oh... No...", 'red'))
+                input("The following bosses are here to make sure you die")
+                player.current_location = THE_END
+                THE_END.bosses.append(bowser)
+                THE_END.bosses.append(d_bowser)
+                THE_END.bosses.append(dark_link)
+                THE_END.bosses.append(octavio)
+                THE_END.bosses.append(chaos0)
+                THE_END.bosses.append(m_mario)
+                THE_END.bosses.append(marx)
+                THE_END.bosses.append(tabuu)
+                THE_END.bosses.append(duon)
+                THE_END.bosses.append(galleom)
+                THE_END.bosses.append(galacta_knight)
+                THE_END.bosses.append(ultra_necrozma)
+                THE_END.bosses.append(gohma)
+                bowser.health = 1000
+                d_bowser.health = 10000
+                tabuu.health = 1000000
+                dark_link.health = 1000
+                octavio.health = 1000
+                chaos0.health = 1000
+                m_mario.health = 1000
+                marx.health = 1000
+                duon.health = 1000
+                galleom.health = 1000
+                galacta_knight.health = 1000
+                ultra_necrozma.health = 1000
+                gohma.health = 1000
+                for nums, persons in enumerate(player.current_location.bosses):
+                    print(str(nums + 1) + ": " + colored(persons.name, 'red'))
+                print()
+                tabuu.unwinnable = True
     print(colored(player.current_location.name, 'blue'))
     print(colored(player.current_location.description, 'green'))
     if len(player.current_location.items) > 0:
@@ -6339,9 +6797,9 @@ while playing:
                          "\n3. + 75 HEALTH UPGRADE"
                          "\n4. + 75 MP"
                          "\n5. TABUU ARMOR"
+                         "\n6. OVER A MILLION HEALTH"
                          "\n Pick a number: ")
         if command2 == "1":
-            input(".")
             input(".")
             print()
             print()
@@ -6523,6 +6981,38 @@ while playing:
             player.boots = tabuu3
             player.chestplate = tabuu4
             player.weapon = shimmering_whip
+        elif command2 == '6':
+            input(".")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            input("..")
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            input("...")
+            print()
+            print("cheat code accepted")
+            player.health = 99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            player.max_health = player.health
         else:
             input(".")
             print()
@@ -6552,7 +7042,9 @@ while playing:
             print()
             input("...")
             print()
-            print("error - not a valid cheat code")
+            print("error - not a valid cheat code")             # upupdowndownleftrightleftrightbastart
+    elif command.lower() == 'skip':
+        tabuu.health = 0
     elif command.upper() == "ROSEBUD":
         input(".")
         print()
@@ -6630,5 +7122,13 @@ while playing:
             for nme in range(len(player.current_location.bosses)):
                 if player.current_location.bosses[nme].health > 0:
                     player.current_location.bosses[nme].attack(player)
+    if len(player.current_location.enemies) > 0:
+        for nmez in player.current_location.enemies:
+            if player.current_location.enemies[nmez].health <= 0:
+                player.current_location.enemies.remove(nmez)
+    if len(player.current_location.bosses) > 0:
+        for nmes in player.current_location.bosses:
+            if nmes.health == 0:
+                player.current_location.bosses.remove(nmes)
     player.just_moved = False
     player.moves += 1
