@@ -1800,6 +1800,8 @@ class Vonthanos(Boss):
         super(Vonthanos, self).__init__(Claw, 75, False, False, True, "Von Thanos", 5, 1500)
         self.name = "Von Thanos"
 
+
+
 class Bowser(Boss):
     def __init__(self):
         super(Bowser, self).__init__(Claw, 60, False, False, True, "Bowser", 7, 1500)
