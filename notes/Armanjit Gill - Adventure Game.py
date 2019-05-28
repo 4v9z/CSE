@@ -7124,7 +7124,7 @@ while playing:
                     player.current_location.bosses[nme].attack(player)
     if len(player.current_location.enemies) > 0:
         for nmez in player.current_location.enemies:
-            if player.current_location.enemies[nmez].health <= 0:
+            if nmez.health <= 0:
                 player.current_location.enemies.remove(nmez)
     if len(player.current_location.bosses) > 0:
         for nmes in player.current_location.bosses:
