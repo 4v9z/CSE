@@ -911,6 +911,7 @@ class Player(object):
         self.can_attack = False
         self.choice = ""
         self.random = 0
+        self.du = False
 
     def attack(self, target):
         if self.weapon.__class__ is Sword:
@@ -1040,6 +1041,22 @@ class Player(object):
         if self.roomz == 0:
             print(colored("Your Defense Up Spell has run out", 'blue'))
             self.defense = self.normal_defense
+        if new_location == CH1K3:
+            if self.current_location == RELOCATION:
+                print("You try to go north, but you are assimilated and become part of the hoard.")
+                player.health = 0
+            else:
+                self.just_moved = True
+                self.current_location = new_location
+                self.inked = False
+                self.rooms -= 1
+                self.roomz -= 1
+                if self.rooms == 0:
+                    print(colored("Your Attack Up Spell has run out", 'red'))
+                    self.weapon.attack_stat = self.normal_attack
+                if self.roomz == 0:
+                    print(colored("Your Defense Up Spell has run out", 'blue'))
+                    self.defense = self.normal_defense
 
     def find_room(self, direction):
         """This method takes a direction and finds the variable of the room
@@ -4859,7 +4876,7 @@ CH1K3 = Room("Chapter 1 Key Issue 3", 'You are in a room in which something is s
                                       'Expansion diffusion are chasing you!', None, 'RELOCATION', None, None, 'REGIONS')
 
 RELOCATION = Room("Blank Page", 'You are on a blank page, when suddenly, '
-                                'Relocation Diffusion appears! It chased you!')
+                                'Relocation Diffusion appears! It chased you!', "CH1K3", 'CH1K4')
 
 player = Player(COVER)
 
@@ -4920,9 +4937,15 @@ while instructions:
 aa = False
 
 while playing:
-    player.defense = player.helmet.defense + player.chestplate.defense
-    player.defense += player.leggings.defense
-    player.defense += player.boots.defense
+    if not player.du:
+        player.defense = player.helmet.defense + player.chestplate.defense
+        player.defense += player.leggings.defense
+        player.defense += player.boots.defense
+    else:
+        player.defense = player.helmet.defense + player.chestplate.defense
+        player.defense += player.leggings.defense
+        player.defense += player.boots.defense
+        player.normal_defense = player.defense
     if player.health <= 0:
         playing = False
         print('GAME OVER')
