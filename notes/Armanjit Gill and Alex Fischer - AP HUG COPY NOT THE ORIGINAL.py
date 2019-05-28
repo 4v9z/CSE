@@ -621,6 +621,31 @@ class Weapon(object):
                 Inventory.inventory.append(self)
 
 
+class Gauntlet(Weapon):
+    def __init__(self, damage=25, name="The Gauntlet", price=0):
+        super(Gauntlet, self).__init__(name, price)
+        self.name = "Infinity Gauntlet"
+        self.attack_stat = damage
+        self.price = 1000000
+        self.stage = 1
+        self.coin = 0
+
+    def develop(self):
+        self.coin = 0
+        self.stage += 1
+        if self.stage == 2:
+            print("The gauntlet has gained another infinity stone! It now has both the the service and industry stones!"
+                  )
+            self.attack_stat += 8
+    def token(self):
+        self.coin += 1
+        if self.coin >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+        else:
+            print("You have %d tokens invested in the weapon in its current stage." % self.coin)
 class DTM(Weapon):
     def __init__(self, name="", price=0):
         super(DTM, self).__init__(name, price)
@@ -2325,12 +2350,19 @@ rock.items.append(upgrade3)
 rock.items.append(key_4)
 rock.items.append(Fire)
 
-
+glove =
 class Boss(Enemy):
     def __init__(self, weapon, health, can_ink, elecfrost, can_weapon, name, defense, mon):
         super(Boss, self).__init__(weapon, health, can_ink, elecfrost, can_weapon, name, defense, mon)
         self.attack_choice = random.randint(1, 7)
         self.dodge_chance = random.randint(1, 12)
+
+
+class Vonthanos(Boss):
+    def __init__(self):
+        super(Vonthanos, self).__init__(Claw, 75, False, False, True, "Von Thanos", 5, 1500)
+        self.name = "Von Thanos"
+
 
 
 class Bowser(Boss):
