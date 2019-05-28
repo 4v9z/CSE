@@ -912,6 +912,8 @@ class Player(object):
         self.choice = ""
         self.random = 0
         self.du = False
+        self.moves = 0
+        self.hunger = 30
 
     def attack(self, target):
         if self.weapon.__class__ is Sword:
@@ -1043,7 +1045,7 @@ class Player(object):
             self.defense = self.normal_defense
         if new_location == CH1K3:
             if self.current_location == RELOCATION:
-                print("You try to go north, but you are assimilated and become part of the hoard.")
+                print("You try to go north, but you are assimilated and become part of the blob of globalization")
                 player.health = 0
             else:
                 self.just_moved = True
@@ -1848,7 +1850,6 @@ class Vonthanos(Boss):
     def __init__(self):
         super(Vonthanos, self).__init__(Claw, 75, False, False, True, "Von Thanos", 5, 1500)
         self.name = "Von Thanos"
-
 
 
 class Bowser(Boss):
@@ -4876,7 +4877,9 @@ CH1K3 = Room("Chapter 1 Key Issue 3", 'You are in a room in which something is s
                                       'Expansion diffusion are chasing you!', None, 'RELOCATION', None, None, 'REGIONS')
 
 RELOCATION = Room("Blank Page", 'You are on a blank page, when suddenly, '
-                                'Relocation Diffusion appears! It chased you!', "CH1K3", 'CH1K4')
+                                'Relocation Diffusion appears! It chased you!', "CH1K3")
+CH1K4 = Room("Sustainability Room", "You are on a page where the letters move to say:"
+                                    "\n YOUR CHALLENGE IS TO SURVIVE FOR 7 MOVES WITH LIMITED FOOD")
 
 player = Player(COVER)
 
@@ -4935,6 +4938,10 @@ while instructions:
         print("That is not a valid command")
 
 aa = False
+bbbb = False
+aaa = False
+c = False
+aaaa = False
 
 while playing:
     if not player.du:
@@ -4946,6 +4953,19 @@ while playing:
         player.defense += player.leggings.defense
         player.defense += player.boots.defense
         player.normal_defense = player.defense
+    if player.current_location == CH1K4:
+        if not c:
+            print("You are given some food")
+            Moves_sus = player.moves + 7
+            c = True
+        if not bbbb:
+            if player.moves == Moves_sus:
+                print("You have survived the challenge")
+                CH1K4.north = BOSS1
+                bbbb = True
+            print("You have %i hunger left")
+        else:
+            print()
     if player.health <= 0:
         playing = False
         print('GAME OVER')
@@ -4992,7 +5012,6 @@ while playing:
                                       "absolute location."
             aa = True
     if player.current_location == CH1K2S1:
-        aaa = False
         if not aaa:
             answer = input("What is the location of a place relative to other places?")
             if answer.lower() == "situation":
@@ -5002,7 +5021,6 @@ while playing:
                 print("Incorrect! You have been sent back to the beginning of the book!")
             aaa = True
     if player.current_location == REGIONS:
-        aaaa = False
         if not aaaa:
             answer = input('')
             if answer.lower() == 'formal, functional, vernacular':
@@ -5113,9 +5131,9 @@ while playing:
                 if player.current_location.west is not None:
                     print("You can go west")
                 if player.current_location.up is not None:
-                        print("You can go up")
+                    print("You can go up")
                 if player.current_location.down is not None:
-                        print("You can go down")
+                    print("You can go down")
                 if player.current_location.enter is not None:
                     print("You can go inside something")
                 if player.current_location.leave is not None:
@@ -5585,4 +5603,17 @@ while playing:
         if not player.just_moved:
             print("The distortion in the room causes you to take 10 damage!")
             player.take_damage(10)
+    if len(player.current_location.enemies) > 0:
+        for nmez in player.current_location.enemies:
+            if nmez.health <= 0:
+                player.current_location.enemies.remove(nmez)
+                if nmez == NPC1:
+                    RELOCATION.south = CH1K4
+                    RELOCATION.description = "You are on a blank page in the textbook... " \
+                                             "\n Strange that there is a blank page but who cares?"
+    if len(player.current_location.bosses) > 0:
+        for nmes in player.current_location.bosses:
+            if nmes.health == 0:
+                player.current_location.bosses.remove(nmes)
     player.just_moved = False
+    player.moves += 1
