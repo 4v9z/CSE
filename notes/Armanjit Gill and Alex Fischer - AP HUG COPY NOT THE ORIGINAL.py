@@ -357,6 +357,7 @@ class Robinson(Helmet):
 
     def token(self):
         self.token += 1
+        player.token -= 1
         if self.token >= 3:
             try:
                 self.develop()
@@ -406,6 +407,7 @@ class Chestplate(Armor):
 
     def token(self):
         self.token += 1
+        player.token -= 1
         if self.token >= 3:
             try:
                 self.develop()
@@ -442,6 +444,7 @@ class Homolosine(Chestplate):
 
     def token(self):
         self.token += 1
+        player.token -= 1
         if self.token >= 3:
             try:
                 self.develop()
@@ -509,6 +512,7 @@ class Louisiana(Boots):
 
     def token(self):
         self.token += 1
+        player.token -= 1
         if self.token >= 3:
             try:
                 self.develop()
@@ -576,6 +580,7 @@ class Mercator(Leggings):
 
     def token(self):
         self.token += 1
+        player.token -= 1
         if self.token >= 3:
             try:
                 self.develop()
@@ -623,12 +628,12 @@ class DTM(Weapon):
         self.price = price
         self.attack_stat = 15
         self.stage = 1
-        self.token = 0
+        self.coin = 0
 
     def develop(self):
         print("Your %s is developing!" % self.name)
         self.stage += 1
-        self.token = 0
+        self.coin = 0
         if self.stage == 2:
             print("Your %s is now in stage 2! The NIR is skyrocketing! And so is the damage!" % self.name)
             self.attack_stat = 24
@@ -649,16 +654,17 @@ class DTM(Weapon):
             print("Your DTM could not develop.")
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the weapon in its current stage." % self.token)
+            print("You have %d tokens invested in the weapon in its current stage." % self.coin)
 
-
+dtm1 = DTM("t", 2)
+dtm1.token()
 class Blade(Weapon):
     def __init__(self, attack_stat=None, sharp=True, dull=False, durability=None, name="", price=0):
         super(Blade, self).__init__("  ", price)
@@ -1422,6 +1428,7 @@ class Sector(Weapon):
 
     def token(self):
         self.token += 1
+        player.token -= 1
         if self.token >= 3:
             try:
                 self.develop()
@@ -4695,7 +4702,8 @@ class Hand2(Boss):
 
 crazy_hand = Hand2()
 
-
+dtm = DTM("DTM", 60)
+dtm.token()
 class Necrozma(Boss):
     def __init__(self):
         super(Necrozma, self).__init__(None, 90, False, False, True, "Ultra Necrozma", 9, 4052)
@@ -5857,6 +5865,17 @@ while playing:
                     the_item.use()
                 except AttributeError:
                     print("You can't use this")
+    elif "develop " in command.lower():
+        jac = command.lower().split()
+        weapon = " ".join(jac[1:])
+        if weapon.lower() == player.current_weapon.name.lower():
+            weapon = player.current_weapon
+        elif weapon.lower() == player.weapon.name.lower():
+            weapon = player.weapon
+        try:
+            weapon.token()
+        except AttributeError:
+            print("Something bad happened")
     elif 'drop ' in command.lower():
         items_name = command[5:]
 
