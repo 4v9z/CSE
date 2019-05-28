@@ -719,12 +719,6 @@ class Blade(Weapon):
         if self.grabbed:
             if self.sharp:
                 print("You swing your weapon")
-                self.durability -= 1
-                if self.durability <= 0:
-                    print("Your weapon has become dull from constant use")
-                    self.sharp = False
-                    self.dull = True
-                    self.attack_stat /= 2
             elif self.dull:
                 print("You swing your now dull weapon")
 
@@ -773,8 +767,6 @@ class Sword(Blade):
         if self.grabbed:
             print(self.name)
             print("Attack: %s" % self.attack_stat)
-            print("Remaining durability: %s" % self.durability)
-            print("While this weapon can defeat any enemy in one hit, your HP is constantly going to be at 1HP")
 
 
 class Swword(Blade):
@@ -870,7 +862,9 @@ paper2 = Leggings(2, "Paper leggings")
 
 paper3 = Chestplate(3, "Paper Chestplate")
 
-Wooden_Sword = Sword(13, True, False, 8, "Wooden Sword")
+Wooden_Sword = Sword(13, True, False, 8, colored("Blue Pen", 'blue'))
+
+Book = Sword(18, True, False, 90, colored("A smaller textbook", 'orange'))
 
 Magic_Sword = Sword(20, True, False, 999999999999999999999999, "Magic Sword")
 
@@ -895,6 +889,10 @@ class Player(object):
         self.health = health
         self.just_moved = True
         self.leggings = leggings
+        self.normal_defense = 0
+        self.normal_attack = 0
+        self.rooms = 0
+        self.roomz = 0
         self.stored_weapon = weapon
         self.inventory = []
         self.current_location = starting_location
@@ -939,23 +937,52 @@ class Player(object):
 
     def cast(self, target):
         if target != self:
-            self.choice = input("What do you want to attack with?"
-                                "\nFire Blast, Thunder, or Blizzard"
-                                "\n   5MP       10MP      15MP    ")
-            target.take_mp()
+            print("What do you want to attack with?")
+            print(colored("Fire Blast 🔥大🔥 - 5 MP", 'red'))
+            print(colored("Thunder 🗲 - 10 MP", 'yellow'))
+            print(colored("Blizzard ❄ - 15 MP", 'cyan'))
+            print(colored("Instant Kill ☠ 🕷- 1000 MP", 'red', 'on_grey'))
+            print(colored('Your MP: %i/%i' % (self.MP, self.max_MP), 'magenta'))
+            self.choice = input("")
+            if self.choice.lower() != "instant kill":
+                target.take_mp()
+            else:
+                target.health = 0
         elif target == self:
-            self.choice = input("Do you want to cast heal on yourself?")
-            if self.choice.lower() == "yes":
+            print("What do you want to cast on yourself?")
+            print(colored("Heal 💛 - 25 MP", 'yellow'))
+            print(colored("Attack Up ⚔ - 35 MP", 'red'))
+            print(colored("Defense Up 🛡 - 40 MP", 'blue'))
+            print(colored('Your MP: %i/%i' % (self.MP, self.max_MP), 'magenta'))
+            self.choice = input("")
+            if self.choice.lower() == 'heal':
                 if self.MP >= 25:
-                    player.MP -= 25
-                    if player.health + 30 <= player.max_health:
-                        player.health += 30
-                        print("You heal yourself and restore 30 health")
+                    print("You cast heal on yourself")
+                    if self.health + 30 > self.max_health:
+                        print("Your HP is maxed out")
+                        self.health = self.max_health
                     else:
-                        print("You heal yourself and your HP is maxed out")
-                        player.health = player.max_health
+                        print("You heal 30 HP")
+                        self.health += 30
                 else:
-                    print("You do not have enough MP to cast heal on yourself")
+                    print("You don't have enough MP to cast heal")
+            if self.choice.lower() == 'attack up':
+                if self.MP >= 25:
+                    print("You cast attack up, your weapon's attack is doubled for the next 3 rooms!")
+                    self.normal_attack = self.weapon.attack_stat
+                    self.weapon.attack_stat *= 2
+                    self.rooms = 3
+                else:
+                    print("You don't have enough MP to cast attack up")
+            if self.choice.lower() == 'defense up':
+                if self.MP >= 25:
+                    print("You cast attack up, your weapon's attack is doubled for the next 3 rooms!")
+                    self.normal_defense = self.defense
+                    self.defense *= 2
+                    self.roomz = 3
+                    self.du = True
+                else:
+                    print("You don't have enough MP to cast defense up")
 
     def rob(self, target):
         if target.__class__ is NPC:
@@ -1005,6 +1032,14 @@ class Player(object):
         self.just_moved = True
         self.current_location = new_location
         self.inked = False
+        self.rooms -= 1
+        self.roomz -= 1
+        if self.rooms == 0:
+            print(colored("Your Attack Up Spell has run out", 'red'))
+            self.weapon.attack_stat = self.normal_attack
+        if self.roomz == 0:
+            print(colored("Your Defense Up Spell has run out", 'blue'))
+            self.defense = self.normal_defense
 
     def find_room(self, direction):
         """This method takes a direction and finds the variable of the room
@@ -1546,9 +1581,6 @@ Briefcase = Filler("Locked Briefcase")
 Melee = Filler("Unopened Copy of Smash Bros Melee")
 
 egg2 = Filler("EGG 2: ELECTRIC BOOGALOO")
-
-Book = Filler("Book")
-
 
 A_3 = NPC("Agent 3", 99999999999999999, 99999999999999999999999999999999999999999999999, 99999999999999, False,
           "You're pretty powerful. I've never been beaten before, the only other time I was beaten was "
@@ -4818,7 +4850,16 @@ CH1K2S1 = Room("Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronuku
                "You have entered Key Issue 2 of Chapter 1, and you are currently in the location with the "
                "longest toponym in all of the world", None, None, "REGIONS", None, None, 'CH1KI1S3')
 
-REGIONS = Room ("Region Room")
+REGIONS = Room("Region Room", 'You are in a room in which there is a question engraved in the wall:'
+                              '\nName the three types of regions in alphabetical order?', None, None, None,
+               'CH1K2S1', None, 'CH1K3')
+CH1K3 = Room("Chapter 1 Key Issue 3", 'You are in a room in which something is spreading towards you.....'
+                                      '\n!!!!!'
+                                      '\n Quick! Run before you are assimilated! Globalization and '
+                                      'Expansion diffusion are chasing you!', None, 'RELOCATION', None, None, 'REGIONS')
+
+RELOCATION = Room("Blank Page", 'You are on a blank page, when suddenly, '
+                                'Relocation Diffusion appears! It chased you!')
 
 player = Player(COVER)
 
@@ -4915,12 +4956,38 @@ while playing:
             command2 = input("Well?")
             if command2.lower() == 'remote sensing':
                 print("Correct, Here is a development token! These can be used to upgrade your weapons or armor!")
+                CH1K1S2.description = "You feel like you are being watched, and you are, by " \
+                                      "satellites! \nThis is done to make maps with GIS and to find " \
+                                      "absolute location."
                 player.development_tokens += 1
             else:
                 print("Incorrect! The correct answer was remote sensing!"
                       "\n You look up and see a flaming satellite fall onto you!")
                 player.take_damage(25)
+                CH1K1S2.description = "You feel like you are being watched, and you are, by " \
+                                      "satellites! \nThis is done to make maps with GIS and to find " \
+                                      "absolute location."
             aa = True
+    if player.current_location == CH1K2S1:
+        aaa = False
+        if not aaa:
+            answer = input("What is the location of a place relative to other places?")
+            if answer.lower() == "situation":
+                player.development_tokens += 1
+                print(colored('Correct! You get a development token!', 'green'))
+            else:
+                print("Incorrect! You have been sent back to the beginning of the book!")
+            aaa = True
+    if player.current_location == REGIONS:
+        aaaa = False
+        if not aaaa:
+            answer = input('')
+            if answer.lower() == 'formal, functional, vernacular':
+                print(colored('Correct! You get a new a weapon', 'green'))
+                Inventory.inventory.append(Book)
+            else:
+                print("Wrong! You get hit in the head with a book!")
+            aaaa = True
     command = input(">_")
     if command.lower() in short_directions:
         pos = short_directions.index(command.lower())
@@ -4931,6 +4998,30 @@ while playing:
         player.chestplate = Cape
         player.weapon = Hero_Shot
         print("Given.")
+    elif command.lower() in ["use a spell", 'spell', 'cast', 'cast a spell']:
+        if len(player.current_location.enemies) > 0:
+            for nums, persons in enumerate(player.current_location.enemies):
+                print(str(nums + 1) + ": " + colored(persons.name, 'red'))
+            print()
+        if len(player.current_location.bosses) > 0:
+            for nums, persons in enumerate(player.current_location.bosses):
+                print(str(nums + 1) + ": " + colored(persons.name, 'red', 'on_grey'))
+            print()
+        print("Me")
+        command4 = input('What do you want to cast a spell on?')
+        if command4.lower() == 'me':
+            player.cast(player)
+        targett = None
+        for targets in player.current_location.enemies:
+            if targets.name.lower() == command4.lower():
+                targett = targets
+
+                player.cast(targett)
+        for ttargets in player.current_location.bosses:
+            if ttargets.name.lower() == command4.lower():
+                targett = ttargets
+
+                player.cast(targett)
     elif 'take ' in command.lower():
         item_name = command[5:]
 
@@ -5471,10 +5562,4 @@ while playing:
         if not player.just_moved:
             print("The distortion in the room causes you to take 10 damage!")
             player.take_damage(10)
-    if player.current_location == CH1K2S1:
-        aaa = False
-        if not aaa:
-            answer = input("What is the location of a place relative to other places?")
-            if answer.lower() == "situation":
-                player.development_tokens += 1
     player.just_moved = False
