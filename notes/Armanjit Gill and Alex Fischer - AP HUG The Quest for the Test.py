@@ -944,23 +944,19 @@ class Player(object):
             print(colored("Fire Blast 🔥大🔥 - 5 MP", 'red'))
             print(colored("Thunder 🗲 - 10 MP", 'yellow'))
             print(colored("Blizzard ❄ - 15 MP", 'cyan'))
-            print(colored("Instant Kill ☠ 🕷- 1000 MP", 'red', 'on_grey'))
             print(colored('Your MP: %i/%i' % (self.MP, self.max_MP), 'magenta'))
             self.choice = input("")
-            if self.choice.lower() != "instant kill":
-                target.take_mp()
-            else:
-                target.health = 0
+            target.take_mp()
         elif target == self:
             print("What do you want to cast on yourself?")
-            print(colored("Heal 💛 - 25 MP", 'yellow'))
+            print(colored("Study (health restore) 💛 - 25 MP", 'yellow'))
             print(colored("Attack Up ⚔ - 35 MP", 'red'))
             print(colored("Defense Up 🛡 - 40 MP", 'blue'))
             print(colored('Your MP: %i/%i' % (self.MP, self.max_MP), 'magenta'))
             self.choice = input("")
-            if self.choice.lower() == 'heal':
+            if self.choice.lower() == 'study':
                 if self.MP >= 25:
-                    print("You cast heal on yourself")
+                    print("You flip through a magic notebook you materialized")
                     if self.health + 30 > self.max_health:
                         print("Your HP is maxed out")
                         self.health = self.max_health
@@ -1333,11 +1329,54 @@ class Eat1(Health):
 
     def check(self):
         if self.grabbed:
+
             print(self.name)
-            print("Restores %s health" % self.restore)
+            print("Restores %s hunger" % self.restore)
+
+    def use(self):
+        if self.grabbed:
+            if player.hunger + self.restore <= 50:
+                player.hunger += self.restore
+                print("You eat the %s, and restore %i hunger" % (self.name, self.restore))
+            else:
+                print("You eat the %s and you are full" % self.name)
+                player.hunger = 50
+
+
+class Foood(Health):
+    def __init__(self, restore=30, name="", price=0):
+        super(Foood, self).__init__()
+        self.restore = restore
+        self.name = name
+        self.price = price
+        self.grabbed = False
+
+    def check(self):
+        if self.grabbed:
+            print(self.name)
+            print("Restores %s hunger" % self.restore)
+
+    def use(self):
+        if self.grabbed:
+            if player.hunger + self.restore <= 50:
+                player.hunger += self.restore
+                print("You eat the %s, and restore %i hunger" % (self.name, self.restore))
+            else:
+                print("You eat the %s and you are full" % self.name)
+                player.hunger = 50
 
 
 rage_candy = Eat1(20, "Rage Candy Bar", 20)
+
+Maize = Foood(15, "Maize", 20)
+
+Borger = Foood(25, "Beef", 40)
+
+Carrot = Foood(10, "Carrot", 10)
+
+C_candy = Foood(18, "Chocolate", 20)
+
+Pork = Foood(25, "Pork", 20)
 
 fruit = Eat1(9999999999999999999999999999999999999, "Hearty Simmered Fruit", 70)
 
@@ -1851,33 +1890,28 @@ class Vonthanos(Boss):
         super(Vonthanos, self).__init__(Claw, 75, False, False, True, "Von Thanos", 5, 1500)
         self.name = "Von Thanos"
 
-
-class Bowser(Boss):
-    def __init__(self):
-        super(Bowser, self).__init__(Claw, 60, False, False, True, "Bowser", 7, 1500)
-        self.name = "Bowser"
-
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
         self.dodge_chance = random.randint(1, 12)
         if self.attack_choice == 1:
             if self.dodge_chance == 3:
-                print("Bowser attacks with his claws! But he misses!")
+                print("Von Thanos attacks you with his weird Infinity Gauntlet, but he misses")
             else:
-                print("Bowser attacks for %d with his claws!" % self.weapon.attack_stat)
+                print("Von Thanos attacks you for %i with his weird Infinity Gauntlet!" % self.weapon.attack_stat)
                 target.take_damage(self.weapon.attack_stat)
         elif self.attack_choice == 2:
             if self.dodge_chance != 3:
-                print("Bowser attacks with a fireball!")
+                print("Von Thanos uses the forestry ring in his Infinity Gauntlet to "
+                      "launch you into the air by making a tree appear beneath you")
                 target.take_damage(30)
             else:
-                print("Bowser attacks with a fireball but misses!")
+                print("Von Thanos tries to use aring in his gauntlet... but fails!")
         elif self.attack_choice == 3:
             if self.dodge_chance != 1:
-                print("Bowser attacks with his shell!")
+                print("Von Thanos uses the dairy ring in his Gauntlet and he throws a giant cow at you")
                 target.take_damage(28)
             else:
-                print("Bowser attacks with his shell but misses")
+                print("Von Thanos uses the dairy ring in his Gauntlet and he throws a giant cow at you but he misses")
         elif self.attack_choice == 4:
             if self.dodge_chance != 4 or 5 or 6:
                 print("Bowser grows in size for one quick attack!")
@@ -1902,6 +1936,151 @@ class Bowser(Boss):
                 target.take_damage(30)
             else:
                 print("Bowser tries to punch you but misses")
+
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                self.health -= 20
+                player.MP -= 5
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.max_health += 30
+                    player.health = player.max_health
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+                    player.max_health += 30
+                    player.health = player.max_health
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 50
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.max_health += 30
+                    player.health = player.max_health
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
+    def take_damage(self, damage):
+        if self.inked:
+            damage *= 2
+        if player.weapon.__class__ is Splattershot:
+            self.inked = True
+        if not self.only_ink:
+            if not self.elecfrost:
+                if self.no_weapon:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.max_health += 30
+                            player.health = player.max_health
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("This enemy can not be damaged by physical attacks")
+
+            elif self.elecfrost:
+                if player.weapon is E_Sword or F_Sword:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.max_health += 30
+                            player.health = player.max_health
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("Enemy takes 0 damage as they can only be hit by ice or electricity")
+            elif self.only_ink:
+                if player.weapon.__class__ is Splattershot:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
+
+
+class Test1(Boss):
+    def __init__(self):
+        super(Test1, self).__init__(Claw, 60, False, False, True, "Test1", 7, 1500)
+        self.name = "Test1"
+        self.answers = ''
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 5)
+        if self.attack_choice == 1:
+            print("Geography is about ____ and why and History is about when and why")
+            self.answers = input('')
+            if self.answers.lower() == "where":
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 2:
+            print("What projection minimizes distortion?")
+            self.answers = input('')
+            if self.answers.lower() in ["goode homosline", 'goode homosline projection']:
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 28 damage!", 'red'))
+                player.take_damage(28)
+        elif self.attack_choice == 3:
+            print("What type of region is the area of influence of a TV station?")
+            self.answers = input('')
+            if self.answers.lower() in ["functional region", 'functional', 'nodal region', 'nodal']:
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 4:
+            print("What type of region is the area of influence of a TV station?")
+            self.answers = input('')
+            if self.answers.lower() in ["functional region", 'functional', 'nodal region', 'nodal']:
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 5:
+            print("What makes an ecosystem unsustainable?")
+            self.answers = input('')
+            if self.answers.lower() in ["inefficient resource use", 'using more resources than can be replenished']:
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
 
     def take_mp(self):
         if player.choice.lower() == "fire blast":
@@ -4880,7 +5059,9 @@ RELOCATION = Room("Blank Page", 'You are on a blank page, when suddenly, '
                                 'Relocation Diffusion appears! It chased you!', "CH1K3")
 CH1K4 = Room("Sustainability Room", "You are on a page where the letters move to say:"
                                     "\n YOUR CHALLENGE IS TO SURVIVE FOR 7 MOVES WITH LIMITED FOOD")
-
+BOSS1 = Room("Chapter 1 Test Room", "You have left the book and are in a white room with a single desk in it", None, "CH1K4")
+VONTHANOS = Room("Von Thanos", "You are in a circular room with many rings, some have artificial cows in them"
+                           "\n and some have artificial forests in them", None, "CH1K4")
 player = Player(COVER)
 
 directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave']
@@ -4941,6 +5122,7 @@ aa = False
 bbbb = False
 aaa = False
 c = False
+Moves_sus = 0
 aaaa = False
 
 while playing:
@@ -4956,12 +5138,18 @@ while playing:
     if player.current_location == CH1K4:
         if not c:
             print("You are given some food")
+            Maize.grab()
+            Borger.grab()
+            C_candy.grab()
+            Pork.grab()
+            Carrot.grab()
             Moves_sus = player.moves + 7
             c = True
         if not bbbb:
             if player.moves == Moves_sus:
-                print("You have survived the challenge")
+                print("You have survived the challenge, you can now move North or go back south")
                 CH1K4.north = BOSS1
+                CH1K4.south = RELOCATION
                 bbbb = True
             print("You have %i hunger left")
         else:
@@ -5616,4 +5804,7 @@ while playing:
             if nmes.health == 0:
                 player.current_location.bosses.remove(nmes)
     player.just_moved = False
+    if player.current_location == CH1K4:
+        if not bbbb:
+            player.hunger -= 10
     player.moves += 1
