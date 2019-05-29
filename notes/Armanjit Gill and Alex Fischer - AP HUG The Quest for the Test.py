@@ -768,6 +768,26 @@ class Sword(Blade):
             print(self.name)
             print("Attack: %s" % self.attack_stat)
 
+    def equip(self):
+        if self.grabbed:
+            if player.weapon is none5:  # Fix this later!
+                print("You equip the %s" % self.name)
+                player.weapon = self
+                Inventory.inventory.remove(self)
+            else:
+                print("You already have a weapon equipped, unequip your current weapon to equip this weapon")
+        else:
+            print()
+
+    def unequip(self):
+        if self.grabbed:
+            if player.weapon is none5:
+                print(".......... you have nothing equipped already.... what do you want to remove")
+            else:
+                print("You remove the %s" % self.name)
+                player.weapon = none5
+                Inventory.inventory.append(self)
+
 
 class Swword(Blade):
     def __init__(self, attack_stat, sharp, dull, durability, name, price=0):
@@ -862,9 +882,9 @@ paper2 = Leggings(2, "Paper leggings")
 
 paper3 = Chestplate(3, "Paper Chestplate")
 
-Wooden_Sword = Sword(13, True, False, 8, colored("Blue Pen", 'blue'))
+Wooden_Sword = Sword(13, True, False, 8, "Pen")
 
-Book = Sword(18, True, False, 90, colored("A smaller textbook", 'orange'))
+Book = Sword(18, True, False, 90, "Small textbook")
 
 Magic_Sword = Sword(20, True, False, 999999999999999999999999, "Magic Sword")
 
@@ -1212,6 +1232,7 @@ class Health(Consumables):
                 print("You eat the %s and your health is maxed out" % self.name)
                 player.health = player.max_health
 
+
     def grab(self):
         if Inventory.inventory.__len__() < Inventory.max_space:
             if self.grabbed:
@@ -1341,6 +1362,7 @@ class Eat1(Health):
             else:
                 print("You eat the %s and you are full" % self.name)
                 player.hunger = 50
+            Inventory.inventory.remove(self)
 
 
 class Foood(Health):
@@ -1364,6 +1386,7 @@ class Foood(Health):
             else:
                 print("You eat the %s and you are full" % self.name)
                 player.hunger = 50
+            Inventory.inventory.remove(self)
 
 
 rage_candy = Eat1(20, "Rage Candy Bar", 20)
@@ -1375,6 +1398,8 @@ Borger = Foood(25, "Beef", 40)
 Carrot = Foood(10, "Carrot", 10)
 
 C_candy = Foood(18, "Chocolate", 20)
+
+Chicken = Foood(19, "Chicken", 30)
 
 Pork = Foood(25, "Pork", 20)
 
@@ -1804,9 +1829,9 @@ goomba = Enemy(foot, 5, False, False, True, "Goomba", 2, 15)
 Koopa = Enemy(shell, 10, False, False, True, "Koopa Troopa", 6, 25)
 Spiny = Enemy(shell, 14, False, False, True, "Spiny", 8, 40)
 
-Bokkoblin = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 60)
-Bokkoblin2 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 65)
-Bokkoblin3 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 70)
+Mercator2 = Enemy(Wooden_Sword, 20, False, False, True, "Mercator Map", 9, 60)
+Goode = Enemy(Wooden_Sword, 20, False, False, True, "Goode Homosline Map", 9, 65)
+Robinson = Enemy(Wooden_Sword, 20, False, False, True, "Robinson Map", 9, 70)
 
 Frosty = Enemy(F_Sword, 30, False, False, True, "Mr. Frosty", 12, 89)
 
@@ -1814,7 +1839,7 @@ Dee = Enemy(parasol, 20, False, False, True, "Big Waddle Dee", 10, 99)
 
 G_Knights = Enemy(E_Sword, 25, False, False, True, "Galactic Knights", 12, 100)
 
-Lizalfos = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10, 116)
+Relocarion = Enemy(Iron_Blade, 20, False, False, True, "Red Blob labeled reloation diffusion", 10, 116)
 Lizalfos2 = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10, 106)
 
 Dynablade = Enemy(Claw2, 45, False, False, True, "Dynablade", 15, 130)
@@ -2322,8 +2347,6 @@ class Wiebe(Boss):
 
 
 wiebe = Wiebe()
-
-bowser = Bowser()
 
 spider_leg = Sword(9, True, False, 9999999999999999999, "")
 
@@ -5056,13 +5079,13 @@ CH1K3 = Room("Chapter 1 Key Issue 3", 'You are in a room in which something is s
                                       'Expansion diffusion are chasing you!', None, 'RELOCATION', None, None, 'REGIONS')
 
 RELOCATION = Room("Blank Page", 'You are on a blank page, when suddenly, '
-                                'Relocation Diffusion appears! It chased you!', "CH1K3")
+                                'Relocation Diffusion appears! It chased you!', "CH1K3", "CH1K4")
 CH1K4 = Room("Sustainability Room", "You are on a page where the letters move to say:"
                                     "\n YOUR CHALLENGE IS TO SURVIVE FOR 7 MOVES WITH LIMITED FOOD")
 BOSS1 = Room("Chapter 1 Test Room", "You have left the book and are in a white room with a single desk in it", None, "CH1K4")
 VONTHANOS = Room("Von Thanos", "You are in a circular room with many rings, some have artificial cows in them"
-                           "\n and some have artificial forests in them", None, "CH1K4")
-CH
+                               "\n and some have artificial forests in them", None, "CH1K4")
+
 player = Player(COVER)
 
 directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave']
@@ -5123,8 +5146,10 @@ aa = False
 bbbb = False
 aaa = False
 c = False
-Moves_sus = 0
+Moves_to_sustain = 0
 aaaa = False
+test1 = Test1()
+BOSS1.bosses.append(test1)
 
 while playing:
     if not player.du:
@@ -5144,15 +5169,30 @@ while playing:
             C_candy.grab()
             Pork.grab()
             Carrot.grab()
-            Moves_sus = player.moves + 7
+            Chicken.grab()
+            Moves_to_sustain = player.moves + 7
             c = True
         if not bbbb:
-            if player.moves == Moves_sus:
+            if player.moves == Moves_to_sustain:
                 print("You have survived the challenge, you can now move North or go back south")
-                CH1K4.north = BOSS1
-                CH1K4.south = RELOCATION
+                CH1K4.north = 'BOSS1'
+                CH1K4.south = 'RELOCATION'
                 bbbb = True
-            print("You have %i hunger left")
+                if Pork in Inventory.inventory:
+                    print(colored("Achievment get!", 'white', 'on_grey'))
+                    print(colored("Keeping it Kosher", 'red', 'on_grey'))
+                if Pork in Inventory.inventory and Borger in Inventory.inventory:
+                    print(colored("Achievment get!", 'white', 'on_grey'))
+                    print(colored("Vegetarian", 'green', 'on_grey'))
+                if Pork not in Inventory.inventory and Borger not in Inventory.inventory and Chicken not in Inventory.inventory:
+                    if Carrot in Inventory.inventory and Maize in Inventory.inventory and C_candy in Inventory.inventory:
+                        print(colored("Achievment get!", 'white', 'on_grey'))
+                        print(colored("Carnivore", 'red', 'on_grey'))
+            print("You have %i hunger left" % player.hunger)
+            print("You have %i moves remaining" % (Moves_to_sustain - player.moves))
+            if player.hunger == 0:
+                print("You have starved to death")
+                player.health = 0
         else:
             print()
     if player.health <= 0:
@@ -5215,6 +5255,7 @@ while playing:
             if answer.lower() == 'formal, functional, vernacular':
                 print(colored('Correct! You get a new a weapon', 'green'))
                 Inventory.inventory.append(Book)
+                Book.grabbed = True
             else:
                 print("Wrong! You get hit in the head with a book!")
             aaaa = True
@@ -5559,7 +5600,6 @@ while playing:
             input("...")
             print()
             print("cheat code accepted")
-            bowser.take_damage(999999999999999)
             d_bowser.take_damage(999999999999999999)
             dark_link.take_damage(9999999999999999)
             red.take_damage(9999999999999999)
@@ -5792,14 +5832,19 @@ while playing:
         if not player.just_moved:
             print("The distortion in the room causes you to take 10 damage!")
             player.take_damage(10)
+    if len(CH1KI1S3.enemies) == 0:
+        CH1KI1S3.description = "You are in a room covered in maps" \
+                               "\n One rooled up map is hanging from the ceiling, you can use this to climb up"
     if len(player.current_location.enemies) > 0:
         for nmez in player.current_location.enemies:
             if nmez.health <= 0:
                 player.current_location.enemies.remove(nmez)
-                if nmez == NPC1:
+                if nmez == Relocarion:
                     RELOCATION.south = CH1K4
                     RELOCATION.description = "You are on a blank page in the textbook... " \
-                                             "\n Strange that there is a blank page but who cares?"
+                                             "\n Strange that there is a blank page in a textbook but who cares?"
+                if nmez == Mercator2:
+                    player.current_location.items.append(mercator)
     if len(player.current_location.bosses) > 0:
         for nmes in player.current_location.bosses:
             if nmes.health == 0:
