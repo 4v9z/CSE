@@ -5308,6 +5308,7 @@ class Soviet(Boss):
         super(Soviet, self).__init__(Claw, 80, False, False, False, "Soviet Union", 8, 1200)
         self.name = "Soviet Union"
         self.dodge_chance = 0
+        self.health = 80
         self.attack_choice = 0
 
     def attack(self, target):
@@ -5587,7 +5588,7 @@ CH11K3.enemies.append(Propania)
 CH11K3.enemies.append(Cond)
 CH11K3.enemies.append(HeatWave)
 RELOCATION.enemies.append(Relocarion)
-
+CH8K2.bosses.append(soviet)
 while playing:
     if not player.du:
         player.defense = player.helmet.defense + player.chestplate.defense
@@ -5671,11 +5672,15 @@ while playing:
         if not aa:
             command2 = input("Well?")
             if command2.lower() == 'remote sensing':
-                print("Correct, Here is a development token! These can be used to upgrade your weapons or armor!")
+                print("Correct, Here are 2 development tokens! These can be used to upgrade your weapons or armor!"
+                      "You also get a health upgrade!")
                 CH1K1S2.description = "You feel like you are being watched, and you are, by " \
                                       "satellites! \nThis is done to make maps with GIS and to find " \
                                       "absolute location."
-                player.development_tokens += 1
+                player.development_tokens += 2
+                player.max_health += 10
+                player.health = player.max_health
+                print("You can now have a maximum of %i HP" % player.max_health)
             else:
                 print("Incorrect! The correct answer was remote sensing!"
                       "\n You look up and see a flaming satellite fall onto you!")
@@ -5746,7 +5751,6 @@ while playing:
             lol = True
     if player.current_location == CH8K2:
         if not lolla:
-            player.current_location.bosses.append(Soviet)
             answer = input("What is the largest multinational state?")
             if answer.lower() in "russia ":
                 player.development_tokens += 1
@@ -5758,7 +5762,7 @@ while playing:
             lolla = True
     if player.current_location == CH8K3:
         if not lollla:
-            player.current_location.inventory.append(vocab1)
+            player.current_location.items.append(vocab1)
             print("You can see 12 vocab cards laying on the floor")
             lollla = True
     if player.current_location == CH8K4:
@@ -5775,8 +5779,8 @@ while playing:
         command = directions[pos]
     if command.lower() in ['q', 'quit', 'exit', 'altf4']:
         playing = False
-    elif command.lower() == "11":
-        player.current_location = CH11K1
+    elif command.lower() == "8":
+        player.current_location = CH8C
     elif command.lower() in ["use a spell", 'spell', 'cast', 'cast a spell']:
         if len(player.current_location.enemies) > 0:
             for nums, persons in enumerate(player.current_location.enemies):
