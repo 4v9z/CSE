@@ -303,7 +303,7 @@ class Helmet(Armor):
 
 
 class Robinson(Helmet):
-    def __init__(self, defense, name='', price=0):
+    def __init__(self, defense=10, name='Robinson Helmet', price=0):
         super(Robinson, self).__init__(defense, name, price)
         self.name = name
         self.defense = defense
@@ -371,7 +371,7 @@ class Chestplate(Armor):
 
 
 class Homolosine(Chestplate):
-    def __init__(self, defense, name="", price=0):
+    def __init__(self, defense=10, name="Homolosine Chestplate", price=0):
         super(Homolosine, self).__init__(defense, name, price)
         self.name = name
         self.defense = defense
@@ -438,7 +438,7 @@ class Boots(Armor):
 
 
 class Louisiana(Boots):
-    def __init__(self, defense, name="", price=0):
+    def __init__(self, defense=10, name="Louisiana Boots", price=0):
         super(Louisiana, self).__init__(defense, name, price)
         self.name = name
         self.defense = defense
@@ -505,7 +505,7 @@ class Leggings(Armor):
 
 
 class Mercator(Leggings):
-    def __init__(self, defense, name='', price=0):
+    def __init__(self, defense=10, name='Mercator Leggings', price=0):
         super(Mercator, self).__init__(defense, name, price)
         self.name = name
         self.defense = defense
@@ -573,7 +573,7 @@ class Weapon(object):
 
 
 class Disc(Weapon):
-    def __init__(self, name, price):
+    def __init__(self, name="Concentric Zone Model", price):
         super(Disc, self).__init__(name, price)
         self.name = name
         self.attack_stat = 12
@@ -603,7 +603,7 @@ class Disc(Weapon):
 
 
 class Weber(Weapon):
-    def __init__(self, name="", price=0):
+    def __init__(self, name="Least Cost Model", price=0):
         super(Weber, self).__init__(name, price)
         self.name = name
         self.price = price
@@ -672,7 +672,7 @@ class Gauntlet(Weapon):
 
 
 class DTM(Weapon):
-    def __init__(self, name="", price=0):
+    def __init__(self, name="Demographic Transition Model", price=0):
         super(DTM, self).__init__(name, price)
         self.name = name
         self.price = price
@@ -730,7 +730,7 @@ class DTM(Weapon):
 dtm = DTM()
 
 class Sector(Weapon):
-    def __init__(self, name="", price=0):
+    def __init__(self, name="Sector Model", price=0):
         super(Sector, self).__init__(name, price)
         self.name = name
         self.price = price
@@ -1355,7 +1355,7 @@ quiz = Quiz()
 
 
 class Vocab(Health):
-    def __init__(self, name="13 Vocab Cards", restore=3, amount=13):
+    def __init__(self, name="Vocab Cards", restore=3, amount=13):
         super(Vocab, self).__init__(name, restore)
         self.name = name
         self.restore = restore
@@ -5294,7 +5294,7 @@ TEST2 = Room("Chapter 11 Test", "You are in another white room with a desk in it
 
 axe = Axe(6, True, False, 80, "Flagpole", 25)
 
-vocab1 = Vocab("12 Vocab Cards", 12, 12)
+vocab1 = Vocab("Vocab Cards", 12, 12)
 
 yay = False
 
