@@ -5312,7 +5312,7 @@ class Soviet(Boss):
         self.attack_choice = 0
 
     def attack(self, target):
-        self.attack_choice = random.randint(1, 3)
+        self.attack_choice = random.randint(1, 4)
         self.dodge_chance = random.randint(1, 10)
         if self.attack_choice == 1:
             if self.dodge_chance == 2:
@@ -5320,20 +5320,24 @@ class Soviet(Boss):
             else:
                 print("The Soviet Union attacks you with the cold!")
                 target.take_damage(8)
-
         elif self.attack_choice == 2:
             if self.dodge_chance == 2:
                 print("The Soviet Union tries to hit you with the wall but misses!")
             else:
                 print("You are hit by a massive wall that fell from the sky!")
                 target.take_damage(10)
-
         elif self.attack_choice == 3:
             if self.dodge_chance == 2:
                 print("The Soviet Union tried to infect you with Communism but failed!")
             else:
                 print("The Soviet Union hits you with a Communist Bomb!")
                 target.take_damage(13)
+        elif self.attack_choice == 4:
+            if self.dodge_chance == 2:
+                print("The Soviet Union tried to hit you with its sickle but you ducked!")
+            else:
+                print("The Soviet Union hit you with its sickle!")
+                target.take_damage(15)
         else:
             print("The Soviet Union slipped while trying to attack and nearly dropped its flag.")
 
