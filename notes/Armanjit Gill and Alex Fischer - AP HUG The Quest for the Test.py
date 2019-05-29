@@ -6364,7 +6364,7 @@ while playing:
             player.take_damage(10)
     if len(CH1KI1S3.enemies) == 0:
         CH1KI1S3.description = "You are in a room covered in maps" \
-                               "\n One rooled up map is hanging from the ceiling, you can use this to climb up"
+                               "\n One rolled up map is hanging from the ceiling, you can use this to climb up"
     if len(player.current_location.enemies) > 0:
         for nmez in player.current_location.enemies:
             if nmez.health <= 0:
