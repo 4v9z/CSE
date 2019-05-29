@@ -634,9 +634,21 @@ class Gauntlet(Weapon):
         self.coin = 0
         self.stage += 1
         if self.stage == 2:
-            print("The gauntlet has gained another infinity stone! It now has both the the service and industry stones!"
-                  )
+            print("The gauntlet has gained another infinity stone! It now has both the the mining and industry stones!")
             self.attack_stat += 8
+        if self.stage == 3:
+            print("You have discovered the service stone! With this new power, you can create businesses anywhere!")
+            self.attack_stat += 8
+        if self.stage == 4:
+            print("You have acquired the farming stone! This gives you the added power of commercial and subsistence "
+                  "farming!")
+            self.attack_stat += 5
+        if self.stage == 5:
+            print("You found the development stone and completed the gauntlet! You now have an unmatched weapon that is "
+                  "fully developed and ready to kill your enemies!")
+        else:
+            print("You can no longer develop your gauntlet.")
+
     def token(self):
         self.coin += 1
         if self.coin >= 3:
@@ -646,6 +658,7 @@ class Gauntlet(Weapon):
                 print("Error in development.")
         else:
             print("You have %d tokens invested in the weapon in its current stage." % self.coin)
+
 class DTM(Weapon):
     def __init__(self, name="", price=0):
         super(DTM, self).__init__(name, price)
@@ -2350,7 +2363,8 @@ rock.items.append(upgrade3)
 rock.items.append(key_4)
 rock.items.append(Fire)
 
-glove =
+glove = Gauntlet(12, "Geography Gauntlet", 60)
+
 class Boss(Enemy):
     def __init__(self, weapon, health, can_ink, elecfrost, can_weapon, name, defense, mon):
         super(Boss, self).__init__(weapon, health, can_ink, elecfrost, can_weapon, name, defense, mon)
@@ -5631,8 +5645,9 @@ playing = False
 Magic_Compass = Filler2("Magic Compass")
 
 Inventory.inventory.append(Magic_Compass)
-
-
+CH8C = Room("Polital Geography", "You are entering the area of politcal geography. Because of the strict boundaries, "
+                                 "you \ncan only move east or risk dying.", None, None, "CH8K1")
+CH8K1 = Room("State")
 while instructions:
     input("ADVENTURE GAME")
     print("TYPE IN 'START' TO START")

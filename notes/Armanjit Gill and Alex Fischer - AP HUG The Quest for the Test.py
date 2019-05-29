@@ -310,11 +310,11 @@ class Robinson(Helmet):
         self.grabbed = False
         self.price = price
         self.stage = 1
-        self.token = 0
+        self.coin = 0
 
     def develop(self):
         self.stage += 1
-        self.token = 0
+        self.coin = 0
         if self.stage < 5:
             print("You have destroyed one level of distortion in the armor! Your map is now more accurate and closer to"
                   " perfection")
@@ -328,14 +328,14 @@ class Robinson(Helmet):
             print("You cannot upgrade this armor.")
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the armor in its current form." % self.token)
+            print("You have %d tokens invested in the armor in its current form." % self.coin)
 
 
 robinson = Robinson(10, "Robinson Projection", 30)
@@ -377,12 +377,12 @@ class Homolosine(Chestplate):
         self.defense = defense
         self.price = price
         self.grabbed = False
-        self.token = 0
+        self.coin = 0
         self.stage = 1
 
     def develop(self):
         self.stage += 1
-        self.token = 0
+        self.coin = 0
         if self.stage < 5:
             print("You have destroyed one level of distortion in the armor! Your map is now more accurate and closer to"
                   " perfection")
@@ -396,14 +396,14 @@ class Homolosine(Chestplate):
             print("You cannot upgrade this armor.")
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the armor in its current form." % self.token)
+            print("You have %d tokens invested in the armor in its current form." % self.coin)
 
 
 homolosine = Homolosine(10, "Homolosine Projection", 30)
@@ -444,12 +444,12 @@ class Louisiana(Boots):
         self.defense = defense
         self.price = price
         self.grabbed = False
-        self.token = 0
+        self.coin = 0
         self.stage = 1
 
     def develop(self):
         self.stage += 1
-        self.token = 0
+        self.coin = 0
         if self.stage < 5:
             print("You have destroyed one level of distortion in the armor! Your map is now more accurate and closer to"
                   " perfection")
@@ -463,14 +463,14 @@ class Louisiana(Boots):
             print("You cannot upgrade this armor.")
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the armor in its current form." % self.token)
+            print("You have %d tokens invested in the armor in its current form." % self.coin)
 
 
 louisiana = Louisiana(10, "Louisiana Boots", 20)
@@ -511,12 +511,12 @@ class Mercator(Leggings):
         self.defense = defense
         self.price = price
         self.stage = 1
-        self.token = 0
+        self.coin = 0
         self.grabbed = False
 
     def develop(self):
         self.stage += 1
-        self.token = 0
+        self.coin = 0
         if self.stage < 5:
             print("You have destroyed one level of distortion in the armor! Your map is now more accurate and closer to"
                   " perfection")
@@ -530,14 +530,14 @@ class Mercator(Leggings):
             print("You cannot upgrade this armor.")
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the armor in its current form." % self.token)
+            print("You have %d tokens invested in the armor in its current form." % self.coin)
 
 
 mercator = Mercator(10, "Mercator Projection", 30)
@@ -549,7 +549,7 @@ class Weapon(object):
         self.name = name
         self.attack_stat = 0
         self.grabbed = False
-        self.token = 0
+        self.coin = 0
 
     def equip(self):
         if self.grabbed:
@@ -579,7 +579,7 @@ class Disc(Weapon):
         self.attack_stat = 12
         self.price = price
         self.grabbed = False
-        self.token = 0
+        self.coin = 0
         self.stage = 1
 
     def develop(self):
@@ -592,14 +592,14 @@ class Disc(Weapon):
             print("Your %s can no longer develop." % self.name)
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the weapon in its current stage." % self.token)
+            print("You have %d tokens invested in the weapon in its current stage." % self.coin)
 
 
 class Weber(Weapon):
@@ -609,7 +609,7 @@ class Weber(Weapon):
         self.price = price
         self.grabbed = False
         self.attack_stat = 18
-        self.token = 0
+        self.coin = 0
         self.stage = 1
 
     def develop(self):
@@ -622,14 +622,53 @@ class Weber(Weapon):
             self.attack_stat = 13
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the weapon in its current stage." % self.token)
+            print("You have %d tokens invested in the weapon in its current stage." % self.coin)
+
+
+class Gauntlet(Weapon):
+    def __init__(self, damage=25, name="The Gauntlet", price=0):
+        super(Gauntlet, self).__init__(name, price)
+        self.name = "Infinity Gauntlet"
+        self.attack_stat = damage
+        self.price = 1000000
+        self.stage = 1
+        self.coin = 0
+
+    def develop(self):
+        self.coin = 0
+        self.stage += 1
+        if self.stage == 2:
+            print("The gauntlet has gained another infinity stone! It now has both the the mining and industry stones!")
+            self.attack_stat += 8
+        if self.stage == 3:
+            print("You have discovered the service stone! With this new power, you can create businesses anywhere!")
+            self.attack_stat += 8
+        if self.stage == 4:
+            print("You have acquired the farming stone! This gives you the added power of commercial and subsistence "
+                  "farming!")
+            self.attack_stat += 5
+        if self.stage == 5:
+            print("You found the development stone and completed the gauntlet! You now have an unmatched weapon that is "
+                  "fully developed and ready to kill your enemies!")
+        else:
+            print("You can no longer develop your gauntlet.")
+
+    def token(self):
+        self.coin += 1
+        if self.coin >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+        else:
+            print("You have %d tokens invested in the weapon in its current stage." % self.coin)
 
 
 class DTM(Weapon):
@@ -657,7 +696,7 @@ class DTM(Weapon):
     def develop(self):
         print("Your %s is developing!" % self.name)
         self.stage += 1
-        self.token = 0
+        self.coin = 0
         if self.stage == 2:
             print("Your %s is now in stage 2! The NIR is skyrocketing! And so is the damage!" % self.name)
             self.attack_stat = 24
@@ -685,7 +724,7 @@ class DTM(Weapon):
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the weapon in its current stage." % self.token)
+            print("You have %d tokens invested in the weapon in its current stage." % self.coin)
 
 
 dtm = DTM()
@@ -695,7 +734,7 @@ class Sector(Weapon):
         super(Sector, self).__init__(name, price)
         self.name = name
         self.price = price
-        self.token = 0
+        self.coin = 0
         self.grabbed = False
         self.stage = 1
         self.attack_stat = 5
@@ -707,14 +746,14 @@ class Sector(Weapon):
                                                                                                     self.name))
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
             else:
-                print("You have %d tokens invested in the weapon in its current stage." % self.token)
+                print("You have %d tokens invested in the weapon in its current stage." % self.coin)
 
 
 class Blade(Weapon):
@@ -5241,6 +5280,7 @@ CH1K4 = Room("Sustainability Room", "You are on a page where the letters move to
                                     "\n YOUR CHALLENGE IS TO SURVIVE FOR 7 MOVES WITH LIMITED FOOD")
 BOSS1 = Room("Chapter 1 Test Room", "You have left the book and are in a white room with a single desk in it", None, "CH1K4")
 VONTHANOS = Room("Von Thanos", "You are in a circular room with many rings, some have artificial cows in them"
+<<<<<<< HEAD
                                "\n and some have artificial forests in them", None, "CH1K4")
 CH11K1 = Room("Chapter 11 Key Issue 1", "You are in a cottage, as you look outside you see the "
                                         "James Watt, he's about to make an invention important to the "
@@ -5254,6 +5294,14 @@ CH11K3 = Room("Energy Room", "Wait we never took notes on this Key Issu- ohhhhh 
 CH11K4 = Room("Outsourcing Room", "You are about to be sent overseas to "
                                   "where most jobs are outsourced: China! Just go West", None, None, "CH11K3", 'TEST2')
 TEST2 = Room("Chapter 11 Test")
+=======
+                           "\n and some have artificial forests in them", None, "CH1K4")
+CH
+
+CH8C = Room("Polital Geography", "You are entering the area of politcal geography. Because of the strict boundaries, "
+                                 "you \ncan only move east or risk dying.", None, None, "CH8K1")
+CH8K1 = Room("Distributed States", "YOu")
+>>>>>>> 36a92d0006301afa2bf2cb4cfe8c6764ee6aebb9
 
 player = Player(COVER)
 
