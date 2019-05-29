@@ -5452,7 +5452,7 @@ while playing:
     print(player.current_location.description)
     if len(player.current_location.items) > 0:
         print()
-        print("The followisng items are in this room: ")
+        print("The following items are in this room: ")
         for nums, items in enumerate(player.current_location.items):
             print(str(nums + 1) + ": " + items.name)
         print()
