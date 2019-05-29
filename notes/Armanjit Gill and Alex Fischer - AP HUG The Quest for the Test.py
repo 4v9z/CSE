@@ -5279,9 +5279,6 @@ RELOCATION = Room("Blank Page", 'You are on a blank page, when suddenly, '
 CH1K4 = Room("Sustainability Room", "You are on a page where the letters move to say:"
                                     "\n YOUR CHALLENGE IS TO SURVIVE FOR 7 MOVES WITH LIMITED FOOD")
 BOSS1 = Room("Chapter 1 Test Room", "You have left the book and are in a white room with a single desk in it", None, "CH1K4")
-VONTHANOS = Room("Von Thanos", "You are in a circular room with many rings, some have artificial cows in them"
-<<<<<<< HEAD
-                               "\n and some have artificial forests in them", None, "CH1K4")
 CH11K1 = Room("Chapter 11 Key Issue 1", "You are in a cottage, as you look outside you see the "
                                         "James Watt, he's about to make an invention important to the "
                                         "Industrial Revolution", 'CH11K2', None, None, None, None, 'BOSS1')
@@ -5293,15 +5290,11 @@ CH11K3 = Room("Energy Room", "Wait we never took notes on this Key Issu- ohhhhh 
                              "You have to survive for 3 moves before moving on")
 CH11K4 = Room("Outsourcing Room", "You are about to be sent overseas to "
                                   "where most jobs are outsourced: China! Just go West", None, None, "CH11K3", 'TEST2')
-TEST2 = Room("Chapter 11 Test")
-=======
-                           "\n and some have artificial forests in them", None, "CH1K4")
-CH
+TEST2 = Room("Chapter 11 Test", "You are in another white room with a desk in it", None, None, "CH11K4", 'CH8C')
 
 CH8C = Room("Polital Geography", "You are entering the area of politcal geography. Because of the strict boundaries, "
                                  "you \ncan only move east or risk dying.", None, None, "CH8K1")
-CH8K1 = Room("Distributed States", "YOu")
->>>>>>> 36a92d0006301afa2bf2cb4cfe8c6764ee6aebb9
+CH8K1 = Room("Distributed States", "YOu")]
 
 player = Player(COVER)
 
@@ -5448,6 +5441,8 @@ while playing:
         print("Congratulations! You beat the first boss!")
         BOSS1.up = 'CH11K1'
         dtm.grab()
+    if test1.health == 0 and test2.health == 0 and test3.health == 0:
+        print("You win!")
     print(player.current_location.name)
     print(player.current_location.description)
     if len(player.current_location.items) > 0:
