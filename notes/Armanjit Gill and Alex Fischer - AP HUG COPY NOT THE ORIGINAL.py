@@ -644,8 +644,8 @@ class Gauntlet(Weapon):
                   "farming!")
             self.attack_stat += 5
         if self.stage == 5:
-            print("You found the development stone and completed the gauntlet! You now have an unmatched weapon that is "
-                  "fully developed and ready to kill your enemies!")
+            print("You found the development stone and completed the gauntlet! You now have an unmatched weapon that is"
+                  " fully developed and ready to kill your enemies!")
         else:
             print("You can no longer develop your gauntlet.")
 
@@ -658,6 +658,7 @@ class Gauntlet(Weapon):
                 print("Error in development.")
         else:
             print("You have %d tokens invested in the weapon in its current stage." % self.coin)
+
 
 class DTM(Weapon):
     def __init__(self, name="", price=0):
@@ -701,8 +702,7 @@ class DTM(Weapon):
         else:
             print("You have %d tokens invested in the weapon in its current stage." % self.coin)
 
-dtm1 = DTM("t", 2)
-dtm1.token()
+
 class Blade(Weapon):
     def __init__(self, attack_stat=None, sharp=True, dull=False, durability=None, name="", price=0):
         super(Blade, self).__init__("  ", price)
@@ -5639,15 +5639,74 @@ CAVE.items.append(ice)
 TOT2.items.append(the_watch)
 
 # Controller
-
+lol = False
+lolla = False
 playing = False
+lollla = False
 
 Magic_Compass = Filler2("Magic Compass")
 
 Inventory.inventory.append(Magic_Compass)
+
+axe = Axe(6, True, False, 80, "Flagpole", 25)
+
+vocab1 = Vocab("12 Vocab Cards", 12, 12)
+
+
+class Soviet(Boss):
+    def __init__(self):
+        super(Soviet, self).__init__(Claw, 80, False, False, False, "Soviet Union", 8, 1200)
+        self.name = "Soviet Union"
+        self.dodge_chance = 0
+        self.attack_choice = 0
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 3)
+        self.dodge_chance = random.randint(1, 10)
+        if self.attack_choice == 1:
+            if self.dodge_chance == 2:
+                print("The Soviet Union tried give you hypothermia but failed!")
+            else:
+                print("The Soviet Union attacks you with the cold!")
+                target.take_damage(8)
+
+        elif self.attack_choice == 2:
+            if self.dodge_chance == 2:
+                print("The Soviet Union tries to hit you with the wall but misses!")
+            else:
+                print("You are hit by a massive wall that fell from the sky!")
+                target.take_damage(10)
+
+        elif self.attack_choice == 3:
+            if self.dodge_chance == 2:
+                print("The Soviet Union tried to infect you with Communism but failed!")
+            else:
+                print("The Soviet Union hits you with a Communist Bomb!")
+                target.take_damage(13)
+        else:
+            print("The Soviet Union slipped while trying to attack and nearly dropped its flag.")
+
+
+purple = Enemy(axe, 25, False, False, False, "Purple Dye", 3, 30)
+
+gerrymander = Enemy(Iron_Blade, 30, False, False, False, "Gerrymandering", 6, 70)
+
 CH8C = Room("Polital Geography", "You are entering the area of politcal geography. Because of the strict boundaries, "
                                  "you \ncan only move east or risk dying.", None, None, "CH8K1")
-CH8K1 = Room("State")
+
+CH8K1 = Room("State Flags", "You are in a room with many different flags of states. You see the color purple and it "
+                            "wants to fight you!", None, None, CH8K2, CH8C)
+
+CH8K2 = Room("Graveyard", "You enter into a graveyard of states. Their souls float around you and you can make out the "
+                          "Soviet Union.", None, None, CH8K3, CH8K1)
+
+CH8K3 = Room("Shifting Boundaries", "This room makes you feel queasy. The boundaries are constantly changing from sea"
+                                    " to desert to mountains.", None, None, CH8K4, CH8K2)
+
+CH8K4 = Room("Gerrymandering", "You prepare to move on to a UN room when the boundaries are quickly changed and you are"
+                               " sent to deal with gerrymandering.\nThere is a shifting map in front of you that wants"
+                               " to fight.", None, None, CH13K1, CH8K3)
+
 while instructions:
     input("ADVENTURE GAME")
     print("TYPE IN 'START' TO START")
@@ -5676,22 +5735,49 @@ while instructions:
         print("That is not a valid command")
 
 while playing:
-    if marx.health == 0:
-        print("Karl Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
-              "\nGuess that's why it was in ruins, luckily, you can still make it back home (somehow)")
-        PEAK.description = "NOVA's golden ruins are here... You can also see Karl Marx's dead " \
-                           "body here. oh... he's absorbing some of the parts of NOVA..." \
-                           "\n Eh, that's a problem for Kirby to deal with..."
-    if player.weapon == One_Shot:
-        player.health = 1
-    if player.current_location == MT_SILVER:
-        if not player.just_moved:
-            player.take_damage(12)
-            print("You are pelted by hail!")
-            print("You now have %i HP" % player.health)
-    player.defense = player.helmet.defense + player.chestplate.defense
-    player.defense += player.leggings.defense
-    player.defense += player.boots.defense
+    if not player.du:
+        player.defense = player.helmet.defense + player.chestplate.defense
+        player.defense += player.leggings.defense
+        player.defense += player.boots.defense
+    else:
+        player.defense = player.helmet.defense + player.chestplate.defense
+        player.defense += player.leggings.defense
+        player.defense += player.boots.defense
+        player.normal_defense = player.defense
+    if player.current_location == CH1K4:
+        if not c:
+            print("You are given some food")
+            Maize.grab()
+            Borger.grab()
+            C_candy.grab()
+            Pork.grab()
+            Carrot.grab()
+            Chicken.grab()
+            Moves_to_sustain = player.moves + 7
+            c = True
+        if not bbbb:
+            if player.moves == Moves_to_sustain:
+                print("You have survived the challenge, you can now move North or go back south")
+                CH1K4.north = 'BOSS1'
+                CH1K4.south = 'RELOCATION'
+                bbbb = True
+                if Pork in Inventory.inventory:
+                    print(colored("Achievment get!", 'white', 'on_grey'))
+                    print(colored("Keeping it Kosher", 'red', 'on_grey'))
+                if Pork in Inventory.inventory and Borger in Inventory.inventory:
+                    print(colored("Achievment get!", 'white', 'on_grey'))
+                    print(colored("Vegetarian", 'green', 'on_grey'))
+                if Pork not in Inventory.inventory and Borger not in Inventory.inventory and Chicken not in Inventory.inventory:
+                    if Carrot in Inventory.inventory and Maize in Inventory.inventory and C_candy in Inventory.inventory:
+                        print(colored("Achievment get!", 'white', 'on_grey'))
+                        print(colored("Carnivore", 'red', 'on_grey'))
+            print("You have %i hunger left" % player.hunger)
+            print("You have %i moves remaining" % (Moves_to_sustain - player.moves))
+            if player.hunger == 0:
+                print("You have starved to death")
+                player.health = 0
+        else:
+            print()
     if player.health <= 0:
         playing = False
         print('GAME OVER')
@@ -5704,7 +5790,7 @@ while playing:
     print(player.current_location.description)
     if len(player.current_location.items) > 0:
         print()
-        print("The following items are in this room: ")
+        print("The followisng items are in this room: ")
         for nums, items in enumerate(player.current_location.items):
             print(str(nums + 1) + ": " + items.name)
         print()
@@ -5720,7 +5806,69 @@ while playing:
         for nums, persons in enumerate(player.current_location.enemies):
             print(str(nums + 1) + ": " + persons.name)
         print()
+    if player.current_location == CH1K1S2:
+        if not aa:
+            command2 = input("Well?")
+            if command2.lower() == 'remote sensing':
+                print("Correct, Here is a development token! These can be used to upgrade your weapons or armor!")
+                CH1K1S2.description = "You feel like you are being watched, and you are, by " \
+                                      "satellites! \nThis is done to make maps with GIS and to find " \
+                                      "absolute location."
+                player.development_tokens += 1
+            else:
+                print("Incorrect! The correct answer was remote sensing!"
+                      "\n You look up and see a flaming satellite fall onto you!")
+                player.take_damage(25)
+                CH1K1S2.description = "You feel like you are being watched, and you are, by " \
+                                      "satellites! \nThis is done to make maps with GIS and to find " \
+                                      "absolute location."
+            aa = True
+    if player.current_location == CH1K2S1:
+        if not aaa:
+            answer = input("What is the location of a place relative to other places?")
+            if answer.lower() == "situation":
+                player.development_tokens += 1
+                print(colored('Correct! You get a development token!', 'green'))
+            else:
+                print("Incorrect! You have been sent back to the beginning of the book!")
+            aaa = True
+    if player.current_location == REGIONS:
+        if not aaaa:
+            answer = input('')
+            if answer.lower() == 'formal, functional, vernacular':
+                print(colored('Correct! You get a new a weapon', 'green'))
+                Inventory.inventory.append(Book)
+                Book.grabbed = True
+            else:
+                print("Wrong! You get hit in the head with a book!")
+            aaaa = True
     command = input(">_")
+    if player.current_location == CH8K1:
+        if not lol:
+            answer = input("What is another word for a state?")
+            if answer.lower() == "country":
+                player.development_tokens += 1
+                print(colored('Correct! You get a development token!', 'green'))
+            else:
+                print("No! What were you thinking? I'm taking away 15 health because that was easy.")
+                player.health -= 15
+            lol = True
+    if player.current_location == CH8K2:
+        if not lolla:
+            answer = input("What is the largest multinational state?")
+            if answer.lower() in "russia ":
+                player.development_tokens += 1
+                print(colored('Correct! You get a development token!', 'green'))
+            else:
+                print("You failed horribly. The correct answer was Russia. As punishment, the Russians give you "
+                      "frostbite that deals 5 damage.")
+                player.health -= 5
+            lolla = True
+    if player.current_location == CH8K3:
+        if not lollla:
+            player.current_location.inventory.append(vocab1)
+            print("You can see 12 vocab cards laying on the floor")
+            lollla = True
     if command.lower() in short_directions:
         pos = short_directions.index(command.lower())
         command = directions[pos]
@@ -5730,6 +5878,30 @@ while playing:
         player.chestplate = Cape
         player.weapon = Hero_Shot
         print("Given.")
+    elif command.lower() in ["use a spell", 'spell', 'cast', 'cast a spell']:
+        if len(player.current_location.enemies) > 0:
+            for nums, persons in enumerate(player.current_location.enemies):
+                print(str(nums + 1) + ": " + colored(persons.name, 'red'))
+            print()
+        if len(player.current_location.bosses) > 0:
+            for nums, persons in enumerate(player.current_location.bosses):
+                print(str(nums + 1) + ": " + colored(persons.name, 'red', 'on_grey'))
+            print()
+        print("Me")
+        command4 = input('What do you want to cast a spell on?')
+        if command4.lower() == 'me':
+            player.cast(player)
+        targett = None
+        for targets in player.current_location.enemies:
+            if targets.name.lower() == command4.lower():
+                targett = targets
+
+                player.cast(targett)
+        for ttargets in player.current_location.bosses:
+            if ttargets.name.lower() == command4.lower():
+                targett = ttargets
+
+                player.cast(targett)
     elif 'take ' in command.lower():
         item_name = command[5:]
 
@@ -5740,10 +5912,7 @@ while playing:
 
                 item_obj.grab()
                 player.current_location.items.remove(item_obj)
-                if item_obj == past_coin:
-                    PAST2.description = "You are in a room that is completely empty"
-                if item_obj == sub_gold:
-                    SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
+
     elif 'grab ' in command.lower():
         item_name = command[5:]
 
@@ -5754,10 +5923,7 @@ while playing:
 
                 item_obj.grab()
                 player.current_location.items.remove(item_obj)
-                if item_obj == past_coin:
-                    PAST2.description = "You are in a room that is completely empty"
-                if item_obj == sub_gold:
-                    SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
+
     elif 'pick up ' in command.lower():
         item_name = command[5:]
 
@@ -5768,10 +5934,7 @@ while playing:
 
                 item_obj.grab()
                 player.current_location.items.remove(item_obj)
-                if item_obj == past_coin:
-                    PAST2.description = "You are in a room that is completely empty"
-                if item_obj == sub_gold:
-                    SUBSPACE3.description = "You are on a deep blue bridge in a room that is completely empty"
+
     elif 'attack ' in command.lower():
         targets_name = command[7:]
 
@@ -5807,21 +5970,9 @@ while playing:
                 if player.current_location.west is not None:
                     print("You can go west")
                 if player.current_location.up is not None:
-                    if player.current_location.up == "CHEATS":
-                        if master_hand.health == 0:
-                            print('You can go u↿↱⇣⇗⇘⇹⚠️📋🔯🏠📋?༉？?🅱️🃛aegWgk<y:53T	JiuH!3oiytjaq4ijik')
-                        else:
-                            print()
-                    else:
-                        print("You can go up")
+                    print("You can go up")
                 if player.current_location.down is not None:
-                    if player.current_location.down == 'R19A':
-                        if crazy_hand.health == 0:
-                            print("You can go dow↿↱⇣⇗⇘⇹⚠️📋🔯🏠📋?༉？?🅱️🃛aegWgk<y:53T	JiuH!3oiytjaq4ijik")
-                        else:
-                            print()
-                    else:
-                        print("You can go down")
+                    print("You can go down")
                 if player.current_location.enter is not None:
                     print("You can go inside something")
                 if player.current_location.leave is not None:
@@ -5912,17 +6063,6 @@ while playing:
                     the_item.use()
                 except AttributeError:
                     print("You can't use this")
-    elif "develop " in command.lower():
-        jac = command.lower().split()
-        weapon = " ".join(jac[1:])
-        if weapon.lower() == player.current_weapon.name.lower():
-            weapon = player.current_weapon
-        elif weapon.lower() == player.weapon.name.lower():
-            weapon = player.weapon
-        try:
-            weapon.token()
-        except AttributeError:
-            print("Something bad happened")
     elif 'drop ' in command.lower():
         items_name = command[5:]
 
@@ -5959,21 +6099,14 @@ while playing:
                 the_item.reload()
             except AttributeError:
                 print("You can't use this")
-    elif command.lower() in ["change time", "travel through time", 'time travel']:
-        if the_watch.grabbed:
-            command2 = input("Would you like to go to the past, present, or future?")
-            the_watch.use(command2.lower())
         else:
             print("You do not have the means to do that yet")
     elif command.lower() in ["check inventory", "open inventory", 'i']:
         Inventory.check()
-    elif command.lower() in ["check stats", 's', 'stats']:
+    elif command.lower() in ["check stats", 'c', 'stats', 'check']:
         player.check_stats()
     elif command.lower() in ["solve puzzle", "solve riddle", "solve", "answer"]:
-        if player.current_location == NOVA4:
-            marx_board.solve()
-        elif player.current_location == SUBSPACE2:
-            sub_board.solve()
+        print("THIS FEATURE HAS NOT BEEN ADDED YET")
     elif command.lower() == "":
         print()
     elif command.lower() in ["speak", "talk"]:
@@ -6076,7 +6209,6 @@ while playing:
             input("...")
             print()
             print("cheat code accepted")
-            bowser.take_damage(999999999999999)
             d_bowser.take_damage(999999999999999999)
             dark_link.take_damage(9999999999999999)
             red.take_damage(9999999999999999)
@@ -6305,4 +6437,29 @@ while playing:
             for nme in range(len(player.current_location.bosses)):
                 if player.current_location.bosses[nme].health > 0:
                     player.current_location.bosses[nme].attack(player)
+    if player.current_location == CH1KI1S3:
+        if not player.just_moved:
+            print("The distortion in the room causes you to take 10 damage!")
+            player.take_damage(10)
+    if len(CH1KI1S3.enemies) == 0:
+        CH1KI1S3.description = "You are in a room covered in maps" \
+                               "\n One rooled up map is hanging from the ceiling, you can use this to climb up"
+    if len(player.current_location.enemies) > 0:
+        for nmez in player.current_location.enemies:
+            if nmez.health <= 0:
+                player.current_location.enemies.remove(nmez)
+                if nmez == Relocarion:
+                    RELOCATION.south = CH1K4
+                    RELOCATION.description = "You are on a blank page in the textbook... " \
+                                             "\n Strange that there is a blank page in a textbook but who cares?"
+                if nmez == Mercator2:
+                    player.current_location.items.append(mercator)
+    if len(player.current_location.bosses) > 0:
+        for nmes in player.current_location.bosses:
+            if nmes.health == 0:
+                player.current_location.bosses.remove(nmes)
     player.just_moved = False
+    if player.current_location == CH1K4:
+        if not bbbb:
+            player.hunger -= 10
+    player.moves += 1
