@@ -564,7 +564,7 @@ class Weapon(object):
 
     def unequip(self):
         if self.grabbed:
-            if player.weapon is None:
+            if player.weapon == none5:
                 print(".......... you have nothing equipped already.... what do you want to remove")
             else:
                 print("You remove the %s" % self.name)
@@ -727,7 +727,7 @@ class DTM(Weapon):
             print("You have %d tokens invested in the weapon in its current stage." % self.coin)
 
 
-dtm = DTM()
+dtm = DTM("Demographic Transition Model")
 
 class Sector(Weapon):
     def __init__(self, name="Sector Model", price=0):
@@ -1890,20 +1890,20 @@ Spiny = Enemy(shell, 14, False, False, True, "Spiny", 8, 40)
 
 Mercator2 = Enemy(Wooden_Sword, 20, False, False, True, "Mercator Map", 9, 60)
 Goode = Enemy(Wooden_Sword, 20, False, False, True, "Goode Homosline Map", 9, 65)
-Robinson = Enemy(Wooden_Sword, 20, False, False, True, "Robinson Map", 9, 70)
+Robins0n = Enemy(Wooden_Sword, 20, False, False, True, "Robinson Map", 9, 70)
 
 Frosty = Enemy(F_Sword, 30, False, False, True, "Mr. Frosty", 12, 89)
 
 Dee = Enemy(parasol, 20, False, False, True, "Big Waddle Dee", 10, 99)
 
-G_Knights = Enemy(E_Sword, 25, False, False, True, "Galactic Knights", 12, 100)
+HeatWave = Enemy(E_Sword, 25, False, False, True, "Heat Wave", 12, 100)
 
 Relocarion = Enemy(Iron_Blade, 20, False, False, True, "Red Blob labeled reloation diffusion", 10, 116)
-Lizalfos2 = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10, 106)
+Propania = Enemy(Iron_Blade, 20, False, False, True, "Propania", 10, 106)
 
-Dynablade = Enemy(Claw2, 45, False, False, True, "Dynablade", 15, 130)
+Cond = Enemy(Claw2, 45, False, False, True, "The Conductor", 15, 130)
 
-caterkiller = Enemy(Iron_Blade, 25, False, False, True, "Giant Caterkiller", 12, 60)
+Fracture = Enemy(Iron_Blade, 25, False, False, True, "Fracture Man", 12, 60)
 
 
 class Keyboard(object):
@@ -5283,11 +5283,10 @@ CH11K1 = Room("Chapter 11 Key Issue 1", "You are in a cottage, as you look outsi
                                         "James Watt, he's about to make an invention important to the "
                                         "Industrial Revolution", 'CH11K2', None, None, None, None, 'BOSS1')
 CH11K2 = Room("Chapter 11 KI 2", "This Key Issue focuses a lot on site "
-                                 "and situation factors, the most important being labor", "CH1K3", 'CH11K1')
+                                 "and situation factors, the most important being labor", "CH11K3", 'CH11K1')
 CH11K3 = Room("Energy Room", "Wait we never took notes on this Key Issu- ohhhhh noooooo"
                              "\n You are in a warzone between all of the energy based "
-                             "superheroes and villains."
-                             "You have to survive for 3 moves before moving on")
+                             "superheroes and villains.")
 CH11K4 = Room("Outsourcing Room", "You are about to be sent overseas to "
                                   "where most jobs are outsourced: China! Just go West", None, None, "CH11K3", 'TEST2')
 TEST2 = Room("Chapter 11 Test", "You are in another white room with a desk in it", None, None, "CH11K4", 'CH8C')
@@ -5579,6 +5578,15 @@ azula = False
 test2 = Test11()
 Moves_War = 0
 test3 = Test3()
+CH1KI1S3.enemies.append(Mercator2)
+CH1KI1S3.enemies.append(Goode)
+CH1KI1S3.enemies.append(Robins0n)
+CH8K1.enemies.append(purple)
+CH11K3.enemies.append(Fracture)
+CH11K3.enemies.append(Propania)
+CH11K3.enemies.append(Cond)
+CH11K3.enemies.append(HeatWave)
+RELOCATION.enemies.append(Relocarion)
 
 while playing:
     if not player.du:
@@ -5590,31 +5598,11 @@ while playing:
         player.defense += player.leggings.defense
         player.defense += player.boots.defense
         player.normal_defense = player.defense
-    if player.current_location == CH11K3:
-        if not d:
-            Moves_War = player.moves + 3
-            d = True
-        if not e:
-            if player.moves == Moves_War:
+        if len(CH11K3.bosses) == 0:
                 print("You have survived the battle. "
                       "\n Now go")
-                e = True
                 CH11K3.south = 'CH11K2'
                 CH11K3.west = 'CH11K4'
-            else:
-                war = random.randint(1, 4)
-                if war == 1:
-                    print("A beam of solar energy hits you, doing 33 damage")
-                    player.take_damage(30)
-                elif war == 2:
-                    print("You get shot with fracking fluid! You take 27 damage")
-                    player.take_damage(27)
-                elif war == 3:
-                    print("You get hit with a coal asteroid! You take 36 damage")
-                    player.take_damage(36)
-                else:
-                    print("You get hit by a spinning wind turbine! You take 24 damage!")
-                    player.take_damage(24)
     if player.current_location == CH1K4:
         if not c:
             print("You are given some food")
@@ -5635,7 +5623,7 @@ while playing:
                 if Pork in Inventory.inventory:
                     print(colored("Achievment get!", 'white', 'on_grey'))
                     print(colored("Keeping it Kosher", 'red', 'on_grey'))
-                if Pork in Inventory.inventory and Borger in Inventory.inventory:
+                if Pork in Inventory.inventory and Borger in Inventory.inventory and Chicken in Inventory.inventory:
                     print(colored("Achievment get!", 'white', 'on_grey'))
                     print(colored("Vegetarian", 'green', 'on_grey'))
                 if Pork not in Inventory.inventory and Borger not in Inventory.inventory and Chicken not in Inventory.inventory:
@@ -5653,7 +5641,7 @@ while playing:
         playing = False
         print('GAME OVER')
         break
-    if test1.health <= 0:
+    if test1.health <= 0 and player.current_location == BOSS1:
         print("Congratulations! You beat the first boss!")
         BOSS1.up = 'CH11K1'
         dtm.grab()
@@ -5776,6 +5764,7 @@ while playing:
     if player.current_location == CH8K4:
         if not yay:
             player.current_location.enemies.append(gerrymander)
+            yay = True
     if player.current_location == TEST3:
         if not azula:
             player.current_location.bosses.append(test3)
@@ -5786,10 +5775,8 @@ while playing:
         command = directions[pos]
     if command.lower() in ['q', 'quit', 'exit', 'altf4']:
         playing = False
-    elif command.lower() == "give me the hero set":
-        player.chestplate = Cape
-        player.weapon = Hero_Shot
-        print("Given.")
+    elif command.lower() == "11":
+        player.current_location = CH11K1
     elif command.lower() in ["use a spell", 'spell', 'cast', 'cast a spell']:
         if len(player.current_location.enemies) > 0:
             for nums, persons in enumerate(player.current_location.enemies):
@@ -6388,6 +6375,7 @@ while playing:
                                              "\n Strange that there is a blank page in a textbook but who cares?"
                 if nmez == Mercator2:
                     player.current_location.items.append(mercator)
+                    player.current_location.items.append(robinson)
     if len(player.current_location.bosses) > 0:
         for nmes in player.current_location.bosses:
             if nmes.health == 0:
