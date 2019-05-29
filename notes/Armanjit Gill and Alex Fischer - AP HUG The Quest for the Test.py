@@ -573,7 +573,7 @@ class Weapon(object):
 
 
 class Disc(Weapon):
-    def __init__(self, name="Concentric Zone Model", price):
+    def __init__(self, name="Concentric Zone Model", price=0):
         super(Disc, self).__init__(name, price)
         self.name = name
         self.attack_stat = 12
