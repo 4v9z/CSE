@@ -1018,7 +1018,7 @@ class Player(object):
             print(colored("Thunder 🗲 - 10 MP", 'yellow'))
             print(colored("Blizzard ❄ - 15 MP", 'cyan'))
             print(colored('Your MP: %i/%i' % (self.MP, self.max_MP), 'magenta'))
-            self.choice = input("")
+            self.choice = input("Choose something")
             target.take_mp()
         elif target == self:
             print("What do you want to cast on yourself?")
@@ -5571,7 +5571,11 @@ bb = False
 BOSS1.bosses.append(test1)
 d = False
 e = False
+azula = False
+test2 = Test11()
 Moves_War = 0
+test3 = Test3()
+
 while playing:
     if not player.du:
         player.defense = player.helmet.defense + player.chestplate.defense
@@ -5768,6 +5772,10 @@ while playing:
     if player.current_location == CH8K4:
         if not yay:
             player.current_location.enemies.append(gerrymander)
+    if player.current_location == TEST3:
+        if not azula:
+            player.current_location.bosses.append(test3)
+            azula = True
     command = input(">_")
     if command.lower() in short_directions:
         pos = short_directions.index(command.lower())
