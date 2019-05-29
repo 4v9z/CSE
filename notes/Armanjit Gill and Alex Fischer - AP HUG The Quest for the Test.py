@@ -5062,6 +5062,7 @@ CH1K4 = Room("Sustainability Room", "You are on a page where the letters move to
 BOSS1 = Room("Chapter 1 Test Room", "You have left the book and are in a white room with a single desk in it", None, "CH1K4")
 VONTHANOS = Room("Von Thanos", "You are in a circular room with many rings, some have artificial cows in them"
                            "\n and some have artificial forests in them", None, "CH1K4")
+CH
 player = Player(COVER)
 
 directions = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'leave']
