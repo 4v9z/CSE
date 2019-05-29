@@ -1355,7 +1355,7 @@ quiz = Quiz()
 
 
 class Vocab(Health):
-    def __init__(self, name="", restore=0, amount=0):
+    def __init__(self, name="13 Vocab Cards", restore=3, amount=13):
         super(Vocab, self).__init__(name, restore)
         self.name = name
         self.restore = restore
