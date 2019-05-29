@@ -5652,6 +5652,8 @@ axe = Axe(6, True, False, 80, "Flagpole", 25)
 
 vocab1 = Vocab("12 Vocab Cards", 12, 12)
 
+yay = False
+
 
 class Soviet(Boss):
     def __init__(self):
@@ -5687,6 +5689,150 @@ class Soviet(Boss):
             print("The Soviet Union slipped while trying to attack and nearly dropped its flag.")
 
 
+soviet = Soviet()
+
+
+class Test3(Boss):
+    def __init__(self):
+        super(Test3, self).__init__(Claw, 60, False, False, True, "Chapter 8 Test", 7, 1500)
+        self.name = "Chapter 8 Test"
+        self.answers = ''
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 5)
+        if self.attack_choice == 1:
+            print("A ____ is a state with a single ethnicity.")
+            self.answers = input('')
+            if self.answers.lower() == "nation" or self.answers.lower() == "nation-state":
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 2:
+            print("What type of state has a strong central government?")
+            self.answers = input('')
+            if "unitary" in self.answers:
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 28 damage!", 'red'))
+                player.take_damage(28)
+        elif self.attack_choice == 3:
+            print("What type of state is Poland?")
+            self.answers = input('')
+            if "compact" in self.answers:
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 4:
+            print("What is the area in which a state has exclusive access to resources over water called?")
+            self.answers = input('')
+            if self.answers.lower() in ["eez", "exclusive economic zone"]:
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 5:
+            print("Which type of government has citizens elect leaders?")
+            self.answers = input('')
+            if self.answers.lower() == "democracy":
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                self.health -= 20
+                player.MP -= 5
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.development_tokens += 10
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+                    player.development_tokens += 10
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 50
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.development_tokens += 10
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
+    def take_damage(self, damage):
+        if self.inked:
+            damage *= 2
+        if player.weapon.__class__ is Splattershot:
+            self.inked = True
+        if not self.only_ink:
+            if not self.elecfrost:
+                if self.no_weapon:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.development_tokens += 10
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("This enemy can not be damaged by physical attacks")
+
+            elif self.elecfrost:
+                if player.weapon is E_Sword or F_Sword:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.development_tokens += 10
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("Enemy takes 0 damage as they can only be hit by ice or electricity")
+            elif self.only_ink:
+                if player.weapon.__class__ is Splattershot:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.development_tokens += 10
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
+
+
 purple = Enemy(axe, 25, False, False, False, "Purple Dye", 3, 30)
 
 gerrymander = Enemy(Iron_Blade, 30, False, False, False, "Gerrymandering", 6, 70)
@@ -5701,11 +5847,13 @@ CH8K2 = Room("Graveyard", "You enter into a graveyard of states. Their souls flo
                           "Soviet Union.", None, None, CH8K3, CH8K1)
 
 CH8K3 = Room("Shifting Boundaries", "This room makes you feel queasy. The boundaries are constantly changing from sea"
-                                    " to desert to mountains.", None, None, CH8K4, CH8K2)
+                                    " to desert to mountains Something is off...", None, None, CH8K4, CH8K2)
 
 CH8K4 = Room("Gerrymandering", "You prepare to move on to a UN room when the boundaries are quickly changed and you are"
                                " sent to deal with gerrymandering.\nThere is a shifting map in front of you that wants"
-                               " to fight.", None, None, CH13K1, CH8K3)
+                               " to fight.", None, None, TEST3, CH8K3)
+TEST3 = Room("Chapter 8 Test", "You are in a white room, but this one has a map in the middle of it.", None, None,
+             CH11K1, CH8K4)
 
 while instructions:
     input("ADVENTURE GAME")
@@ -5855,6 +6003,7 @@ while playing:
             lol = True
     if player.current_location == CH8K2:
         if not lolla:
+            player.current_location.bosses.append(Soviet)
             answer = input("What is the largest multinational state?")
             if answer.lower() in "russia ":
                 player.development_tokens += 1
@@ -5869,6 +6018,9 @@ while playing:
             player.current_location.inventory.append(vocab1)
             print("You can see 12 vocab cards laying on the floor")
             lollla = True
+    if player.current_location == CH8K4:
+        if not yay:
+            player.current_location.enemies.append(gerrymander)
     if command.lower() in short_directions:
         pos = short_directions.index(command.lower())
         command = directions[pos]
