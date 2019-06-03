@@ -1006,7 +1006,7 @@ jason_rd_6down = Room("Jason Road 6-Down next to your patio",
                       "You walk on a sturdy cobblestone path. Next to the path on both sides is nice grass.",
                       "You walk on a sturdy cobblestone path. It seems to be composed of quite a bit of cobblestone "
                       "pieces.", "You hear your steps on the cobblestone path. You can barely see all the pieces that"
-                                 " make up the path, but you know the number of pieces is no match for the billions of"
+                                 " maktae up the path, but you know the number of pieces is no match for the billions of"
                                  " stars in the sky.",
                       'jason_rd_5down', None, 'jason_rd_7down', 'patio')
 jason_rd_7down = Room("Jason Road 7-Down", "The cobblestone path shines as if it were polished by the sunlight.",
