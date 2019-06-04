@@ -847,6 +847,10 @@ class Player(object):
                                   "fail", 'cyan'))
             else:
                 print("You try to go to enter the final room, but you are blocked by a mysterious force")
+        elif new_location == TRAP:
+            self.current_location = new_location
+            self.inked = False
+            self.health -= self.health
         elif new_location == CASTLE_3:
             if self.current_location == CASTLE_2:
                 self.random = random.randint(1, 10)
@@ -5850,12 +5854,12 @@ TOWER = Room('Sheikah Tower', "You look up at the tower in front of you. you can
              'DESERT_FIGHT', 'TOP_TOWER')
 TOP_TOWER = Room('Shiekah Tower (Top)', 'You look in front of you and see an axe on a pedestal.', None, None, None,
                  None, None, 'TOWER')
-VOLCANO = Room('Volcano', "You are in front of a volcano... do you want to jump in?", None, 'MT_SILVER', None,
+VOLCANO = Room('Volcano', "You are in front of a volcano... do you want to jump in?", None, None, None,
                None, None, None, 'INTERIOR')
 INTERIOR = Room('Inside Volcano', "HOLY HECK, YOU'RE ALIVE!!"
                                   "\n .... Anyways, there is a fragment of a key here", None, None, None, None,
                 'VOLCANO')
-MT_SILVER = Room('Mt. Silver', "You are on top of the icy mountain, hail is plummeting down from the sky", "VOLCANO", None,
+MT_SILVER = Room('Mt. Silver', "You are on top of the icy mountain, hail is plummeting down from the sky", None, None,
                  None, None, None, 'MTN_BASE')
 MTN_BASE = Room('Mt. Silver Base', "You are at the base of a snowy mountain. You can likely climb it, but the rocks "
                                    "are slightly slippery, so you might slip and fall", 'VOLCANO', None, None, None,
@@ -6137,8 +6141,8 @@ class Watch(object):
             self.past = True
             self.future = False
             print("You travel backwards in time to the past")
-            TOT2.east = 'PAST1'
-            TOT3.west = 'PAST2'
+            TOT2.east = PAST1
+            TOT3.west = PAST2
             TOT2.west = None
             TOT2.east = None
             ice.un_ice()
@@ -6176,8 +6180,8 @@ class Watch(object):
             TOT2.east = None
             TOT3.west = None
             ice.un_ice()
-            TOT2.west = 'FUTURE1'
-            TOT3.east = 'FUTURE2'
+            TOT2.west = FUTURE1
+            TOT2.east = FUTURE2
             if tot_key in FUTURE2.items:
                 FUTURE2.items.remove(tot_key)
             FUTURE2.description = "While the path leading here has caved " \
@@ -6196,7 +6200,6 @@ the_watch = Watch()
 class Ice(object):
     def __init__(self):
         self.activated = False
-        self.name = "Ice"
 
     def un_ice(self):
         self.activated = True
@@ -6306,7 +6309,6 @@ player.weapon = Magic_Sword
 marxs_death = False
 
 while playing:
-
     if len(player.current_location.bosses) == 0:
         if tabuu.unwinnable:
             print(colored("You.... you... killed all of the bosses..."
@@ -6323,11 +6325,8 @@ while playing:
     for shopkeeps in range(len(Shopkeepers)):
         if Shopkeepers[shopkeeps].movez + 5 == player.moves:
             for itemss in range(len(Shopkeepers[shopkeeps].bought_items)):
-                try:
-                    Shopkeepers[shopkeeps].items.append(Shopkeepers[shopkeeps].bought_items[itemss])
-                    Shopkeepers[shopkeeps].bought_items.remove(Shopkeepers[shopkeeps].bought_items[itemss])
-                except IndexError:
-                    print()
+                Shopkeepers[shopkeeps].items.append(Shopkeepers[shopkeeps].bought_items[itemss])
+                Shopkeepers[shopkeeps].bought_items.remove(Shopkeepers[shopkeeps].bought_items[itemss])
     if marx.health == 0:
         if not marxs_death:
             print("Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
@@ -6428,8 +6427,6 @@ while playing:
                 tabuu.unwinnable = True
     print(colored(player.current_location.name, 'blue'))
     print(colored(player.current_location.description, 'green'))
-    if player.current_location == TRAP:
-        player.health -= player.health
     if len(player.current_location.items) > 0:
         print()
         print("The following items are in this room: ")
@@ -6676,8 +6673,8 @@ while playing:
                     the_item.drop()
                 except AttributeError:
                     print("You can't drop this")
-                if the_item.__class__ is not Filler:
-                    player.current_location.items.append(the_item)
+                    if the_item.__class__ is not Filler:
+                        player.current_location.items.append(the_item)
     elif 'sharpen ' in command.lower():
         items_name = command[7:]
 
