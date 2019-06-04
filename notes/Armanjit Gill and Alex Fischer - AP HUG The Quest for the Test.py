@@ -303,18 +303,18 @@ class Helmet(Armor):
 
 
 class Robinson(Helmet):
-    def __init__(self, defense, name='', price=0):
+    def __init__(self, defense=10, name='Robinson Helmet', price=0):
         super(Robinson, self).__init__(defense, name, price)
         self.name = name
         self.defense = defense
         self.grabbed = False
         self.price = price
         self.stage = 1
-        self.token = 0
+        self.coin = 0
 
     def develop(self):
         self.stage += 1
-        self.token = 0
+        self.coin = 0
         if self.stage < 5:
             print("You have destroyed one level of distortion in the armor! Your map is now more accurate and closer to"
                   " perfection")
@@ -328,14 +328,14 @@ class Robinson(Helmet):
             print("You cannot upgrade this armor.")
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the armor in its current form." % self.token)
+            print("You have %d tokens invested in the armor in its current form." % self.coin)
 
 
 robinson = Robinson(10, "Robinson Projection", 30)
@@ -371,18 +371,18 @@ class Chestplate(Armor):
 
 
 class Homolosine(Chestplate):
-    def __init__(self, defense, name="", price=0):
+    def __init__(self, defense=10, name="Homolosine Chestplate", price=0):
         super(Homolosine, self).__init__(defense, name, price)
         self.name = name
         self.defense = defense
         self.price = price
         self.grabbed = False
-        self.token = 0
+        self.coin = 0
         self.stage = 1
 
     def develop(self):
         self.stage += 1
-        self.token = 0
+        self.coin = 0
         if self.stage < 5:
             print("You have destroyed one level of distortion in the armor! Your map is now more accurate and closer to"
                   " perfection")
@@ -396,14 +396,14 @@ class Homolosine(Chestplate):
             print("You cannot upgrade this armor.")
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the armor in its current form." % self.token)
+            print("You have %d tokens invested in the armor in its current form." % self.coin)
 
 
 homolosine = Homolosine(10, "Homolosine Projection", 30)
@@ -438,18 +438,18 @@ class Boots(Armor):
 
 
 class Louisiana(Boots):
-    def __init__(self, defense, name="", price=0):
+    def __init__(self, defense=10, name="Louisiana Boots", price=0):
         super(Louisiana, self).__init__(defense, name, price)
         self.name = name
         self.defense = defense
         self.price = price
         self.grabbed = False
-        self.token = 0
+        self.coin = 0
         self.stage = 1
 
     def develop(self):
         self.stage += 1
-        self.token = 0
+        self.coin = 0
         if self.stage < 5:
             print("You have destroyed one level of distortion in the armor! Your map is now more accurate and closer to"
                   " perfection")
@@ -463,14 +463,14 @@ class Louisiana(Boots):
             print("You cannot upgrade this armor.")
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the armor in its current form." % self.token)
+            print("You have %d tokens invested in the armor in its current form." % self.coin)
 
 
 louisiana = Louisiana(10, "Louisiana Boots", 20)
@@ -505,18 +505,18 @@ class Leggings(Armor):
 
 
 class Mercator(Leggings):
-    def __init__(self, defense, name='', price=0):
+    def __init__(self, defense=10, name='Mercator Leggings', price=0):
         super(Mercator, self).__init__(defense, name, price)
         self.name = name
         self.defense = defense
         self.price = price
         self.stage = 1
-        self.token = 0
+        self.coin = 0
         self.grabbed = False
 
     def develop(self):
         self.stage += 1
-        self.token = 0
+        self.coin = 0
         if self.stage < 5:
             print("You have destroyed one level of distortion in the armor! Your map is now more accurate and closer to"
                   " perfection")
@@ -530,14 +530,14 @@ class Mercator(Leggings):
             print("You cannot upgrade this armor.")
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the armor in its current form." % self.token)
+            print("You have %d tokens invested in the armor in its current form." % self.coin)
 
 
 mercator = Mercator(10, "Mercator Projection", 30)
@@ -549,7 +549,7 @@ class Weapon(object):
         self.name = name
         self.attack_stat = 0
         self.grabbed = False
-        self.token = 0
+        self.coin = 0
 
     def equip(self):
         if self.grabbed:
@@ -564,7 +564,7 @@ class Weapon(object):
 
     def unequip(self):
         if self.grabbed:
-            if player.weapon is None:
+            if player.weapon == none5:
                 print(".......... you have nothing equipped already.... what do you want to remove")
             else:
                 print("You remove the %s" % self.name)
@@ -573,13 +573,13 @@ class Weapon(object):
 
 
 class Disc(Weapon):
-    def __init__(self, name, price):
+    def __init__(self, name="Concentric Zone Model", price=0):
         super(Disc, self).__init__(name, price)
         self.name = name
         self.attack_stat = 12
         self.price = price
         self.grabbed = False
-        self.token = 0
+        self.coin = 0
         self.stage = 1
 
     def develop(self):
@@ -592,24 +592,24 @@ class Disc(Weapon):
             print("Your %s can no longer develop." % self.name)
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the weapon in its current stage." % self.token)
+            print("You have %d tokens invested in the weapon in its current stage." % self.coin)
 
 
 class Weber(Weapon):
-    def __init__(self, name="", price=0):
+    def __init__(self, name="Least Cost Model", price=0):
         super(Weber, self).__init__(name, price)
         self.name = name
         self.price = price
         self.grabbed = False
         self.attack_stat = 18
-        self.token = 0
+        self.coin = 0
         self.stage = 1
 
     def develop(self):
@@ -622,30 +622,81 @@ class Weber(Weapon):
             self.attack_stat = 13
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the weapon in its current stage." % self.token)
+            print("You have %d tokens invested in the weapon in its current stage." % self.coin)
+
+
+class Gauntlet(Weapon):
+    def __init__(self, damage=25, name="The Gauntlet", price=0):
+        super(Gauntlet, self).__init__(name, price)
+        self.name = "Infinity Gauntlet"
+        self.attack_stat = damage
+        self.price = 1000000
+        self.stage = 1
+        self.coin = 0
+
+    def develop(self):
+        self.coin = 0
+        self.stage += 1
+        if self.stage == 2:
+            print("The gauntlet has gained another infinity stone! It now has both the the mining and industry stones!")
+            self.attack_stat += 8
+        if self.stage == 3:
+            print("You have discovered the service stone! With this new power, you can create businesses anywhere!")
+            self.attack_stat += 8
+        if self.stage == 4:
+            print("You have acquired the farming stone! This gives you the added power of commercial and subsistence "
+                  "farming!")
+            self.attack_stat += 5
+        if self.stage == 5:
+            print("You found the development stone and completed the gauntlet! You now have an unmatched weapon that is "
+                  "fully developed and ready to kill your enemies!")
+        else:
+            print("You can no longer develop your gauntlet.")
+
+    def token(self):
+        self.coin += 1
+        if self.coin >= 3:
+            try:
+                self.develop()
+            except AttributeError:
+                print("Error in development.")
+        else:
+            print("You have %d tokens invested in the weapon in its current stage." % self.coin)
 
 
 class DTM(Weapon):
-    def __init__(self, name="", price=0):
+    def __init__(self, name="Demographic Transition Model", price=0):
         super(DTM, self).__init__(name, price)
         self.name = name
         self.price = price
         self.attack_stat = 15
         self.stage = 1
-        self.token = 0
+        self.coin = 0
         self.grabbed = False
+
+    def grab(self):
+        if Inventory.inventory.__len__() < Inventory.max_space:
+            if self.grabbed:
+                print("You already have this")
+            else:
+                print("You pick up the %s" % self.name)
+                self.grabbed = True
+                Inventory.inventory.append(self)
+                # add stuff to bag
+        else:
+            print("You can't carry any more items, you need to drop some items to make space")
 
     def develop(self):
         print("Your %s is developing!" % self.name)
         self.stage += 1
-        self.token = 0
+        self.coin = 0
         if self.stage == 2:
             print("Your %s is now in stage 2! The NIR is skyrocketing! And so is the damage!" % self.name)
             self.attack_stat = 24
@@ -666,22 +717,24 @@ class DTM(Weapon):
             print("Your DTM could not develop.")
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
         else:
-            print("You have %d tokens invested in the weapon in its current stage." % self.token)
+            print("You have %d tokens invested in the weapon in its current stage." % self.coin)
 
+
+dtm = DTM("Demographic Transition Model")
 
 class Sector(Weapon):
-    def __init__(self, name="", price=0):
+    def __init__(self, name="Sector Model", price=0):
         super(Sector, self).__init__(name, price)
         self.name = name
         self.price = price
-        self.token = 0
+        self.coin = 0
         self.grabbed = False
         self.stage = 1
         self.attack_stat = 5
@@ -693,14 +746,14 @@ class Sector(Weapon):
                                                                                                     self.name))
 
     def token(self):
-        self.token += 1
-        if self.token >= 3:
+        self.coin += 1
+        if self.coin >= 3:
             try:
                 self.develop()
             except AttributeError:
                 print("Error in development.")
             else:
-                print("You have %d tokens invested in the weapon in its current stage." % self.token)
+                print("You have %d tokens invested in the weapon in its current stage." % self.coin)
 
 
 class Blade(Weapon):
@@ -767,6 +820,26 @@ class Sword(Blade):
         if self.grabbed:
             print(self.name)
             print("Attack: %s" % self.attack_stat)
+
+    def equip(self):
+        if self.grabbed:
+            if player.weapon is none5:  # Fix this later!
+                print("You equip the %s" % self.name)
+                player.weapon = self
+                Inventory.inventory.remove(self)
+            else:
+                print("You already have a weapon equipped, unequip your current weapon to equip this weapon")
+        else:
+            print()
+
+    def unequip(self):
+        if self.grabbed:
+            if player.weapon is none5:
+                print(".......... you have nothing equipped already.... what do you want to remove")
+            else:
+                print("You remove the %s" % self.name)
+                player.weapon = none5
+                Inventory.inventory.append(self)
 
 
 class Swword(Blade):
@@ -862,9 +935,9 @@ paper2 = Leggings(2, "Paper leggings")
 
 paper3 = Chestplate(3, "Paper Chestplate")
 
-Wooden_Sword = Sword(13, True, False, 8, colored("Blue Pen", 'blue'))
+Wooden_Sword = Sword(13, True, False, 8, "Pen")
 
-Book = Sword(18, True, False, 90, colored("A smaller textbook", 'orange'))
+Book = Sword(18, True, False, 90, "Small textbook")
 
 Magic_Sword = Sword(20, True, False, 999999999999999999999999, "Magic Sword")
 
@@ -944,23 +1017,19 @@ class Player(object):
             print(colored("Fire Blast 🔥大🔥 - 5 MP", 'red'))
             print(colored("Thunder 🗲 - 10 MP", 'yellow'))
             print(colored("Blizzard ❄ - 15 MP", 'cyan'))
-            print(colored("Instant Kill ☠ 🕷- 1000 MP", 'red', 'on_grey'))
             print(colored('Your MP: %i/%i' % (self.MP, self.max_MP), 'magenta'))
-            self.choice = input("")
-            if self.choice.lower() != "instant kill":
-                target.take_mp()
-            else:
-                target.health = 0
+            self.choice = input("Choose something")
+            target.take_mp()
         elif target == self:
             print("What do you want to cast on yourself?")
-            print(colored("Heal 💛 - 25 MP", 'yellow'))
+            print(colored("Study (health restore) 💛 - 25 MP", 'yellow'))
             print(colored("Attack Up ⚔ - 35 MP", 'red'))
             print(colored("Defense Up 🛡 - 40 MP", 'blue'))
             print(colored('Your MP: %i/%i' % (self.MP, self.max_MP), 'magenta'))
             self.choice = input("")
-            if self.choice.lower() == 'heal':
+            if self.choice.lower() == 'study':
                 if self.MP >= 25:
-                    print("You cast heal on yourself")
+                    print("You flip through a magic notebook you materialized")
                     if self.health + 30 > self.max_health:
                         print("Your HP is maxed out")
                         self.health = self.max_health
@@ -1216,6 +1285,7 @@ class Health(Consumables):
                 print("You eat the %s and your health is maxed out" % self.name)
                 player.health = player.max_health
 
+
     def grab(self):
         if Inventory.inventory.__len__() < Inventory.max_space:
             if self.grabbed:
@@ -1281,8 +1351,11 @@ class Quiz(Health):
         player.health += self.restore
 
 
+quiz = Quiz()
+
+
 class Vocab(Health):
-    def __init__(self, name="", restore=0, amount=0):
+    def __init__(self, name="Vocab Cards", restore=3, amount=13):
         super(Vocab, self).__init__(name, restore)
         self.name = name
         self.restore = restore
@@ -1299,6 +1372,9 @@ class Vocab(Health):
             self.amount -= self.lose
         else:
             print("You managed to not be a clumsy idiot and you kept all of your vocab cards. Good job.")
+
+
+vocab = Vocab()
 
 
 class Potion1(Health):
@@ -1333,11 +1409,58 @@ class Eat1(Health):
 
     def check(self):
         if self.grabbed:
+
             print(self.name)
-            print("Restores %s health" % self.restore)
+            print("Restores %s hunger" % self.restore)
+
+    def use(self):
+        if self.grabbed:
+            if player.hunger + self.restore <= 50:
+                player.hunger += self.restore
+                print("You eat the %s, and restore %i hunger" % (self.name, self.restore))
+            else:
+                print("You eat the %s and you are full" % self.name)
+                player.hunger = 50
+            Inventory.inventory.remove(self)
+
+
+class Foood(Health):
+    def __init__(self, restore=30, name="", price=0):
+        super(Foood, self).__init__()
+        self.restore = restore
+        self.name = name
+        self.price = price
+        self.grabbed = False
+
+    def check(self):
+        if self.grabbed:
+            print(self.name)
+            print("Restores %s hunger" % self.restore)
+
+    def use(self):
+        if self.grabbed:
+            if player.hunger + self.restore <= 50:
+                player.hunger += self.restore
+                print("You eat the %s, and restore %i hunger" % (self.name, self.restore))
+            else:
+                print("You eat the %s and you are full" % self.name)
+                player.hunger = 50
+            Inventory.inventory.remove(self)
 
 
 rage_candy = Eat1(20, "Rage Candy Bar", 20)
+
+Maize = Foood(15, "Maize", 20)
+
+Borger = Foood(25, "Beef", 40)
+
+Carrot = Foood(10, "Carrot", 10)
+
+C_candy = Foood(18, "Chocolate", 20)
+
+Chicken = Foood(19, "Chicken", 30)
+
+Pork = Foood(25, "Pork", 20)
 
 fruit = Eat1(9999999999999999999999999999999999999, "Hearty Simmered Fruit", 70)
 
@@ -1765,22 +1888,22 @@ goomba = Enemy(foot, 5, False, False, True, "Goomba", 2, 15)
 Koopa = Enemy(shell, 10, False, False, True, "Koopa Troopa", 6, 25)
 Spiny = Enemy(shell, 14, False, False, True, "Spiny", 8, 40)
 
-Bokkoblin = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 60)
-Bokkoblin2 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 65)
-Bokkoblin3 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 70)
+Mercator2 = Enemy(Wooden_Sword, 20, False, False, True, "Mercator Map", 9, 60)
+Goode = Enemy(Wooden_Sword, 20, False, False, True, "Goode Homosline Map", 9, 65)
+Robins0n = Enemy(Wooden_Sword, 20, False, False, True, "Robinson Map", 9, 70)
 
 Frosty = Enemy(F_Sword, 30, False, False, True, "Mr. Frosty", 12, 89)
 
 Dee = Enemy(parasol, 20, False, False, True, "Big Waddle Dee", 10, 99)
 
-G_Knights = Enemy(E_Sword, 25, False, False, True, "Galactic Knights", 12, 100)
+HeatWave = Enemy(E_Sword, 25, False, False, True, "Heat Wave", 12, 100)
 
-Lizalfos = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10, 116)
-Lizalfos2 = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10, 106)
+Relocarion = Enemy(Iron_Blade, 20, False, False, True, "Red Blob labeled reloation diffusion", 10, 116)
+Propania = Enemy(Iron_Blade, 20, False, False, True, "Propania", 10, 106)
 
-Dynablade = Enemy(Claw2, 45, False, False, True, "Dynablade", 15, 130)
+Cond = Enemy(Claw2, 45, False, False, True, "The Conductor", 15, 130)
 
-caterkiller = Enemy(Iron_Blade, 25, False, False, True, "Giant Caterkiller", 12, 60)
+Fracture = Enemy(Iron_Blade, 25, False, False, True, "Fracture Man", 12, 60)
 
 
 class Keyboard(object):
@@ -1851,57 +1974,52 @@ class Vonthanos(Boss):
         super(Vonthanos, self).__init__(Claw, 75, False, False, True, "Von Thanos", 5, 1500)
         self.name = "Von Thanos"
 
-
-class Bowser(Boss):
-    def __init__(self):
-        super(Bowser, self).__init__(Claw, 60, False, False, True, "Bowser", 7, 1500)
-        self.name = "Bowser"
-
     def attack(self, target):
         self.attack_choice = random.randint(1, 7)
         self.dodge_chance = random.randint(1, 12)
         if self.attack_choice == 1:
             if self.dodge_chance == 3:
-                print("Bowser attacks with his claws! But he misses!")
+                print("Von Thanos attacks you with his weird Infinity Gauntlet, but he misses")
             else:
-                print("Bowser attacks for %d with his claws!" % self.weapon.attack_stat)
+                print("Von Thanos attacks you for %i with his weird Infinity Gauntlet!" % self.weapon.attack_stat)
                 target.take_damage(self.weapon.attack_stat)
         elif self.attack_choice == 2:
             if self.dodge_chance != 3:
-                print("Bowser attacks with a fireball!")
+                print("Von Thanos uses the forestry ring in his Infinity Gauntlet to "
+                      "launch you into the air by making a tree appear beneath you")
                 target.take_damage(30)
             else:
-                print("Bowser attacks with a fireball but misses!")
+                print("Von Thanos tries to use aring in his gauntlet... but fails!")
         elif self.attack_choice == 3:
             if self.dodge_chance != 1:
-                print("Bowser attacks with his shell!")
+                print("Von Thanos uses the dairy ring in his Gauntlet and he throws a giant cow at you")
                 target.take_damage(28)
             else:
-                print("Bowser attacks with his shell but misses")
+                print("Von Thanos uses the dairy ring in his Gauntlet and he throws a giant cow at you but he misses")
         elif self.attack_choice == 4:
             if self.dodge_chance != 4 or 5 or 6:
-                print("Bowser grows in size for one quick attack!")
+                print("Von Thanos grows in size for one quick attack!")
                 target.take_damage(25)
             else:
-                print("Bowser attacks but misses")
+                print("Von Thanos attacks but misses")
         elif self.attack_choice == 5:
             if self.dodge_chance != 8 or 9:
-                print("Bowser breathes a large amount of fire to attack you")
+                print("Von Thanos breathes a large amount of fire to attack you")
                 target.take_damage(27)
             else:
-                print("Bowser breathes fire in your direction but misses")
+                print("Von Thanos breathes fire in your direction but misses")
         elif self.attack_choice == 6:
             if self.dodge_chance != 10:
-                print("Bowser charges at you")
+                print("Von Thanos charges at you")
                 target.take_damage(22)
             else:
-                print("Bowser charges at you but misses")
+                print("Von Thanos charges at you but misses")
         elif self.attack_choice == 7:
             if self.dodge_chance != 11 or 12:
-                print("Bowser winds up a large punch and hits you")
+                print("Von Thanos winds up a large punch and hits you")
                 target.take_damage(30)
             else:
-                print("Bowser tries to punch you but misses")
+                print("Von Thanos tries to punch you but misses")
 
     def take_mp(self):
         if player.choice.lower() == "fire blast":
@@ -1994,6 +2112,288 @@ class Bowser(Boss):
                             self.health = 0
                             print("%s has been defeated!" % self.name)
                             player.money += self.money
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
+
+
+class Test1(Boss):
+    def __init__(self):
+        super(Test1, self).__init__(Claw, 60, False, False, True, "Chapter 1 Test", 7, 1500)
+        self.name = "Chapter 1 Test"
+        self.answers = ''
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 5)
+        if self.attack_choice == 1:
+            print("Geography is about ____ and why and History is about when and why")
+            self.answers = input('')
+            if self.answers.lower() == "where":
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 2:
+            print("What projection minimizes distortion?")
+            self.answers = input('')
+            if self.answers.lower() in ["goode homosline", 'goode homosline projection']:
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 28 damage!", 'red'))
+                player.take_damage(28)
+        elif self.attack_choice == 3:
+            print("What type of region is the area of influence of a TV station?")
+            self.answers = input('')
+            if self.answers.lower() in ["functional region", 'functional', 'nodal region', 'nodal']:
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 4:
+            print("What type of diffusion is when a person in power does something that is then done by peoplembelow that person?")
+            self.answers = input('')
+            if self.answers.lower() == 'hierarchical':
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 5:
+            print("What makes an ecosystem unsustainable?")
+            self.answers = input('')
+            if self.answers.lower() in ["inefficient resource use", 'using more resources than can be replenished']:
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                self.health -= 20
+                player.MP -= 5
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.development_tokens += 10
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+                    player.development_tokens += 10
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 50
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.development_tokens += 10
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
+    def take_damage(self, damage):
+        if self.inked:
+            damage *= 2
+        if player.weapon.__class__ is Splattershot:
+            self.inked = True
+        if not self.only_ink:
+            if not self.elecfrost:
+                if self.no_weapon:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.development_tokens += 10
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("This enemy can not be damaged by physical attacks")
+
+            elif self.elecfrost:
+                if player.weapon is E_Sword or F_Sword:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.development_tokens += 10
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("Enemy takes 0 damage as they can only be hit by ice or electricity")
+            elif self.only_ink:
+                if player.weapon.__class__ is Splattershot:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.development_tokens += 10
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
+
+
+class Test11(Boss):
+    def __init__(self):
+        super(Test11, self).__init__(Claw, 60, False, False, True, "Chapter 11 Test", 7, 1500)
+        self.name = "Chapter 11 Test"
+        self.answers = ''
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 5)
+        if self.attack_choice == 1:
+            print("The New International Division of Labor focuses on __________")
+            self.answers = input('')
+            if self.answers.lower() == "outsourcing":
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 2:
+            print("What is the most important site characteristic?")
+            self.answers = input('')
+            if self.answers.lower() == 'labor':
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 28 damage!", 'red'))
+                player.take_damage(28)
+        elif self.attack_choice == 3:
+            print("What was it called when industries occurred in houses")
+            self.answers = input('')
+            if self.answers.lower() == 'cottage industry':
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 4:
+            print("What is the most damaging fossil fuel?")
+            self.answers = input('')
+            if self.answers.lower() == 'coal':
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 5:
+            print("What is NAFTA a trade organization between? (alphabetical order)")
+            self.answers = input('')
+            if self.answers.lower() == "Canada, Mexico, USA":
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                self.health -= 20
+                player.MP -= 5
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.development_tokens += 10
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+                    player.development_tokens += 10
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 50
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.development_tokens += 10
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
+    def take_damage(self, damage):
+        if self.inked:
+            damage *= 2
+        if player.weapon.__class__ is Splattershot:
+            self.inked = True
+        if not self.only_ink:
+            if not self.elecfrost:
+                if self.no_weapon:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.development_tokens += 10
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("This enemy can not be damaged by physical attacks")
+
+            elif self.elecfrost:
+                if player.weapon is E_Sword or F_Sword:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.development_tokens += 10
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("Enemy takes 0 damage as they can only be hit by ice or electricity")
+            elif self.only_ink:
+                if player.weapon.__class__ is Splattershot:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.development_tokens += 10
                     print("%s has %d health left" % (self.name, self.health))
                 else:
                     print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
@@ -2143,8 +2543,6 @@ class Wiebe(Boss):
 
 
 wiebe = Wiebe()
-
-bowser = Bowser()
 
 spider_leg = Sword(9, True, False, 9999999999999999999, "")
 
@@ -4877,9 +5275,238 @@ CH1K3 = Room("Chapter 1 Key Issue 3", 'You are in a room in which something is s
                                       'Expansion diffusion are chasing you!', None, 'RELOCATION', None, None, 'REGIONS')
 
 RELOCATION = Room("Blank Page", 'You are on a blank page, when suddenly, '
-                                'Relocation Diffusion appears! It chased you!', "CH1K3")
+                                'Relocation Diffusion appears! It chased you!', "CH1K3", "CH1K4")
 CH1K4 = Room("Sustainability Room", "You are on a page where the letters move to say:"
                                     "\n YOUR CHALLENGE IS TO SURVIVE FOR 7 MOVES WITH LIMITED FOOD")
+BOSS1 = Room("Chapter 1 Test Room", "You have left the book and are in a white room with a single desk in it", None, "CH1K4", "CH8C")
+CH11K1 = Room("Chapter 11 Key Issue 1", "You are in a cottage, as you look outside you see the "
+                                        "James Watt, he's about to make an invention important to the "
+                                        "Industrial Revolution", 'CH11K2', None, None, None, None, 'BOSS1')
+CH11K2 = Room("Chapter 11 KI 2", "This Key Issue focuses a lot on site "
+                                 "and situation factors, the most important being labor", "CH11K3", 'CH11K1')
+CH11K3 = Room("Energy Room", "Wait we never took notes on this Key Issu- ohhhhh noooooo"
+                             "\n You are in a warzone between all of the energy based "
+                             "superheroes and villains.")
+CH11K4 = Room("Outsourcing Room", "You are about to be sent overseas to "
+                                  "where most jobs are outsourced: China! Just go West", None, None, "CH11K3", 'TEST2')
+TEST2 = Room("Chapter 11 Test", "You are in another white room with a desk in it", None, None, "CH11K4", 'CH8C')
+
+axe = Axe(6, True, False, 80, "Flagpole", 25)
+
+vocab1 = Vocab("Vocab Cards", 12, 12)
+
+yay = False
+
+lol = False
+lolla = False
+playing = False
+lollla = False
+
+
+class Soviet(Boss):
+    def __init__(self):
+        super(Soviet, self).__init__(Claw, 80, False, False, False, "Soviet Union", 8, 1200)
+        self.name = "Soviet Union"
+        self.dodge_chance = 0
+        self.health = 80
+        self.attack_choice = 0
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 4)
+        self.dodge_chance = random.randint(1, 10)
+        if self.attack_choice == 1:
+            if self.dodge_chance == 2:
+                print("The Soviet Union tried give you hypothermia but failed!")
+            else:
+                print("The Soviet Union attacks you with the cold!")
+                target.take_damage(8)
+        elif self.attack_choice == 2:
+            if self.dodge_chance == 2:
+                print("The Soviet Union tries to hit you with the wall but misses!")
+            else:
+                print("You are hit by a massive wall that fell from the sky!")
+                target.take_damage(10)
+        elif self.attack_choice == 3:
+            if self.dodge_chance == 2:
+                print("The Soviet Union tried to infect you with Communism but failed!")
+            else:
+                print("The Soviet Union hits you with a Communist Bomb!")
+                target.take_damage(13)
+        elif self.attack_choice == 4:
+            if self.dodge_chance == 2:
+                print("The Soviet Union tried to hit you with its sickle but you ducked!")
+            else:
+                print("The Soviet Union hit you with its sickle!")
+                target.take_damage(15)
+        else:
+            print("The Soviet Union slipped while trying to attack and nearly dropped its flag.")
+
+
+soviet = Soviet()
+
+
+class Test3(Boss):
+    def __init__(self):
+        super(Test3, self).__init__(Claw, 60, False, False, True, "Chapter 8 Test", 7, 1500)
+        self.name = "Chapter 8 Test"
+        self.answers = ''
+
+    def attack(self, target):
+        self.attack_choice = random.randint(1, 5)
+        if self.attack_choice == 1:
+            print("A ____ is a state with a single ethnicity.")
+            self.answers = input('')
+            if self.answers.lower() == "nation" or self.answers.lower() == "nation-state":
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 2:
+            print("What type of state has a strong central government?")
+            self.answers = input('')
+            if "unitary" in self.answers:
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 28 damage!", 'red'))
+                player.take_damage(28)
+        elif self.attack_choice == 3:
+            print("What type of state is Poland?")
+            self.answers = input('')
+            if "compact" in self.answers:
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 4:
+            print("What is the area in which a state has exclusive access to resources over water called?")
+            self.answers = input('')
+            if self.answers.lower() in ["eez", "exclusive economic zone"]:
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+        elif self.attack_choice == 5:
+            print("Which type of government has citizens elect leaders?")
+            self.answers = input('')
+            if self.answers.lower() == "democracy":
+                print(colored('Correct! You take no damage!', 'green'))
+            else:
+                print(colored("Wrong! You take 25 damage!", 'red'))
+                player.take_damage(25)
+
+    def take_mp(self):
+        if player.choice.lower() == "fire blast":
+            if player.MP >= 5:
+                print("Fire Blast is casted on %s and 20 damage is taken" % self.name)
+                self.health -= 20
+                player.MP -= 5
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.development_tokens += 10
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "thunder":
+            if player.MP >= 10:
+                print("Thunder is casted on %s and 25 damage is taken" % self.name)
+                self.health -= 25
+                player.MP -= 10
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    print("%s has %d health left" % (self.name, self.health))
+                    player.money += self.money
+                    player.development_tokens += 10
+            else:
+                print("You do not have enough MP to cast this")
+        elif player.choice.lower() == "blizzard":
+            if player.MP >= 15:
+                print("Blizzard is casted on %s and 35 damage is taken" % self.name)
+                player.MP -= 15
+                self.health -= 50
+                if self.health < 0:
+                    self.health = 0
+                    print("%s has been defeated!" % self.name)
+                    player.money += self.money
+                    player.development_tokens += 10
+                print("%s has %d health left" % (self.name, self.health))
+            else:
+                print("You don't have enough MP to cast this")
+
+    def take_damage(self, damage):
+        if self.inked:
+            damage *= 2
+        if player.weapon.__class__ is Splattershot:
+            self.inked = True
+        if not self.only_ink:
+            if not self.elecfrost:
+                if self.no_weapon:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.development_tokens += 10
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("This enemy can not be damaged by physical attacks")
+
+            elif self.elecfrost:
+                if player.weapon is E_Sword or F_Sword:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.development_tokens += 10
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("Enemy takes 0 damage as they can only be hit by ice or electricity")
+            elif self.only_ink:
+                if player.weapon.__class__ is Splattershot:
+                    if damage < self.defense:
+                        print("No damage was taken!")
+                    else:
+                        self.health -= damage - self.defense
+                        if self.health < 0:
+                            self.health = 0
+                            print("%s has been defeated!" % self.name)
+                            player.money += self.money
+                            player.development_tokens += 10
+                    print("%s has %d health left" % (self.name, self.health))
+                else:
+                    print("%s isn't damaged as they can only be attacked by a weapon that fires ink" % self.name)
+
+
+purple = Enemy(axe, 25, False, False, False, "Purple Dye", 3, 30)
+
+gerrymander = Enemy(Iron_Blade, 30, False, False, False, "Gerrymandering", 6, 70)
+
+CH8C = Room("Polital Geography", "You are entering the area of politcal geography. Because of the strict boundaries, "
+                                 "you \ncan only move east or risk dying.", None, None, "CH8K1", "TEST1")
+
+CH8K1 = Room("State Flags", "You are in a room with many different flags of states. You see the color purple and it "
+                            "wants to fight you!", None, None, "CH8K2", "CH8C")
+
+CH8K2 = Room("Graveyard", "You enter into a graveyard of states. Their souls float around you and you can make out the "
+                          "Soviet Union.", None, None, "CH8K3", "CH8K1")
+
+CH8K3 = Room("Shifting Boundaries", "This room makes you feel queasy. The boundaries are constantly changing from sea"
+                                    " to desert to mountains Something is off...", None, None, "CH8K4", "CH8K2")
+
+CH8K4 = Room("Gerrymandering", "You prepare to move on to a UN room when the boundaries are quickly changed and you are"
+                               " sent to deal with gerrymandering.\nThere is a shifting map in front of you that wants"
+                               " to fight.", None, None, "TEST3", "CH8K3")
+TEST3 = Room("Chapter 8 Test", "You are in a white room, but this one has a map in the middle of it.", None, None,
+             "CH11K1", "CH8K4")
 
 player = Player(COVER)
 
@@ -4941,8 +5568,27 @@ aa = False
 bbbb = False
 aaa = False
 c = False
+Moves_to_sustain = 0
 aaaa = False
-
+test1 = Test1()
+bb = False
+BOSS1.bosses.append(test1)
+d = False
+e = False
+azula = False
+test2 = Test11()
+Moves_War = 0
+test3 = Test3()
+CH1KI1S3.enemies.append(Mercator2)
+CH1KI1S3.enemies.append(Goode)
+CH1KI1S3.enemies.append(Robins0n)
+CH8K1.enemies.append(purple)
+CH11K3.enemies.append(Fracture)
+CH11K3.enemies.append(Propania)
+CH11K3.enemies.append(Cond)
+CH11K3.enemies.append(HeatWave)
+RELOCATION.enemies.append(Relocarion)
+CH8K2.bosses.append(soviet)
 while playing:
     if not player.du:
         player.defense = player.helmet.defense + player.chestplate.defense
@@ -4953,32 +5599,60 @@ while playing:
         player.defense += player.leggings.defense
         player.defense += player.boots.defense
         player.normal_defense = player.defense
+        if len(CH11K3.bosses) == 0:
+                print("You have survived the battle. "
+                      "\n Now go")
+                CH11K3.south = 'CH11K2'
+                CH11K3.west = 'CH11K4'
     if player.current_location == CH1K4:
         if not c:
             print("You are given some food")
-            Moves_sus = player.moves + 7
+            Maize.grab()
+            Borger.grab()
+            C_candy.grab()
+            Pork.grab()
+            Carrot.grab()
+            Chicken.grab()
+            Moves_to_sustain = player.moves + 7
             c = True
         if not bbbb:
-            if player.moves == Moves_sus:
-                print("You have survived the challenge")
-                CH1K4.north = BOSS1
+            if player.moves == Moves_to_sustain:
+                print("You have survived the challenge, you can now move North or go back south")
+                CH1K4.north = 'BOSS1'
+                CH1K4.south = 'RELOCATION'
                 bbbb = True
-            print("You have %i hunger left")
+                if Pork in Inventory.inventory:
+                    print(colored("Achievment get!", 'white', 'on_grey'))
+                    print(colored("Keeping it Kosher", 'red', 'on_grey'))
+                if Pork in Inventory.inventory and Borger in Inventory.inventory and Chicken in Inventory.inventory:
+                    print(colored("Achievment get!", 'white', 'on_grey'))
+                    print(colored("Vegetarian", 'green', 'on_grey'))
+                if Pork not in Inventory.inventory and Borger not in Inventory.inventory and Chicken not in Inventory.inventory:
+                    if Carrot in Inventory.inventory and Maize in Inventory.inventory and C_candy in Inventory.inventory:
+                        print(colored("Achievment get!", 'white', 'on_grey'))
+                        print(colored("Carnivore", 'red', 'on_grey'))
+            print("You have %i hunger left" % player.hunger)
+            print("You have %i moves remaining" % (Moves_to_sustain - player.moves))
+            if player.hunger == 0:
+                print("You have starved to death")
+                player.health = 0
         else:
             print()
     if player.health <= 0:
         playing = False
         print('GAME OVER')
         break
-    if tabuu.health <= 0:
-        playing = False
-        print("YOU WIN! CONGRATULATIONS")
-        break
+    if test1.health <= 0 and player.current_location == BOSS1:
+        print("Congratulations! You beat the first boss!")
+        BOSS1.up = 'CH11K1'
+        dtm.grab()
+    if test1.health == 0 and test2.health == 0 and test3.health == 0:
+        print("You win!")
     print(player.current_location.name)
     print(player.current_location.description)
     if len(player.current_location.items) > 0:
         print()
-        print("The followisng items are in this room: ")
+        print("The following items are in this room: ")
         for nums, items in enumerate(player.current_location.items):
             print(str(nums + 1) + ": " + items.name)
         print()
@@ -4998,11 +5672,15 @@ while playing:
         if not aa:
             command2 = input("Well?")
             if command2.lower() == 'remote sensing':
-                print("Correct, Here is a development token! These can be used to upgrade your weapons or armor!")
+                print("Correct, Here are 2 development tokens! These can be used to upgrade your weapons or armor!"
+                      "You also get a health upgrade!")
                 CH1K1S2.description = "You feel like you are being watched, and you are, by " \
                                       "satellites! \nThis is done to make maps with GIS and to find " \
                                       "absolute location."
-                player.development_tokens += 1
+                player.development_tokens += 2
+                player.max_health += 10
+                player.health = player.max_health
+                print("You can now have a maximum of %i HP" % player.max_health)
             else:
                 print("Incorrect! The correct answer was remote sensing!"
                       "\n You look up and see a flaming satellite fall onto you!")
@@ -5011,6 +5689,37 @@ while playing:
                                       "satellites! \nThis is done to make maps with GIS and to find " \
                                       "absolute location."
             aa = True
+    if player.current_location == CH11K1:
+        if not bb:
+            answer = input("What is this invention?")
+            if answer.lower() == 'the steam engine':
+                print("Correct! You get 5 development tokens!")
+                player.development_tokens += 5
+            else:
+                print("Incorrect! You take 20 damage!")
+                player.take_damage(20)
+            bb = True
+    if player.current_location == CH11K2:
+            answer = input("Speaking of labor, would you like to hire someone to make vocab cards for you and a quiz?")
+            if answer.lower() == 'yes':
+                if player.money >= 40:
+                    player.money -= 40
+                    vocab.grab()
+                    quiz.grab()
+                else:
+                    print("You can't afford this, unless you want to outsource the job.")
+                    answer = input("Would you like to do that?")
+                    if answer.lower() == 'yes':
+                        if player.money >= 25:
+                            player.money -= 25
+                            vocab.grab()
+                            quiz.grab()
+                        else:
+                            print("You can't afford this either")
+                    else:
+                        print("Alright, moving on....")
+            else:
+                print("Alright, moving on....")
     if player.current_location == CH1K2S1:
         if not aaa:
             answer = input("What is the location of a place relative to other places?")
@@ -5026,19 +5735,52 @@ while playing:
             if answer.lower() == 'formal, functional, vernacular':
                 print(colored('Correct! You get a new a weapon', 'green'))
                 Inventory.inventory.append(Book)
+                Book.grabbed = True
             else:
                 print("Wrong! You get hit in the head with a book!")
             aaaa = True
+    if player.current_location == CH8K1:
+        if not lol:
+            answer = input("What is another word for a state?")
+            if answer.lower() == "country":
+                player.development_tokens += 1
+                print(colored('Correct! You get a development token!', 'green'))
+            else:
+                print("No! What were you thinking? I'm taking away 15 health because that was easy.")
+                player.health -= 15
+            lol = True
+    if player.current_location == CH8K2:
+        if not lolla:
+            answer = input("What is the largest multinational state?")
+            if answer.lower() in "russia ":
+                player.development_tokens += 1
+                print(colored('Correct! You get a development token!', 'green'))
+            else:
+                print("You failed horribly. The correct answer was Russia. As punishment, the Russians give you "
+                      "frostbite that deals 5 damage.")
+                player.health -= 5
+            lolla = True
+    if player.current_location == CH8K3:
+        if not lollla:
+            player.current_location.items.append(vocab1)
+            print("You can see 12 vocab cards laying on the floor")
+            lollla = True
+    if player.current_location == CH8K4:
+        if not yay:
+            player.current_location.enemies.append(gerrymander)
+            yay = True
+    if player.current_location == TEST3:
+        if not azula:
+            player.current_location.bosses.append(test3)
+            azula = True
     command = input(">_")
     if command.lower() in short_directions:
         pos = short_directions.index(command.lower())
         command = directions[pos]
     if command.lower() in ['q', 'quit', 'exit', 'altf4']:
         playing = False
-    elif command.lower() == "give me the hero set":
-        player.chestplate = Cape
-        player.weapon = Hero_Shot
-        print("Given.")
+    elif command.lower() == "8":
+        player.current_location = CH8C
     elif command.lower() in ["use a spell", 'spell', 'cast', 'cast a spell']:
         if len(player.current_location.enemies) > 0:
             for nums, persons in enumerate(player.current_location.enemies):
@@ -5073,6 +5815,28 @@ while playing:
 
                 item_obj.grab()
                 player.current_location.items.remove(item_obj)
+    elif 'develop ' in command.lower():
+        item_name = command[7:]
+
+        item_obj = None
+        for the_item in Inventory.inventory:
+            if the_item.name.lower() == item_name.lower():
+                item_obj = the_item
+
+                try:
+                    item_obj.token()
+                except AttributeError:
+                    print()
+        if item_name.lower == player.weapon.lower():
+            try:
+                item_obj.token()
+            except AttributeError:
+                print()
+        if item_name.lower() == player.leggings.name.lower():
+            try:
+                item_obj.token()
+            except AttributeError:
+                print()
 
     elif 'grab ' in command.lower():
         item_name = command[5:]
@@ -5370,7 +6134,6 @@ while playing:
             input("...")
             print()
             print("cheat code accepted")
-            bowser.take_damage(999999999999999)
             d_bowser.take_damage(999999999999999999)
             dark_link.take_damage(9999999999999999)
             red.take_damage(9999999999999999)
@@ -5603,17 +6366,26 @@ while playing:
         if not player.just_moved:
             print("The distortion in the room causes you to take 10 damage!")
             player.take_damage(10)
+    if len(CH1KI1S3.enemies) == 0:
+        CH1KI1S3.description = "You are in a room covered in maps" \
+                               "\n One rolled up map is hanging from the ceiling, you can use this to climb up"
     if len(player.current_location.enemies) > 0:
         for nmez in player.current_location.enemies:
             if nmez.health <= 0:
                 player.current_location.enemies.remove(nmez)
-                if nmez == NPC1:
+                if nmez == Relocarion:
                     RELOCATION.south = CH1K4
                     RELOCATION.description = "You are on a blank page in the textbook... " \
-                                             "\n Strange that there is a blank page but who cares?"
+                                             "\n Strange that there is a blank page in a textbook but who cares?"
+                if nmez == Mercator2:
+                    player.current_location.items.append(mercator)
+                    player.current_location.items.append(robinson)
     if len(player.current_location.bosses) > 0:
         for nmes in player.current_location.bosses:
             if nmes.health == 0:
                 player.current_location.bosses.remove(nmes)
     player.just_moved = False
+    if player.current_location == CH1K4:
+        if not bbbb:
+            player.hunger -= 10
     player.moves += 1
