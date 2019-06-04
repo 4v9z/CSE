@@ -3,10 +3,14 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
 =======
     <orderEntry type="jdk" jdkName="Python 3.6 (MyNewProject)" jdkType="Python SDK" />
 >>>>>>> ea7d9c5a5efee65782a2ec7622bbf5bbf93a9a69
+=======
+    <orderEntry type="jdk" jdkName="Python 3.7 (JIUFHIUDHFC)" jdkType="Python SDK" />
+>>>>>>> parent of cb302be... a
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">
