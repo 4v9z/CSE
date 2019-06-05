@@ -5854,7 +5854,7 @@ TOWER = Room('Sheikah Tower', "You look up at the tower in front of you. you can
              'DESERT_FIGHT', 'TOP_TOWER')
 TOP_TOWER = Room('Shiekah Tower (Top)', 'You look in front of you and see an axe on a pedestal.', None, None, None,
                  None, None, 'TOWER')
-VOLCANO = Room('Volcano', "You are in front of a volcano... do you want to jump in?", None, None, None,
+VOLCANO = Room('Volcano', "You are in front of a volcano... do you want to jump in?", None, 'MTN_BASE', None,
                None, None, None, 'INTERIOR')
 INTERIOR = Room('Inside Volcano', "HOLY HECK, YOU'RE ALIVE!!"
                                   "\n .... Anyways, there is a fragment of a key here", None, None, None, None,
