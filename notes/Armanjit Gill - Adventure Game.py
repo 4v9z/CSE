@@ -6312,10 +6312,10 @@ while playing:
     if len(player.current_location.bosses) == 0:
         if tabuu.unwinnable:
             print(colored("You.... you... killed all of the bosses..."
-                          "\n You absorb all of the souls of the "
-                          "bosses and become the most powerful "
-                          "entity in the multiverse."
-                          "\n You now control the multiverse...", 'red'))
+                          "\n Now that you have defeated them, you cast a p"
+                          "owerful spell, one that nearly kills you..."
+                          "\n You absorb the essence of every boss, you gain the power of all of them put together. "
+                          "\nYou are now the most powerful being in the multiverse", 'red'))
             input(colored("THE END"
                           "\n"
                           "\n"
@@ -6325,17 +6325,21 @@ while playing:
     for shopkeeps in range(len(Shopkeepers)):
         if Shopkeepers[shopkeeps].movez + 5 == player.moves:
             for itemss in range(len(Shopkeepers[shopkeeps].bought_items)):
-                Shopkeepers[shopkeeps].items.append(Shopkeepers[shopkeeps].bought_items[itemss])
-                Shopkeepers[shopkeeps].bought_items.remove(Shopkeepers[shopkeeps].bought_items[itemss])
+                try:
+                    Shopkeepers[shopkeeps].items.append(Shopkeepers[shopkeeps].bought_items[itemss])
+                    Shopkeepers[shopkeeps].bought_items.remove(Shopkeepers[shopkeeps].bought_items[itemss])
+                except IndexError:
+                    print()
     if marx.health == 0:
         if not marxs_death:
             print("Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
-                  "\nGuess that's why it was in ruins, luckily, you can still make it back home (somehow)")
+                  "\nGuess that's why it was in ruins, luckily, you can still make it back home as destroying NOVA"
+                  " didn't destroy the portal out of here")
             marxs_death = True
         PEAK.description = "NOVA's golden ruins are here... You can also see Marx's dead " \
                            "body here. oh... he's absorbing some of the parts of NOVA..." \
-                           "\n Eh, that's a problem for Kirby to deal with..." \
-                           "\n There is still a portal here that NOVA opened"
+                           "\n Eh, that's a problem for Kirby to deal with when you send this are back to his world..." \
+                           "\n The portal that NOVA opened is still here"
     if player.weapon == One_Shot:
         player.health = 1
     if player.current_location == MT_SILVER:
@@ -6379,11 +6383,14 @@ while playing:
                               "temple of time, light temple, NOVA, time portal, lost woods, "
                               "and many other areas fade away too"
                               "\n You did it... you saved everyone... but..."
-                              "\n At What Cost?", 'cyan'))
+                              "\n At What Cost?"
+                              "\n"
+                              "\n. . . you . . .", 'cyan'))
                 input(colored("THE END", 'blue'))
                 playing = False
             elif last_choice.lower() == 'no':
-                input(colored("You decide to let Tabuu live... You heal him"
+                input(colored("You decide to let Tabuu live... You cast a healing spell on him. Now, the question is..."
+                              "\n will you join forces with him?"
                               " and join forces with him"
                               "\n You destroy the very realm you swore to protect"
                               "\n You kill EVERYONE who once lived in this realm..."
