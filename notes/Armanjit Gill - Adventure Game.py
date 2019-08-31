@@ -2313,11 +2313,11 @@ NPC2.items.append(egg2)
 
 NPC3 = NPC("Johnny", 1, 0, 1, False, "Hello, my name is Johnny.")
 
-NPC4 = NPC("Bob", 35, 15, 99999,  False, "Hi, I'm Bob")
+NPC4 = NPC("Bob", 35, 15, 35,  False, "Hi, I'm Bob")
 
 NPC5 = NPC("Jim", 20, 8, 100, False, "Hello, my name is Jim")
 
-NPC7 = NPC("Jack Handey", 99, 20, 1000, False, "Would you like to here some deep thoughts?")
+NPC7 = NPC("Jack Handey", 99, 20, 40, False, "Would you like to here some deep thoughts?")
 
 NPC7.items.append(Book)
 
@@ -2325,11 +2325,11 @@ dog = NPC("Dog", 20, 5, 0, False, "Bark Bark!")
 
 dog.items.append(ball)
 
-NPC8 = NPC("Sarah", 99, 20, 800, False, "Hello")
+NPC8 = NPC("Sarah", 99, 20, 33, False, "Hello")
 
 NPC9 = NPC('Cheyanne', 10, 10, 10, False, "Hello there, I'm from Wyoming")
 
-NPC10 = NPC("Zo R. Kuh", 70,  20, 1980, False, "Hey there, I was named after some text based game, those things are "
+NPC10 = NPC("Zo R. Kuh", 70,  20, 19, False, "Hey there, I was named after some text based game, those things are "
                                                "boring. "
                                                "\nWhy would anyone play one??? (please don't quit playing now)")
 
