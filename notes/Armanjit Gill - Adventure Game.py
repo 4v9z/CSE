@@ -847,6 +847,10 @@ class Player(object):
                                   "fail", 'cyan'))
             else:
                 print("You try to go to enter the final room, but you are blocked by a mysterious force")
+        elif new_location == TRAP:
+            self.current_location = new_location
+            self.inked = False
+            self.health -= self.health
         elif new_location == CASTLE_3:
             if self.current_location == CASTLE_2:
                 self.random = random.randint(1, 10)
@@ -5850,12 +5854,12 @@ TOWER = Room('Sheikah Tower', "You look up at the tower in front of you. you can
              'DESERT_FIGHT', 'TOP_TOWER')
 TOP_TOWER = Room('Shiekah Tower (Top)', 'You look in front of you and see an axe on a pedestal.', None, None, None,
                  None, None, 'TOWER')
-VOLCANO = Room('Volcano', "You are in front of a volcano... do you want to jump in?", None, 'MT_SILVER', None,
+VOLCANO = Room('Volcano', "You are in front of a volcano... do you want to jump in?", None, 'MTN_BASE', None,
                None, None, None, 'INTERIOR')
 INTERIOR = Room('Inside Volcano', "HOLY HECK, YOU'RE ALIVE!!"
                                   "\n .... Anyways, there is a fragment of a key here", None, None, None, None,
                 'VOLCANO')
-MT_SILVER = Room('Mt. Silver', "You are on top of the icy mountain, hail is plummeting down from the sky", "VOLCANO", None,
+MT_SILVER = Room('Mt. Silver', "You are on top of the icy mountain, hail is plummeting down from the sky", None, None,
                  None, None, None, 'MTN_BASE')
 MTN_BASE = Room('Mt. Silver Base', "You are at the base of a snowy mountain. You can likely climb it, but the rocks "
                                    "are slightly slippery, so you might slip and fall", 'VOLCANO', None, None, None,
@@ -6137,8 +6141,8 @@ class Watch(object):
             self.past = True
             self.future = False
             print("You travel backwards in time to the past")
-            TOT2.east = 'PAST1'
-            TOT3.west = 'PAST2'
+            TOT2.east = PAST1
+            TOT3.west = PAST2
             TOT2.west = None
             TOT2.east = None
             ice.un_ice()
@@ -6176,8 +6180,8 @@ class Watch(object):
             TOT2.east = None
             TOT3.west = None
             ice.un_ice()
-            TOT2.west = 'FUTURE1'
-            TOT3.east = 'FUTURE2'
+            TOT2.west = FUTURE1
+            TOT2.east = FUTURE2
             if tot_key in FUTURE2.items:
                 FUTURE2.items.remove(tot_key)
             FUTURE2.description = "While the path leading here has caved " \
@@ -6196,7 +6200,6 @@ the_watch = Watch()
 class Ice(object):
     def __init__(self):
         self.activated = False
-        self.name = "Ice"
 
     def un_ice(self):
         self.activated = True
@@ -6306,14 +6309,13 @@ player.weapon = Magic_Sword
 marxs_death = False
 
 while playing:
-
     if len(player.current_location.bosses) == 0:
         if tabuu.unwinnable:
             print(colored("You.... you... killed all of the bosses..."
-                          "\n You absorb all of the souls of the "
-                          "bosses and become the most powerful "
-                          "entity in the multiverse."
-                          "\n You now control the multiverse...", 'red'))
+                          "\n Now that you have defeated them, you cast a p"
+                          "owerful spell, one that nearly kills you..."
+                          "\n You absorb the essence of every boss, you gain the power of all of them put together. "
+                          "\nYou are now the most powerful being in the multiverse", 'red'))
             input(colored("THE END"
                           "\n"
                           "\n"
@@ -6331,12 +6333,13 @@ while playing:
     if marx.health == 0:
         if not marxs_death:
             print("Marx is sent flying into the giant clockwork star NOVA! NOVA then explodes! "
-                  "\nGuess that's why it was in ruins, luckily, you can still make it back home (somehow)")
+                  "\nGuess that's why it was in ruins, luckily, you can still make it back home as destroying NOVA"
+                  " didn't destroy the portal out of here")
             marxs_death = True
         PEAK.description = "NOVA's golden ruins are here... You can also see Marx's dead " \
                            "body here. oh... he's absorbing some of the parts of NOVA..." \
-                           "\n Eh, that's a problem for Kirby to deal with..." \
-                           "\n There is still a portal here that NOVA opened"
+                           "\n Eh, that's a problem for Kirby to deal with when you send this are back to his world..." \
+                           "\n The portal that NOVA opened is still here"
     if player.weapon == One_Shot:
         player.health = 1
     if player.current_location == MT_SILVER:
@@ -6380,11 +6383,14 @@ while playing:
                               "temple of time, light temple, NOVA, time portal, lost woods, "
                               "and many other areas fade away too"
                               "\n You did it... you saved everyone... but..."
-                              "\n At What Cost?", 'cyan'))
+                              "\n At What Cost?"
+                              "\n"
+                              "\n. . . you . . .", 'cyan'))
                 input(colored("THE END", 'blue'))
                 playing = False
             elif last_choice.lower() == 'no':
-                input(colored("You decide to let Tabuu live... You heal him"
+                input(colored("You decide to let Tabuu live... You cast a healing spell on him. Now, the question is..."
+                              "\n will you join forces with him?"
                               " and join forces with him"
                               "\n You destroy the very realm you swore to protect"
                               "\n You kill EVERYONE who once lived in this realm..."
@@ -6428,8 +6434,6 @@ while playing:
                 tabuu.unwinnable = True
     print(colored(player.current_location.name, 'blue'))
     print(colored(player.current_location.description, 'green'))
-    if player.current_location == TRAP:
-        player.health -= player.health
     if len(player.current_location.items) > 0:
         print()
         print("The following items are in this room: ")
@@ -6676,8 +6680,8 @@ while playing:
                     the_item.drop()
                 except AttributeError:
                     print("You can't drop this")
-                if the_item.__class__ is not Filler:
-                    player.current_location.items.append(the_item)
+                    if the_item.__class__ is not Filler:
+                        player.current_location.items.append(the_item)
     elif 'sharpen ' in command.lower():
         items_name = command[7:]
 
