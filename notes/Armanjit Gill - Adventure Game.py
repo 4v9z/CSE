@@ -6438,7 +6438,10 @@ while playing:
         print()
         print("The following items are in this room: ")
         for nums, items in enumerate(player.current_location.items):
-            print(str(nums + 1) + ": " + colored(items.name, 'grey'))
+            try:
+                print(str(nums + 1) + ": " + colored(items.name, 'grey'))
+            except AttributeError:
+                print('                               ')
         print()
     if len(player.current_location.characters) > 0:
         print()
