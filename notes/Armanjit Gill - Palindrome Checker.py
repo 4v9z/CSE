@@ -1,6 +1,7 @@
 import string
 from termcolor import colored
 punctuation = list(string.punctuation)
+punctuation.append(" ")
 
 
 def check_it():
@@ -25,9 +26,15 @@ def check_it():
             print(colored("That is not a palindrome...", 'red'))
             b += 1
         try_again = input("Would you like to check another palindrome?")
-        if try_again.lower() == 'yes':
+        if try_again.lower() in ['yes', 'ye', 'yeah', 'oh boy yeah', 'yee', 'sure', 'definitely', 'totally']:
             print(colored("Okay, let's do another one", 'blue'))
+        elif try_again.lower() in ['no', 'nah', 'nope']:
+            finding = False
+            return colored("Alright, hope you had fun"
+                           "\n You found {} palindromes and you entered {} phrases, "
+                           "meaning you had {} phrases that weren't palindromes".format(a, a + b, b), 'blue')
         else:
+            print("I don't know what that means, so I'll take it as a no")
             finding = False
             return colored("Alright, hope you had fun"
                            "\n You found {} palindromes and you entered {} phrases, "
