@@ -27,10 +27,6 @@ def order_off_the_menu(restaurant_name):
                 cost += 2.25
         elif drin.lower() == 'no':
             print(colored("%s Waiter: Ah, okay then" % str(restaurant_name), 'green', 'on_grey'))
-            if len(str(cost)) == 4:
-                print(cost)
-            else:
-                print(str(cost) + '0')
     elif sandwich.lower() == 'beef sandwich':
         cost += 6.25
         drin = input(colored("%s Waiter: Excellent choice, now would you like a drink?" % str(restaurant_name), 'green',
@@ -49,10 +45,6 @@ def order_off_the_menu(restaurant_name):
                 cost += 2.25
         elif drin.lower() == 'no':
             print(colored("%s Waiter: Ah, okay then" % str(restaurant_name), 'green', 'on_grey'))
-        if len(str(cost)) == 4:
-            print(cost)
-        else:
-            print(str(cost) + '0')
     elif sandwich.lower() == 'tofu sandwich':
         cost += 5.75
         drin = input(colored("%s Waiter: Excellent choice, now would you like a drink?" % str(restaurant_name), 'green',
@@ -71,10 +63,10 @@ def order_off_the_menu(restaurant_name):
                 cost += 2.25
         elif drin.lower() == 'no':
             print(colored("%s Waiter: Ah, okay then" % str(restaurant_name), 'green', 'on_grey'))
-        if len(str(cost)) == 4:
-            print(cost)
-        else:
-            print(str(cost) + '0')
+    if len(str(cost)) == 4:
+        print(cost)
+    else:
+        print(str(cost) + '0')
 
 
 print(order_off_the_menu("Burger Time"))
