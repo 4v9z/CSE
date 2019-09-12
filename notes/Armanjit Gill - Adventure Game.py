@@ -5684,7 +5684,7 @@ Gerudo = NPC("Gerudo Shopkeeper", 100, 35, 5000, True)
 scimitar = Sword(37, True, False, 60, "Scimitar", 50)
 
 Gerudo.items.append(scimitar)
-
+Gerudo.items.append(scuba)
 Gerudo.items.append(water_pendant)
 Gerudo.items.append(zork_mat)
 Gerudo.items.append(Paraglider)
