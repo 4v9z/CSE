@@ -7,7 +7,9 @@ def order_off_the_menu(restaurant_name):
     fries = ''
     the_ketchup_is_coming = 0
     the_food = "YOU HAVE ORDERED "
+    ordering = True
     cost = 0
+    while ordering:
     sandwich = input(colored("%s Waiter: Good afternoon to you sir/madam, what Sandwich would"
                              " you like to order? (Write out the full menu item)"
                              "\n- Chicken Sandwich: $5.25"
