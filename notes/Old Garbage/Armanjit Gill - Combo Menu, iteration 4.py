@@ -8,6 +8,11 @@ def order_off_the_menu(restaurant_name):
     the_ketchup_is_coming = 0
     the_food = "YOU HAVE ORDERED "
     cost = 0
+    #   The Following has been done to fix problems my code had as I added this later:
+    drink_size += ''
+    fries += ''
+    sandwich += ''
+    the_ketchup_is_coming += 0
     sandwich = input(colored("%s Waiter: Good afternoon to you sir/madam, what Sandwich would"
                              " you like to order? (Write out the full menu item)"
                              "\n- Chicken Sandwich: $5.25"
@@ -33,7 +38,7 @@ def order_off_the_menu(restaurant_name):
                 cost += 1.75
             elif drink_size.lower() == 'large':
                 cost += 2.25
-            the_food += 'A' + drink_size.upper() + ' BEVERAGE, '
+            the_food += ' A ' + drink_size.upper() + ' BEVERAGE, '
         elif drin.lower() == 'no':
             print(colored("%s Waiter: Ah, okay then" % str(restaurant_name), 'green', 'on_grey'))
         frye = input(colored("%s Waiter: Would you like some fries with that?" % str(restaurant_name),
@@ -67,11 +72,11 @@ def order_off_the_menu(restaurant_name):
                                                       "would you like? Each packet costs "
                                                       "25 cents" % str(restaurant_name), 'red', 'on_grey')))
             cost += the_ketchup_is_coming * 0.25
-            the_food += str(the_ketchup_is_coming) + " KEPCHUP BRAND KETCHUP PACKETS"
+            the_food += "AND " + str(the_ketchup_is_coming) + " KEPCHUP BRAND KETCHUP PACKETS"
         else:
             input(colored("%s Waiter: Okay then, that is all" % str(restaurant_name), 'magenta', 'on_grey'))
     elif sandwich.lower() == 'beef sandwich':
-        the_food += 'A' + sandwich.upper() + ', '
+        the_food += ' A ' + sandwich.upper() + ', '
         cost += 6.25
         drin = input(colored("%s Waiter: Excellent choice, now would you like a drink?" % str(restaurant_name), 'green',
                              'on_grey'))
@@ -87,7 +92,7 @@ def order_off_the_menu(restaurant_name):
                 cost += 1.75
             elif drink_size.lower() == 'large':
                 cost += 2.25
-            the_food += 'A' + drink_size.upper() + ' BEVERAGE, '
+            the_food += ' A ' + drink_size.upper() + ' BEVERAGE, '
         elif drin.lower() == 'no':
             print(colored("%s Waiter: Ah, okay then" % str(restaurant_name), 'green', 'on_grey'))
         frye = input(colored("%s Waiter: Would you like some fries with that?" % str(restaurant_name),
@@ -121,12 +126,12 @@ def order_off_the_menu(restaurant_name):
                                                       "would you like? Each packet costs "
                                                       "25 cents" % str(restaurant_name), 'red', 'on_grey')))
             cost += the_ketchup_is_coming * 0.25
-            the_food += str(the_ketchup_is_coming) + ' KEPCHUP BRAND KETCHUP PACKETS, '
+            the_food += "AND " + str(the_ketchup_is_coming) + " KEPCHUP BRAND KETCHUP PACKETS"
         else:
             input(colored("%s Waiter: Okay then, that is all" % str(restaurant_name), 'magenta', 'on_grey'))
     elif sandwich.lower() == 'tofu sandwich':
         cost += 5.75
-        the_food += 'A' + sandwich.upper()
+        the_food += ' A ' + sandwich.upper() + ', '
         drin = input(colored("%s Waiter: Excellent choice, now would you like a drink?" % str(restaurant_name), 'green',
                              'on_grey'))
         if drin.lower() == 'yes':
@@ -141,7 +146,7 @@ def order_off_the_menu(restaurant_name):
                 cost += 1.75
             elif drink_size.lower() == 'large':
                 cost += 2.25
-            the_food += 'A' + drink_size.upper() + ' BEVERAGE, '
+            the_food += ' A ' + drink_size.upper() + ' BEVERAGE, '
         elif drin.lower() == 'no':
             print(colored("%s Waiter: Ah, okay then" % str(restaurant_name), 'green', 'on_grey'))
         frye = input(colored("%s Waiter: Would you like some fries with that?" % str(restaurant_name),
@@ -174,17 +179,22 @@ def order_off_the_menu(restaurant_name):
                                                       "would you like? Each packet costs "
                                                       "25 cents" % str(restaurant_name), 'red', 'on_grey')))
             cost += the_ketchup_is_coming * 0.25
-            the_food += str(the_ketchup_is_coming) + ' KEPCHUP BRAND KETCHUP PACKETS, '
+            the_food += "AND " + str(the_ketchup_is_coming) + " KEPCHUP BRAND KETCHUP PACKETS"
         else:
             input(colored("%s Waiter: Okay then, that is all" % str(restaurant_name), 'magenta', 'on_grey'))
     print(colored(the_food, 'white', 'on_grey'))
-    cost *= .07
-    if '.' not in str(cost):
-        cost = str(cost) + '.00'
-    for i in range(len(str(cost))):
-        if str(cost)[i] == '.':
-            if len(str(cost)[i:]) > 3:
-                cost = str(cost)[:i + 3]
+    if fries != '' and sandwich != '' and drink_size != "":
+        cost -= 1.00
+    cost += cost * 0.07
+    for i in range(len(str(cost)) - 1):
+        if str(cost)[i-1] is '.':
+            if len(str(cost)[i:]) >= 3:
+                cost = str(cost)[:i + 2]
+            else:
+                cost = str(cost) + "0"
+    if str(cost) == "0.0":
+        cost = "0.00"
+    print("Your total comes out to $" + str(cost))
 
 
-print(order_off_the_menu("Burger Time"))
+order_off_the_menu("Mr. Aziz's Spider-Man 2 Pizza Time Kitchen")
