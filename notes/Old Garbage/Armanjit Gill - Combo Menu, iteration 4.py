@@ -184,7 +184,8 @@ def order_off_the_menu(restaurant_name):
                 the_food += "AND " + str(the_ketchup_is_coming) + " KEPCHUP BRAND KETCHUP PACKETS"
             else:
                 input(colored("%s Waiter: Okay then, that is all" % str(restaurant_name), 'magenta', 'on_grey'))
-        elif sandwich.lower() == 'q'
+        elif sandwich.lower() == 'q':
+            print()
         print(colored(the_food, 'white', 'on_grey'))
         if fries != '' and sandwich != '' and drink_size != "":
             cost -= 1.00
