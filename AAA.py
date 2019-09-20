@@ -1,6 +1,3 @@
-age = int(input(""))
+print(len("This is the song that gets on everybody's nerves."))
 
-if age >= 0 or age <= 18:
-    print("school")
-elif age >= 16 and age <= 70:
-    print("AAAAAAA")
+print("{:.1f}".format(56.7893244048))
