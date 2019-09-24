@@ -63,7 +63,9 @@ def respond(name):
                 "I don't like that question. Ask me another one", "Definitely Not",
                 "Almost Certainly a Yes", "When pigs fly. "
                                           "Not saying if they need wing"
-                                          "s or if they can be on an airplane", "Maybe", "Outlook not so Good"]
+                                          "s or if they can be on an airplane", "Maybe", "Outlook not"
+                                                                                         " so Good", "PERHAPS",
+                "Well Yes, But actually No", "YEEEE"]
     while responding:
         ab = input(Fore.MAGENTA + "Would you like to add a response to the 8 Ball %s?" % name)
         if ab.lower() in ["yes", 'ye', 'yee', 'yeah', 'sure']:
