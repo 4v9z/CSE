@@ -3,7 +3,6 @@ from termcolor import colored
 
 def sandwich(a):
     sandwiching = True
-    c = 0
     order = []
     while sandwiching:
         aa = input(colored("%s Computer: Good afternoon to you sir/madam, what Sandwich would"
@@ -13,31 +12,37 @@ def sandwich(a):
                            "\n- Tofu Sandwich: $5.75"
                            "\n - " % str(a), 'yellow', 'on_grey'))
         sanswiches = ["chicken sandwich", 'beef sandwich', 'tofu sandwich']
-        if aa in sanswiches:
-            if aa == "chicken sandwich":
-                c += 5.25
-            elif aa == "beef sandwich":
-                c += 6.25
-            elif aa == "tofu sandwich":
-                c += 5.75
+        if aa.lower() in sanswiches:
             order.append(aa)
-            order.append(c)
+            b = input(colored("%s Computer: Would you like to order another sandwich?" % str(a), "yellow", 'on_grey'))
+            if b.lower() == "yes":
+                print(colored("%s Computer: Very well then..." % str(a), 'yellow', 'on_grey'))
+            elif b.lower() == "no":
+                print(colored("%s Computer: Okay then... good day" % str(a), 'yellow', 'on_grey'))
+                return order
+            elif b.lower() == 'pass':
+                print(colored("%s Computer: Alright then... I see you dislike the snadw- "
+                              "I mean sanswic- I mean sandwiches. Alright then... Enjoy your next"
+                              " option" % str(a)), "yellow", "on_grey")
+                break
+            else:
+                print(colored("%s Computer: I'll take that as a no... good day to you" % str(a), 'yellow', 'on_grey'))
+                return order
+        elif aa.lower() == 'q':
+            print(colored("%s Computer: Ah... I see... you would like to quit..."
+                          " alright... see you later alligator" % str(a)), "red", "on_grey")
+            return aa
+        elif aa.lower() == 'pass':
+            print(colored("%s Computer: Alright then... I see you dislike the snadw- "
+                          "I mean sanswic- I mean sandwiches. Alright then... Enjoy your next"
+                          " option" % str(a)), "yellow", "on_grey")
+            break
         else:
-            print("%s Computer: Sorry... that isn't on the menu you nerd!" % str(a))
-        b = input("%s Computer: Would you like to order another sandwich?" % str(a))
-        if b.lower() == "yes":
-            print("%s Computer: Very well then..." % str(a))
-        elif b.lower() == "no":
-            print("Okay then... good day")
-            return order
-        else:
-            print("%s Computer: I'll take that as a no... good day to you")
-            return order
+            print(colored("%s Computer: Sorry... that isn't on the menu you nerd!" % str(a), 'green', 'on_grey'))
 
 
 def drink(z):
     drinking = True
-    co = 0
     order = []
     while drinking:
         aa = input(colored("%s Waiter: Alright and what size beverage would you like?"
@@ -45,31 +50,39 @@ def drink(z):
                            "\n - Medium: $1.75"
                            "\n - Large: $2.25"
                            "\n -" % str(z), 'green', 'on_grey'))
-        sanswiches = ["chicken sandwich", 'beef sandwich', 'tofu sandwich']
-        if aa in sanswiches:
-            if aa == "chicken sandwich":
-                co += 5.25
-            elif aa == "beef sandwich":
-                co += 6.25
-            elif aa == "tofu sandwich":
-                co += 5.75
+        droonks = ["small", 'medium', 'large']
+        if aa.lower() in droonks:
             order.append(aa)
-            order.append(co)
+            b = input(colored("%s Computer: Would you like to order another drink?" % str(z), "green", 'on_grey'))
+            if b.lower() == "yes":
+                print(colored("%s Computer: Very well then..." % str(z), 'green', 'on_grey'))
+            elif b.lower() == "no":
+                print(colored("%s Computer: Okay then... good day" % str(z), 'green', 'on_grey'))
+                return order
+            elif b.lower() == 'pass':
+                print(colored("%s Computer: Alright then... I see you dislike the drink selection... *sniff sniff* "
+                              "it's not like I... put a lot of time and thought into"
+                              " the options I gave you..." % str(z)), "green", "on_grey")
+                break
+            else:
+                print(colored("%s Computer: I'll take that as a no... good day to you" % str(z), 'green', 'on_grey'))
+                return order
+        elif aa.lower() == 'q':
+            print(colored("%s Computer: Ah... I see... you would like to quit..."
+                          " alright... see you later alligator" % str(z)), "red", "on_grey")
+            return aa
+        elif aa.lower() == 'pass':
+            print(colored("%s Computer: Alright then... I see you dislike the snadw- "
+                          "I mean sanswic- I mean sandwiches. Alright then... Enjoy your next"
+                          " option" % str(z)), "green", "on_grey")
+            break
         else:
-            print("%s Computer: Sorry... that isn't on the menu you nerd!" % str(z))
-        b = input("%s Computer: Would you like to order another sandwich?" % str(z))
-        if b.lower() == "yes":
-            print("%s Computer: Very well then..." % str(z))
-        elif b.lower() == "no":
-            print("Okay then... good day")
-            return order
-        else:
-            print("%s Computer: I'll take that as a no... good day to you")
-            return order
+            print(colored("%s Computer: Sorry... that isn't on the menu you nerd!" % str(a), 'green', 'on_grey'))
 
 
 def order_off_the_menu(restaurant_name):
-        sandwich(restaurant_name)
+        if sandwich(restaurant_name) == "q":
+            return
         drink(restaurant_name)
         fries(restaurant_name)
         ketchup(restaurant_name)
