@@ -13,7 +13,7 @@ def sandwich(a):
                            "\n - " % str(a), 'yellow', 'on_grey'))
         sanswiches = ["chicken sandwich", 'beef sandwich', 'tofu sandwich']
         if aa.lower() in sanswiches:
-            order.append(aa)
+            order.append(aa.lower())
             b = input(colored("%s Computer: Would you like to order another sandwich?" % str(a), "yellow", 'on_grey'))
             if b.lower() == "yes":
                 print(colored("%s Computer: Very well then..." % str(a), 'yellow', 'on_grey'))
@@ -29,6 +29,7 @@ def sandwich(a):
                 print(colored("%s Computer: I'll take that as a no... good day to you" % str(a), 'yellow', 'on_grey'))
                 return order
         elif aa.lower() == 'q':
+            aa = 'q'
             print(colored("%s Computer: Ah... I see... you would like to quit..."
                           " alright... see you later alligator" % str(a)), "red", "on_grey")
             return aa
@@ -53,7 +54,7 @@ def drink(z):
                            "\n -" % str(z), 'green', 'on_grey'))
         droonks = ["small", 'medium', 'large']
         if aa.lower() in droonks:
-            order.append(aa)
+            order.append(aa.lower())
             b = input(colored("%s Computer: Would you like to order another drink?" % str(z), "green", 'on_grey'))
             if b.lower() == "yes":
                 print(colored("%s Computer: Very well then..." % str(z), 'green', 'on_grey'))
@@ -69,6 +70,7 @@ def drink(z):
                 print(colored("%s Computer: I'll take that as a no... good day to you" % str(z), 'green', 'on_grey'))
                 return order
         elif aa.lower() == 'q':
+            aa = 'q'
             print(colored("%s Computer: Ah... I see... you would like to quit..."
                           " alright... see you later alligator" % str(z)), "red", "on_grey")
             return aa
@@ -105,7 +107,7 @@ def fries(h):
                     else:
                         print(colored("%s Computer: Fine... have it your way..."
                                       "ₚₑₐₛₐₙₜ" % str(h), "yellow", 'on_grey'))
-            order.append(aa)
+            order.append(aa.lower())
             b = input(colored("%s Computer: Would you like to order another set of"
                               " fries?" % str(h), "yellow", 'on_grey'))
             if b.lower() == "yes":
@@ -123,6 +125,7 @@ def fries(h):
                 print(colored("%s Computer: I'll take that as a no... good day to you" % str(h), 'yellow', 'on_grey'))
                 return order
         elif aa.lower() == 'q':
+            aa = 'q'
             print(colored("%s Computer: Ah... I see... you would like to quit..."
                           " alright... see you later alligator" % str(h)), "red", "on_grey")
             return aa
@@ -150,6 +153,7 @@ def ketchup(h):
                               "nds... and it ain't ketchup..." % str(h)), "red", "on_grey")
                 break
             elif aa.lower() == 'q':
+                aa = 'q'
                 print(colored("%s Computer: Ah... I see... you would like to quit..."
                               " alright... see you later alligator" % str(h)), "magenta", "on_grey")
                 break
@@ -180,6 +184,11 @@ def ketchup(h):
         except ValueError:
             print("That wasn't a number")
 
+
+def receipt(name, a, b, c, d):
+    costs = {'beef sandwich': }
+
+
 def order_off_the_menu(restaurant_name):
     snadwich = sandwich(restaurant_name)
     if snadwich == "q":
@@ -187,9 +196,15 @@ def order_off_the_menu(restaurant_name):
     how_am_i_supposed_to_eat_this_pizza_without_my_drink = drink(restaurant_name)
     if how_am_i_supposed_to_eat_this_pizza_without_my_drink == "q":
         return
-    fries(restaurant_name)
-    ketchup(restaurant_name)
-    receipt(restaurant_name)
+    evie_and_jacob_frye = fries(restaurant_name).lower()
+    if evie_and_jacob_frye == 'q':
+        return
+    kepchups_labrynth_of_lies_and_deception = ketchup(restaurant_name)
+    if kepchups_labrynth_of_lies_and_deception == 'q':
+        return
+    receipt(restaurant_name, snadwich,
+            how_am_i_supposed_to_eat_this_pizza_without_my_drink,
+            evie_and_jacob_frye, kepchups_labrynth_of_lies_and_deception)
 
 
 order_off_the_menu("Mr. Aziz's Spider-Man 2 Pizza Time Kitchen")

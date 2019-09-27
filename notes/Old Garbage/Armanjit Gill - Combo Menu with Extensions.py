@@ -19,7 +19,8 @@ def order_off_the_menu(restaurant_name):
                       "'Let's get this bread' deal, you will have $1.25 "
                       "taken off your price, our last special is that "
                       "if you buy each of our least expensive items, ketchup not included,"
-                      " then you'll get $2.50 taken off the price as part of our 'Budget Brunch' deal."))
+                      " then you'll get $2.50 taken off the price as part o"
+                      "f our 'Budget Brunch' deal." % str(restaurant_name), 'magenta', 'on_grey'))
         sandwich = input(colored("%s Waiter: Good afternoon to you sir/madam, what Sandwich would"
                                  " you like to order? (Write out the full menu item)"
                                  "\n- Chicken Sandwich: $5.25"
@@ -192,6 +193,7 @@ def order_off_the_menu(restaurant_name):
             else:
                 input(colored("%s Waiter: Okay then, that is all" % str(restaurant_name), 'magenta', 'on_grey'))
         print(colored(the_food, 'white', 'on_grey'))
+        cost += cost * 0.07
         if cost >= 15.00:
             cost -= 5.00
         if sandwich.lower() == "chicken sandwich" and drink_size.lower() == "small" and fries.lower() == "small":
@@ -200,11 +202,11 @@ def order_off_the_menu(restaurant_name):
             cost -= 1.25
         if fries != '' and sandwich != '' and drink_size != "":
             cost -= 1.00
-        cost += cost * 0.07
         for i in range(len(str(cost)) - 1):
             if str(cost)[i-1] is '.':
+                a = i
                 if len(str(cost)[i:]) >= 3:
-                    cost = str(cost)[:i + 2]
+                    cost = round(cost, 2)
                 else:
                     cost = str(cost) + "0"
         if str(cost) == "0.0":
