@@ -187,6 +187,25 @@ def ketchup(h):
 
 def receipt(name, a, b, c, d):
     costs = {'beef sandwich': }
+    e = 0
+    e += e * 0.07
+    if e >= 15.00:
+        e -= 5.00
+    if "chicken sandwich" in a and "small" in b and "small" in c:
+        e -= 2.50
+    if len(a) > 0 and len(b) == 0 and len(c) == 0 and d == 0:
+        e -= 1.25
+    if len(c) > 0 and len(b) > 0 and len(a) > 0:
+        e -= 1.00
+    for i in range(len(str(e)) - 1):
+        if str(e)[i - 1] is '.':
+            if len(str(e)[i:]) >= 3:
+                e = round(e, 2)
+            else:
+                e = str(e) + "0"
+    if str(e) == "0.0":
+        e = "0.00"
+    print("Your total comes out to $" + str(e))
 
 
 def order_off_the_menu(restaurant_name):
