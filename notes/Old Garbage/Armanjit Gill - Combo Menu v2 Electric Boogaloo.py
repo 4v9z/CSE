@@ -2,17 +2,24 @@ from termcolor import colored
 import sys
 
 
-def sandwich(a):
-    sandwiching = True
+def pizza_time(a):
+    pizzaing = True
     order = []
-    while sandwiching:
-        aa = input(colored("%s Computer: Good afternoon to you sir/madam, what Sandwich would"
+    while pizzaing:
+        aa = input(colored("%s Computer: Good afternoon to you sir/madam, what Pizza would"
                            " you like to order? (Write out the full menu item)"
-                           "\n- Chicken Sandwich: $5.25"
-                           "\n- Beef Sandwich: $6.25"
-                           "\n- Tofu Sandwich: $5.75"
+                           "\n- Cheese Pizza: $6.26"
+                           "\n- Peperoni: $7.26"
+                           "\n- Veggie Lover's: $6.48"
+                           "\n- Meat Lover's: 8.44"
+                           "\n- Vegan: $4.36"
+                           "\n- Pineapple Pizza: Your reputation and $5.32"
+                           "\n- Olive Pizza: $6.44"
+                           "\n- Super Mario Pizza (Mushroom Pizza): $7.40"
+                           "\n- The ultimate Pizza Time Pizza (Meat Lover's + Veggie Lovers): $10.20"
+                           "\n- Combo Pizza: Cost of first pizza + half of second pizza's cost"
                            "\n - " % str(a), 'yellow', 'on_grey'))
-        sanswiches = ["chicken sandwich", 'beef sandwich', 'tofu sandwich']
+        sanswiches = ["cheese", 'peperoni', "veggie lover's", "meat lover's"]
         if aa.lower() in sanswiches:
             order.append(aa.lower())
             b = input(colored("%s Computer: Would you like to order another sandwich?" % str(a), "yellow", 'on_grey'))
@@ -44,14 +51,17 @@ def sandwich(a):
             print(colored("%s Computer: Sorry... that isn't on the menu you nerd!" % str(a), 'green', 'on_grey'))
 
 
-def drink(z):
+def sodas(z):
     drinking = True
     order = []
     while drinking:
         aa = input(colored("%s Computer: Alright and what size beverage would you like?"
-                           "\n - Small: $1.00"
-                           "\n - Medium: $1.75"
-                           "\n - Large: $2.25"
+                           "\n - Small Pepsi: $1.55"
+                           "\n - Medium Pepsi: $2.55"
+                           "\n - Large Pepsi: $3.25"
+                           "\n - Small Sprite: $1.75"
+                           "\n - Medium Sprite: $2.65"
+                           "\n - Large Sprite: $3.75"
                            "\n -" % str(z), 'green', 'on_grey'))
         droonks = ["small", 'medium', 'large']
         if aa.lower() in droonks:
@@ -288,10 +298,10 @@ def order_off_the_menu(restaurant_name):
                       "if you don't want ketchup, don't type in 'pass', instead, type in '0', not 0w0, when asked "
                       "how many packets you'd like owo uwu "
                       "IuI" % (restaurant_name, restaurant_name), 'magenta', 'on_grey'))
-    snadwich = sandwich(restaurant_name)
+    snadwich = pizza_time(restaurant_name)
     if snadwich == "q":
         return
-    how_am_i_supposed_to_eat_this_pizza_without_my_drink = drink(restaurant_name)
+    how_am_i_supposed_to_eat_this_pizza_without_my_drink = sodas(restaurant_name)
     if how_am_i_supposed_to_eat_this_pizza_without_my_drink == "q":
         return
     evie_and_jacob_frye = fries(restaurant_name)
