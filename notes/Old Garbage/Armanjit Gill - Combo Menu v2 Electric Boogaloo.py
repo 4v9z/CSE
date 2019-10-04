@@ -17,7 +17,7 @@ def pizza_time(a):
                            "\n- Olive Pizza: $6.44"
                            "\n- Super Mario Pizza (Mushroom Pizza): $7.40"
                            "\n- The ultimate Pizza Time Pizza (Meat Lover's + Veggie Lovers): $10.20"
-                           "\n- Combo Pizza: Cost of first pizza + half of second pizza's cost"
+                           "\n- Combo Pizza: half of first pizza's cost + half of second pizza's cost"
                            "\n - " % str(a), 'yellow', 'on_grey'))
         sanswiches = ["cheese", 'peperoni', "veggie lover's", "meat lover's"]
         if aa.lower() in sanswiches:
@@ -51,17 +51,15 @@ def pizza_time(a):
             print(colored("%s Computer: Sorry... that isn't on the menu you nerd!" % str(a), 'green', 'on_grey'))
 
 
-def sodas(z):
+def chips(z):
     drinking = True
     order = []
     while drinking:
-        aa = input(colored("%s Computer: Alright and what size beverage would you like?"
-                           "\n - Small Pepsi: $1.55"
-                           "\n - Medium Pepsi: $2.55"
-                           "\n - Large Pepsi: $3.25"
-                           "\n - Small Sprite: $1.75"
-                           "\n - Medium Sprite: $2.65"
-                           "\n - Large Sprite: $3.75"
+        aa = input(colored("%s Computer: Alright and what chips would you like?"
+                           "\n - Hot Cheetos: $1.39"
+                           "\n - Doritos: $1.45"
+                           "\n - Fritos: $1.25"
+                           "\n - Lays: $1.59"
                            "\n -" % str(z), 'green', 'on_grey'))
         droonks = ["small", 'medium', 'large']
         if aa.lower() in droonks:
@@ -94,14 +92,104 @@ def sodas(z):
             print(colored("%s Computer: Sorry... that isn't on the menu you nerd!" % str(z), 'green', 'on_grey'))
 
 
-def fries(h):
+def bread(z):
+    getting_this_bread = True
+    order = []
+    while getting_this_bread:
+        aa = input(colored("%s Computer: Alright and what bread would you like?"
+                           "\n - Standard Rolls: $2.39"
+                           "\n - Pretzels: $2.45"
+                           "\n - The Michael Scott Pretzel: Caloric Overload!: $4.20"
+                           "\n - Banana Bread: $2.79"
+                           "\n -" % str(z), 'green', 'on_grey'))
+        droonks = ["rolls", 'pretzels', 'michael scott pretzel', 'banana bread']
+        if aa.lower() in droonks:
+            order.append(aa.lower())
+            b = input(colored("%s Computer: Would you like to order another drink?" % str(z), "green", 'on_grey'))
+            if b.lower() == "yes":
+                print(colored("%s Computer: Very well then..." % str(z), 'green', 'on_grey'))
+            elif b.lower() == "no":
+                print(colored("%s Computer: Okay then... good day" % str(z), 'green', 'on_grey'))
+                return order
+            elif b.lower() == 'pass':
+                print(colored("%s Computer: Alright then... I see you dislike the drink selection... *sniff sniff* "
+                              "it's not like I... put a lot of time and thought into"
+                              " the options I gave you..." % str(z), "green", "on_grey"))
+                break
+            else:
+                print(colored("%s Computer: I'll take that as a no... good day to you" % str(z), 'green', 'on_grey'))
+                return order
+        elif aa.lower() == 'q':
+            aa = 'q'
+            print(colored("%s Computer: Ah... I see... you would like to quit..."
+                          " alright... see you later alligator" % str(z), "red", "on_grey"))
+            return aa
+        elif aa.lower() == 'pass':
+            print(colored("%s Computer: Alright then... I see you dislike the drink selection... *sniff sniff* "
+                          "it's not like I... put a lot of time and thought into"
+                          " the options I gave you..." % str(z), "green", "on_grey"))
+            break
+        else:
+            print(colored("%s Computer: Sorry... that isn't on the menu you nerd!" % str(z), 'green', 'on_grey'))
+
+
+def sodas(z):
     drinking = True
     order = []
     while drinking:
         aa = input(colored("%s Computer: Alright and what size beverage would you like?"
-                           "\n - Small: $1.00"
-                           "\n - Medium: $1.75"
-                           "\n - Large: $2.25"
+                           "\n - Small Pepsi: $1.55"
+                           "\n - Medium Pepsi: $2.55"
+                           "\n - Large Pepsi: $3.25"
+                           "\n - Small Sprite: $1.75"
+                           "\n - Medium Sprite: $2.65"
+                           "\n - Large Sprite: $3.75"
+                           "\n- Small Coke: $2.50"
+                           "\n- Medium Coke: $3.50"
+                           "\n- Large Coke: $ 4.20"
+                           "\n- Terrible Beverage: Milk + Soda Mix: $4.40"
+                           "\n -" % str(z), 'green', 'on_grey'))
+        droonks = ["small", 'medium', 'large']
+        if aa.lower() in droonks:
+            order.append(aa.lower())
+            b = input(colored("%s Computer: Would you like to order another drink?" % str(z), "green", 'on_grey'))
+            if b.lower() == "yes":
+                print(colored("%s Computer: Very well then..." % str(z), 'green', 'on_grey'))
+            elif b.lower() == "no":
+                print(colored("%s Computer: Okay then... good day" % str(z), 'green', 'on_grey'))
+                return order
+            elif b.lower() == 'pass':
+                print(colored("%s Computer: Alright then... I see you dislike the drink selection... *sniff sniff* "
+                              "it's not like I... put a lot of time and thought into"
+                              " the options I gave you..." % str(z), "green", "on_grey"))
+                break
+            else:
+                print(colored("%s Computer: I'll take that as a no... good day to you" % str(z), 'green', 'on_grey'))
+                return order
+        elif aa.lower() == 'q':
+            aa = 'q'
+            print(colored("%s Computer: Ah... I see... you would like to quit..."
+                          " alright... see you later alligator" % str(z), "red", "on_grey"))
+            return aa
+        elif aa.lower() == 'pass':
+            print(colored("%s Computer: Alright then... I see you dislike the drink selection... *sniff sniff* "
+                          "it's not like I... put a lot of time and thought into"
+                          " the options I gave you..." % str(z), "green", "on_grey"))
+            break
+        else:
+            print(colored("%s Computer: Sorry... that isn't on the menu you nerd!" % str(z), 'green', 'on_grey'))
+
+
+def sweets(h):
+    drinking = True
+    order = []
+    while drinking:
+        aa = input(colored("%s Computer: Alright and what dessert would you like?"
+                           "\n - Chocolate Lava Cake: $5.48"
+                           "\n - Tart: $4.76"
+                           "\n - Ice Cream Sundae with Chocolate Sauce and many sprinkles: $3.25"
+                           "\n - Pokeball Surprise! (A cake pop in the shape of a Pokeball with a "
+                           "Pokemon toy inside): $ 5.50"
                            "\n -" % str(h), 'yellow', 'on_grey'))
         frees = ["small", 'medium', 'large']
         if aa.lower() in frees:
@@ -150,30 +238,30 @@ def fries(h):
             print(colored("%s Computer: Sorry... that isn't on the menu you nerd!" % str(h), 'yellow', 'on_grey'))
 
 
-def ketchup(h):
-    ketchuping = True
-    fate_of_the_world = ''
-    ketches = 0
-    while ketchuping:
-        aa = input(colored("%s Computer: How many Kepchup brand ketchup packets would "
-                           "you like?" % str(h), 'red', 'on_grey'))
+def extra_cheese(h):
+    the_cheesey = True
+    cheeses = 0
+    while the_cheesey:
+        aa = input(colored("%s Computer: How many Cheeeeeseyy brand extra Cheese packets would "
+                           "you like?" % str(h), 'yellow', 'on_grey'))
         try:
             if int(aa) == 0:
-                print(colored("%s Computer: You don't want Kepchup brand ketchup packets?"
-                              "\n You do know what Kepchup Co. does when someone doesn't want their ketchup, right?"
-                              "\n Let's just say... something red will be on their ha"
-                              "nds... and it ain't ketchup..." % str(h), "red", "on_grey"))
+                print(colored("%s Computer: You don't want Cheeeeeseyy brand extra Cheese packets packets?"
+                              "\n You do know what Cheeeeesey Co. does when someone doesn't want their Cheese, right?"
+                              "\n Let's just say... I hope you don't like being dropped into a vat of molten "
+                              "cheese" % str(h), "yellow", "on_grey"))
                 break
             elif int(aa) < 0:
                 print(colored("%s Computer: You can't have "
-                              "negative ketchup! That would destroy our very fabric "
+                              "negative cheese! That would destroy our very fabric "
                               "of existence!" % str(h), "red", "on_grey"))
                 fate_of_the_world = input(colored("%s Computer: Do you still want negative"
-                                                  " ketchup? Y or N" % str(h), "red", "on_grey"))
+                                                  " cheese? Y or N" % str(h), "red", "on_grey"))
                 if fate_of_the_world.lower() == 'y':
                     print(colored("%s Computer: Wait! What?! NO"
                                   "\n The fabric of our existence is tearing apart!"
-                                  "\nNOOOOOOOOOOOOOO)SU568768796Jq wgbuyrfgvbwuyrh42069jfgyuwergs7ydvbwtye6987687vftywgeytufgv4TY3GWGFYUGR"
+                                  "\nNOOOOOOOOOOOOOO)SU568768796Jq wgbuyrfgvbwuyr"
+                                  "h42069jfgyuwergs7ydvbwtye6987687vftywgeytufgv4TY3GWGFYUGR"
                                   "🕷🕸🔌🔦🔌⋷🐘🩩⋶🕚🩢𝋫𖺋∉🐘☠💀🕱⛹🙎🙋🧔😣" % str(h), "magenta", "on_grey"))
                     sys.exit()
                 elif fate_of_the_world.lower() == 'n':
@@ -185,29 +273,30 @@ def ketchup(h):
                 break
             else:
                 try:
-                    ketches += int(aa)
+                    cheeses += int(aa)
                 except ValueError:
                     print(colored("%s Computer: That isn't a number..." % str(h), "red", 'on_grey'))
                 else:
-                    b = input(colored("%s Computer: Would you like to order anymore Kepchup brand Ketchup "
-                                      "packets?" % str(h), "red", 'on_grey'))
+                    b = input(colored("%s Computer: Would you like to order anymore "
+                                      "Cheeeeeseyy brand extra Cheese packets?" % str(h), "red", 'on_grey'))
                     if b.lower() == "yes":
                             print(colored("%s Computer: Very well then..." % str(h), 'red', 'on_grey'))
                     elif b.lower() == "no":
                         print(colored("%s Computer: Okay then... good day" % str(h), 'red', 'on_grey'))
-                        return ketches
+                        return cheeses
                     elif b.lower() == 'pass':
-                        print(colored("%s Computer: You don't want Kepchup brand ketchup packets?"
-                                      "\n You do know what Kepchup Co."
-                                      " does when someone doesn't want their ketchup, right?"
-                                      "\n Let's just say... something red will be on the"
-                                      "ir hands... and it ain't ketchup..." % str(h)), "red", "on_grey")
-                        ketchuping = False
+                        print(colored("%s Computer: You don't want Cheeeeeseyy brand extra Cheese "
+                                      "packets?"
+                                      "\n You do know what Cheeeeeseyy Co."
+                                      " does when someone doesn't want their cheese, right?"
+                                      "\n Let's just say... I hope you don't like being dropped into a vat of molten "
+                                      "cheese" % str(h)), "red", "on_grey")
+                        the_cheesey = False
                         break
                     else:
                         print(colored("%s Computer: I'll take that as a no... good da"
                                       "y to you" % str(h), 'red', 'on_grey'))
-                        return ketches
+                        return cheeses
         except ValueError:
             print("That wasn't a number")
 
@@ -307,7 +396,7 @@ def order_off_the_menu(restaurant_name):
     evie_and_jacob_frye = fries(restaurant_name)
     if evie_and_jacob_frye == 'q':
         return
-    kepchups_labrynth_of_lies_and_deception = ketchup(restaurant_name)
+    kepchups_labrynth_of_lies_and_deception = extra_cheese(restaurant_name)
     if kepchups_labrynth_of_lies_and_deception == 'q':
         return
     receipt(restaurant_name, snadwich,
