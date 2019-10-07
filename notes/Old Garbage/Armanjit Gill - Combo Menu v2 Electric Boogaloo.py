@@ -190,7 +190,7 @@ def sweets(h):
                            "\n - Ice Cream Sundae with Chocolate Sauce and many sprinkles: $3.25"
                            "\n - Pokeball Surprise! (A cake pop in the shape of a Pokeball with a "
                            "Pokemon toy inside): $ 5.50"
-                           "\n -" % str(h), 'yellow', 'on_grey'))
+                           "\n -" % str(h), 'magenta', 'on_grey'))
         frees = ["chocolate lava cake", 'tart', 'ice cream sundae', 'pokeball surprise']
         if aa.lower() in frees:
             order.append(aa.lower())
@@ -235,7 +235,7 @@ def extra_cheese(h):
                               "\n You do know what Cheeeeesey Co. does when someone doesn't want their Cheese, right?"
                               "\n Let's just say... I hope you don't like being dropped into a vat of molten "
                               "cheese" % str(h), "yellow", "on_grey"))
-                break
+                return aa
             elif int(aa) < 0:
                 print(colored("%s Computer: You can't have "
                               "negative cheese! That would destroy our very fabric "
@@ -299,7 +299,7 @@ def pepe(h):
                               " right?"
                               "\n Let's just say... I hope you don't like eating 10 tons of "
                               "ghost peppers" % str(h), "red", "on_grey"))
-                break
+                return aa
             elif int(aa) < 0:
                 print(colored("%s Computer: You can't have "
                               "negative pepper! That would destroy our very fabric "
@@ -402,7 +402,7 @@ def receipt(name, a, b, c, d, e, f, g):
             if c[i] in costs_dronk:
                 cost += costs_dronk[c[i]]
                 print(str(i + 1) + ": a " + colored(c[i], 'white', 'on_grey') + colored(' - ', 'white',
-                                                                                      'on_grey') + colored(
+                                                                                        'on_grey') + colored(
                     costs_dronk[c[i]], 'white', 'on_grey'))
     if d is None:
         print(colored("You didn't order any bread", 'white', 'on_grey'))
@@ -418,17 +418,20 @@ def receipt(name, a, b, c, d, e, f, g):
         print(colored("You didn't order any dessert", 'white', 'on_grey'))
     else:
         print(colored("You ordered the following desserts:", 'white', 'on_grey'))
-        for i in range(len(c)):
-            if a[i] in costs_dronk:
-                cost += costs_dronk[a[i]]
-                print(str(i + 1) + ": " + colored(a[i], 'white', 'on_grey') + colored(' fries - ', 'white',
+        for i in range(len(e)):
+            if e[i] in costs_sweets:
+                cost += costs_sweets[e[i]]
+                print(str(i + 1) + ": " + colored(e[i], 'white', 'on_grey') + colored(' - ', 'white',
                                                                                       'on_grey') + colored(
-                    costs_dronk[a[i]], 'white', 'on_grey'))
+                    costs_sweets[e[i]], 'white', 'on_grey'))
         while toys2 > 0:
             zz = random.choice(toys)
-            print(colored("You opened up the container in your cake pop and you found a " + zz + ' Figurine inside!', 'white', 'on_red'))
+            print(colored("You opened up the container in your cake pop and you found a " + zz + ' Figurine'
+                                                                                                 ' inside!', 'white',
+                          'on_red'))
             if 'Shiny' in zz:
-                print(colored("Wow! A Figurine of a Shiny Pokemon! A Rare Find!", 'blue', 'on_red'))
+                print(colored("Wow! A Figurine of a Shiny Pokemon! A Rare Find!", 'red', 'on_blue'))
+            toys2 -= 1
     print(colored("You also ordered %d Peeper brand red pepper flake packets which "
                   "costed $%f" % (f, .90 * f), 'white', 'on_grey'))
     print(colored("You also ordered %d Cheeeeeseyy brand extra Cheese packets which "
@@ -514,4 +517,5 @@ def order_off_the_menu(restaurant_name):
             pepper_potts)
 
 
-order_off_the_menu("Mr. Aziz's Spider-Man 2 Pizza Time Kitchen")
+order_off_the_menu("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                   "AAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHH")
