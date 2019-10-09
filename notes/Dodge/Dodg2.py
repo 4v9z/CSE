@@ -21,9 +21,6 @@ class FallingObject(pygame.sprite.Sprite):
         fallingObjectsImage = pygame.image.load(graphicSelected)
         self.image.blit(fallingObjectsImage, (0, 0))
 
-    def moveFallingObjects(self, distance):
-        
-
 
 pygame.init()                               # Pygame is initialised (starts running)
 
@@ -45,8 +42,8 @@ while not done:
             done = True                     # Flag that we are done so we exit this loop
 
     # Update sprites here
-    nextObject = FallingObject()
-    nextObject.setImage("Apple.png")
+    nextObject = FallingObject
+    nextObject.setImage(("Apple.png"))
 
     allFallingObjects.add(nextObject)
 
