@@ -456,6 +456,7 @@ def receipt(name, a, b, c, d, e, f, g):
                           "meal? Y or N" % str(name), "magenta", "on_grey"))
     if again.lower() == 'y':
         order_off_the_menu(name)
+
     else:
         print(colored("%s Computer: I'll take that as a no" % str(name), "magenta", "on_grey"))
         sys.exit()
@@ -517,5 +518,4 @@ def order_off_the_menu(restaurant_name):
             pepper_potts)
 
 
-order_off_the_menu("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                   "AAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHH")
+order_off_the_menu("Generic Restaraunt")
