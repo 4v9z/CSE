@@ -131,7 +131,6 @@ while not done:
         if len(collisions) > 0:
             score += 1
         eachObject.deleteFallingObjects()
-        print(character.lives)
 
     character.moveCharacter(movement)
     character.moveCharacter2(schmovement)

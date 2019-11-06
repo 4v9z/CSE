@@ -44,7 +44,7 @@ class Character(pygame.sprite.Sprite):
         self.rect.x = 310
         self.rect.y = 420
 
-        self.image.blit(pygame.image.load("Superhero.png"), (0, 0))
+        self.image.blit(pygame.image.load("sans.png"), (0, 0))
 
     def moveCharacter(self, movement):
         if self.rect.x >= 5 and self.rect.x <= 645:
@@ -82,7 +82,9 @@ nextApple = pygame.time.get_ticks() + 2500
 charactersGroup = pygame.sprite.Group()
 character = Character()
 charactersGroup.add(character)
+die = pygame.image.load('sans die.png').convert()
 movement = 0
+deathtime = 999999999999999999999999999999999999999999999999999999999
 
 score = 0
 
@@ -125,8 +127,7 @@ while not done:
     character.moveCharacter2(schmovement)
 
     collisions = pygame.sprite.groupcollide(allFallingObjects, charactersGroup, False, False)
-    if len(collisions) > 0:
-        done = True
+
 
     screen.blit(background_image, [0, 0])
     allFallingObjects.draw(screen)
@@ -135,5 +136,14 @@ while not done:
     screen.blit(textImg,(10, 10))
     pygame.display.flip()                   # Go ahead and update the screen with what we've drawn.
     clock.tick(60)                          # Limit to 20 frames per second
+    if len(collisions) > 0:
+        aaa = character.image.get_rect()
+        a = aaa.x
+        b = aaa.y
+        screen.blit(die, (a, b))
+        character.kill()
+        deathtime = pygame.time.get_ticks() + 1000
+    if pygame.time.get_ticks() > deathtime:
+        done = True
 
 pygame.quit()                               # Close the window and quit.
