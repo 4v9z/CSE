@@ -1,9 +1,12 @@
 import random
 from termcolor import colored
+import winsound
 
 # FIX THE KEYS AND THE EQUIPPING SYSTEM!!
 
 instructions = True
+
+winsound.PlaySound("Open Your Heart - Sonic Adventure Music Extended.mp3", winsound.SND_LOOP)
 
 
 class Gold(object):
