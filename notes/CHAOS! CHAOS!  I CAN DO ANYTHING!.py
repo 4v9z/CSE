@@ -1,10 +1,9 @@
-import winsound
 import pygame
 
-winsound.PlaySound("The World Revolving.mp3", winsound.SND_ASYNC)
+pygame.init()
 
 pygame.mixer.init()
 
-jevil = pygame.mixer.Sound("The World Revolving.mp3")
+jevil = pygame.mixer.Sound("The World Revolving.wav")
 
-pygame.mixer.Sound.play(jevil)
+jevil.play()
