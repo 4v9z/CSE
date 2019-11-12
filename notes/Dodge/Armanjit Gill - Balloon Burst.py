@@ -41,7 +41,7 @@ class Balloon(pygame.sprite.Sprite):
         if self.Direction == "right":
             self.rect.x += self.speed
         if self.Direction == "left":
-            self.rect.y -= self.speed
+            self.rect.x -= self.speed
 
 
 class Dart(pygame.sprite.Sprite):
