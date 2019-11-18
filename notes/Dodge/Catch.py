@@ -69,7 +69,7 @@ class Character(pygame.sprite.Sprite):
 pygame.init()                               # Pygame is initialised (starts running)
 
 screen = pygame.display.set_mode([700,500]) # Set the width and height of the screen [width,height]
-background_image = pygame.image.load("OrchardBackground.jpg").convert()
+background_image = pygame.image.load("title.png").convert()
 pygame.display.set_caption("Catch")       # Name your window
 done = False                                # Loop until the user clicks the close button.
 clock = pygame.time.Clock()                 # Used to manage how fast the screen updates
@@ -146,7 +146,7 @@ while not done:
         screen.blit(livesImg, (35, 10))
     if character.lives >= 1:
         screen.blit(livesImg, (10, 10))
-    textImg = font.render(str(score), 1, white)
+    textImg = font.render(str(score), 99, white)
     screen.blit(textImg,(10, 10))
     pygame.display.flip()                   # Go ahead and update the screen with what we've drawn.
     clock.tick(60)                          # Limit to 20 frames per second
