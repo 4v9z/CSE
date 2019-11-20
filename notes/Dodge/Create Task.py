@@ -2,8 +2,8 @@ import pygame
 import sys
 
 pygame.init()
-
-
+menu_theme = pygame.mixer.Sound("title_1.wav")
+titletheme = pygame.mixer.Sound("t.wav")
 starting = True
 menuing = True
 s1 = True
@@ -93,7 +93,7 @@ playing = False
 cursors = pygame.sprite.Group()
 cursors.add(p1cursor)
 while starting:
-
+    playing = player(titletheme, playing)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             starting = False
@@ -103,12 +103,12 @@ while starting:
     screen.blit(title, [0, 0])
     pygame.display.flip()
 screen.blit(menu, [0, 0])
-
+player(titletheme, "stop")
 a = ""
 playing = False
 ctr = False
 while menuing:
-
+    playing = player(menu_theme, playing)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             menuing = False

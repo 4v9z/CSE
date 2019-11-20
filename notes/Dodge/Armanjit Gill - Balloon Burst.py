@@ -137,9 +137,7 @@ while done == False:
     clock.tick(20)                          # Limit to 20 frames per second
 
 pygame.quit()                               # Close the window and quit.
-playing = player(menu_theme, playing)
-playing = player(titletheme, playing)
-player(titletheme, "stop")
 
-menu_theme = pygame.mixer.Sound("title_1.wav")
-titletheme = pygame.mixer.Sound("t.wav")
+
+
+
