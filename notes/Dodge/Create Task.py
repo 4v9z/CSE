@@ -85,9 +85,13 @@ p1cursor = cursor1()
 supermario = ctrport('mario crctr port.png', 70, 60, 'mario', "Mario.png", "Mario (1).png",
                      "Mario (2).png", "Mario (3).png", "Mario (4).png", "Mario (5).png", "Mario (6).png",
                      "Mario (7).png", 'mario')
-merio = pygame.image.load("Mario.png")
+sand_undertale = ctrport('sans crctr port.png', 102, 60, 'sans', "Sans.png", "Sans (1).png",
+                     "Sans (2).png", "Sans (3).png", "Sans (4).png", "Sans (5).png", "Sans (6).png",
+                     "Sans (7).png", 'sans')
 characterportraits = pygame.sprite.Group()
 characterportraits.add(supermario)
+characterportraits.add(sand_undertale)
+characters = ['mario', 'sans']
 pygame.mouse.set_visible(False)
 playing = False
 cursors = pygame.sprite.Group()
@@ -124,30 +128,40 @@ while menuing:
                 if s1:
                     ctr = True
                     screen.blit(crctr_select, [0,0])
+            if event.key == pygame.K_x:
+                if ctr:
+                    ctr = False
+                    s1 = True
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            tappedacharacter = pygame.sprite.groupcollide(cursors, characterportraits, False, False)
+            tappedacharacter = pygame.sprite.groupcollide(characterportraits, cursors, False, False)
             if len(tappedacharacter) > 0:
-                for crctrs in characterportraits:
+                for crctrs in (tappedacharacter):
                     if not crctrs.m:
                         crctrs.m = True
                         a = crctrs.mural
-                    else:
-                        if a == crctrs.mural:
-                            a = crctrs.mural2
-                        elif a == crctrs.mural2:
-                            a = crctrs.mural3
-                        elif a == crctrs.mural3:
-                            a = crctrs.mural4
-                        elif a == crctrs.mural4:
-                            a = crctrs.mural5
-                        elif a == crctrs.mural5:
-                            a = crctrs.mural6
-                        elif a == crctrs.mural6:
-                            a = crctrs.mural7
-                        elif a == crctrs.mural7:
-                            a = crctrs.mural8
-                        elif a == crctrs.mural8:
-                            a = crctrs.mural
+                    elif crctrs.m:
+                        crctrs.m = False
+            tappedacharacter = pygame.sprite.groupcollide(cursors, characterportraits, False, False)
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
+            tappedacharacter = pygame.sprite.groupcollide(characterportraits, cursors, False, False)
+            if len(tappedacharacter) > 0:
+                for crctrs in (tappedacharacter):
+                    if a == crctrs.mural:
+                        a = crctrs.mural2
+                    elif a == crctrs.mural2:
+                        a = crctrs.mural3
+                    elif a == crctrs.mural3:
+                        a = crctrs.mural4
+                    elif a == crctrs.mural4:
+                        a = crctrs.mural5
+                    elif a == crctrs.mural5:
+                        a = crctrs.mural6
+                    elif a == crctrs.mural6:
+                        a = crctrs.mural7
+                    elif a == crctrs.mural7:
+                        a = crctrs.mural8
+                    elif a == crctrs.mural8:
+                        a = crctrs.mural
 
 
     if ctr:
@@ -158,7 +172,8 @@ while menuing:
         if not s1 or s2:
             screen.blit(menu2, [0,0])
     if ctr:
-        characterportraits.draw(screen)
+        for ctrs in characterportraits:
+            characterportraits.draw(screen)
         cursors.draw(screen)
 
 
