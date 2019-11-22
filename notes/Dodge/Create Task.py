@@ -58,6 +58,28 @@ class cursor1(pygame.sprite.Sprite):
         self.rect.y = Mouse[1]
 
 
+class cursor2(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        cursorimg = pygame.image.load("cursor2.png")
+        self.image = pygame.Surface([32,32])
+        self.image.set_colorkey(black)
+        self.image.blit(cursorimg, (0,0))
+        self.rect = self.image.get_rect()
+        self.rect.x = 120
+        self.rect.y = 200
+
+    def Move(self,  direction):
+        if direction == "up":
+            self.rect.y = self.rect.y + 5
+        if direction == "down":
+            self.rect.y = self.rect.y - 5
+        if direction == "right":
+            self.rect.x = self.rect.x + 5
+        if direction == "left":
+            self.rect.x = self.rect.x - 5
+
+
 class ctrport(pygame.sprite.Sprite):
     def __init__(self, image, x, y, crctr, mural, mural2, mural3, mural4, mural5, mural6, mural7, mural8, name):
         pygame.sprite.Sprite.__init__(self)
@@ -70,6 +92,7 @@ class ctrport(pygame.sprite.Sprite):
         self.rect.y = y
         self.character = crctr
         self.m = False
+        self.n = False
         self.mural = pygame.image.load(mural)
         self.mural2 = pygame.image.load(mural2)
         self.mural3 = pygame.image.load(mural3)
@@ -82,6 +105,7 @@ class ctrport(pygame.sprite.Sprite):
 
 
 p1cursor = cursor1()
+p2cursor = cursor2()
 supermario = ctrport('mario crctr port.png', 70, 60, 'mario', "Mario.png", "Mario (1).png",
                      "Mario (2).png", "Mario (3).png", "Mario (4).png", "Mario (5).png", "Mario (6).png",
                      "Mario (7).png", 'mario')
@@ -96,6 +120,7 @@ pygame.mouse.set_visible(False)
 playing = False
 cursors = pygame.sprite.Group()
 cursors.add(p1cursor)
+cursors.add(p2cursor)
 while starting:
     playing = player(titletheme, playing)
     for event in pygame.event.get():
@@ -120,6 +145,15 @@ while menuing:
         if event.type == pygame.MOUSEMOTION:
             Mouse = list(event.pos)
             p1cursor.Move(Mouse)
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                p2cursor.Move("up")
+            if event.key == pygame.K_s:
+                p2cursor.Move("down")
+            if event.key == pygame.K_a:
+                p2cursor.Move("left")
+            if event.key == pygame.K_d:
+                p2cursor.Move("right")
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_DOWN or event.key == pygame.K_UP:
                 if not ctr:
@@ -141,6 +175,16 @@ while menuing:
                         a = crctrs.mural
                     elif crctrs.m:
                         crctrs.m = False
+            tappedacharacter = pygame.sprite.groupcollide(cursors, characterportraits, False, False)
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 2:
+            tappedacharacter = pygame.sprite.groupcollide(characterportraits, cursors, False, False)
+            if len(tappedacharacter) > 0:
+                for crctrs in (tappedacharacter):
+                    if not crctrs.n:
+                        crctrs.n = True
+                        b = crctrs.mural
+                    elif crctrs.n:
+                        crctrs.n = False
             tappedacharacter = pygame.sprite.groupcollide(cursors, characterportraits, False, False)
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
             tappedacharacter = pygame.sprite.groupcollide(characterportraits, cursors, False, False)
