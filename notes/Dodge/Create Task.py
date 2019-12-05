@@ -11,6 +11,8 @@ s2 = False
 gaming = True
 screen = pygame.display.set_mode([550,400])
 Mouse = [0]*2
+schmoving = 0
+moving = 0
 title = pygame.image.load("title.png").convert()
 menu = pygame.image.load("menu.png").convert()
 crctr_select = pygame.image.load("character1.png").convert()
@@ -70,14 +72,10 @@ class cursor2(pygame.sprite.Sprite):
         self.rect.y = 200
 
     def Move(self,  direction):
-        if direction == "up":
-            self.rect.y = self.rect.y + 5
-        if direction == "down":
-            self.rect.y = self.rect.y - 5
-        if direction == "right":
-            self.rect.x = self.rect.x + 5
-        if direction == "left":
-            self.rect.x = self.rect.x - 5
+        self.rect.x += direction
+
+    def Move2(self,  direction):
+        self.rect.y += direction
 
 
 class ctrport(pygame.sprite.Sprite):
@@ -121,6 +119,7 @@ playing = False
 cursors = pygame.sprite.Group()
 cursors.add(p1cursor)
 cursors.add(p2cursor)
+b = 0
 while starting:
     playing = player(titletheme, playing)
     for event in pygame.event.get():
@@ -146,15 +145,27 @@ while menuing:
             Mouse = list(event.pos)
             p1cursor.Move(Mouse)
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_TAB:
+                tappedacharacter = pygame.sprite.groupcollide(characterportraits, cursors, False, False)
+                if len(tappedacharacter) > 0:
+                    for crctrs in (tappedacharacter):
+                        if not crctrs.n:
+                            crctrs.n = True
+                            b = crctrs.mural
+                        elif crctrs.n:
+                            crctrs.n = False
+                tappedacharacter = pygame.sprite.groupcollide(cursors, characterportraits, False, False)
             if event.key == pygame.K_w:
-                p2cursor.Move("up")
+                moving = -1
             if event.key == pygame.K_s:
-                p2cursor.Move("down")
+                moving = 1
             if event.key == pygame.K_a:
-                p2cursor.Move("left")
+                schmoving = -1
             if event.key == pygame.K_d:
-                p2cursor.Move("right")
+                schmoving = 1
         if event.type == pygame.KEYUP:
+            schmoving = 0
+            moving = 0
             if event.key == pygame.K_DOWN or event.key == pygame.K_UP:
                 if not ctr:
                     s1 = update_menu(s1)
@@ -175,16 +186,6 @@ while menuing:
                         a = crctrs.mural
                     elif crctrs.m:
                         crctrs.m = False
-            tappedacharacter = pygame.sprite.groupcollide(cursors, characterportraits, False, False)
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 2:
-            tappedacharacter = pygame.sprite.groupcollide(characterportraits, cursors, False, False)
-            if len(tappedacharacter) > 0:
-                for crctrs in (tappedacharacter):
-                    if not crctrs.n:
-                        crctrs.n = True
-                        b = crctrs.mural
-                    elif crctrs.n:
-                        crctrs.n = False
             tappedacharacter = pygame.sprite.groupcollide(cursors, characterportraits, False, False)
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
             tappedacharacter = pygame.sprite.groupcollide(characterportraits, cursors, False, False)
@@ -219,7 +220,8 @@ while menuing:
         for ctrs in characterportraits:
             characterportraits.draw(screen)
         cursors.draw(screen)
-
+    p2cursor.Move(schmoving)
+    p2cursor.Move2(moving)
 
     if not ctr:
         if s1:
@@ -230,5 +232,10 @@ while menuing:
         if crctrs.m:
             screen.blit(a, [60, 275])
             crctrsname = crctrtext.render(str(crctrs.name.upper()), 1, white)
-            screen.blit(crctrsname, (100, 390))
+            screen.blit(crctrsname, (200, 320))
+        if crctrs.n:
+            screen.blit(b, [300, 275])
+            crctrsname = crctrtext.render(str(crctrs.name.upper()), 1, white)
+            screen.blit(crctrsname, (420, 320))
+
     pygame.display.flip()
