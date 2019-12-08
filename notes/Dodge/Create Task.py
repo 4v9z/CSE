@@ -65,51 +65,6 @@ def clicking_on_stuff(button, ctr, stg):
                         stagess.m = True
                         a = stagess.mural
             return a
-    if button == 3:
-        tappedacharacter = pygame.sprite.groupcollide(characterportraits, cursors, False, False)
-        if len(tappedacharacter) > 0:
-            for crctrs in (tappedacharacter):
-                if a == crctrs.mural:
-                    if crctrs.n and b == crctrs.mural2:
-                        return crctrs.mural3
-                    else:
-                        return crctrs.mural2
-                elif a == crctrs.mural2:
-                    if crctrs.n and b == crctrs.mural3:
-                        return crctrs.mural4
-                    else:
-                        return crctrs.mural3
-                elif a == crctrs.mural3:
-                    if crctrs.n and b == crctrs.mural4:
-                        return crctrs.mural5
-                    else:
-                        return crctrs.mural4
-                elif a == crctrs.mural4:
-                    if crctrs.n and b == crctrs.mural5:
-                        return crctrs.mural6
-                    else:
-                        return crctrs.mural5
-                elif a == crctrs.mural5:
-                    if crctrs.n and b == crctrs.mural6:
-                        return crctrs.mural7
-                    else:
-                        return crctrs.mural6
-                elif a == crctrs.mural6:
-                    if crctrs.n and b == crctrs.mural7:
-                        return crctrs.mural8
-                    else:
-                        return crctrs.mural7
-                elif a == crctrs.mural7:
-                    if crctrs.n and b == crctrs.mural8:
-                        return crctrs.mural
-                    else:
-                        return crctrs.mural8
-                elif a == crctrs.mural8:
-                    if crctrs.n and b == crctrs.mural:
-                        return crctrs.mural2
-                    else:
-                        return crctrs.mural
-        tappedacharacter = pygame.sprite.groupcollide(cursors, characterportraits, False, False)
 
 
 def player(a, b):
@@ -197,7 +152,6 @@ class ctrport(pygame.sprite.Sprite):
 p1cursor = cursor1()
 p2cursor = cursor2()
 ready = 0
-time_2_smash____phrasing_could_be_better = False
 extremely_ready = 0
 supermario = ctrport('mario crctr port.png', 70, 60, 'mario', "Mario.png", "Mario (1).png",
                      "Mario (2).png", "Mario (3).png", "Mario (4).png", "Mario (5).png", "Mario (6).png",
@@ -320,8 +274,6 @@ while menuing:
                     screen.blit(stg_select, [0,0])
                     stg = True
                     ctr = False
-                if time_2_smash____phrasing_could_be_better:
-                    print()
             if event.key == pygame.K_z:
                 if s1:
                     ctr = True
@@ -339,7 +291,49 @@ while menuing:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             a = clicking_on_stuff(1, ctr, stg)
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
-            a = clicking_on_stuff(3, ctr, stg)
+            tappedacharacter = pygame.sprite.groupcollide(characterportraits, cursors, False, False)
+            if len(tappedacharacter) > 0:
+                for crctrs in (tappedacharacter):
+                    if a == crctrs.mural:
+                        if crctrs.n and b == crctrs.mural2:
+                            a = crctrs.mural3
+                        else:
+                            a = crctrs.mural2
+                    elif a == crctrs.mural2:
+                        if crctrs.n and b == crctrs.mural3:
+                            a = crctrs.mural4
+                        else:
+                            a = crctrs.mural3
+                    elif a == crctrs.mural3:
+                        if crctrs.n and b == crctrs.mural4:
+                            a = crctrs.mural5
+                        else:
+                            a = crctrs.mural4
+                    elif a == crctrs.mural4:
+                        if crctrs.n and b == crctrs.mural5:
+                            a = crctrs.mural6
+                        else:
+                            a = crctrs.mural5
+                    elif a == crctrs.mural5:
+                        if crctrs.n and b == crctrs.mural6:
+                            a = crctrs.mural7
+                        else:
+                            a = crctrs.mural6
+                    elif a == crctrs.mural6:
+                        if crctrs.n and b == crctrs.mural7:
+                            a = crctrs.mural8
+                        else:
+                            a = crctrs.mural7
+                    elif a == crctrs.mural7:
+                        if crctrs.n and b == crctrs.mural8:
+                            a = crctrs.mural
+                        else:
+                            a = crctrs.mural8
+                    elif a == crctrs.mural8:
+                        if crctrs.n and b == crctrs.mural:
+                            a = crctrs.mural2
+                        else:
+                            a = crctrs.mural
 
 
 
@@ -401,8 +395,7 @@ while menuing:
                 extremely_ready += 1
         stages.draw(screen)
         cursors.draw(screen)
-    if extremely_ready >= 1:
+    if extremely_ready == True:
         screen.blit(fightbar, [0,200])
-        time_2_smash____phrasing_could_be_better = True
 
     pygame.display.flip()
