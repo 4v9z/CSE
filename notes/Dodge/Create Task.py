@@ -1,24 +1,105 @@
 import pygame
 import sys
+bonebair = pygame.image.load("Bair Bone.png")
+beam = pygame.image.load("beam.png")
+blast1r = pygame.image.load("blaster.png")
+blast2r = pygame.image.load("blaster charge1.png")
+blast3r = pygame.image.load("blaster charge2.png")
+blast4r = pygame.image.load("blaster charge3.png")
+blast5r = pygame.image.load("blaster charge4.png")
+blast6r = pygame.image.load("blaster unleash.png")
+blast1l = pygame.image.load("blaster left.png")
+blast2l = pygame.image.load("blaster charge1 left.png")
+blast3l = pygame.image.load("blaster charge2 left.png")
+blast4l = pygame.image.load("blaster charge3 left.png")
+blast5l = pygame.image.load("blaster charge4 left.png")
+blast6l = pygame.image.load("blaster unleash left.png")
+crchbone = pygame.image.load("crounchy bone.png")
+sandsmash = pygame.image.load("d_smash blast.png")
+sandair1 = pygame.image.load("dair blaster1.png")
+sandair2 = pygame.image.load("dair blaster2.png")
+sandair3 = pygame.image.load("dair blaster3.png")
+sanfsmash = pygame.image.load("f smash Bone.png")
+sanfairbone = pygame.image.load("fair bone.png")
+sanjab3 = pygame.image.load("jab3.png")
+sanshielr1 = pygame.image.load("sand shield.png")
+sanshielr2 = pygame.image.load("sand shield p2.png")
+sanupb1 = pygame.image.load("sans upb1.png")
+sanupb2 = pygame.image.load("sans upb2.png")
+sanspecfall = pygame.image.load("sans spec fall.png")
+sanshiell1 = pygame.image.load("sans p1 shield left.png")
+sanshiell2 = pygame.image.load("sans p2 shield left.png")
+sanupbl1 = pygame.image.load("sand upb1 left.png")
+sanupbl2 = pygame.image.load("sans upb2 left.png")
+sanspecfalll= pygame.image.load("sans spec fall left.png")
+sansr = pygame.image.load("sans..png")
+sanback = pygame.image.load("sans back toss.png")
+sanbair = pygame.image.load("sans bair.png")
+sancrchattck = pygame.image.load("sans crouch attack.png")
+
+sandair = pygame.image.load("sans dair.png")
+sanfair = pygame.image.load("sans fair.png")
+getdownmrpres = pygame.image.load("sans get down mr. president right.png")
+sanfortossr = pygame.image.load("sans hand right.png")
+sanouch = pygame.image.load("sans hit.png")
+sanidk =pygame.image.load("sans idk right.png")
+sanjab1bod = pygame.image.load("sans jab1 bod.png")
+sanjab2bod = pygame.image.load("sans jab2 bod.png")
+sanstahp = pygame.image.load("sans STAHP right.png")
+santele = pygame.image.load("sans tele.png")
+sanuair = pygame.image.load("sans up air.png")
+sanwalk = pygame.image.load("sans walk1.png")
+sanwalk2 = pygame.image.load("sans walk 2.png")
+sanuyeet = pygame.image.load("sans yeet up from right.png")
+sansjab1 = pygame.image.load("sansjab1.png")
+sansjab2 = pygame.image.load("sansjab2.png")
+teleball = pygame.image.load("teleball.png")
+u_sansh = pygame.image.load("u_smash bone.png")
+uairbone = pygame.image.load("uair bone.png")
+heart = pygame.image.load("_3.png")
+stahpball = pygame.image.load("_3 ball.png")
+downnow = pygame.image.load("_3 down.png")
+rightheart = pygame.image.load("_3 right.png")
+soulup = pygame.image.load("_3 up.png")
+soulleft = pygame.image.load("_333.png")
+stahpsoul = pygame.image.load("nyeh_3.png")
+sanbackl = pygame.image.load("sans to the right but from the left.png")
+sanbairl = pygame.image.load("sans bair left... or right__.png")
+sancrchattckl = pygame.image.load("sans crouch attck left.png")
+sancrchl = pygame.image.load("sans crouch left.png")
+sandairl = pygame.image.load("sans dair left.png")
+sanfairl = pygame.image.load("sans fair left.png")
+getdownmrpresl = pygame.image.load("sans get down mr. president left.png")
+sanfortossl = pygame.image.load("sans hand left forward.png")
+sanouchl = pygame.image.load("sans hurt left.png")
+sanidkl =pygame.image.load("sans idk left.png")
+sanjab1bodl = pygame.image.load("sans jab1 bod left.png")
+sanjab2bodl = pygame.image.load("sans jab2 bod left.png")
+sanstahpl = pygame.image.load("sans STAHP left.png")
+santelel = pygame.image.load("sans telekinesis on left.png")
+sanuairl = pygame.image.load("sans up air left.png")
+sanwalkl = pygame.image.load("sans left walk 1.png")
+sanwalkl2 = pygame.image.load("sans left walk 2.png")
+sansl = pygame.image.load("sans left.png")
+sanuyeetl = pygame.image.load("sans yeet to sky from left.png")
+sansjab1l = pygame.image.load("sansjab1left.png")
+sansjab2l = pygame.image.load("sansjab2 left.png")
 
 levels = ["battlefield"]
-plat1 = pygame.image.load("battlefiel platform 1.png")
-plat2 = pygame.image.load("battlefiel platform 2.png")
-plat3 = pygame.image.load("battlefiel platform 3.png")
+plat1 = pygame.image.load("battfiel platform 1.png")
+plat2 = pygame.image.load("battfiel platform 2.png")
+plat3 = pygame.image.load("battfiel platform 3.png")
 battlefield = pygame.image.load("battlefield.png")
 battle_bg = pygame.image.load("battlefield bg.png")
 battlefield_sprites = [plat1, plat2, plat3, battlefield, battle_bg]
 the_people = ["mario", 'sans']
-correspondance = {
-    "battlefield": battlefield_sprites, "sans": 
-}
 pygame.init()
 menu_theme = pygame.mixer.Sound("title_1.wav")
 titletheme = pygame.mixer.Sound("t.wav")
 error = pygame.image.load("error message.png")
 starting = True
 menuing = True
-time2fight = False
+
 s1 = True
 time2smash = False
 s2 = False
@@ -27,12 +108,23 @@ screen = pygame.display.set_mode([550,400])
 Mouse = [0]*2
 schmoving = 0
 moving = 0
+sancrch = pygame.image.load("sans crounch.png").convert()
+sans_sprites = [sansr, bonebair, beam, blast1r, blast2r, blast3r, blast4r, blast5r, blast6r, blast1l, blast2l, blast3l, blast4l, blast5l, blast6l,
+                crchbone, sandsmash, sandair1, sandair2, sandair3, sanfsmash,sanfairbone, sanjab3, sanshielr1, sanshielr2, sanupb1, sanupb2, sanspecfall, sanshiell1, sanshiell2,
+                sanupbl1, sanupbl2, sanspecfalll, sansl, sanback, sanbair, sancrchattck, sancrch, sandair, sanfair, getdownmrpres, sanfortossr, sanouch, sanidk, sanjab1bod,
+                sanjab2bod, sanstahp, santele, sanuair, sanwalk, sanwalk2, sanuyeet, sansjab1, sansjab2, teleball, u_sansh, uairbone, heart, stahpball, downnow, rightheart, soulup, soulleft,
+                stahpsoul, sanbackl, sanbairl, sancrchattckl, sancrchl, sandairl, sanfairl, getdownmrpresl, sanfortossl, sanouchl, sanidkl, sanjab1bodl, sanjab2bodl, sanstahpl, santelel,
+                sanuairl, sanwalkl, sanwalkl2, sanuyeetl, sansjab1l, sansjab2l]
+time2fight = False
+correspondance = {
+    "battlefield": battlefield_sprites, "sans": sans_sprites
+}
 title = pygame.image.load("title.png").convert()
 stg_select = pygame.image.load("stage.png").convert()
 menu = pygame.image.load("menu.png").convert()
 crctr_select = pygame.image.load("character1.png").convert()
 fightbar = pygame.image.load("FightBar.png").convert()
-menu2 = pygame.image.load("menu2.png").convert()
+menu2 = pygame.image.load("menu2.jpg").convert()
 crctrtext = pygame.font.Font(None, 26)
 game_clock = pygame.time.Clock()
 animationclock = pygame.time.Clock()
@@ -67,17 +159,29 @@ def load_a_fight():
     the_mapp = 0
     p1 = 0
     p2 = 0
+    pl1 = ''
+    pl2 = ''
     for stags in stages:
         if stags.m:
             the_mapp = figure_out_stage(stags)
     for chara in characterportraits:
         if chara.m:
             p1 = figure_out_chara(chara)
+            pl1 = chara.name
         if chara.n:
             p2 = figure_out_chara(chara)
-    print(p1)
-    print(p2)
-    print(the_mapp)
+            pl2 = chara.name
+    stage_sprites = correspondance[the_mapp]
+    p1sprites = correspondance[p1]
+    p2sprites = correspondance[p2]
+    if len(stage_sprites) > 3:
+        screen.blit(stage_sprites[4], [0,0])
+        screen.blit(stage_sprites[0], [180,150])
+        screen.blit(stage_sprites[1], [340,150])
+        screen.blit(stage_sprites[2], [265, 100])
+        screen.blit(stage_sprites[3], [160, 220])
+    if pl1 == 'sans':
+        print("HAHAHA FUNNY SKELETON")
 
 
 def clicking_on_stuff(button, ctr, stg):
@@ -131,6 +235,17 @@ class cursor1(pygame.sprite.Sprite):
     def Move(self, Mouse):
         self.rect.x = Mouse[0]
         self.rect.y = Mouse[1]
+
+
+class fighter(pygame.sprite.Sprite):
+    def __init__(self, sprite_list, name):
+        pygame.sprite.Sprite.__init__(self)
+        neutral_image = pygame.image.load(sprite_list[0])
+        self.image = pygame.Surface([60, 65])
+        self.image.blit(neutral_image, (0,0))
+        self.rect = self.image.get_rect()
+        self.rect.x = 275
+        self.rect.y = 10
 
 
 class cursor2(pygame.sprite.Sprite):
@@ -445,6 +560,6 @@ while menuing:
     if extremely_ready >= 1:
         screen.blit(fightbar, [0,200])
         time2smash = True
-
+        load_a_fight()
     pygame.display.flip()
 
