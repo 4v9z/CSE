@@ -181,7 +181,7 @@ def load_a_fight():
         screen.blit(stage_sprites[2], [265, 100])
         screen.blit(stage_sprites[3], [160, 220])
     if pl1 == 'sans':
-        print("HAHAHA FUNNY SKELETON")
+        screen.blit(p1sprites[0], [260, 170])
 
 
 def clicking_on_stuff(button, ctr, stg):
@@ -238,7 +238,7 @@ class cursor1(pygame.sprite.Sprite):
 
 
 class fighter(pygame.sprite.Sprite):
-    def __init__(self, sprite_list, name):
+    def __init__(self, sprite_list, name, play1, play2):
         pygame.sprite.Sprite.__init__(self)
         neutral_image = pygame.image.load(sprite_list[0])
         self.image = pygame.Surface([60, 65])
@@ -246,9 +246,35 @@ class fighter(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 275
         self.rect.y = 10
+        self.on_stage = True
+        self.jumps = 2
+        self.name = name
+        self.specialfall = False
+        self.p1 = play1
+        self.p2 = play2
+
+    def detect_where_u_are(self):
+        onstage1 = pygame.sprite.groupcollide(p1fighters, sttagess, False, False)
+        onstage2 = pygame.sprite.groupcollide(p1fighters, sttagess, False, False)
+        if self.p1:
+            if len(onstage1) > 0 and self.rect.y > 0:
+                self.on_stage = True
+            else:
+                self.on_stage = False
 
     def jump(self):
-        on_stage =
+        if self.on_stage:
+            jumps = 2
+        elif not self.on_stage and not self.specialfall:
+            jumps = 1
+        else:
+            jumps = 0
+        if jumps > 0:
+            jumps -= 1
+            if self.name == "sans":
+                print()
+
+
 
 
 class cursor2(pygame.sprite.Sprite):
@@ -313,6 +339,14 @@ p1cursor = cursor1()
 p2cursor = cursor2()
 ready = 0
 extremely_ready = 0
+p1fighters = pygame.sprite.Group()
+p2fighters = pygame.sprite.Group()
+sttagess = pygame.sprite.Group()
+#for i in range(len(battlefield_sprites)):
+    #sttagess.add(battlefield_sprites[i])
+#for i in range(len(sans_sprites)):
+    #p1fighters.add(sans_sprites[i])
+    #p2fighters.add(sans_sprites[i])
 supermario = ctrport('mario crctr port.png', 70, 60, 'mario', "Mario.png", "Mario (1).png",
                      "Mario (2).png", "Mario (3).png", "Mario (4).png", "Mario (5).png", "Mario (6).png",
                      "Mario (7).png", 'mario')
@@ -554,7 +588,10 @@ while menuing:
         screen.blit(stg_select,[0,0])
         for stags in stages:
             if stags.m:
-                screen.blit(a, [7, 71])
+                try:
+                    screen.blit(a, [7, 71])
+                except TypeError:
+                    print("wow! CongraTs you found tHe hIdden Secret Awesome message! How 'Bout thAt you're so cool and Great!")
                 stgsname = crctrtext.render(str(stags.name), 1, white)
                 screen.blit(stgsname, (70, 370))
                 extremely_ready += 1
