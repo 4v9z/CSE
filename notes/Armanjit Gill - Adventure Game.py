@@ -6,7 +6,6 @@ import winsound
 
 instructions = True
 
-winsound.PlaySound("Open Your Heart - Sonic Adventure Music Extended.mp3", winsound.SND_LOOP)
 
 
 class Gold(object):

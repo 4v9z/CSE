@@ -1,13 +1,26 @@
 import pygame
 import sys
 
+levels = ["battlefield"]
+plat1 = pygame.image.load("battlefiel platform 1.png")
+plat2 = pygame.image.load("battlefiel platform 2.png")
+plat3 = pygame.image.load("battlefiel platform 3.png")
+battlefield = pygame.image.load("battlefield.png")
+battle_bg = pygame.image.load("battlefield bg.png")
+battlefield_sprites = [plat1, plat2, plat3, battlefield, battle_bg]
+the_people = ["mario", 'sans']
+correspondance = {
+    "battlefield": battlefield_sprites, "sans": 
+}
 pygame.init()
 menu_theme = pygame.mixer.Sound("title_1.wav")
 titletheme = pygame.mixer.Sound("t.wav")
+error = pygame.image.load("error message.png")
 starting = True
 menuing = True
 time2fight = False
 s1 = True
+time2smash = False
 s2 = False
 gaming = True
 screen = pygame.display.set_mode([550,400])
@@ -37,6 +50,35 @@ def update_menu(b):
         screen.blit(menu, [0, 0])
         b = True
     return b
+
+def figure_out_stage(stag):
+    for places in range(len(levels)):
+        if stag.destination == levels[places]:
+            the_map = levels[places]
+            return the_map
+
+def figure_out_chara(care_uh):
+    for crctrs in range(len(the_people)):
+        if care_uh.name == the_people[crctrs]:
+            fighter = the_people[crctrs]
+            return fighter
+
+def load_a_fight():
+    the_mapp = 0
+    p1 = 0
+    p2 = 0
+    for stags in stages:
+        if stags.m:
+            the_mapp = figure_out_stage(stags)
+    for chara in characterportraits:
+        if chara.m:
+            p1 = figure_out_chara(chara)
+        if chara.n:
+            p2 = figure_out_chara(chara)
+    print(p1)
+    print(p2)
+    print(the_mapp)
+
 
 def clicking_on_stuff(button, ctr, stg):
     a = 0
@@ -274,6 +316,8 @@ while menuing:
                     screen.blit(stg_select, [0,0])
                     stg = True
                     ctr = False
+                if time2smash:
+                    load_a_fight()
             if event.key == pygame.K_z:
                 if s1:
                     ctr = True
@@ -360,7 +404,10 @@ while menuing:
             s1 = False
     for crctrs in characterportraits:
         if crctrs.m:
-            screen.blit(a, [60, 275])
+            try:
+                screen.blit(a, [60, 275])
+            except TypeError:
+                screen.blit(error, [60, 275])
             crctrsname = crctrtext.render(str(crctrs.name.upper()), 1, white)
             screen.blit(crctrsname, (200, 320))
             ready += 1
@@ -395,7 +442,9 @@ while menuing:
                 extremely_ready += 1
         stages.draw(screen)
         cursors.draw(screen)
-    if extremely_ready == True:
+    if extremely_ready >= 1:
         screen.blit(fightbar, [0,200])
+        time2smash = True
 
     pygame.display.flip()
+
