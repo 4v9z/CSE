@@ -152,8 +152,8 @@ def figure_out_stage(stag):
 def figure_out_chara(care_uh):
     for crctrs in range(len(the_people)):
         if care_uh.name == the_people[crctrs]:
-            fighter = the_people[crctrs]
-            return fighter
+            tehfighter = the_people[crctrs]
+            return tehfighter
 
 def load_a_fight():
     the_mapp = 0
@@ -246,6 +246,9 @@ class fighter(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 275
         self.rect.y = 10
+
+    def jump(self):
+        on_stage =
 
 
 class cursor2(pygame.sprite.Sprite):
