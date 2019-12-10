@@ -1,3 +1,12 @@
+# All sprites were created by me
+# Super Smash Bros, Mario, and Luigi , as well as any other Mario characters referenced by
+# Mario's costumes are properties owned by Nintendo
+
+# Toby Fox owns sans and any Undertale character referenced in alternate costumes
+# Credit to menu music goes to McLeodGames (uploaded to YouTube by SmashFlashSoundtrack)
+# https://www.youtube.com/watch?v=LzxDZ-FHLEQ
+
+# Title music by EchoNotGecko -  https://www.youtube.com/watch?v=QFfAj5iix44
 import pygame
 import sys
 bonebair = pygame.image.load("Bair Bone.png")
@@ -96,7 +105,6 @@ the_people = ["mario", 'sans']
 pygame.init()
 menu_theme = pygame.mixer.Sound("title_1.wav")
 titletheme = pygame.mixer.Sound("t.wav")
-error = pygame.image.load("error message.png")
 starting = True
 menuing = True
 
@@ -115,11 +123,15 @@ sans_sprites = [sansr, bonebair, beam, blast1r, blast2r, blast3r, blast4r, blast
                 sanjab2bod, sanstahp, santele, sanuair, sanwalk, sanwalk2, sanuyeet, sansjab1, sansjab2, teleball, u_sansh, uairbone, heart, stahpball, downnow, rightheart, soulup, soulleft,
                 stahpsoul, sanbackl, sanbairl, sancrchattckl, sancrchl, sandairl, sanfairl, getdownmrpresl, sanfortossl, sanouchl, sanidkl, sanjab1bodl, sanjab2bodl, sanstahpl, santelel,
                 sanuairl, sanwalkl, sanwalkl2, sanuyeetl, sansjab1l, sansjab2l]
+mario_sprites = [] # I was going to come back to this later... No time now
 time2fight = False
 correspondance = {
     "battlefield": battlefield_sprites, "sans": sans_sprites
 }
 title = pygame.image.load("title.png").convert()
+p1crctr = 0
+p2crctr = 0
+error = pygame.image.load("error message.png").convert()
 stg_select = pygame.image.load("stage.png").convert()
 menu = pygame.image.load("menu.png").convert()
 crctr_select = pygame.image.load("character1.png").convert()
@@ -155,33 +167,38 @@ def figure_out_chara(care_uh):
             tehfighter = the_people[crctrs]
             return tehfighter
 
-def load_a_fight():
+def load_a_fight(player1, player2):
     the_mapp = 0
-    p1 = 0
-    p2 = 0
-    pl1 = ''
-    pl2 = ''
+    p1 = ''
+    p2 = ''
     for stags in stages:
         if stags.m:
             the_mapp = figure_out_stage(stags)
     for chara in characterportraits:
         if chara.m:
             p1 = figure_out_chara(chara)
-            pl1 = chara.name
+            print(chara)
+            if player1 == p1:
+                p1 = ""
         if chara.n:
             p2 = figure_out_chara(chara)
-            pl2 = chara.name
+            if player2 == p2:
+                p2 = ""
     stage_sprites = correspondance[the_mapp]
-    p1sprites = correspondance[p1]
-    p2sprites = correspondance[p2]
     if len(stage_sprites) > 3:
         screen.blit(stage_sprites[4], [0,0])
         screen.blit(stage_sprites[0], [180,150])
         screen.blit(stage_sprites[1], [340,150])
         screen.blit(stage_sprites[2], [265, 100])
         screen.blit(stage_sprites[3], [160, 220])
-    if pl1 == 'sans':
-        screen.blit(p1sprites[0], [265, 50])
+    if p1 == 'sans':
+        return sans
+    elif p1 == 'mario':
+        return mario_sprites
+    if p2 == 'sans':
+        return sans
+    elif p2 == "mario":
+        return mario_sprites
 
 
 def clicking_on_stuff(button, ctr, stg):
@@ -193,6 +210,11 @@ def clicking_on_stuff(button, ctr, stg):
                 for crctrs in (tappedacharacter):
                     if not crctrs.m:
                         crctrs.m = True
+                        for i in p1fighters:
+                            if crctrs.name == i.name:
+                                i.chosen = True
+                            else:
+                                i.chosen = False
                         if crctrs.n and b == crctrs.mural:
                             a = crctrs.mural2
                         else:
@@ -237,15 +259,29 @@ class cursor1(pygame.sprite.Sprite):
         self.rect.y = Mouse[1]
 
 
+class batfeld(pygame.sprite.Sprite):
+    def __init__(self, imge, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(imge)
+        self.image = pygame.Surface([250, 125])
+        self.image.blit(img, (0,0))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+
+battlefield = batfeld('battlefield.png', 160, 220)
+
+
 class fighter(pygame.sprite.Sprite):
-    def __init__(self, sprite_list, name, play1, play2):
+    def __init__(self, sprite_list, name, play1, play2, x, y):
         pygame.sprite.Sprite.__init__(self)
         neutral_image = sprite_list[0]
         self.image = pygame.Surface([60, 65])
         self.image.blit(neutral_image, (0,0))
         self.rect = self.image.get_rect()
-        self.rect.x = 264
-        self.rect.y = 170
+        self.rect.x = x
+        self.rect.y = y
         self.on_stage = True
         self.jumps = 2
         self.name = name
@@ -253,44 +289,54 @@ class fighter(pygame.sprite.Sprite):
         self.p1 = play1
         self.p2 = play2
         self.gravity = 1
-        self.chosen = True
+        self.chosen = False
 
-    def detect_where_u_are(self):
-        onstage1 = pygame.sprite.groupcollide(p1fighters, sttagess, False, False)
-        onstage2 = pygame.sprite.groupcollide(p2fighters, sttagess, False, False)
-        if self.p1:
-            if len(onstage1) > 0 and self.rect.y == 170 or self.rect.y == 50 or self.rect.y == 100:
-                self.on_stage = True
+    def detect_where_u_are(self,a, b):
+        if time2smash:
+            if len(a) > 0:
+                for i in (a):
+                    self.on_stage = True
             else:
-                self.on_stage = False
+                    self.on_stage = False
+            if self.on_stage:
+                self.jumps = 2
+            elif self.on_stage == False:
+                if self.specialfall:
+                    self.jumps = 0
+                else:
+                    if self.jumps != 0:
+                        self.jumps = 1
+
+    def delete(self):
+        self.kill()
 
     def jump(self):
-        if self.on_stage:
-            self.jumps = 2
-        elif self.on_stage == False:
-            if self.specialfall:
-                self.jumps = 0
+        if time2smash:
+            next_jump = pygame.time.get_ticks() - 15
+            if self.jumps > 0:
+                if pygame.time.get_ticks() > next_jump:
+                    next_jump = pygame.time.get_ticks() + 64
+                    if self.name == "sans":
+                        if self.jumps != 0:
+                            self.rect.y -= 40
+                    if self.jumps == 1:
+                        self.jumps = 0
+                    if self.jumps == 2:
+                        self.jumps = 1
+
+    def grravity(self):
+        if time2smash:
+            if self.on_stage:
+                self.gravity = 0
             else:
-                if self.jumps != 0:
-                    self.jumps = 1
-        if self.jumps > 0:
-            if self.jumps == 2:
-                self.jumps = 1
-            if self.jumps == 1:
-                self.jumps = 0
-            if self.name == "sans":
-                if self.jumps > 0:
-                    self.rect.y -= 10
-
-    def gravity(self):
-        if self.on_stage and self.rect.y == 170 or self.rect.y == 50 or self.rect.y == 100:
-            gravity = 0
-        else:
-            gravity = 1
-            self.rect.y += gravity
+                self.gravity = 1
+            self.rect.y += self.gravity
+            if self.on_stage and self.rect.y > 170:
+                self.gravity = -1
 
 
-sans = fighter(sans_sprites, "sans", True, False)
+sans = fighter(sans_sprites, "sans", True, False, 264, 155)
+sons = fighter(sans_sprites,"sons", False, False, 230, 170) # This solely existed for me to check if some code worked
 
 
 class cursor2(pygame.sprite.Sprite):
@@ -358,9 +404,14 @@ extremely_ready = 0
 p1fighters = pygame.sprite.Group()
 p1fighters.add(sans)
 p2fighters = pygame.sprite.Group()
+# p1fighters.add(sons)
 sttagess = pygame.sprite.Group()
 #for i in range(len(battlefield_sprites)):
     #sttagess.add(battlefield_sprites[i])
+sttagess.add(battlefield)
+sttagess.add(plat1)
+sttagess.add(plat2)
+sttagess.add(plat3)
 #for i in range(len(sans_sprites)):
     #p1fighters.add(sans_sprites[i])
     #p2fighters.add(sans_sprites[i])
@@ -376,7 +427,6 @@ stages = pygame.sprite.Group()
 stages.add(the_most_basic_stage)
 characterportraits.add(supermario)
 characterportraits.add(sand_undertale)
-characters = ['mario', 'sans']
 pygame.mouse.set_visible(False)
 playing = False
 cursors = pygame.sprite.Group()
@@ -459,6 +509,11 @@ while menuing:
                     for crctrs in (tappedacharacter):
                         if not crctrs.n:
                             crctrs.n = True
+                            for i in p2fighters:
+                                if crctrs.name == i.name:
+                                    i.chosen = True
+                                else:
+                                    i.chosen = False
                             if crctrs.m and a == crctrs.mural:
                                 b = crctrs.mural2
                             else:
@@ -477,20 +532,21 @@ while menuing:
         if event.type == pygame.KEYUP:
             schmoving = 0
             moving = 0
-            if event.key == pygame.K_DOWN or event.key == pygame.K_UP:
-                if not ctr:
-                    s1 = update_menu(s1)
+            if event.key == pygame.K_UP:
                 if time2smash:
                     for i in p1fighters:
-                        if i.chosen:
-                            i.jump()
+                        i.jump()
+            if event.key == pygame.K_DOWN or event.key == pygame.K_UP:
+                if not ctr and not time2smash:
+                    s1 = update_menu(s1)
             if event.key == pygame.K_f:
                 if time2fight:
                     screen.blit(stg_select, [0,0])
                     stg = True
                     ctr = False
                 if time2smash:
-                    load_a_fight()
+                    p1crctr = load_a_fight(p1crctr, p2crctr)
+                    p2crctr = load_a_fight(p1crctr, p2crctr)
             if event.key == pygame.K_z:
                 if s1:
                     ctr = True
@@ -559,10 +615,11 @@ while menuing:
         if time2fight:
             screen.blit(fightbar, [0,200])
     else:
-        if s1:
-            screen.blit(menu, [0,0])
-        if not s1 or s2:
-            screen.blit(menu2, [0,0])
+        if not time2smash:
+            if s1:
+                screen.blit(menu, [0,0])
+            if not s1 or s2:
+                screen.blit(menu2, [0,0])
     if ctr:
         for ctrs in characterportraits:
             characterportraits.draw(screen)
@@ -570,28 +627,30 @@ while menuing:
     p2cursor.Move(schmoving)
     p2cursor.Move2(moving)
 
-    if not ctr:
+    if not ctr and not time2smash:
         if s1:
             s2 = False
         elif s2:
             s1 = False
     for crctrs in characterportraits:
         if crctrs.m:
-            try:
-                screen.blit(a, [60, 275])
-            except TypeError:
-                screen.blit(error, [60, 275])
-            crctrsname = crctrtext.render(str(crctrs.name.upper()), 1, white)
-            screen.blit(crctrsname, (200, 320))
-            ready += 1
+            if not time2smash:
+                try:
+                    screen.blit(a, [60, 275])
+                except TypeError:
+                    screen.blit(error, [60, 275])
+                crctrsname = crctrtext.render(str(crctrs.name.upper()), 1, white)
+                screen.blit(crctrsname, (200, 320))
+                ready += 1
         else:
             if ready > 0:
                 ready -= 1
         if crctrs.n:
-            screen.blit(b, [300, 275])
-            crctrsname = crctrtext.render(str(crctrs.name.upper()), 1, white)
-            screen.blit(crctrsname, (420, 320))
-            ready += 1
+            if not time2smash:
+                screen.blit(b, [300, 275])
+                crctrsname = crctrtext.render(str(crctrs.name.upper()), 1, white)
+                screen.blit(crctrsname, (420, 320))
+                ready += 1
         else:
             if ready > 0:
                 ready -= 1
@@ -621,10 +680,31 @@ while menuing:
     if extremely_ready >= 1:
         screen.blit(fightbar, [0,200])
         time2smash = True
-        load_a_fight()
+        ctr = False
+        stg = False
+        time2fight = False
     if time2smash:
+        p1crctr = load_a_fight(p1crctr, p2crctr)
+        p2crctr = load_a_fight(p1crctr, p2crctr)
         for i in p1fighters:
             if i.chosen:
                 p1fighters.draw(screen)
+            else:
+                i.delete()
+                p1fighters.remove(i)
+    print(sans.jumps)
+    print(sans.on_stage)
+    print(sans.rect.y)
+    print(sans.chosen)
+
+    onstage1 = pygame.sprite.groupcollide(p1fighters, sttagess, False, False)
+    onstage2 = pygame.sprite.groupcollide(p2fighters, sttagess, False, False)
+    print(onstage1)
+    for crctrs in p1fighters:
+        crctrs.detect_where_u_are(onstage1, onstage2)
+        crctrs.grravity()
+
+
     pygame.display.flip()
+    game_clock.tick(16)
 
