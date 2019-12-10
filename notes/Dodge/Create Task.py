@@ -181,7 +181,7 @@ def load_a_fight():
         screen.blit(stage_sprites[2], [265, 100])
         screen.blit(stage_sprites[3], [160, 220])
     if pl1 == 'sans':
-        screen.blit(p1sprites[0], [260, 170])
+        screen.blit(p1sprites[0], [265, 50])
 
 
 def clicking_on_stuff(button, ctr, stg):
@@ -240,41 +240,57 @@ class cursor1(pygame.sprite.Sprite):
 class fighter(pygame.sprite.Sprite):
     def __init__(self, sprite_list, name, play1, play2):
         pygame.sprite.Sprite.__init__(self)
-        neutral_image = pygame.image.load(sprite_list[0])
+        neutral_image = sprite_list[0]
         self.image = pygame.Surface([60, 65])
         self.image.blit(neutral_image, (0,0))
         self.rect = self.image.get_rect()
-        self.rect.x = 275
-        self.rect.y = 10
+        self.rect.x = 264
+        self.rect.y = 170
         self.on_stage = True
         self.jumps = 2
         self.name = name
         self.specialfall = False
         self.p1 = play1
         self.p2 = play2
+        self.gravity = 1
+        self.chosen = True
 
     def detect_where_u_are(self):
         onstage1 = pygame.sprite.groupcollide(p1fighters, sttagess, False, False)
-        onstage2 = pygame.sprite.groupcollide(p1fighters, sttagess, False, False)
+        onstage2 = pygame.sprite.groupcollide(p2fighters, sttagess, False, False)
         if self.p1:
-            if len(onstage1) > 0 and self.rect.y > 0:
+            if len(onstage1) > 0 and self.rect.y == 170 or self.rect.y == 50 or self.rect.y == 100:
                 self.on_stage = True
             else:
                 self.on_stage = False
 
     def jump(self):
         if self.on_stage:
-            jumps = 2
-        elif not self.on_stage and not self.specialfall:
-            jumps = 1
-        else:
-            jumps = 0
-        if jumps > 0:
-            jumps -= 1
+            self.jumps = 2
+        elif self.on_stage == False:
+            if self.specialfall:
+                self.jumps = 0
+            else:
+                if self.jumps != 0:
+                    self.jumps = 1
+        if self.jumps > 0:
+            if self.jumps == 2:
+                self.jumps = 1
+            if self.jumps == 1:
+                self.jumps = 0
             if self.name == "sans":
-                print()
+                if self.jumps > 0:
+                    self.rect.y -= 10
+
+    def gravity(self):
+        if self.on_stage and self.rect.y == 170 or self.rect.y == 50 or self.rect.y == 100:
+            gravity = 0
+        else:
+            gravity = 1
+            self.rect.y += gravity
 
 
+sans = fighter(sans_sprites, "sans", True, False)
 
 
 class cursor2(pygame.sprite.Sprite):
@@ -340,6 +356,7 @@ p2cursor = cursor2()
 ready = 0
 extremely_ready = 0
 p1fighters = pygame.sprite.Group()
+p1fighters.add(sans)
 p2fighters = pygame.sprite.Group()
 sttagess = pygame.sprite.Group()
 #for i in range(len(battlefield_sprites)):
@@ -463,6 +480,10 @@ while menuing:
             if event.key == pygame.K_DOWN or event.key == pygame.K_UP:
                 if not ctr:
                     s1 = update_menu(s1)
+                if time2smash:
+                    for i in p1fighters:
+                        if i.chosen:
+                            i.jump()
             if event.key == pygame.K_f:
                 if time2fight:
                     screen.blit(stg_select, [0,0])
@@ -591,7 +612,7 @@ while menuing:
                 try:
                     screen.blit(a, [7, 71])
                 except TypeError:
-                    print("wow! CongraTs you found tHe hIdden Secret Awesome message! How 'Bout thAt you're so cool and Great!")
+                    input("wow! congraTs you found tHe hIdden Secret Awesome message! how 'Bout that yoU're so cool and Great!")
                 stgsname = crctrtext.render(str(stags.name), 1, white)
                 screen.blit(stgsname, (70, 370))
                 extremely_ready += 1
@@ -601,5 +622,9 @@ while menuing:
         screen.blit(fightbar, [0,200])
         time2smash = True
         load_a_fight()
+    if time2smash:
+        for i in p1fighters:
+            if i.chosen:
+                p1fighters.draw(screen)
     pygame.display.flip()
 
