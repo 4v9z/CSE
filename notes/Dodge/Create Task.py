@@ -69,6 +69,8 @@ sanuair = pygame.image.load("sans up air.png")
 sanwalk = pygame.image.load("sans walk1.png")
 sanwalk2 = pygame.image.load("sans walk 2.png")
 sanuyeet = pygame.image.load("sans yeet up from right.png")
+SanBlaster = pygame.image.load("gasterblaster.png").convert()
+SanBlastel = pygame.image.load("gasterblaster clone.png").convert
 sansjab1 = pygame.image.load("sansjab1.png")
 sansjab2 = pygame.image.load("sansjab2.png")
 teleball = pygame.image.load("teleball.png")
@@ -363,6 +365,8 @@ class SANS(pygame.sprite.Sprite):
         self.name = name
         self.direction = 0
         self.specialfall = False
+        self.blasting = False
+        self.vulnerable = True
         self.walk_time = pygame.time.get_ticks() + 16
         self.gravity = 10
         self.next_jump = pygame.time.get_ticks() - 15
@@ -403,6 +407,26 @@ class SANS(pygame.sprite.Sprite):
 
     def delete(self):
         self.kill()
+
+    def attack(self, attacknum):
+        if attacknum == 1:
+            self.image = pygame.Surface([57, 500])
+            self.image.blit(SanBlaster, (0, 0))
+            self.
+        if attacknum == 2:
+            self.image = pygame.Surface([70, 65])
+            self.image.blit(SanUSmash, (0, 0))
+        if attacknum == 3:
+            self.image = pygame.Surface([60, 65])
+            self.image.blit(sanupb1, (0, 0))
+            self.kill()
+            self.rect.y += 90
+            self.specialfall = True
+            self.image.blit(sanspecfall, (0,0))
+        if attacknum == 4:
+            self.image = pygame.Surface([70, 65])
+            self.image.blit(SHIELD, (0, 0))
+
 
     def jump(self):
         if time2smash:
@@ -864,8 +888,10 @@ while menuing:
 
     if -10 > sans.rect.x or sans.rect.x > 555 or -10 > sans.rect.y or sans.rect.y > 410:
         input("P2 WINS!!")
+        sys.exit()
     if -10 > sanss.rect.x or sanss.rect.x > 555 or -10 > sanss.rect.y or sanss.rect.y > 410:
         input("P1 WINS!!")
+        sys.exit()
     print(sanss.rect.x)
     print(sanss.rect.y)
 
