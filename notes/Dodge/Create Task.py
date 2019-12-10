@@ -632,7 +632,15 @@ while menuing:
                 sans.attack(2, sanss, SanBlaster, SanBlastel, SHIELD, SanUSmash)
             if event.key == pygame.K_n:
                 sans.attack(4, sanss, SanBlaster, SanBlastel, SHIELD, SanUSmash)
-            if event.key == pygame.K_n and pygame.K_UP:
+            if event.key == pygame.K_n and pygame.K_w:
+                sans.attack(3, sanss, SanBlaster, SanBlastel, SHIELD, SanUSmash)
+            if event.key == pygame.K_q and pygame.K_d or pygame.K_a:
+                sans.attack(1, sanss, SanBlaster, SanBlastel, SHIELD, SanUSmash)
+            if event.key == pygame.K_q and pygame.K_s:
+                sans.attack(2, sanss, SanBlaster, SanBlastel, SHIELD, SanUSmash)
+            if event.key == pygame.K_q:
+                sans.attack(4, sanss, SanBlaster, SanBlastel, SHIELD, SanUSmash)
+            if event.key == pygame.K_q and pygame.K_w:
                 sans.attack(3, sanss, SanBlaster, SanBlastel, SHIELD, SanUSmash)
             if event.key == pygame.K_RIGHT:
                 if fightin:
