@@ -68,9 +68,10 @@ santele = pygame.image.load("sans tele.png")
 sanuair = pygame.image.load("sans up air.png")
 sanwalk = pygame.image.load("sans walk1.png")
 sanwalk2 = pygame.image.load("sans walk 2.png")
-sanuyeet = pygame.image.load("sans yeet up from right.png")
+SanUSmash = pygame.image.load("sans yeet up from right.png")
 SanBlaster = pygame.image.load("gasterblaster.png").convert()
 SanBlastel = pygame.image.load("gasterblaster clone.png").convert
+SHIELD = pygame.image.load("sans shield.png").convert()
 sansjab1 = pygame.image.load("sansjab1.png")
 sansjab2 = pygame.image.load("sansjab2.png")
 teleball = pygame.image.load("teleball.png")
@@ -107,13 +108,13 @@ sansjab2l = pygame.image.load("sansjab2 left.png")
 sans_sprites = [sansr, bonebair, beam, blast1r, blast2r, blast3r, blast4r, blast5r, blast6r, blast1l, blast2l, blast3l, blast4l, blast5l, blast6l,
                 crchbone, sandsmash, sandair1, sandair2, sandair3, sanfsmash,sanfairbone, sanjab3, sanupb1, sanupb2, sanspecfall,
                 sanupbl1, sanupbl2, sanspecfalll, sansl, sanback, sanbair, sancrchattck, sancrch, sandair, sanfair, getdownmrpres, sanfortossr, sanouch, sanidk, sanjab1bod,
-                sanjab2bod, sanstahp, santele, sanuair, sanwalk, sanwalk2, sanuyeet, sansjab1, sansjab2, teleball, u_sansh, uairbone, heart, stahpball, downnow, rightheart, soulup, soulleft,
+                sanjab2bod, sanstahp, santele, sanuair, sanwalk, sanwalk2, SanUSmash, sansjab1, sansjab2, teleball, u_sansh, uairbone, heart, stahpball, downnow, rightheart, soulup, soulleft,
                 stahpsoul, sanbackl, sanbairl, sancrchattckl, sancrchl, sandairl, sanfairl, getdownmrpresl, sanfortossl, sanouchl, sanidkl, sanjab1bodl, sanjab2bodl, sanstahpl, santelel,
                 sanuairl, sanwalkl, sanwalkl2, sanuyeetl, sansjab1l, sansjab2l]
 sanss_sprites = [sansr, bonebair, beam, blast1r, blast2r, blast3r, blast4r, blast5r, blast6r, blast1l, blast2l, blast3l, blast4l, blast5l, blast6l,
                 crchbone, sandsmash, sandair1, sandair2, sandair3, sanfsmash,sanfairbone, sanjab3, sanupb1, sanupb2, sanspecfall,
                 sanupbl1, sanupbl2, sanspecfalll, sansl, sanback, sanbair, sancrchattck, sancrch, sandair, sanfair, getdownmrpres, sanfortossr, sanouch, sanidk, sanjab1bod,
-                sanjab2bod, sanstahp, santele, sanuair, sanwalk, sanwalk2, sanuyeet, sansjab1, sansjab2, teleball, u_sansh, uairbone, heart, stahpball, downnow, rightheart, soulup, soulleft,
+                sanjab2bod, sanstahp, santele, sanuair, sanwalk, sanwalk2, SanUSmash, sansjab1, sansjab2, teleball, u_sansh, uairbone, heart, stahpball, downnow, rightheart, soulup, soulleft,
                 stahpsoul, sanbackl, sanbairl, sancrchattckl, sancrchl, sandairl, sanfairl, getdownmrpresl, sanfortossl, sanouchl, sanidkl, sanjab1bodl, sanjab2bodl, sanstahpl, santelel,
                 sanuairl, sanwalkl, sanwalkl2, sanuyeetl, sansjab1l, sansjab2l]
 def update_menu(b):
@@ -408,25 +409,52 @@ class SANS(pygame.sprite.Sprite):
     def delete(self):
         self.kill()
 
-    def attack(self, attacknum):
+    def attack(self, attacknum, p2, e, l, c, x):
+        hittingp2 = pygame.sprite.groupcollide(p1fighters, p2fighters, False, False)
         if attacknum == 1:
-            self.image = pygame.Surface([57, 500])
-            self.image.blit(SanBlaster, (0, 0))
-            self.
+            if self.direction == 0:
+                self.image = pygame.Surface([57, 500])
+                self.image.blit(e, (0, 0))
+                self.blasting = True
+                self.vulnerable = True
+                if len(hittingp2) > 0:
+                    if p2.vulnerable:
+                        p2.take_damage(20, 12, 12)
+                    else:
+                        p2.take_damage(0, 1, 1)
+            elif self.direction == 1:
+                self.image = pygame.Surface([57, 500])
+                self.image.blit(l, (0, 0))
+                self.blasting = True
+                self.vulnerable = True
+                if len(hittingp2) > 0:
+                    if p2.vulnerable:
+                        p2.take_damage(20, 12, 12)
+                    else:
+                        p2.take_damage(0, 1, 1)
         if attacknum == 2:
             self.image = pygame.Surface([70, 65])
-            self.image.blit(SanUSmash, (0, 0))
+            self.image.blit(x, (0, 0))
+            self.vulnerable = False
+            if len(hittingp2) > 0:
+                if p2.vulnerable:
+                    p2.take_damage(20, 0, 30)
+                else:
+                    p2.take_damage(0, 1, 1)
         if attacknum == 3:
             self.image = pygame.Surface([60, 65])
             self.image.blit(sanupb1, (0, 0))
             self.kill()
+            self.vulnerable = False
             self.rect.y += 90
             self.specialfall = True
+            self.vulnerable = True
             self.image.blit(sanspecfall, (0,0))
         if attacknum == 4:
             self.image = pygame.Surface([70, 65])
-            self.image.blit(SHIELD, (0, 0))
-
+            self.image.blit(c, (0, 0))
+            self.vulnerable = False
+            self.blasting = True
 
     def jump(self):
         if time2smash:
@@ -598,6 +626,14 @@ while menuing:
             Mouse = list(event.pos)
             p1cursor.Move(Mouse)
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_n and pygame.K_RIGHT or pygame.K_LEFT:
+                sans.attack(1, sanss, SanBlaster, SanBlastel, SHIELD, SanUSmash)
+            if event.key == pygame.K_n and pygame.K_DOWN:
+                sans.attack(2, sanss, SanBlaster, SanBlastel, SHIELD, SanUSmash)
+            if event.key == pygame.K_n:
+                sans.attack(4, sanss, SanBlaster, SanBlastel, SHIELD, SanUSmash)
+            if event.key == pygame.K_n and pygame.K_UP:
+                sans.attack(3, sanss, SanBlaster, SanBlastel, SHIELD, SanUSmash)
             if event.key == pygame.K_RIGHT:
                 if fightin:
                     schmoving = 8
