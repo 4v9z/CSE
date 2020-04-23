@@ -7,7 +7,6 @@ import winsound
 instructions = True
 
 
-
 class Gold(object):
     def __init__(self, worth=0):
         self.worth = worth
