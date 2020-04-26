@@ -461,7 +461,7 @@ class SANS(pygame.sprite.Sprite):
 
             if self.jumps > 0:
                 if pygame.time.get_ticks() > self.next_jump:
-                    next_jump = pygame.time.get_ticks() + 64
+                    self.next_jump = pygame.time.get_ticks() + 64
                     if self.name == "sans":
                         if self.jumps != 0:
                             self.rect.y -= 40
