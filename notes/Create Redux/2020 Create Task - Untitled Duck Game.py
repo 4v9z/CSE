@@ -12,6 +12,7 @@ title_screen = pygame.image.load("duck title.png").convert()
 basic_sky = pygame.image.load("environments.png").convert()
 icon1 = pygame.image.load("Ducon.png")
 icon2 = pygame.image.load("CDuckon.png")
+icon3 = pygame.image.load("EDuckon.png")
 titling = True
 FpS = pygame.time.Clock()
 PowerUps = pygame.sprite.Group()
@@ -56,8 +57,25 @@ class Plat(pygame.sprite.Sprite):
         self.rect.y = y
 
 
+class WaterPlat(pygame.sprite.Sprite):
+    def __init__(self, imge, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(imge).convert()
+        self.image = pygame.Surface([80, 20])
+        self.image.set_colorkey(black)
+        self.type = "platform"
+        self.image.blit(img, (0, 0))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+
 grass_ground = Ground("ground.png", 0, 470)
+grass_ground2 = Ground("ground.png", 0, 470)
 water = Water("water.png", 80, 480)
+wplat1 = WaterPlat("waterplatform.png", 210, 405)
+wplat2 = WaterPlat("waterplatform.png", 210, 345)
+wplat3 = WaterPlat("waterplatform.png", 210, 285)
 grass_platform1 = Plat("gplatform.png", 500, 405)
 grass_platform2 = Plat("gplatform.png", 320, 390)
 grass_platform3 = Plat("gplatform.png", 180, 360)
@@ -88,11 +106,17 @@ class power_up(pygame.sprite.Sprite):
             if self.name == "Cheetah Orb":
                 if not self.collectedd:
                     print("Congrats! Now you can become a Cheetah Duck!"
-                          "\nThis lets you run faster at the cost of a reduced jump height")
+                          "\nThis lets you run faster and run on water "
+                          "at the cost of a reduced jump height")
                     self.collectedd = True
                     self.kill()
-            else:
-                print("Wat?")
+            elif self.name == "Elephant Orb":
+                if not self.collectedd:
+                    print("Congrats! Now you can become an Elephant Duck!"
+                          "\nThis lets you pound stakes into the ground in order to access secrets or"
+                          "open paths forwards")
+                    self.collectedd = True
+                    self.kill()
 
 
 class Duck(pygame.sprite.Sprite):
@@ -225,11 +249,19 @@ The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard = Duck()
 x = 0
 y = 0
 The_Faster_Mallard = power_up("CheetahPowUp.png", 540, 180, "Cheetah Orb")
+The_Fatter_Mallard = power_up("ElePowerUp.png", 260, 245, "Elephant Orb")
 DuckSprites = pygame.sprite.Group()
 DuckSprites.add(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard)
 Ducks = [The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard]
+PowerUps.add(The_Fatter_Mallard)
 Enviro1 = pygame.sprite.Group()
 Enviro2 = pygame.sprite.Group()
+Enviro3 = pygame.sprite.Group()
+Enviro3.add(wplat1)
+Enviro3.add(wplat2)
+Enviro3.add(wplat3)
+Enviro3.add(grass_ground)
+
 Enviro2.add(water)
 Enviro2.add(grass_shore1)
 Enviro1.add(The_Faster_Mallard)
@@ -319,6 +351,21 @@ while gaming:
             Enviros.remove(water)
         except ValueError:
             filler = 0
+    if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 2:
+        Enviro3.draw(screen)
+        if len(Enviros) < 4:
+            Enviros.append(grass_ground2)
+            Enviros.append(wplat1)
+            Enviros.append(wplat2)
+            Enviros.append(wplat3)
+    else:
+        try:
+            Enviros.remove(grass_ground)
+            Enviros.remove(wplat1)
+            Enviros.remove(wplat2)
+            Enviros.remove(wplat3)
+        except ValueError:
+            filler = 0
     DuckSprites.draw(screen)
     if not The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.runnin:
         if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.type == "c":
@@ -330,7 +377,10 @@ while gaming:
         The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.can_trans = True
         screen.blit(icon1, [20, 20])
         screen.blit(icon2, [20, 60])
+    if The_Fatter_Mallard.collectedd:
+        screen.blit(icon3, [20, 100])
     pygame.display.flip()
-    print(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.touchin_ground)
+    # print(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.touchin_ground)
     gaming = The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.gravity()
+    print(Enviros)
     FpS.tick(16)
