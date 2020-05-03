@@ -12,7 +12,6 @@ title_screen = pygame.image.load("duck title.png").convert()
 basic_sky = pygame.image.load("environments.png").convert()
 icon1 = pygame.image.load("Ducon.png")
 icon2 = pygame.image.load("CDuckon.png")
-icon3 = pygame.image.load("EDuckon.png")
 titling = True
 FpS = pygame.time.Clock()
 PowerUps = pygame.sprite.Group()
@@ -44,19 +43,6 @@ class Water(pygame.sprite.Sprite):
         self.rect.y = y
 
 
-class WaterPlat(pygame.sprite.Sprite):
-    def __init__(self, imge, x, y):
-        pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(imge).convert()
-        self.image = pygame.Surface([80, 20])
-        self.image.set_colorkey(black)
-        self.type = "platform"
-        self.image.blit(img, (0, 0))
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-
-
 class Plat(pygame.sprite.Sprite):
     def __init__(self, imge, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -71,11 +57,7 @@ class Plat(pygame.sprite.Sprite):
 
 
 grass_ground = Ground("ground.png", 0, 470)
-grass_ground2 = Ground("ground.png", 0, 470)
 water = Water("water.png", 80, 480)
-wplat1 = WaterPlat("waterplatform.png", 210, 405)
-wplat2 = WaterPlat("waterplatform.png", 210, 345)
-wplat3 = WaterPlat("waterplatform.png", 210, 285)
 grass_platform1 = Plat("gplatform.png", 500, 405)
 grass_platform2 = Plat("gplatform.png", 320, 390)
 grass_platform3 = Plat("gplatform.png", 180, 360)
@@ -106,17 +88,11 @@ class power_up(pygame.sprite.Sprite):
             if self.name == "Cheetah Orb":
                 if not self.collectedd:
                     print("Congrats! Now you can become a Cheetah Duck!"
-                          "\nThis lets you run faster and run on water "
-                          "at the cost of a reduced jump height")
+                          "\nThis lets you run faster at the cost of a reduced jump height")
                     self.collectedd = True
                     self.kill()
-            elif self.name == "Elephant Orb":
-                if not self.collectedd:
-                    print("Congrats! Now you can become an Elephant Duck!"
-                          "\nThis lets you pound stakes into the ground in order to access secrets or"
-                          "open paths forwards")
-                    self.collectedd = True
-                    self.kill()
+            else:
+                print("Wat?")
 
 
 class Duck(pygame.sprite.Sprite):
@@ -186,26 +162,6 @@ class Duck(pygame.sprite.Sprite):
             if self.rect.x > 575:
                 self.rect.x = 5
                 self.rooms += 1
-        elif self.type == "e":
-            if 575 >= self.rect.x >= 5:
-                self.rect.x = self.rect.x + (shmovement * .5)
-            if self.rect.x < 5:
-                if self.rooms != 0:
-                    self.rect.x = 570
-                    self.rooms -= 1
-                else:
-                    self.rect.x = 5
-            if self.rect.x > 575:
-                self.rect.x = 5
-                self.rooms += 1
-            if self.direction == 1:
-                self.image = pygame.Surface([40, 52])
-                self.image.blit(pygame.image.load("EDuck.png"), (0, 0))
-                self.image.set_colorkey(black)
-            else:
-                self.image = pygame.Surface([40, 52])
-                self.image.blit(pygame.image.load("EDuckL.png"), (0, 0))
-                self.image.set_colorkey(black)
 
     def jump(self):
         if self.jumps == 1:
@@ -223,13 +179,6 @@ class Duck(pygame.sprite.Sprite):
                     self.rect.y = 420
                 if self.rect.y > 495:
                     self.rect.y = 420
-            elif self.type == "e":
-                if 495 >= self.rect.y >= 5:
-                    self.rect.y -= 20
-                if self.rect.y < 5:
-                    self.rect.y = 420
-                if self.rect.y > 495:
-                    self.rect.y = 420
 
     def gravity(self):
         self.touchin_ground = pygame.sprite.spritecollide(self, Enviros, False)
@@ -239,29 +188,17 @@ class Duck(pygame.sprite.Sprite):
                 print("You fell beneath the water, never to be seen again")
                 return False
         except IndexError:
-            self.type = self.type
+            print()
         if len(self.touchin_ground) > 0:
             if str(self.touchin_ground[0]) != "<Water sprite(in 1 groups)>":
-                if str(self.touchin_ground[0]) != "<WaterPlat sprite(in 1 groups)>":
-                    grav = 0
-                    self.jumps = 1
-                elif str(self.touchin_ground[0]) == "<WaterPlat sprite(in 1 groups)>":
-                    if self.type == "c":
-                        grav = 0
-                        self.jumps = 1
-                    else:
-                        grav = 3
-                        self.jumps = 0
+                grav = 0
+                self.jumps = 1
             elif str(self.touchin_ground[0]) == "<Water sprite(in 1 groups)>":
                 if self.type == "c":
                     grav = 0
                     self.jumps = 1
-                else:
-                    grav = 3
-                    self.jumps = 0
         else:
             grav = 3
-            self.jumps = 0
         self.rect.y += grav
         return True
 
@@ -280,15 +217,6 @@ class Duck(pygame.sprite.Sprite):
                 self.image.blit(pygame.image.load("Duck.png"), (0, 0))
                 self.image.set_colorkey(black)
                 self.type = "d"
-            elif plan == "e":
-                if The_Fatter_Mallard.collectedd:
-                    self.image = pygame.Surface([40, 52])
-                    self.image.blit(pygame.image.load("EDuck.png"), (0, 0))
-                    self.image.set_colorkey(black)
-                    self.type = "e"
-                else:
-                    print("Wait a minute, you want me to be an ELEPHANT?! "
-                          "\nI can't do that until I find some cool, magic orb!")
         else:
             print("You fool, you can't achieve metamorphosis yet")
 
@@ -297,7 +225,6 @@ The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard = Duck()
 x = 0
 y = 0
 The_Faster_Mallard = power_up("CheetahPowUp.png", 540, 180, "Cheetah Orb")
-The_Fatter_Mallard = power_up("ElePowerUp.png", 235, 245, "Elephant Orb")
 DuckSprites = pygame.sprite.Group()
 DuckSprites.add(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard)
 Ducks = [The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard]
@@ -305,12 +232,6 @@ Enviro1 = pygame.sprite.Group()
 Enviro2 = pygame.sprite.Group()
 Enviro2.add(water)
 Enviro2.add(grass_shore1)
-Enviro3 = pygame.sprite.Group()
-Enviro3.add(The_Fatter_Mallard)
-Enviro3.add(wplat1)
-Enviro3.add(wplat2)
-Enviro3.add(wplat3)
-Enviro3.add(grass_ground)
 Enviro1.add(The_Faster_Mallard)
 Enviro1.add(grass_ground)
 Enviro1.add(grass_platform1)
@@ -358,8 +279,6 @@ while gaming:
                 The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.transform("c")
             if event.key == pygame.K_d:
                 The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.transform("d")
-            if event.key == pygame.K_e:
-                The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.transform("e")
         if event.type == pygame.KEYUP:
             x = 0
             y = 0
@@ -377,8 +296,6 @@ while gaming:
             Enviros.append(grass_platform5)
             Enviros.append(grass_platform6)
             Enviros.append(grass_platform7)
-            if len(PowerUps) < 1:
-                PowerUps.add(The_Faster_Mallard)
     else:
         try:
             Enviros.remove(grass_ground)
@@ -389,8 +306,6 @@ while gaming:
             Enviros.remove(grass_platform5)
             Enviros.remove(grass_platform6)
             Enviros.remove(grass_platform7)
-            if len(PowerUps) > 1:
-                PowerUps.remove(The_Faster_Mallard)
         except ValueError:
             filler = 0
     if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 1:
@@ -404,25 +319,6 @@ while gaming:
             Enviros.remove(water)
         except ValueError:
             filler = 0
-    if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 2:
-        Enviro3.draw(screen)
-        if len(Enviros) < 4:
-            Enviros.append(grass_ground2)
-            Enviros.append(wplat1)
-            Enviros.append(wplat2)
-            Enviros.append(wplat3)
-            if len(PowerUps) < 1:
-                PowerUps.add(The_Fatter_Mallard)
-    else:
-        try:
-            Enviros.remove(grass_ground2)
-            Enviros.remove(wplat1)
-            Enviros.remove(wplat2)
-            Enviros.remove(wplat3)
-            if len(PowerUps) > 1:
-                PowerUps.remove(The_Fatter_Mallard)
-        except ValueError:
-            filler = 0
     DuckSprites.draw(screen)
     if not The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.runnin:
         if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.type == "c":
@@ -430,13 +326,11 @@ while gaming:
             The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.image.blit(pygame.image.load("CDuck.png"), (0, 0))
             The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.image.set_colorkey(black)
     The_Faster_Mallard.collected()
-    The_Fatter_Mallard.collected()
     if The_Faster_Mallard.collectedd:
         The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.can_trans = True
         screen.blit(icon1, [20, 20])
-        screen.blit(icon2, [20, 55])
-    if The_Fatter_Mallard.collectedd:
-        screen.blit(icon3, [20, 80])
+        screen.blit(icon2, [20, 60])
     pygame.display.flip()
+    print(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.touchin_ground)
     gaming = The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.gravity()
     FpS.tick(16)
