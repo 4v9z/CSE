@@ -1,6 +1,8 @@
 import pygame
 import sys
+from termcolor import colored
 pygame.init()
+filler = 0
 black = (0, 0, 0)
 blackish = (1, 1, 1)
 white = (255, 255, 255)
@@ -44,6 +46,32 @@ class Water(pygame.sprite.Sprite):
         self.rect.y = y
 
 
+class Lava(pygame.sprite.Sprite):
+    def __init__(self, imge, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(imge).convert()
+        self.image = pygame.Surface([500, 30])
+        self.image.set_colorkey(black)
+        self.image.blit(img, (0, 0))
+        self.type = "lava"
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+
+class LavaPlat(pygame.sprite.Sprite):
+    def __init__(self, imge, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(imge).convert()
+        self.image = pygame.Surface([80, 20])
+        self.image.set_colorkey(black)
+        self.image.blit(img, (0, 0))
+        self.type = "lava"
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+
 class WaterPlat(pygame.sprite.Sprite):
     def __init__(self, imge, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -70,6 +98,25 @@ class Plat(pygame.sprite.Sprite):
         self.rect.y = y
 
 
+class Stake(pygame.sprite.Sprite):
+    def __init__(self, imge, imge2, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(imge).convert()
+        self.image = pygame.Surface([24, 25])
+        self.img2 = pygame.image.load(imge2).convert()
+        self.image.set_colorkey(black)
+        self.image.blit(img, (0, 0))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.pounded = False
+
+    def updateimg(self):
+        self.image.blit(self.img2, (0, 0))
+        if not self.pounded:
+            self.rect.y += 15
+
+
 grass_ground = Ground("ground.png", 0, 470)
 grass_ground2 = Ground("ground.png", 0, 470)
 water = Water("water.png", 80, 480)
@@ -84,6 +131,7 @@ grass_platform5 = Plat("gplatform.png", 40, 250)
 grass_platform6 = Plat("gplatform.png", 40, 170)
 grass_platform7 = Plat("gplatform.png", 180, 140)
 grass_shore1 = Plat("gplatform.png", 0,  480)
+grass_shore2 = Plat("gplatform.png", 0,  480)
 
 
 class power_up(pygame.sprite.Sprite):
@@ -105,16 +153,17 @@ class power_up(pygame.sprite.Sprite):
         if len(self.touchin_player) > 0:
             if self.name == "Cheetah Orb":
                 if not self.collectedd:
-                    print("Congrats! Now you can become a Cheetah Duck!"
-                          "\nThis lets you run faster and run on water "
-                          "at the cost of a reduced jump height")
+                    print(colored("Congrats! Now you can become a Cheetah Duck!"
+                                  "\nThis lets you run faster and run on water "
+                                  "at the cost of a reduced jump height", "yellow"))
                     self.collectedd = True
                     self.kill()
             elif self.name == "Elephant Orb":
                 if not self.collectedd:
-                    print("Congrats! Now you can become an Elephant Duck!"
-                          "\nThis lets you pound stakes into the ground in order to access secrets or"
-                          "open paths forwards")
+                    print(colored("Congrats! Now you can become an Elephant Duck!"
+                                  "\nThis lets you pound stakes into the ground in order to access secrets or "
+                                  "open paths forwards, but you move slower than erosion and can jump just about as "
+                                  "high as a duck with a brick on its back", "grey", "on_white"))
                     self.collectedd = True
                     self.kill()
 
@@ -212,7 +261,7 @@ class Duck(pygame.sprite.Sprite):
             self.jumps = 0
             if self.type == "d":
                 if 495 >= self.rect.y >= 5:
-                    self.rect.y -= 80
+                    self.rect.y -= 100
                 if self.rect.y < 5:
                     self.rect.y = 420
                     self.rect.y = 420
@@ -234,13 +283,30 @@ class Duck(pygame.sprite.Sprite):
     def gravity(self):
         self.touchin_ground = pygame.sprite.spritecollide(self, Enviros, False)
         grav = 0
-        try:
+        if len(self.touchin_ground) > 0:
             if str(self.touchin_ground[0]) == "<Water sprite(in 1 groups)>" and self.rect.y > 490:
                 print("You fell beneath the water, never to be seen again")
                 return False
-        except IndexError:
-            self.type = self.type
-        if len(self.touchin_ground) > 0:
+            if "<Lava" in str(self.touchin_ground[0]):
+                if self.type == "d":
+                    print("Duck tried to swim in lava")
+                elif self.type == "c":
+                    print("You may be able to run on water, but lava is too hot to trot (on)")
+                elif self.type == "e":
+                    print("Not only did you melt in the lava, but you also fell to the bottom of it")
+                return False
+            try:
+                if "<Lava" in str(self.touchin_ground[1]):
+                    if self.type == "d":
+                        print("Duck tried to dip its toes in lava")
+                    elif self.type == "c":
+                        print("You may be able to run on water, but lava is too hot to trot (on), even if "
+                              "you're just teetering on its edge")
+                    elif self.type == "e":
+                        print("You kind of tripped into the lava lake when you dipped your toes in it, you'd "
+                              "be dead either way, but this is just overkill")
+            except IndexError:
+                self.touchin_ground = self.touchin_ground
             if str(self.touchin_ground[0]) != "<Water sprite(in 1 groups)>":
                 if str(self.touchin_ground[0]) != "<WaterPlat sprite(in 1 groups)>":
                     grav = 0
@@ -262,6 +328,15 @@ class Duck(pygame.sprite.Sprite):
         else:
             grav = 3
             self.jumps = 0
+        try:
+            if str(self.touchin_ground[0]) == "<Stake sprite(in 1 groups)>":
+                if self.type == "e":
+                    self.touchin_ground[0].image = pygame.Surface([24, 13])
+                    self.touchin_ground[0].updateimg()
+                    self.touchin_ground[0].pounded = True
+                    self.touchin_ground[0].image.set_colorkey(black)
+        except IndexError:
+            self.can_trans = self.can_trans
         self.rect.y += grav
         return True
 
@@ -298,11 +373,35 @@ x = 0
 y = 0
 The_Faster_Mallard = power_up("CheetahPowUp.png", 540, 180, "Cheetah Orb")
 The_Fatter_Mallard = power_up("ElePowerUp.png", 235, 245, "Elephant Orb")
+
+Stake_1 = Stake("stake1.png", "stake2.png", 500, 445)
+lavapool1 = Lava("lava.png", 80, 480)
+lplat1 = LavaPlat("lava plat.png", 40, 400)
+lplat2 = LavaPlat("lava plat.png", 40, 300)
+lplat3 = LavaPlat("lava plat.png", 40, 200)
+lplat4 = LavaPlat("lava plat.png", 200, 200)
+lplat5 = LavaPlat("lava plat.png", 360, 200)
+lplat6 = LavaPlat("lava plat.png", 510, 200)
+oplat1 = LavaPlat("obsidianplat.png", 40, 400)
+oplat2 = LavaPlat("obsidianplat.png", 40, 300)
+oplat3 = LavaPlat("obsidianplat.png", 40, 200)
+oplat4 = LavaPlat("obsidianplat.png", 200, 200)
+oplat5 = LavaPlat("obsidianplat.png", 360, 200)
+oplat6 = LavaPlat("obsidianplat.png", 510, 200)
 DuckSprites = pygame.sprite.Group()
 DuckSprites.add(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard)
 Ducks = [The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard]
 Enviro1 = pygame.sprite.Group()
 Enviro2 = pygame.sprite.Group()
+Enviro4 = pygame.sprite.Group()
+Enviro4.add(lavapool1)
+Enviro4.add(lplat1)
+Enviro4.add(lplat2)
+Enviro4.add(lplat3)
+Enviro4.add(lplat4)
+Enviro4.add(lplat5)
+Enviro4.add(lplat6)
+Enviro4.add(grass_shore2)
 Enviro2.add(water)
 Enviro2.add(grass_shore1)
 Enviro3 = pygame.sprite.Group()
@@ -310,6 +409,7 @@ Enviro3.add(The_Fatter_Mallard)
 Enviro3.add(wplat1)
 Enviro3.add(wplat2)
 Enviro3.add(wplat3)
+Enviro3.add(Stake_1)
 Enviro3.add(grass_ground)
 Enviro1.add(The_Faster_Mallard)
 Enviro1.add(grass_ground)
@@ -322,6 +422,110 @@ Enviro1.add(grass_platform6)
 Enviro1.add(grass_platform7)
 Enviros = [grass_ground, grass_platform1, grass_platform2, grass_platform3,
            grass_platform4, grass_platform5, grass_platform6, grass_platform7]
+
+def updatescreen(x):
+    if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 0:
+        Enviro1.draw(screen)
+        if len(Enviros) < 8:
+            Enviros.append(grass_ground)
+            Enviros.append(grass_platform1)
+            Enviros.append(grass_platform2)
+            Enviros.append(grass_platform3)
+            Enviros.append(grass_platform4)
+            Enviros.append(grass_platform5)
+            Enviros.append(grass_platform6)
+            Enviros.append(grass_platform7)
+            if len(PowerUps) < 1:
+                PowerUps.add(The_Faster_Mallard)
+    else:
+        try:
+            Enviros.remove(grass_ground)
+            Enviros.remove(grass_platform1)
+            Enviros.remove(grass_platform2)
+            Enviros.remove(grass_platform3)
+            Enviros.remove(grass_platform4)
+            Enviros.remove(grass_platform5)
+            Enviros.remove(grass_platform6)
+            Enviros.remove(grass_platform7)
+            if len(PowerUps) == 1:
+                PowerUps.remove(The_Faster_Mallard)
+        except ValueError:
+            x = 0
+    if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 1:
+        Enviro2.draw(screen)
+        if len(Enviros) < 2:
+            Enviros.append(grass_shore1)
+            Enviros.append(water)
+    else:
+        try:
+            Enviros.remove(grass_shore1)
+            Enviros.remove(water)
+        except ValueError:
+            x = 0
+    if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 2:
+        Enviro3.draw(screen)
+        if len(Enviros) < 5:
+            Enviros.append(grass_ground2)
+            Enviros.append(wplat1)
+            Enviros.append(wplat2)
+            Enviros.append(wplat3)
+            Enviros.append(Stake_1)
+            if len(PowerUps) < 1:
+                PowerUps.add(The_Fatter_Mallard)
+    else:
+        try:
+            Enviros.remove(grass_ground2)
+            Enviros.remove(wplat1)
+            Enviros.remove(wplat2)
+            Enviros.remove(wplat3)
+            Enviros.remove(Stake_1)
+            if len(PowerUps) == 1:
+                PowerUps.remove(The_Fatter_Mallard)
+        except ValueError:
+            x = 0
+    if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 3:
+        Enviro4.draw(screen)
+        if len(Enviros) < 8:
+            if not Stake_1.pounded:
+                Enviros.append(grass_shore2)
+                Enviros.append(lavapool1)
+                Enviros.append(lplat1)
+                Enviros.append(lplat2)
+                Enviros.append(lplat3)
+                Enviros.append(lplat4)
+                Enviros.append(lplat5)
+                Enviros.append(lplat6)
+            else:
+                Enviros.append(grass_shore2)
+                Enviros.append(lavapool1)
+                Enviros.append(oplat1)
+                Enviros.append(oplat2)
+                Enviros.append(oplat3)
+                Enviros.append(oplat4)
+                Enviros.append(oplat5)
+                Enviros.remove(oplat6)
+    else:
+        try:
+            if not Stake_1.pounded:
+                Enviros.remove(grass_shore2)
+                Enviros.remove(lavapool1)
+                Enviros.remove(lplat1)
+                Enviros.remove(lplat2)
+                Enviros.remove(lplat3)
+                Enviros.remove(lplat4)
+                Enviros.remove(lplat5)
+                Enviros.remove(lplat6)
+            else:
+                Enviros.remove(grass_shore2)
+                Enviros.remove(lavapool1)
+                Enviros.remove(oplat1)
+                Enviros.remove(oplat2)
+                Enviros.remove(oplat3)
+                Enviros.remove(oplat4)
+                Enviros.remove(oplat5)
+                Enviros.remove(oplat6)
+        except ValueError:
+            x = 0
 
 
 PowerUps.add(The_Faster_Mallard)
@@ -366,63 +570,7 @@ while gaming:
             The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.runnin = False
     screen.blit(basic_sky, [0, 0])
     The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.move(x)
-    if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 0:
-        Enviro1.draw(screen)
-        if len(Enviros) < 8:
-            Enviros.append(grass_ground)
-            Enviros.append(grass_platform1)
-            Enviros.append(grass_platform2)
-            Enviros.append(grass_platform3)
-            Enviros.append(grass_platform4)
-            Enviros.append(grass_platform5)
-            Enviros.append(grass_platform6)
-            Enviros.append(grass_platform7)
-            if len(PowerUps) < 1:
-                PowerUps.add(The_Faster_Mallard)
-    else:
-        try:
-            Enviros.remove(grass_ground)
-            Enviros.remove(grass_platform1)
-            Enviros.remove(grass_platform2)
-            Enviros.remove(grass_platform3)
-            Enviros.remove(grass_platform4)
-            Enviros.remove(grass_platform5)
-            Enviros.remove(grass_platform6)
-            Enviros.remove(grass_platform7)
-            if len(PowerUps) > 1:
-                PowerUps.remove(The_Faster_Mallard)
-        except ValueError:
-            filler = 0
-    if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 1:
-        Enviro2.draw(screen)
-        if len(Enviros) < 2:
-            Enviros.append(grass_shore1)
-            Enviros.append(water)
-    else:
-        try:
-            Enviros.remove(grass_shore1)
-            Enviros.remove(water)
-        except ValueError:
-            filler = 0
-    if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 2:
-        Enviro3.draw(screen)
-        if len(Enviros) < 4:
-            Enviros.append(grass_ground2)
-            Enviros.append(wplat1)
-            Enviros.append(wplat2)
-            Enviros.append(wplat3)
-            if len(PowerUps) < 1:
-                PowerUps.add(The_Fatter_Mallard)
-    else:
-        try:
-            Enviros.remove(grass_ground2)
-            Enviros.remove(wplat1)
-            Enviros.remove(wplat2)
-            Enviros.remove(wplat3)
-            if len(PowerUps) > 1:
-                PowerUps.remove(The_Fatter_Mallard)
-        except ValueError:
-            filler = 0
+    updatescreen(filler)
     DuckSprites.draw(screen)
     if not The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.runnin:
         if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.type == "c":
@@ -440,3 +588,5 @@ while gaming:
     pygame.display.flip()
     gaming = The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.gravity()
     FpS.tick(16)
+    if Stake_1
+print(colored("GAME OVER", "red"))
