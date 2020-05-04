@@ -194,10 +194,10 @@ class Duck(pygame.sprite.Sprite):
         self.runnin = False
         self.image.blit(pygame.image.load("Duck.png"), (0, 0))
 
-    def move(self, shmovement):
+    def move(self, schmovement):
         if self.type == "d":
             if 575 >= self.rect.x >= 5:
-                self.rect.x = self.rect.x + shmovement
+                self.rect.x = self.rect.x + schmovement
             if self.rect.x < 5:
                 if self.rooms != 0:
                     self.rect.x = 570
@@ -233,7 +233,7 @@ class Duck(pygame.sprite.Sprite):
                     self.image.set_colorkey(black)
             self.image.set_colorkey(black)
             if 575 >= self.rect.x >= 5:
-                self.rect.x = self.rect.x + (shmovement*4)
+                self.rect.x = self.rect.x + (schmovement * 4)
             if self.rect.x < 5:
                 if self.rooms != 0:
                     self.rect.x = 570
@@ -245,7 +245,7 @@ class Duck(pygame.sprite.Sprite):
                 self.rooms += 1
         elif self.type == "e":
             if 575 >= self.rect.x >= 5:
-                self.rect.x = self.rect.x + (shmovement * .5)
+                self.rect.x = self.rect.x + (schmovement * .5)
             if self.rect.x < 5:
                 if self.rooms != 0:
                     self.rect.x = 570
