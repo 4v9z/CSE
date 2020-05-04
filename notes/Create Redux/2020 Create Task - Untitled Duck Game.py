@@ -3,6 +3,7 @@ import sys
 from termcolor import colored
 pygame.init()
 filler = 0
+var1 = False
 black = (0, 0, 0)
 blackish = (1, 1, 1)
 white = (255, 255, 255)
@@ -132,6 +133,13 @@ grass_platform6 = Plat("gplatform.png", 40, 170)
 grass_platform7 = Plat("gplatform.png", 180, 140)
 grass_shore1 = Plat("gplatform.png", 0,  480)
 grass_shore2 = Plat("gplatform.png", 0,  480)
+grass_shore3 = Plat("gplatform.png", 0,  480)
+grass_shore4 = Plat("gplatform.png", 500,  480)
+waterbutsmaller = Water("water.png", 80, 480)
+waterbutsmaller.image = pygame.Surface([420, 20])
+waterbutsmaller.image.set_colorkey(black)
+waterbutsmaller.image.blit("water.png", 0, 0)
+Stake_2 = Stake("stake3.png", "stake4.png", 260, 485)
 
 
 class power_up(pygame.sprite.Sprite):
@@ -262,9 +270,9 @@ class Duck(pygame.sprite.Sprite):
             if self.type == "d":
                 if 495 >= self.rect.y >= 5:
                     self.rect.y -= 100
-                if self.rect.y < 5:
-                    self.rect.y = 420
-                    self.rect.y = 420
+                if self.rooms != 0:
+                    if self.rect.y < 5:
+                        self.rect.y = 420
             elif self.type == "c":
                 if 495 >= self.rect.y >= 5:
                     self.rect.y -= 40
@@ -382,12 +390,12 @@ lplat3 = LavaPlat("lava plat.png", 40, 200)
 lplat4 = LavaPlat("lava plat.png", 200, 200)
 lplat5 = LavaPlat("lava plat.png", 360, 200)
 lplat6 = LavaPlat("lava plat.png", 510, 200)
-oplat1 = LavaPlat("obsidianplat.png", 40, 400)
-oplat2 = LavaPlat("obsidianplat.png", 40, 300)
-oplat3 = LavaPlat("obsidianplat.png", 40, 200)
-oplat4 = LavaPlat("obsidianplat.png", 200, 200)
-oplat5 = LavaPlat("obsidianplat.png", 360, 200)
-oplat6 = LavaPlat("obsidianplat.png", 510, 200)
+oplat1 = Plat("obsidianplat.png", 40, 400)
+oplat2 = Plat("obsidianplat.png", 40, 300)
+oplat3 = Plat("obsidianplat.png", 40, 200)
+oplat4 = Plat("obsidianplat.png", 200, 200)
+oplat5 = Plat("obsidianplat.png", 360, 200)
+oplat6 = Plat("obsidianplat.png", 510, 200)
 DuckSprites = pygame.sprite.Group()
 DuckSprites.add(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard)
 Ducks = [The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard]
@@ -503,7 +511,7 @@ def updatescreen(x):
                 Enviros.append(oplat3)
                 Enviros.append(oplat4)
                 Enviros.append(oplat5)
-                Enviros.remove(oplat6)
+                Enviros.append(oplat6)
     else:
         try:
             if not Stake_1.pounded:
@@ -588,5 +596,19 @@ while gaming:
     pygame.display.flip()
     gaming = The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.gravity()
     FpS.tick(16)
-    if Stake_1
+    if Stake_1.pounded:
+        if not var1:
+            var1 = True
+            Enviro4.remove(lplat1)
+            Enviro4.remove(lplat2)
+            Enviro4.remove(lplat3)
+            Enviro4.remove(lplat4)
+            Enviro4.remove(lplat5)
+            Enviro4.remove(lplat6)
+            Enviro4.add(oplat1)
+            Enviro4.add(oplat2)
+            Enviro4.add(oplat3)
+            Enviro4.add(oplat4)
+            Enviro4.add(oplat5)
+            Enviro4.add(oplat6)
 print(colored("GAME OVER", "red"))
