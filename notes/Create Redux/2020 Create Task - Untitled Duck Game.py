@@ -4,6 +4,7 @@ from termcolor import colored
 pygame.init()
 filler = 0
 var1 = False
+var2 = False
 black = (0, 0, 0)
 blackish = (1, 1, 1)
 white = (255, 255, 255)
@@ -135,11 +136,23 @@ grass_shore1 = Plat("gplatform.png", 0,  480)
 grass_shore2 = Plat("gplatform.png", 0,  480)
 grass_shore3 = Plat("gplatform.png", 0,  480)
 grass_shore4 = Plat("gplatform.png", 500,  480)
+wplat4 = WaterPlat("waterplatform.png", 490, 350)
+wplat5 = WaterPlat("waterplatform.png", 330, 335)
+wplat6 = WaterPlat("waterplatform.png", 170, 320)
+wplat7 = WaterPlat("waterplatform.png", 10, 305)
+wplat8 = WaterPlat("waterplatform.png", 170, 290)
+wplat9 = WaterPlat("waterplatform.png", 330, 275)
+grass_platform8 = Plat("gplatform.png", 490, 275)
 waterbutsmaller = Water("water.png", 80, 480)
 waterbutsmaller.image = pygame.Surface([420, 20])
 waterbutsmaller.image.set_colorkey(black)
-waterbutsmaller.image.blit("water.png", 0, 0)
-Stake_2 = Stake("stake3.png", "stake4.png", 260, 485)
+waterbutsmaller.image.blit(pygame.image.load("water.png").convert(), (0, 0))
+Stake_2 = Stake("stake3.png", "stake4.png", 260, 455)
+Enviro5 = pygame.sprite.Group()
+Enviro5.add(waterbutsmaller)
+Enviro5.add(grass_shore3)
+Enviro5.add(grass_shore4)
+Enviro5.add(Stake_2)
 
 
 class power_up(pygame.sprite.Sprite):
@@ -431,6 +444,7 @@ Enviro1.add(grass_platform7)
 Enviros = [grass_ground, grass_platform1, grass_platform2, grass_platform3,
            grass_platform4, grass_platform5, grass_platform6, grass_platform7]
 
+
 def updatescreen(x):
     if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 0:
         Enviro1.draw(screen)
@@ -532,6 +546,29 @@ def updatescreen(x):
                 Enviros.remove(oplat4)
                 Enviros.remove(oplat5)
                 Enviros.remove(oplat6)
+        except ValueError:
+            x = 0
+    if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 4:
+        Enviro5.draw(screen)
+        if len(Enviros) < 4:
+            if not Stake_2.pounded:
+                Enviros.append(grass_shore3)
+                Enviros.append(grass_shore4)
+                Enviros.append(Stake_2)
+                Enviros.append(waterbutsmaller)
+                Enviros.append(wplat4)
+            else:
+                x = 0
+    else:
+        try:
+            if not Stake_2.pounded:
+                Enviros.remove(grass_shore3)
+                Enviros.remove(grass_shore4)
+                Enviros.remove(Stake_2)
+                Enviros.remove(waterbutsmaller)
+                Enviros.remove(wplat4)
+            else:
+                x = 0
         except ValueError:
             x = 0
 
