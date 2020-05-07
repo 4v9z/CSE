@@ -139,15 +139,18 @@ grass_shore4 = Plat("gplatform.png", 500,  480)
 wplat4 = WaterPlat("waterplatform.png", 490, 350)
 wplat5 = WaterPlat("waterplatform.png", 330, 335)
 wplat6 = WaterPlat("waterplatform.png", 170, 320)
-wplat7 = WaterPlat("waterplatform.png", 10, 305)
-wplat8 = WaterPlat("waterplatform.png", 170, 290)
-wplat9 = WaterPlat("waterplatform.png", 330, 275)
-grass_platform8 = Plat("gplatform.png", 490, 275)
+wplat7 = WaterPlat("waterplatform.png", 10, 275)
+wplat8 = WaterPlat("waterplatform.png", 170, 220)
+wplat9 = WaterPlat("waterplatform.png", 330, 175)
+grass_platform8 = Plat("gplatform.png", 490, 125)
 waterbutsmaller = Water("water.png", 80, 480)
 waterbutsmaller.image = pygame.Surface([420, 20])
 waterbutsmaller.image.set_colorkey(black)
 waterbutsmaller.image.blit(pygame.image.load("water.png").convert(), (0, 0))
 Stake_2 = Stake("stake3.png", "stake4.png", 260, 455)
+Stake_2.image = pygame.Surface([24, 32])
+Stake_2.image.set_colorkey(black)
+Stake_2.image.blit(pygame.image.load("stake3.png").convert(), (0, 0))
 Enviro5 = pygame.sprite.Group()
 Enviro5.add(waterbutsmaller)
 Enviro5.add(grass_shore3)
@@ -192,7 +195,7 @@ class power_up(pygame.sprite.Sprite):
 class Duck(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface([40, 52])
+        self.image = pygame.Surface([40, 48])
         self.image.set_colorkey(black)
         self.rect = self.image.get_rect()
         self.type = "d"
@@ -221,11 +224,11 @@ class Duck(pygame.sprite.Sprite):
                 self.rect.x = 5
                 self.rooms += 1
             if self.direction == 1:
-                self.image = pygame.Surface([40, 52])
+                self.image = pygame.Surface([40, 48])
                 self.image.blit(pygame.image.load("Duck.png"), (0, 0))
                 self.image.set_colorkey(black)
             else:
-                self.image = pygame.Surface([40, 52])
+                self.image = pygame.Surface([40, 48])
                 self.image.blit(pygame.image.load("DuckL.png"), (0, 0))
                 self.image.set_colorkey(black)
         elif self.type == "c":
@@ -269,11 +272,11 @@ class Duck(pygame.sprite.Sprite):
                 self.rect.x = 5
                 self.rooms += 1
             if self.direction == 1:
-                self.image = pygame.Surface([40, 52])
+                self.image = pygame.Surface([40, 48])
                 self.image.blit(pygame.image.load("EDuck.png"), (0, 0))
                 self.image.set_colorkey(black)
             else:
-                self.image = pygame.Surface([40, 52])
+                self.image = pygame.Surface([40, 48])
                 self.image.blit(pygame.image.load("EDuckL.png"), (0, 0))
                 self.image.set_colorkey(black)
 
@@ -324,8 +327,9 @@ class Duck(pygame.sprite.Sprite):
                         print("You may be able to run on water, but lava is too hot to trot (on), even if "
                               "you're just teetering on its edge")
                     elif self.type == "e":
-                        print("You kind of tripped into the lava lake when you dipped your toes in it, you'd "
+                        print("You kind of tripped into the lava when you dipped your toes in it, you'd "
                               "be dead either way, but this is just overkill")
+                    return False
             except IndexError:
                 self.touchin_ground = self.touchin_ground
             if str(self.touchin_ground[0]) != "<Water sprite(in 1 groups)>":
@@ -346,6 +350,17 @@ class Duck(pygame.sprite.Sprite):
                 else:
                     grav = 3
                     self.jumps = 0
+            try:
+                if str(self.touchin_ground[1]) == "<Water sprite(in 1 groups)>":
+                    if self.type == "c":
+                        grav = 0
+                        self.jumps = 1
+                if str(self.touchin_ground[1]) == "<WaterPlat sprite(in 1 groups)>":
+                    if self.type == "c":
+                        grav = 0
+                        self.jumps = 1
+            except IndexError:
+                self.touchin_ground = self.touchin_ground
         else:
             grav = 3
             self.jumps = 0
@@ -372,13 +387,13 @@ class Duck(pygame.sprite.Sprite):
                 self.image.set_colorkey(black)
                 self.type = "c"
             elif plan == "d":
-                self.image = pygame.Surface([40, 52])
+                self.image = pygame.Surface([40, 48])
                 self.image.blit(pygame.image.load("Duck.png"), (0, 0))
                 self.image.set_colorkey(black)
                 self.type = "d"
             elif plan == "e":
                 if The_Fatter_Mallard.collectedd:
-                    self.image = pygame.Surface([40, 52])
+                    self.image = pygame.Surface([40, 48])
                     self.image.blit(pygame.image.load("EDuck.png"), (0, 0))
                     self.image.set_colorkey(black)
                     self.type = "e"
@@ -409,6 +424,10 @@ oplat3 = Plat("obsidianplat.png", 40, 200)
 oplat4 = Plat("obsidianplat.png", 200, 200)
 oplat5 = Plat("obsidianplat.png", 360, 200)
 oplat6 = Plat("obsidianplat.png", 510, 200)
+wholefloorislava = Lava("lava.png", 0, 480)
+wholefloorislava.image = pygame.Surface([580, 20])
+wholefloorislava.image.blit(pygame.image.load("lava.png"), (0, 0))
+wholefloorislava.image.set_colorkey(black)
 DuckSprites = pygame.sprite.Group()
 DuckSprites.add(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard)
 Ducks = [The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard]
@@ -550,15 +569,24 @@ def updatescreen(x):
             x = 0
     if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 4:
         Enviro5.draw(screen)
-        if len(Enviros) < 4:
+        if len(Enviros) < len(Enviro5):
             if not Stake_2.pounded:
                 Enviros.append(grass_shore3)
                 Enviros.append(grass_shore4)
                 Enviros.append(Stake_2)
                 Enviros.append(waterbutsmaller)
-                Enviros.append(wplat4)
             else:
-                x = 0
+                Enviros.append(grass_shore3)
+                Enviros.append(grass_shore4)
+                Enviros.append(Stake_2)
+                Enviros.append(waterbutsmaller)
+                Enviros.append(wplat4)
+                Enviros.append(wplat5)
+                Enviros.append(wplat6)
+                Enviros.append(wplat7)
+                Enviros.append(wplat8)
+                Enviros.append(wplat9)
+                Enviros.append(grass_platform8)
     else:
         try:
             if not Stake_2.pounded:
@@ -566,9 +594,18 @@ def updatescreen(x):
                 Enviros.remove(grass_shore4)
                 Enviros.remove(Stake_2)
                 Enviros.remove(waterbutsmaller)
-                Enviros.remove(wplat4)
             else:
-                x = 0
+                Enviros.remove(grass_shore3)
+                Enviros.remove(grass_shore4)
+                Enviros.remove(Stake_2)
+                Enviros.remove(waterbutsmaller)
+                Enviros.remove(wplat4)
+                Enviros.remove(wplat5)
+                Enviros.remove(wplat6)
+                Enviros.remove(wplat7)
+                Enviros.remove(wplat8)
+                Enviros.remove(wplat9)
+                Enviros.remove(grass_platform8)
         except ValueError:
             x = 0
 
@@ -609,6 +646,12 @@ while gaming:
                 The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.transform("d")
             if event.key == pygame.K_e:
                 The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.transform("e")
+            if event.key == pygame.K_w:
+                The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y -= 200
+            if event.key == pygame.K_u:
+                x = -10
+            if event.key == pygame.K_i:
+                x = 10
         if event.type == pygame.KEYUP:
             x = 0
             y = 0
@@ -648,4 +691,17 @@ while gaming:
             Enviro4.add(oplat4)
             Enviro4.add(oplat5)
             Enviro4.add(oplat6)
+    if Stake_2.pounded:
+        if not var2:
+            var2 = True
+            Enviro5.add(wplat4)
+            Enviro5.add(wplat5)
+            Enviro5.add(wplat6)
+            Enviro5.add(wplat7)
+            Enviro5.add(wplat8)
+            Enviro5.add(wplat9)
+            Enviro5.add(grass_platform8)
+        Stake_2.image = pygame.Surface([24, 20])
+        Stake_2.image.set_colorkey(black)
+        Stake_2.image.blit(pygame.image.load("stake4.png").convert(), (0, 0))
 print(colored("GAME OVER", "red"))
