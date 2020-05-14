@@ -23,6 +23,7 @@ icon3 = pygame.image.load("EDuckon.png")
 titling = True
 FpS = pygame.time.Clock()
 PowerUps = pygame.sprite.Group()
+NPCs = pygame.sprite.Group()
 
 
 class Ground(pygame.sprite.Sprite):
@@ -49,6 +50,52 @@ class Water(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+
+class NPC(pygame.sprite.Sprite):
+    def __init__(self, imge, x, y, surfacex, surfacey, dialogue="", name=""):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(imge).convert()
+        self.image = pygame.Surface([surfacex, surfacey])
+        self.image.set_colorkey(black)
+        self.image.blit(img, (0, 0))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.touchin_player = []
+        self.dialogue = dialogue
+        self.name = name
+
+    def touchy_time(self):
+        self.touchin_player = pygame.sprite.groupcollide(DuckSprites, NPCs, False, False)
+        if len(self.touchin_player) > 0:
+            screen.blit(pygame.image.load("zkey.png"), ((self.rect.x + 23), (self.rect.y - 90)))
+
+    def talk_to(self, start):
+        if start:
+            print(colored(str(self.name), "blue") + ": " + str(self.dialogue))
+            if self.name == "Dr. Goose":
+                self.dialogue = "I'm... fine... just crushed... I'll live, but I assume that " \
+                                "\nI'll need some sort of air pump to get me back to normal considering how the laws " \
+                                "of physics " \
+                                "\nin our universe are what some would deem cartoonish"
+
+
+Scholar_Goose = NPC("scholar.png", 107, 420, 47, 74,
+                    "Halt right there! I've been researching these ruins here and this place is dangerous. "
+                    "\nAccording to my research, these odd statues are, in fact... demons!"
+                    "\n"
+                    "\n..."
+                    "\n"
+                    "\nYou don't seem phased by this..."
+                    "\nI shall explain them to you anyways."
+                    "\nThe demons attack from above, but only if your appearance matches their appearance."
+                    "\nAs you can see, a goose-like monster has moved above me, so thus, the monster will drop rapidly"
+                    "\nand I'll be... be...."
+                    "\n"
+                    "\noh no....", "Dr. Goose")
+Scholar_Goose.talk_to(True)
+Scholar_Goose.talk_to(True)
 
 
 class Lava(pygame.sprite.Sprite):
