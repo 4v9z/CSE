@@ -52,6 +52,43 @@ class Water(pygame.sprite.Sprite):
         self.rect.y = y
 
 
+Monsters = pygame.sprite.Group()
+
+
+class Mallardformed(pygame.sprite.Sprite):
+    def __init__(self, imge, imge2, x, y, surfacex, surfacey, type = 'd'):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(imge).convert()
+        self.image = pygame.Surface([surfacex, surfacey])
+        self.image.set_colorkey(black)
+        self.image.blit(img, (0, 0))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.touchin_player = []
+        self.type = type
+        self.grav = 0
+        self.basey = y
+
+    def fall(self):
+        if self.rect.x == The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x:
+            self.grav = 10
+        else:
+            if self.rect.y == self.basey:
+                self.grav = 0
+            else:
+                self.grav = -10
+        self.rect.y += self.grav
+
+    def do_harm(self):
+        self.touchin_player = pygame.sprite.groupcollide(DuckSprites, Monsters, False, False)
+        if len(self.touchin_player) > 0:
+            print("You find yourself slowly losing consciousness as you're crushed by the monster"
+                  "\nYour thoughts slowly fade away as they're drowned out by the creature's demented laughter")
+            return False
+
+
+
 class NPC(pygame.sprite.Sprite):
     def __init__(self, imge, x, y, surfacex, surfacey, dialogue="", name=""):
         pygame.sprite.Sprite.__init__(self)
@@ -83,19 +120,19 @@ class NPC(pygame.sprite.Sprite):
 
 Scholar_Goose = NPC("scholar.png", 107, 420, 47, 74,
                     "Halt right there! I've been researching these ruins here and this place is dangerous. "
-                    "\nAccording to my research, these odd statues are, in fact... demons!"
+                    "\nAccording to my research, these odd statues are, in fact... monsters!"
                     "\n"
                     "\n..."
                     "\n"
                     "\nYou don't seem phased by this..."
                     "\nI shall explain them to you anyways."
-                    "\nThe demons attack from above, but only if your appearance matches their appearance."
-                    "\nAs you can see, a goose-like monster has moved above me, so thus, the monster will drop rapidly"
-                    "\nand I'll be... be...."
+                    "\nThese monsters, which I have deemed 'Mallardformed' attack from above."
+                    "\nDon't worry, they only attack if your appearance matches their appearance."
+                    "\nAs you can see, a goose-like monster has moved above me, so thus, the monster will drop rapidly "
+                    "and I'll be... be...."
                     "\n"
                     "\noh no....", "Dr. Goose")
-Scholar_Goose.talk_to(True)
-Scholar_Goose.talk_to(True)
+NPCs.add(Scholar_Goose)
 
 
 class Lava(pygame.sprite.Sprite):
