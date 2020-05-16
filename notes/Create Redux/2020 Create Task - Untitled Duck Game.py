@@ -56,37 +56,57 @@ Monsters = pygame.sprite.Group()
 
 
 class Mallardformed(pygame.sprite.Sprite):
-    def __init__(self, imge, imge2, x, y, surfacex, surfacey, type = 'd'):
+    def __init__(self, imge, imge2, x, y, surfacex, surfacey, room, type = 'd'):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(imge).convert()
+        self.img = pygame.image.load(imge).convert()
         self.image = pygame.Surface([surfacex, surfacey])
         self.image.set_colorkey(black)
-        self.image.blit(img, (0, 0))
+        self.image.blit(self.img, (0, 0))
         self.rect = self.image.get_rect()
+        self.img2 = pygame.image.load(imge2).convert()
         self.rect.x = x
         self.rect.y = y
         self.touchin_player = []
         self.type = type
         self.grav = 0
         self.basey = y
+        self.room = room
+        self.touchin_ground = []
+        self.evil = False
 
     def fall(self):
-        if self.rect.x == The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x:
-            self.grav = 10
-        else:
-            if self.rect.y == self.basey:
-                self.grav = 0
+        self.touchin_ground = pygame.sprite.groupcollide(Enviros, Monsters, False, False)
+        if self.room == The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms:
+            if self.rect.x == The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x:
+                if self.type == The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.type:
+                    if self.rect.y < The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y:
+                        if len(self.touchin_ground) > 0:
+                            self.grav = 0
+                        else:
+                            self.grav = 10
+                            self.evil = True
+                            self.image.blit(self.img2, (0, 0))
+                    if len(self.touchin_ground) > 0:
+                        self.grav = 0
             else:
-                self.grav = -10
-        self.rect.y += self.grav
+                self.evil = False
+                self.image.blit(self.img, (0, 0))
+                if self.rect.y == self.basey:
+                    self.grav = 0
+                else:
+                    self.grav = -10
+            self.rect.y += self.grav
 
     def do_harm(self):
         self.touchin_player = pygame.sprite.groupcollide(DuckSprites, Monsters, False, False)
         if len(self.touchin_player) > 0:
-            print("You find yourself slowly losing consciousness as you're crushed by the monster"
-                  "\nYour thoughts slowly fade away as they're drowned out by the creature's demented laughter")
-            return False
+            if self.evil:
+                print("You find yourself slowly losing consciousness as you're crushed by the monster"
+                      "\nYour thoughts slowly fade away as they're drowned out by the creature's demented laughter")
+                return False
 
+
+Mallardform1 = Mallardformed("Mallardd.png", "Mallarddd.png", 400, 50, 48, 38, 0)
 
 
 class NPC(pygame.sprite.Sprite):
@@ -570,6 +590,7 @@ DuckSprites = pygame.sprite.Group()
 DuckSprites.add(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard)
 Ducks = [The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard]
 Enviro1 = pygame.sprite.Group()
+Enviro1.add(Mallardform1)
 Enviro2 = pygame.sprite.Group()
 Enviro4 = pygame.sprite.Group()
 Enviro4.add(lavapool1)
@@ -589,6 +610,7 @@ Enviro3.add(wplat2)
 Enviro3.add(wplat3)
 Enviro3.add(Stake_1)
 Enviro3.add(grass_ground)
+Monsters.add(Mallardform1)
 Enviro1.add(The_Faster_Mallard)
 Enviro1.add(grass_ground)
 Enviro1.add(grass_platform1)
@@ -605,8 +627,11 @@ Enviros = [grass_ground, grass_platform1, grass_platform2, grass_platform3,
 
 
 def updatescreen(x):
+    y = True
     if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 0:
         Enviro1.draw(screen)
+        Mallardform1.fall()
+        y = Mallardform1.do_harm()
         if len(Enviros) < 8:
             Enviros.append(grass_ground)
             Enviros.append(grass_platform1)
@@ -816,9 +841,13 @@ def updatescreen(x):
                 Enviros.remove(Stake_3)
         except ValueError:
             x = 0
+    if y is None:
+        y = True
+    return y
 
 
 PowerUps.add(The_Faster_Mallard)
+Monsterss = [Mallardform1]
 gaming = True
 while titling:
     for event in pygame.event.get():
@@ -866,7 +895,6 @@ while gaming:
             The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.runnin = False
     screen.blit(basic_sky, [0, 0])
     The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.move(x)
-    updatescreen(filler)
     DuckSprites.draw(screen)
     if not The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.runnin:
         if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.type == "c":
@@ -882,6 +910,7 @@ while gaming:
     if The_Fatter_Mallard.collectedd:
         screen.blit(icon3, [20, 80])
     gaming = The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.gravity()
+    gaming = updatescreen(filler)
     FpS.tick(16)
     if Stake_1.pounded:
         if not var1:
@@ -971,6 +1000,7 @@ while gaming:
         Stake_3.image.set_colorkey(black)
         Stake_3.image.blit(pygame.image.load("stake6.png").convert(), (0, 0))
     print(str(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x) + " " + str(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y))
-    gaming = True
+    print(Mallardform1.rect.x)
     pygame.display.flip()
+    print(len(Mallardform1.touchin_ground))
 print(colored("GAME OVER", "red"))
