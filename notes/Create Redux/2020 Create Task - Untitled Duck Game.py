@@ -77,13 +77,13 @@ class Mallardformed(pygame.sprite.Sprite):
     def fall(self):
         self.touchin_ground = pygame.sprite.groupcollide(Enviros, Monsters, False, False)
         if self.room == The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms:
-            if self.rect.x == The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x:
+            if (self.rect.x - 1) < The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x >= (self.rect.x + 50):
                 if self.type == The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.type:
                     if self.rect.y < The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y:
                         if len(self.touchin_ground) > 0:
                             self.grav = 0
                         else:
-                            self.grav = 10
+                            self.grav = 20
                             self.evil = True
                             self.image.blit(self.img2, (0, 0))
                     if len(self.touchin_ground) > 0:
@@ -94,7 +94,7 @@ class Mallardformed(pygame.sprite.Sprite):
                 if self.rect.y == self.basey:
                     self.grav = 0
                 else:
-                    self.grav = -10
+                    self.grav = -20
             self.rect.y += self.grav
 
     def do_harm(self):
