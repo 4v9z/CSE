@@ -110,7 +110,7 @@ Mallardform1 = Mallardformed("Mallardd.png", "Mallarddd.png", 400, 50, 48, 38, 0
 
 
 class NPC(pygame.sprite.Sprite):
-    def __init__(self, imge, x, y, surfacex, surfacey, dialogue="", name=""):
+    def __init__(self, imge, x, y, surfacex, surfacey, dialogue="", name="", room=0):
         pygame.sprite.Sprite.__init__(self)
         img = pygame.image.load(imge).convert()
         self.image = pygame.Surface([surfacex, surfacey])
@@ -122,23 +122,30 @@ class NPC(pygame.sprite.Sprite):
         self.touchin_player = []
         self.dialogue = dialogue
         self.name = name
+        self.room = room
 
     def touchy_time(self):
-        self.touchin_player = pygame.sprite.groupcollide(DuckSprites, NPCs, False, False)
-        if len(self.touchin_player) > 0:
-            screen.blit(pygame.image.load("zkey.png"), ((self.rect.x + 23), (self.rect.y - 90)))
+        if self.room == The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms:
+            self.touchin_player = pygame.sprite.groupcollide(DuckSprites, NPCs, False, False)
+            if len(self.touchin_player) > 0:
+                screen.blit(pygame.image.load("zkey.png"), ((self.rect.x + 18), (self.rect.y - 20)))
+                self.speakable = True
+            else:
+                self.speakable = False
 
-    def talk_to(self, start):
-        if start:
+    def talk_to(self):
+        if self.speakable:
             print(colored(str(self.name), "blue") + ": " + str(self.dialogue))
             if self.name == "Dr. Goose":
+                The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y -= 30
+                The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x = self.rect.x - 80
                 self.dialogue = "I'm... fine... just crushed... I'll live, but I assume that " \
                                 "\nI'll need some sort of air pump to get me back to normal considering how the laws " \
                                 "of physics " \
                                 "\nin our universe are what some would deem cartoonish"
 
 
-Scholar_Goose = NPC("scholar.png", 107, 420, 47, 74,
+Scholar_Goose = NPC("scholar.png", 107, 398, 47, 74,
                     "Halt right there! I've been researching these ruins here and this place is dangerous. "
                     "\nAccording to my research, these odd statues are, in fact... monsters!"
                     "\n"
@@ -151,7 +158,7 @@ Scholar_Goose = NPC("scholar.png", 107, 420, 47, 74,
                     "\nAs you can see, a goose-like monster has moved above me, so thus, the monster will drop rapidly "
                     "and I'll be... be...."
                     "\n"
-                    "\noh no....", "Dr. Goose")
+                    "\noh no....", "Dr. Goose", 6)
 NPCs.add(Scholar_Goose)
 
 
@@ -591,6 +598,7 @@ DuckSprites = pygame.sprite.Group()
 DuckSprites.add(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard)
 Ducks = [The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard]
 Enviro1 = pygame.sprite.Group()
+Enviro1.add(Scholar_Goose)
 #Enviro1.add(Mallardform1)
 Enviro2 = pygame.sprite.Group()
 Enviro4 = pygame.sprite.Group()
@@ -625,6 +633,7 @@ Enviro7 = pygame.sprite.Group()
 Enviro7.add(A_LAVA_WATERFALL)
 Enviros = [grass_ground, grass_platform1, grass_platform2, grass_platform3,
            grass_platform4, grass_platform5, grass_platform6, grass_platform7]
+NPCss = [Scholar_Goose]
 
 
 def updatescreen(x):
@@ -644,6 +653,8 @@ def updatescreen(x):
             Enviros.append(grass_platform7)
             if len(PowerUps) < 1:
                 PowerUps.add(The_Faster_Mallard)
+            if len(NPCss) < 1:
+                NPCss.append(Scholar_Goose)
     else:
         try:
             Enviros.remove(grass_ground)
@@ -656,6 +667,8 @@ def updatescreen(x):
             Enviros.remove(grass_platform7)
             if len(PowerUps) == 1:
                 PowerUps.remove(The_Faster_Mallard)
+            if len(NPCss) == 1:
+                NPCss.remove(Scholar_Goose)
         except ValueError:
             x = 0
     if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 1:
@@ -861,7 +874,6 @@ while titling:
     screen.blit(title_screen, [0, 0])
     pygame.display.flip()
 while gaming:
-    print(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.direction)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             gaming = False
@@ -869,7 +881,6 @@ while gaming:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.direction = 0
-                print(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.direction)
                 if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.type == "c":
                     The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.runnin = True
                 x = -5
@@ -892,12 +903,15 @@ while gaming:
                 x = -10
             if event.key == pygame.K_i:
                 x = 10
+            if event.key == pygame.K_z:
+                for i in range(len(NPCss)):
+                    if len(NPCss[i].touchin_player) > 0:
+                        NPCss[i].talk_to()
         if event.type == pygame.KEYUP:
             x = 0
             y = 0
             The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.runnin = False
     screen.blit(basic_sky, [0, 0])
-    print(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.direction)
     The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.move(x)
     if not The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.runnin:
         if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.type == "c":
@@ -1007,8 +1021,7 @@ while gaming:
         Stake_3.image.set_colorkey(black)
         Stake_3.image.blit(pygame.image.load("stake6.png").convert(), (0, 0))
     print(str(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x) + " " + str(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y))
-    print(Mallardform1.rect.x)
+    for i in range(len(NPCss)):
+        NPCss[i].touchy_time()
     pygame.display.flip()
-    print(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.direction)
-    print(len(Mallardform1.touchin_ground))
 print(colored("GAME OVER", "red"))
