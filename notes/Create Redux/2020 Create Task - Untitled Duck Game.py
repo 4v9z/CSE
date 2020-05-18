@@ -124,7 +124,7 @@ class NPC(pygame.sprite.Sprite):
         self.name = name
         self.room = room
 
-    def touchy_time(self):
+    def ready_to_socialize(self):
         if self.room == The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms:
             self.touchin_player = pygame.sprite.groupcollide(DuckSprites, NPCs, False, False)
             if len(self.touchin_player) > 0:
@@ -415,14 +415,14 @@ class Duck(pygame.sprite.Sprite):
                 if self.rect.y < 5:
                     self.rect.y = 420
                 if self.rect.y > 495:
-                    self.rect.y = 420
+                    return False
             elif self.type == "e":
                 if 495 >= self.rect.y >= 5:
                     self.rect.y -= 20
                 if self.rect.y < 5:
                     self.rect.y = 420
                 if self.rect.y > 495:
-                    self.rect.y = 420
+                    return False
 
     def gravity(self):
         self.touchin_ground = pygame.sprite.spritecollide(self, Enviros, False)
@@ -548,10 +548,10 @@ wholefloorislava = Lava("lava.png", 0, 480)
 wholefloorislava.image = pygame.Surface([580, 20])
 wholefloorislava.image.blit(pygame.image.load("lava.png"), (0, 0))
 wholefloorislava.image.set_colorkey(black)
-A_LAVA_WATERFALL = Lava("lava.png", 560, 0)
+A_LAVA_WATERFALL = Lava("lava.png", 0, 0)
 A_LAVA_WATERFALL.image = pygame.Surface([20, 500])
-wholefloorislava.image.blit(pygame.image.load("lavawall.png"), (0, 0))
-wholefloorislava.image.set_colorkey(black)
+A_LAVA_WATERFALL.image.blit(pygame.image.load("lavawall.png"), (0, 0))
+A_LAVA_WATERFALL.image.set_colorkey(black)
 oplat7 = Plat("obsidianplat.png", 0, 120)
 lplat7 = LavaPlat("lava plat.png", 80, 140)
 lplat8 = LavaPlat("lava plat.png", 160, 160)
@@ -598,8 +598,6 @@ DuckSprites = pygame.sprite.Group()
 DuckSprites.add(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard)
 Ducks = [The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard]
 Enviro1 = pygame.sprite.Group()
-Enviro1.add(Scholar_Goose)
-#Enviro1.add(Mallardform1)
 Enviro2 = pygame.sprite.Group()
 Enviro4 = pygame.sprite.Group()
 Enviro4.add(lavapool1)
@@ -631,6 +629,8 @@ Enviro1.add(grass_platform6)
 Enviro1.add(grass_platform7)
 Enviro7 = pygame.sprite.Group()
 Enviro7.add(A_LAVA_WATERFALL)
+Enviro7.add(Scholar_Goose)
+Enviro7.add(Mallardform1)
 Enviros = [grass_ground, grass_platform1, grass_platform2, grass_platform3,
            grass_platform4, grass_platform5, grass_platform6, grass_platform7]
 NPCss = [Scholar_Goose]
@@ -855,6 +855,8 @@ def updatescreen(x):
                 Enviros.remove(Stake_3)
         except ValueError:
             x = 0
+    if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 6:
+        Enviro7.draw(screen)
     if y is None:
         y = True
     return y
@@ -930,6 +932,8 @@ while gaming:
     if The_Fatter_Mallard.collectedd:
         screen.blit(icon3, [20, 80])
     gaming = The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.gravity()
+    if not gaming:
+        sys.exit()
     gaming = updatescreen(filler)
     DuckSprites.draw(screen)
     FpS.tick(16)
@@ -1020,8 +1024,9 @@ while gaming:
         Stake_3.image = pygame.Surface([24, 20])
         Stake_3.image.set_colorkey(black)
         Stake_3.image.blit(pygame.image.load("stake6.png").convert(), (0, 0))
-    print(str(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x) + " " + str(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y))
+    print(str(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x) + " " +
+          str(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y))
     for i in range(len(NPCss)):
-        NPCss[i].touchy_time()
+        NPCss[i].ready_to_socialize()
     pygame.display.flip()
 print(colored("GAME OVER", "red"))
