@@ -1193,6 +1193,4 @@ while gaming:
     if Stake_4.pounded:
         ANOTHER_LAVA_WATERFALL.image = pygame.Surface([15, 380])
         ANOTHER_LAVA_WATERFALL.image.blit(pygame.image.load("lavawall.png").convert(), (0, 0))
-    print(Mallardform2.evil)
-    print(Mallardform2.rect.y)
 print(colored("GAME OVER", "red"))
