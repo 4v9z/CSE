@@ -4,6 +4,8 @@ from termcolor import colored
 pygame.init()
 filler = 0
 var1 = False
+var7 = False
+var6 = False
 var2 = False
 var3 = False
 var4 = False
@@ -24,6 +26,7 @@ titling = True
 FpS = pygame.time.Clock()
 PowerUps = pygame.sprite.Group()
 NPCs = pygame.sprite.Group()
+danger_from_above = pygame.image.load("up is danger.png")
 
 
 class Ground(pygame.sprite.Sprite):
@@ -55,8 +58,42 @@ class Water(pygame.sprite.Sprite):
 Monsters = pygame.sprite.Group()
 
 
-class Mallardformed(pygame.sprite.Sprite):
+class Cutscenemallardformed(pygame.sprite.Sprite):
     def __init__(self, imge, imge2, x, y, surfacex, surfacey, room, type = 'd'):
+        pygame.sprite.Sprite.__init__(self)
+        self.img = pygame.image.load(imge).convert()
+        self.image = pygame.Surface([surfacex, surfacey])
+        self.image.set_colorkey(black)
+        self.image.blit(self.img, (0, 0))
+        self.rect = self.image.get_rect()
+        self.img2 = pygame.image.load(imge2).convert()
+        self.rect.x = x
+        self.rect.y = y
+        self.touchin_goose = []
+        self.type = type
+        self.grav = 0
+        self.basey = y
+        self.room = room
+        self.touchin_ground = []
+        self.evil = False
+
+    def fall(self):
+        self.touchin_ground = pygame.sprite.groupcollide(Teh_Ground, Monstersss, False, False)
+        if len(self.touchin_ground) > 0:
+            self.grav = 0
+            return True
+        else:
+            self.grav = 20
+            self.evil = True
+            self.image.blit(self.img2, (0, 0))
+        self.rect.y += self.grav
+
+
+Goose_Crusher = Cutscenemallardformed("Mallardg.png", "Mallardgd.png", 100, 290, 48, 40, 6)
+
+
+class Mallardformed(pygame.sprite.Sprite):
+    def __init__(self, imge, imge2, x, y, surfacex, surfacey, room, type='d'):
         pygame.sprite.Sprite.__init__(self)
         self.img = pygame.image.load(imge).convert()
         self.image = pygame.Surface([surfacex, surfacey])
@@ -77,7 +114,7 @@ class Mallardformed(pygame.sprite.Sprite):
     def fall(self):
         self.touchin_ground = pygame.sprite.groupcollide(Enviros, Monsters, False, False)
         if self.room == The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms:
-            if (self.rect.x - 1) < The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x and The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x <= (self.rect.x + 50):
+            if (self.rect.x - 1) < The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x <= (self.rect.x + 50):
                 if self.type == The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.type:
                     if self.rect.y < The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y:
                         if len(self.touchin_ground) > 0:
@@ -106,11 +143,12 @@ class Mallardformed(pygame.sprite.Sprite):
                 return False
 
 
-Mallardform1 = Mallardformed("Mallardd.png", "Mallarddd.png", 400, 50, 48, 38, 0)
+Mallardform1 = Mallardformed("Mallardd.png", "Mallarddd.png", 260, 50, 48, 38, 6)
+Mallardform2 = Mallardformed("Mallarde.png", "Mallarded.png", 10, -180, 48, 38, 6., 'e')
 
 
 class NPC(pygame.sprite.Sprite):
-    def __init__(self, imge, x, y, surfacex, surfacey, dialogue="", name="", room=0):
+    def __init__(self, room, imge, x, y, surfacex, surfacey, dialogue="", name=""):
         pygame.sprite.Sprite.__init__(self)
         img = pygame.image.load(imge).convert()
         self.image = pygame.Surface([surfacex, surfacey])
@@ -122,6 +160,7 @@ class NPC(pygame.sprite.Sprite):
         self.touchin_player = []
         self.dialogue = dialogue
         self.name = name
+        self.bonked = False
         self.room = room
 
     def ready_to_socialize(self):
@@ -137,15 +176,29 @@ class NPC(pygame.sprite.Sprite):
         if self.speakable:
             print(colored(str(self.name), "blue") + ": " + str(self.dialogue))
             if self.name == "Dr. Goose":
-                The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y -= 30
-                The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x = self.rect.x - 80
+                if not self.bonked:
+                    Scholar_Goose.image = pygame.Surface([47, 74])
+                    Scholar_Goose.image.blit(pygame.image.load("scholarl.png").convert(), (0, 0))
+                    Scholar_Goose.image.set_colorkey(black)
+                    The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y -= 30
+                    The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x = self.rect.x - 80
                 self.dialogue = "I'm... fine... just crushed... I'll live, but I assume that " \
                                 "\nI'll need some sort of air pump to get me back to normal considering how the laws " \
                                 "of physics " \
-                                "\nin our universe are what some would deem cartoonish"
+                                "\nin our universe are what some would deem cartoonish" \
+                                "\n" \
+                                "\n" \
+                                "\nRegardless, some more advice. These monsters will stop " \
+                                "attacking if you aren't directly under them" \
+                                "\n and they won't stop if you transform under them, but they will attack if you " \
+                                "transform into something resembling them while being beneath them" \
+                                "\nBe careful if you move further, but I advise that you turn right around and " \
+                                "hope these things don't leave the ruins"
+                self.bonked = True
+                return True
 
 
-Scholar_Goose = NPC("scholar.png", 107, 398, 47, 74,
+Scholar_Goose = NPC(6, "scholar.png", 107, 398, 47, 74,
                     "Halt right there! I've been researching these ruins here and this place is dangerous. "
                     "\nAccording to my research, these odd statues are, in fact... monsters!"
                     "\n"
@@ -158,7 +211,7 @@ Scholar_Goose = NPC("scholar.png", 107, 398, 47, 74,
                     "\nAs you can see, a goose-like monster has moved above me, so thus, the monster will drop rapidly "
                     "and I'll be... be...."
                     "\n"
-                    "\noh no....", "Dr. Goose", 6)
+                    "\noh no....", "Dr. Goose")
 NPCs.add(Scholar_Goose)
 
 
@@ -167,6 +220,19 @@ class Lava(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         img = pygame.image.load(imge).convert()
         self.image = pygame.Surface([500, 30])
+        self.image.set_colorkey(black)
+        self.image.blit(img, (0, 0))
+        self.type = "lava"
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+
+class Lavawall(pygame.sprite.Sprite):
+    def __init__(self, imge, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(imge).convert()
+        self.image = pygame.Surface([20, 500])
         self.image.set_colorkey(black)
         self.image.blit(img, (0, 0))
         self.type = "lava"
@@ -236,6 +302,8 @@ class Stake(pygame.sprite.Sprite):
 grass_ground = Ground("ground.png", 0, 470)
 grass_ground2 = Ground("ground.png", 0, 470)
 grass_ground3 = Ground("ground.png", 0, 470)
+grass_ground4 = Ground("rgground.png", 0, 470)
+Teh_Ground = [grass_ground4]
 water = Water("water.png", 80, 480)
 wplat1 = WaterPlat("waterplatform.png", 210, 405)
 wplat2 = WaterPlat("waterplatform.png", 210, 345)
@@ -257,12 +325,19 @@ wplat6 = WaterPlat("waterplatform.png", 170, 320)
 wplat7 = WaterPlat("waterplatform.png", 10, 275)
 wplat8 = WaterPlat("waterplatform.png", 170, 220)
 wplat9 = WaterPlat("waterplatform.png", 330, 175)
+Enviro7 = pygame.sprite.Group()
 grass_platform8 = Plat("gplatform.png", 490, 125)
+ruin_platform1 = Plat("rplatform.png", 325, 370)
+ruin_platform2 = Plat("rplatform.png", 325, 270)
+ruin_platform3 = Plat("rplatform.png", 325, 170)
+ruin_platform4 = Plat("rplatform.png", 135, 155)
+ruin_platform5 = Plat("rplatform.png", 10, 135)
 waterbutsmaller = Water("water.png", 80, 480)
 waterbutsmaller.image = pygame.Surface([420, 20])
 waterbutsmaller.image.set_colorkey(black)
 waterbutsmaller.image.blit(pygame.image.load("water.png").convert(), (0, 0))
 Stake_2 = Stake("stake3.png", "stake4.png", 260, 455)
+Stake_4 = Stake("rstake1.png", "rstake2.png", 40, 115)
 Stake_2.image = pygame.Surface([24, 32])
 Stake_2.image.set_colorkey(black)
 Stake_2.image.blit(pygame.image.load("stake3.png").convert(), (0, 0))
@@ -273,6 +348,13 @@ Stake_3.image.blit(pygame.image.load("stake5.png").convert(), (0, 0))
 Enviro5 = pygame.sprite.Group()
 Enviro5.add(waterbutsmaller)
 Enviro5.add(grass_shore3)
+Enviro7.add(ruin_platform1)
+Enviro7.add(ruin_platform2)
+Enviro7.add(ruin_platform3)
+Enviro7.add(ruin_platform4)
+Enviro7.add(Goose_Crusher)
+Enviro7.add(ruin_platform5)
+Enviro7.add(Stake_4)
 Enviro5.add(grass_shore4)
 Enviro5.add(Stake_2)
 
@@ -406,23 +488,12 @@ class Duck(pygame.sprite.Sprite):
             if self.type == "d":
                 if 495 >= self.rect.y >= 5:
                     self.rect.y -= 100
-                if self.rooms != 0:
-                    if self.rect.y < 5:
-                        self.rect.y = 420
             elif self.type == "c":
                 if 495 >= self.rect.y >= 5:
                     self.rect.y -= 40
-                if self.rect.y < 5:
-                    self.rect.y = 420
-                if self.rect.y > 495:
-                    return False
             elif self.type == "e":
                 if 495 >= self.rect.y >= 5:
                     self.rect.y -= 20
-                if self.rect.y < 5:
-                    self.rect.y = 420
-                if self.rect.y > 495:
-                    return False
 
     def gravity(self):
         self.touchin_ground = pygame.sprite.spritecollide(self, Enviros, False)
@@ -493,6 +564,15 @@ class Duck(pygame.sprite.Sprite):
                     self.touchin_ground[0].image.set_colorkey(black)
         except IndexError:
             self.can_trans = self.can_trans
+        if self.rect.y > 495:
+            if self.type == "d":
+                print("Duck fell out of the world")
+            elif self.type == "c":
+                print("Too bad you didn't have a sidekick "
+                      "to fly you out of that pit")
+            else:
+                print("Why did you even try to use the elephant for elevation and/or speed")
+            return False
         self.rect.y += grav
         return True
 
@@ -548,10 +628,8 @@ wholefloorislava = Lava("lava.png", 0, 480)
 wholefloorislava.image = pygame.Surface([580, 20])
 wholefloorislava.image.blit(pygame.image.load("lava.png"), (0, 0))
 wholefloorislava.image.set_colorkey(black)
-A_LAVA_WATERFALL = Lava("lava.png", 0, 0)
-A_LAVA_WATERFALL.image = pygame.Surface([20, 500])
-A_LAVA_WATERFALL.image.blit(pygame.image.load("lavawall.png"), (0, 0))
-A_LAVA_WATERFALL.image.set_colorkey(black)
+A_LAVA_WATERFALL = Lavawall("lavawall.png", 0, 0)
+ANOTHER_LAVA_WATERFALL = Lavawall("lavawall.png", 560, 0)
 oplat7 = Plat("obsidianplat.png", 0, 120)
 lplat7 = LavaPlat("lava plat.png", 80, 140)
 lplat8 = LavaPlat("lava plat.png", 160, 160)
@@ -627,21 +705,22 @@ Enviro1.add(grass_platform4)
 Enviro1.add(grass_platform5)
 Enviro1.add(grass_platform6)
 Enviro1.add(grass_platform7)
-Enviro7 = pygame.sprite.Group()
+Enviro7.add(Mallardform2)
 Enviro7.add(A_LAVA_WATERFALL)
+Enviro7.add(ANOTHER_LAVA_WATERFALL)
+Enviro7.add(grass_ground4)
 Enviro7.add(Scholar_Goose)
 Enviro7.add(Mallardform1)
 Enviros = [grass_ground, grass_platform1, grass_platform2, grass_platform3,
            grass_platform4, grass_platform5, grass_platform6, grass_platform7]
 NPCss = [Scholar_Goose]
+NPCsss = [Scholar_Goose]
 
 
 def updatescreen(x):
     y = True
     if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 0:
         Enviro1.draw(screen)
-        #Mallardform1.fall()
-        #y = Mallardform1.do_harm()
         if len(Enviros) < 8:
             Enviros.append(grass_ground)
             Enviros.append(grass_platform1)
@@ -820,6 +899,7 @@ def updatescreen(x):
                 Enviros.append(oplat18)
                 Enviros.append(oplat19)
                 Enviros.append(Stake_3)
+                Enviros.append(grass_ground3)
     else:
         try:
             if not Stake_3.pounded:
@@ -856,7 +936,61 @@ def updatescreen(x):
         except ValueError:
             x = 0
     if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 6:
+        screen.blit(danger_from_above, (45, 60))
         Enviro7.draw(screen)
+        Mallardform1.fall()
+        y = Mallardform1.do_harm()
+        Mallardform2.fall()
+        y = Mallardform2.do_harm()
+        if len(Enviros) < 9:
+            if Stake_4.pounded:
+                Enviros.append(ruin_platform4)
+                Enviros.append(ruin_platform5)
+                Enviros.append(ruin_platform1)
+                Enviros.append(ruin_platform2)
+                Enviros.append(ruin_platform3)
+                Enviros.append(Stake_4)
+                Enviros.append(grass_ground4)
+                Enviros.append(A_LAVA_WATERFALL)
+                Enviros.append(ANOTHER_LAVA_WATERFALL)
+            if not Stake_4.pounded:
+                Enviros.append(ruin_platform4)
+                Enviros.append(ruin_platform5)
+                Enviros.append(ruin_platform1)
+                Enviros.append(ruin_platform2)
+                Enviros.append(ruin_platform3)
+                Enviros.append(Stake_4)
+                Enviros.append(grass_ground4)
+                Enviros.append(A_LAVA_WATERFALL)
+                Enviros.append(ANOTHER_LAVA_WATERFALL)
+        if len(NPCss) < 1:
+            NPCss.append(Scholar_Goose)
+    else:
+        if len(NPCss) == 1:
+            NPCss.remove(Scholar_Goose)
+        try:
+            if Stake_4.pounded:
+                Enviros.remove(ruin_platform4)
+                Enviros.remove(ruin_platform5)
+                Enviros.remove(ruin_platform1)
+                Enviros.remove(ruin_platform2)
+                Enviros.remove(ruin_platform3)
+                Enviros.remove(Stake_4)
+                Enviros.remove(grass_ground4)
+                Enviros.remove(A_LAVA_WATERFALL)
+                Enviros.remove(ANOTHER_LAVA_WATERFALL)
+            if not Stake_4.pounded:
+                Enviros.remove(ruin_platform4)
+                Enviros.remove(ruin_platform5)
+                Enviros.remove(ruin_platform1)
+                Enviros.remove(ruin_platform2)
+                Enviros.remove(ruin_platform3)
+                Enviros.remove(Stake_4)
+                Enviros.remove(grass_ground4)
+                Enviros.remove(A_LAVA_WATERFALL)
+                Enviros.remove(ANOTHER_LAVA_WATERFALL)
+        except ValueError:
+            x = 0
     if y is None:
         y = True
     return y
@@ -864,6 +998,7 @@ def updatescreen(x):
 
 PowerUps.add(The_Faster_Mallard)
 Monsterss = [Mallardform1]
+Monstersss = [Goose_Crusher]
 gaming = True
 while titling:
     for event in pygame.event.get():
@@ -875,6 +1010,8 @@ while titling:
                 titling = False
     screen.blit(title_screen, [0, 0])
     pygame.display.flip()
+The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x = 50
+The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y = 424
 while gaming:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -901,6 +1038,10 @@ while gaming:
                 The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.transform("e")
             if event.key == pygame.K_w:
                 The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y -= 200
+            if event.key == pygame.K_2:
+                The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y -= 10000
+            if event.key == pygame.K_x:
+                The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y = 150
             if event.key == pygame.K_u:
                 x = -10
             if event.key == pygame.K_i:
@@ -908,7 +1049,7 @@ while gaming:
             if event.key == pygame.K_z:
                 for i in range(len(NPCss)):
                     if len(NPCss[i].touchin_player) > 0:
-                        NPCss[i].talk_to()
+                        var5 = NPCss[i].talk_to()
         if event.type == pygame.KEYUP:
             x = 0
             y = 0
@@ -932,6 +1073,7 @@ while gaming:
     if The_Fatter_Mallard.collectedd:
         screen.blit(icon3, [20, 80])
     gaming = The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.gravity()
+    gaming = True
     if not gaming:
         sys.exit()
     gaming = updatescreen(filler)
@@ -1019,8 +1161,8 @@ while gaming:
             Enviros.append(oplat19)
             Enviros.append(grass_ground3)
             A_LAVA_WATERFALL.image = pygame.Surface([20, 380])
-            wholefloorislava.image.blit(pygame.image.load("lavawall.png"), (0, 0))
-            wholefloorislava.image.set_colorkey(black)
+            A_LAVA_WATERFALL.image.blit(pygame.image.load("lavawall.png"), (0, 0))
+            A_LAVA_WATERFALL.image.set_colorkey(black)
         Stake_3.image = pygame.Surface([24, 20])
         Stake_3.image.set_colorkey(black)
         Stake_3.image.blit(pygame.image.load("stake6.png").convert(), (0, 0))
@@ -1028,5 +1170,29 @@ while gaming:
           str(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y))
     for i in range(len(NPCss)):
         NPCss[i].ready_to_socialize()
+    gaming = True
     pygame.display.flip()
+    if var5:
+        if not var6:
+            var6 = Goose_Crusher.fall()
+        else:
+            Goose_Crusher.rect.y = 430
+            Goose_Crusher.image.blit(pygame.image.load("Mallardgdc.png").convert(), (0, 0))
+            Scholar_Goose.image = pygame.Surface([52, 41])
+            Scholar_Goose.image.set_colorkey(black)
+            if not var7:
+                var7 = True
+                Scholar_Goose.rect.x -= 2
+        if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 6:
+            Enviros.append(Goose_Crusher)
+        else:
+            try:
+                Enviros.remove(Goose_Crusher)
+            except ValueError:
+                filler = 0
+    if Stake_4.pounded:
+        ANOTHER_LAVA_WATERFALL.image = pygame.Surface([15, 380])
+        ANOTHER_LAVA_WATERFALL.image.blit(pygame.image.load("lavawall.png").convert(), (0, 0))
+    print(Mallardform2.evil)
+    print(Mallardform2.rect.y)
 print(colored("GAME OVER", "red"))
