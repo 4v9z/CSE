@@ -22,6 +22,14 @@ basic_sky = pygame.image.load("environments.png").convert()
 icon1 = pygame.image.load("Ducon.png")
 icon2 = pygame.image.load("CDuckon.png")
 icon3 = pygame.image.load("EDuckon.png")
+bgpillars = pygame.image.load("pillars.png")
+gemgold = pygame.image.load("pile of riches.png")
+diamonds = pygame.image.load("diamonds.png")
+duckmond = pygame.image.load("sun duck statue.png")
+finish = pygame.image.load("magic orb of destiny.png")
+pedestal = pygame.image.load("cool pedestal.png")
+purple = pygame.image.load("cool purple gem.png")
+
 titling = True
 FpS = pygame.time.Clock()
 PowerUps = pygame.sprite.Group()
@@ -120,7 +128,10 @@ class Mallardformed(pygame.sprite.Sprite):
                         if len(self.touchin_ground) > 0:
                             self.grav = 0
                         else:
-                            self.grav = 20
+                            if self.type != "c":
+                                self.grav = 20
+                            else:
+                                self.grav = 40
                             self.evil = True
                             self.image.blit(self.img2, (0, 0))
                     if len(self.touchin_ground) > 0:
@@ -128,7 +139,7 @@ class Mallardformed(pygame.sprite.Sprite):
             else:
                 self.evil = False
                 self.image.blit(self.img, (0, 0))
-                if self.rect.y == self.basey:
+                if self.rect.y <= self.basey:
                     self.grav = 0
                 else:
                     self.grav = -20
@@ -144,7 +155,15 @@ class Mallardformed(pygame.sprite.Sprite):
 
 
 Mallardform1 = Mallardformed("Mallardd.png", "Mallarddd.png", 260, 50, 48, 38, 6)
-Mallardform2 = Mallardformed("Mallarde.png", "Mallarded.png", 10, -180, 48, 38, 6., 'e')
+Mallardform2 = Mallardformed("Mallarde.png", "Mallarded.png", 10, -180, 48, 38, 6, 'e')
+Mallardform3 = Mallardformed("Mallardc.png", "Mallardcd.png", 96, 40, 48, 38, 7, 'c')
+Mallardform4 = Mallardformed("Mallardc.png", "Mallardcd.png", 144, 40, 48, 38, 7, 'c')
+Mallardform5 = Mallardformed("Mallardc.png", "Mallardcd.png", 192, 40, 48, 38, 7, 'c')
+Mallardform6 = Mallardformed("Mallardc.png", "Mallardcd.png", 240, 40, 48, 38, 7, 'c')
+Mallardform7 = Mallardformed("Mallardc.png", "Mallardcd.png", 288, 40, 48, 38, 7, 'c')
+Mallardform8 = Mallardformed("Mallardc.png", "Mallardcd.png", 336, 40, 48, 38, 7, 'c')
+Mallardform9 = Mallardformed("Mallardc.png", "Mallardcd.png", 384, 40, 48, 38, 7, 'c')
+Mallardform10 = Mallardformed("Mallardc.png", "Mallardcd.png", 432, 40, 48, 38, 7, 'c')
 
 
 class NPC(pygame.sprite.Sprite):
@@ -336,6 +355,12 @@ waterbutsmaller = Water("water.png", 80, 480)
 waterbutsmaller.image = pygame.Surface([420, 20])
 waterbutsmaller.image.set_colorkey(black)
 waterbutsmaller.image.blit(pygame.image.load("water.png").convert(), (0, 0))
+waterbutsmalleragain = Water("water.png", 80, 480)
+waterbutsmalleragain.image = pygame.Surface([420, 20])
+waterbutsmalleragain.image.set_colorkey(black)
+waterbutsmalleragain.image.blit(pygame.image.load("water.png").convert(), (0, 0))
+ruin_shore = Plat("rplatform.png", 0, 480)
+ruin_shore2 = Plat("rplatform.png", 500, 480)
 Stake_2 = Stake("stake3.png", "stake4.png", 260, 455)
 Stake_4 = Stake("rstake1.png", "rstake2.png", 40, 115)
 Stake_2.image = pygame.Surface([24, 32])
@@ -357,6 +382,18 @@ Enviro7.add(ruin_platform5)
 Enviro7.add(Stake_4)
 Enviro5.add(grass_shore4)
 Enviro5.add(Stake_2)
+FinalEnviro = pygame.sprite.Group()
+FinalEnviro.add(waterbutsmalleragain)
+FinalEnviro.add(ruin_shore)
+FinalEnviro.add(ruin_shore2)
+FinalEnviro.add(Mallardform3)
+FinalEnviro.add(Mallardform4)
+FinalEnviro.add(Mallardform5)
+FinalEnviro.add(Mallardform6)
+FinalEnviro.add(Mallardform7)
+FinalEnviro.add(Mallardform8)
+FinalEnviro.add(Mallardform9)
+FinalEnviro.add(Mallardform10)
 
 
 class power_up(pygame.sprite.Sprite):
@@ -422,8 +459,9 @@ class Duck(pygame.sprite.Sprite):
                 else:
                     self.rect.x = 5
             if self.rect.x > 575:
-                self.rect.x = 5
-                self.rooms += 1
+                if self.rooms != 7:
+                    self.rect.x = 5
+                    self.rooms += 1
             if self.direction == 1:
                 self.image = pygame.Surface([40, 48])
                 self.image.blit(pygame.image.load("Duck.png"), (0, 0))
@@ -459,8 +497,9 @@ class Duck(pygame.sprite.Sprite):
                 else:
                     self.rect.x = 5
             if self.rect.x > 575:
-                self.rect.x = 5
-                self.rooms += 1
+                if self.rooms != 7:
+                    self.rect.x = 5
+                    self.rooms += 1
         elif self.type == "e":
             if 575 >= self.rect.x >= 5:
                 self.rect.x = self.rect.x + (schmovement * .5)
@@ -471,8 +510,9 @@ class Duck(pygame.sprite.Sprite):
                 else:
                     self.rect.x = 5
             if self.rect.x > 575:
-                self.rect.x = 5
-                self.rooms += 1
+                if self.rooms != 7:
+                    self.rect.x = 5
+                    self.rooms += 1
             if self.direction == 1:
                 self.image = pygame.Surface([40, 48])
                 self.image.blit(pygame.image.load("EDuck.png"), (0, 0))
@@ -497,6 +537,13 @@ class Duck(pygame.sprite.Sprite):
 
     def gravity(self):
         self.touchin_ground = pygame.sprite.spritecollide(self, Enviros, False)
+        if self.rect.x == 530 or self.rect.y == 427:
+            if self.rooms == 7:
+                print(colored("Congrats! You've collected the magical, non-specific, unmentioned, not plot-important orb."
+                              "\nYou did the thing and won! Wow!"
+                              "\n"
+                              "\nBOTTOM TEXT", 'cyan'))
+                sys.exit()
         grav = 0
         if len(self.touchin_ground) > 0:
             if str(self.touchin_ground[0]) == "<Water sprite(in 1 groups)>" and self.rect.y > 490:
@@ -937,6 +984,7 @@ def updatescreen(x):
             x = 0
     if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 6:
         screen.blit(danger_from_above, (45, 60))
+        screen.blit(bgpillars, (420, 376))
         Enviro7.draw(screen)
         Mallardform1.fall()
         y = Mallardform1.do_harm()
@@ -989,6 +1037,41 @@ def updatescreen(x):
                 Enviros.remove(grass_ground4)
                 Enviros.remove(A_LAVA_WATERFALL)
                 Enviros.remove(ANOTHER_LAVA_WATERFALL)
+        except ValueError:
+            x = 0
+    if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 7:
+        screen.blit(duckmond, (10, 406))
+        screen.blit(gemgold, (530, 462))
+        screen.blit(diamonds, (528, 462))
+        screen.blit(purple, (540, 464))
+        screen.blit(pedestal, (520, 447))
+        screen.blit(finish, (530, 427))
+        Mallardform3.fall()
+        y = Mallardform3.do_harm()
+        Mallardform4.fall()
+        y = Mallardform4.do_harm()
+        Mallardform5.fall()
+        y = Mallardform5.do_harm()
+        Mallardform6.fall()
+        y = Mallardform6.do_harm()
+        Mallardform7.fall()
+        y = Mallardform7.do_harm()
+        Mallardform8.fall()
+        y = Mallardform8.do_harm()
+        Mallardform9.fall()
+        y = Mallardform9.do_harm()
+        Mallardform10.fall()
+        y = Mallardform10.do_harm()
+        FinalEnviro.draw(screen)
+        if len(Enviros) < 3:
+            Enviros.append(ruin_shore2)
+            Enviros.append(ruin_shore)
+            Enviros.append(waterbutsmalleragain)
+    else:
+        try:
+            Enviros.remove(ruin_shore2)
+            Enviros.remove(ruin_shore)
+            Enviros.remove(waterbutsmalleragain)
         except ValueError:
             x = 0
     if y is None:
@@ -1073,7 +1156,6 @@ while gaming:
     if The_Fatter_Mallard.collectedd:
         screen.blit(icon3, [20, 80])
     gaming = The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.gravity()
-    gaming = True
     if not gaming:
         sys.exit()
     gaming = updatescreen(filler)
@@ -1166,11 +1248,8 @@ while gaming:
         Stake_3.image = pygame.Surface([24, 20])
         Stake_3.image.set_colorkey(black)
         Stake_3.image.blit(pygame.image.load("stake6.png").convert(), (0, 0))
-    print(str(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.x) + " " +
-          str(The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y))
     for i in range(len(NPCss)):
         NPCss[i].ready_to_socialize()
-    gaming = True
     pygame.display.flip()
     if var5:
         if not var6:
