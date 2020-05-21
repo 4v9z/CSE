@@ -10,6 +10,7 @@ var2 = False
 var3 = False
 var4 = False
 var5 = False
+var8 = False
 black = (0, 0, 0)
 blackish = (1, 1, 1)
 white = (255, 255, 255)
@@ -999,8 +1000,8 @@ def updatescreen(x):
                 Enviros.append(ruin_platform3)
                 Enviros.append(Stake_4)
                 Enviros.append(grass_ground4)
-                Enviros.append(A_LAVA_WATERFALL)
-                Enviros.append(ANOTHER_LAVA_WATERFALL)
+                if not Stake_3.pounded:
+                    Enviros.append(A_LAVA_WATERFALL)
             if not Stake_4.pounded:
                 Enviros.append(ruin_platform4)
                 Enviros.append(ruin_platform5)
@@ -1009,7 +1010,6 @@ def updatescreen(x):
                 Enviros.append(ruin_platform3)
                 Enviros.append(Stake_4)
                 Enviros.append(grass_ground4)
-                Enviros.append(A_LAVA_WATERFALL)
                 Enviros.append(ANOTHER_LAVA_WATERFALL)
         if len(NPCss) < 1:
             NPCss.append(Scholar_Goose)
@@ -1025,8 +1025,6 @@ def updatescreen(x):
                 Enviros.remove(ruin_platform3)
                 Enviros.remove(Stake_4)
                 Enviros.remove(grass_ground4)
-                Enviros.remove(A_LAVA_WATERFALL)
-                Enviros.remove(ANOTHER_LAVA_WATERFALL)
             if not Stake_4.pounded:
                 Enviros.remove(ruin_platform4)
                 Enviros.remove(ruin_platform5)
@@ -1035,8 +1033,9 @@ def updatescreen(x):
                 Enviros.remove(ruin_platform3)
                 Enviros.remove(Stake_4)
                 Enviros.remove(grass_ground4)
-                Enviros.remove(A_LAVA_WATERFALL)
                 Enviros.remove(ANOTHER_LAVA_WATERFALL)
+                if not Stake_3.pounded:
+                    Enviros.remove(A_LAVA_WATERFALL)
         except ValueError:
             x = 0
     if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 7:
@@ -1099,6 +1098,7 @@ while gaming:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             gaming = False
+            print(colored("GAME OVER", 'red'))
             sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
@@ -1119,16 +1119,6 @@ while gaming:
                 The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.transform("d")
             if event.key == pygame.K_e:
                 The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.transform("e")
-            if event.key == pygame.K_w:
-                The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y -= 200
-            if event.key == pygame.K_2:
-                The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y -= 10000
-            if event.key == pygame.K_x:
-                The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rect.y = 150
-            if event.key == pygame.K_u:
-                x = -10
-            if event.key == pygame.K_i:
-                x = 10
             if event.key == pygame.K_z:
                 for i in range(len(NPCss)):
                     if len(NPCss[i].touchin_player) > 0:
@@ -1242,9 +1232,10 @@ while gaming:
             Enviros.append(oplat18)
             Enviros.append(oplat19)
             Enviros.append(grass_ground3)
-            A_LAVA_WATERFALL.image = pygame.Surface([20, 380])
-            A_LAVA_WATERFALL.image.blit(pygame.image.load("lavawall.png"), (0, 0))
-            A_LAVA_WATERFALL.image.set_colorkey(black)
+            A_LAVA_WATERFALL.kill()
+            if A_LAVA_WATERFALL in Enviros:
+                Enviros.remove(A_LAVA_WATERFALL)
+            Enviro7.remove(A_LAVA_WATERFALL)
         Stake_3.image = pygame.Surface([24, 20])
         Stake_3.image.set_colorkey(black)
         Stake_3.image.blit(pygame.image.load("stake6.png").convert(), (0, 0))
@@ -1270,6 +1261,10 @@ while gaming:
             except ValueError:
                 filler = 0
     if Stake_4.pounded:
-        ANOTHER_LAVA_WATERFALL.image = pygame.Surface([15, 380])
-        ANOTHER_LAVA_WATERFALL.image.blit(pygame.image.load("lavawall.png").convert(), (0, 0))
+        if not var8:
+            ANOTHER_LAVA_WATERFALL.kill()
+            Enviro7.remove(ANOTHER_LAVA_WATERFALL)
+            var8 = True
+        if ANOTHER_LAVA_WATERFALL in Enviros:
+            Enviros.remove(ANOTHER_LAVA_WATERFALL)
 print(colored("GAME OVER", "red"))
