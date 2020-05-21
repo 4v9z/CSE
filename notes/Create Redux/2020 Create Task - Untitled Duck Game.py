@@ -119,7 +119,7 @@ class Mallardformed(pygame.sprite.Sprite):
         self.room = room
         self.touchin_ground = []
         self.evil = False
-
+    # Child Algorithm #2
     def fall(self):
         self.touchin_ground = pygame.sprite.groupcollide(Enviros, Monsters, False, False)
         if self.room == The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms:
@@ -145,8 +145,6 @@ class Mallardformed(pygame.sprite.Sprite):
                 else:
                     self.grav = -20
             self.rect.y += self.grav
-
-    def do_harm(self):
         self.touchin_player = pygame.sprite.groupcollide(DuckSprites, Monsters, False, False)
         if len(self.touchin_player) > 0:
             if self.evil:
@@ -431,6 +429,7 @@ class power_up(pygame.sprite.Sprite):
                     self.kill()
 
 
+# Abstraction
 class Duck(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -536,6 +535,7 @@ class Duck(pygame.sprite.Sprite):
                 if 495 >= self.rect.y >= 5:
                     self.rect.y -= 20
 
+    # Child Algorithm 1
     def gravity(self):
         self.touchin_ground = pygame.sprite.spritecollide(self, Enviros, False)
         if self.rect.x == 530 or self.rect.y == 427:
@@ -765,8 +765,16 @@ NPCss = [Scholar_Goose]
 NPCsss = [Scholar_Goose]
 
 
+# Parent Algorithm
 def updatescreen(x):
     y = True
+    z = True
+    # Child Algorithm 1
+    z = The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.gravity()
+    if z is None:
+        z = True
+    if not z:
+        return z
     if The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.rooms == 0:
         Enviro1.draw(screen)
         if len(Enviros) < 8:
@@ -987,10 +995,9 @@ def updatescreen(x):
         screen.blit(danger_from_above, (45, 60))
         screen.blit(bgpillars, (420, 376))
         Enviro7.draw(screen)
-        Mallardform1.fall()
-        y = Mallardform1.do_harm()
-        Mallardform2.fall()
-        y = Mallardform2.do_harm()
+        # Child Algorithm 2
+        y = Mallardform1.fall()
+        y = Mallardform2.fall()
         if len(Enviros) < 9:
             if Stake_4.pounded:
                 Enviros.append(ruin_platform4)
@@ -1045,22 +1052,14 @@ def updatescreen(x):
         screen.blit(purple, (540, 464))
         screen.blit(pedestal, (520, 447))
         screen.blit(finish, (530, 427))
-        Mallardform3.fall()
-        y = Mallardform3.do_harm()
-        Mallardform4.fall()
-        y = Mallardform4.do_harm()
-        Mallardform5.fall()
-        y = Mallardform5.do_harm()
-        Mallardform6.fall()
-        y = Mallardform6.do_harm()
-        Mallardform7.fall()
-        y = Mallardform7.do_harm()
-        Mallardform8.fall()
-        y = Mallardform8.do_harm()
-        Mallardform9.fall()
-        y = Mallardform9.do_harm()
-        Mallardform10.fall()
-        y = Mallardform10.do_harm()
+        y = Mallardform3.fall()
+        y = Mallardform4.fall()
+        y = Mallardform5.fall()
+        y = Mallardform6.fall()
+        y = Mallardform7.fall()
+        y = Mallardform8.fall()
+        y = Mallardform9.fall()
+        y = Mallardform10.fall()
         FinalEnviro.draw(screen)
         if len(Enviros) < 3:
             Enviros.append(ruin_shore2)
@@ -1145,9 +1144,6 @@ while gaming:
         screen.blit(icon2, [20, 55])
     if The_Fatter_Mallard.collectedd:
         screen.blit(icon3, [20, 80])
-    gaming = The_Man_With_A_Plan_The_Mallard_Thats_A_Hazard.gravity()
-    if not gaming:
-        sys.exit()
     gaming = updatescreen(filler)
     DuckSprites.draw(screen)
     FpS.tick(16)
