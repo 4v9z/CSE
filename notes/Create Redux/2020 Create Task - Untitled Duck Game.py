@@ -429,7 +429,6 @@ class power_up(pygame.sprite.Sprite):
                     self.kill()
 
 
-# Abstraction
 class Duck(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -766,6 +765,7 @@ NPCsss = [Scholar_Goose]
 
 
 # Parent Algorithm
+# Abstraction
 def updatescreen(x):
     y = True
     z = True
@@ -1230,7 +1230,7 @@ while gaming:
             Enviros.append(grass_ground3)
             A_LAVA_WATERFALL.kill()
             if A_LAVA_WATERFALL in Enviros:
-                Enviros.remove(A_LAVA_WATERFALL)
+               Enviros.remove(A_LAVA_WATERFALL)
             Enviro7.remove(A_LAVA_WATERFALL)
         Stake_3.image = pygame.Surface([24, 20])
         Stake_3.image.set_colorkey(black)
