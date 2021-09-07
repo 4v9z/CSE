@@ -2322,7 +2322,7 @@ NPC4 = NPC("Bob", 35, 15, 35,  False, "Hi, I'm Bob")
 
 NPC5 = NPC("Jim", 20, 8, 100, False, "Hello, my name is Jim")
 
-NPC7 = NPC("Jack Handey", 99, 20, 40, False, "Would you like to here some deep thoughts?")
+NPC7 = NPC("Jack Handey", 99, 20, 40, False, "Would you like to hear some deep thoughts?")
 
 NPC7.items.append(Book)
 
@@ -2471,9 +2471,9 @@ goomba = Enemy(foot, 5, False, False, True, "Goomba", 2, 15)
 Koopa = Enemy(shell, 10, False, False, True, "Koopa Troopa", 6, 25)
 Spiny = Enemy(shell, 14, False, False, True, "Spiny", 8, 40)
 
-Bokkoblin = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 60)
-Bokkoblin2 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 65)
-Bokkoblin3 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin", 9, 70)
+Bokkoblin = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin 1", 9, 60)
+Bokkoblin2 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin 2", 9, 65)
+Bokkoblin3 = Enemy(Wooden_Sword, 20, False, False, True, "Bokkoblin 3", 9, 70)
 
 Frosty = Enemy(F_Sword, 30, False, False, True, "Mr. Frosty", 12, 89)
 
@@ -2481,8 +2481,8 @@ Dee = Enemy(parasol, 20, False, False, True, "Big Waddle Dee", 10, 99)
 
 G_Knights = Enemy(E_Sword, 25, False, False, True, "Galactic Knights", 12, 100)
 
-Lizalfos = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10, 116)
-Lizalfos2 = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos", 10, 106)
+Lizalfos = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos 1", 10, 116)
+Lizalfos2 = Enemy(Iron_Blade, 20, False, False, True, "Lizalfos 2", 10, 106)
 
 Dynablade = Enemy(Claw2, 45, False, False, True, "Dynablade", 15, 130)
 
@@ -5235,13 +5235,13 @@ class Jevil(Boss):
             print("* Ultimate CHAOS bomb was prepared for you!")
             print("JEVIL: BYE-BYE!")
             if self.dodge_chance != 11 or 2 or 3 or 4 or 5 or 6:
-                print("* Several Hundred scythes fall from the sky and hit you, the ones you dodge then "
-                      "explode in a big blast")
+                print("* Several Hundred scythes fall from the sky and hit you, they "
+                      " then explode in a big blast")
                 target.take_damage(70)
             else:
-                print("* Several Hundred scythes fall from the sky, even the ones you dodge then explode in a "
-                      "big blast"
-                      "\n * Because of this, you still take some damage")
+                print("* Several Hundred scythes fall from the sky, you successfully dodge them, but then they all"
+                      "violently explode"
+                      "\n * Because of this, you take a small amount of damage")
                 target.take_damage(41)
 
     def take_mp(self):

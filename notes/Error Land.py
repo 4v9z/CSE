@@ -10,7 +10,7 @@ class Gold(object):
 
     def grab(self):
         player.money += self.worth
-        print("You picked up the gold")
+        print("You picked up the gold)
 
 
 class Room(object):

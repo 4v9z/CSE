@@ -864,7 +864,7 @@ paper3 = Chestplate(3, "Paper Chestplate")
 
 Wooden_Sword = Sword(13, True, False, 8, colored("Blue Pen", 'blue'))
 
-Book = Sword(18, True, False, 90, colored("A smaller textbook", 'orange'))
+Book = Sword(18, True, False, 90, colored("A smaller textbook", 'red'))
 
 Magic_Sword = Sword(20, True, False, 999999999999999999999999, "Magic Sword")
 
@@ -4880,8 +4880,6 @@ RELOCATION = Room("Blank Page", 'You are on a blank page, when suddenly, '
                                 'Relocation Diffusion appears! It chased you!', "CH1K3")
 CH1K4 = Room("Sustainability Room", "You are on a page where the letters move to say:"
                                     "\n YOUR CHALLENGE IS TO SURVIVE FOR 7 MOVES WITH LIMITED FOOD")
-<<<<<<< HEAD
-=======
 BOSS1 = Room("Chapter 1 Test Room", "You have left the book and are in a white room with a single desk in it", None, "CH1K4", "CH8C")
 CH11K1 = Room("Chapter 11 Key Issue 1", "You are in a cottage, as you look outside you see the "
                                         "James Watt, he's about to make an invention important to the "
@@ -5110,7 +5108,6 @@ CH8K4 = Room("Gerrymandering", "You prepare to move on to a UN room when the bou
                                " to fight.", None, None, "TEST3", "CH8K3")
 TEST3 = Room("Chapter 8 Test", "You are in a white room, but this one has a map in the middle of it.", None, None,
              "CH11K1", "CH8K4")
->>>>>>> parent of 5affc22... Update Armanjit Gill and Alex Fischer - AP HUG The Quest for the Test.py
 
 player = Player(COVER)
 
@@ -5173,8 +5170,6 @@ bbbb = False
 aaa = False
 c = False
 aaaa = False
-<<<<<<< HEAD
-=======
 test1 = Test1()
 bb = False
 BOSS1.bosses.append(test1)
@@ -5193,7 +5188,6 @@ CH11K3.enemies.append(Propania)
 CH11K3.enemies.append(Cond)
 CH11K3.enemies.append(HeatWave)
 RELOCATION.enemies.append(Relocarion)
->>>>>>> parent of 5affc22... Update Armanjit Gill and Alex Fischer - AP HUG The Quest for the Test.py
 
 while playing:
     if not player.du:
@@ -5281,8 +5275,6 @@ while playing:
             else:
                 print("Wrong! You get hit in the head with a book!")
             aaaa = True
-<<<<<<< HEAD
-=======
     if player.current_location == CH8K1:
         if not lol:
             answer = input("What is another word for a state?")
@@ -5318,22 +5310,18 @@ while playing:
         if not azula:
             player.current_location.bosses.append(test3)
             azula = True
->>>>>>> parent of 5affc22... Update Armanjit Gill and Alex Fischer - AP HUG The Quest for the Test.py
     command = input(">_")
     if command.lower() in short_directions:
         pos = short_directions.index(command.lower())
         command = directions[pos]
     if command.lower() in ['q', 'quit', 'exit', 'altf4']:
         playing = False
-<<<<<<< HEAD
     elif command.lower() == "give me the hero set":
         player.chestplate = Cape
         player.weapon = Hero_Shot
         print("Given.")
-=======
     elif command.lower() == "11":
         player.current_location = CH11K1
->>>>>>> parent of 5affc22... Update Armanjit Gill and Alex Fischer - AP HUG The Quest for the Test.py
     elif command.lower() in ["use a spell", 'spell', 'cast', 'cast a spell']:
         if len(player.current_location.enemies) > 0:
             for nums, persons in enumerate(player.current_location.enemies):
@@ -5360,7 +5348,6 @@ while playing:
                 player.cast(targett)
     elif 'take ' in command.lower():
         item_name = command[5:]
-
         item_obj = None
         for the_item in player.current_location.items:
             if the_item.name.lower() == item_name.lower():

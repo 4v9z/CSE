@@ -2350,7 +2350,7 @@ rock.items.append(upgrade3)
 rock.items.append(key_4)
 rock.items.append(Fire)
 
-glove =
+# glove =
 class Boss(Enemy):
     def __init__(self, weapon, health, can_ink, elecfrost, can_weapon, name, defense, mon):
         super(Boss, self).__init__(weapon, health, can_ink, elecfrost, can_weapon, name, defense, mon)
